@@ -1,0 +1,176 @@
+.eye {
+    fill: white;
+    &.active {
+        fill: grey;
+    }
+}
+.arrow_down {
+    fill: #fff;
+    transition: 0.3s;
+    &.active {
+        transform: rotate(180deg);
+    }
+}
+
+.heart {
+    fill: #ad7955;
+    width: 31px;
+    height: 21px;
+}
+
+.search {
+    width: 18px;
+    height: 18px;
+    fill: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover {
+        transform: rotate(5deg);
+    }
+}
+
+.ring {
+    width: 16px;
+    height: 20px;
+    fill: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover {
+        transform: rotate(5deg);
+    }
+}
+
+.burger {
+    width: 18px;
+    height: 14px;
+    cursor: pointer;
+    fill: #fff;
+    transition: 0.3s;
+    &:hover {
+        fill: grey;
+    }
+}
+
+.cross {
+    width: 18px;
+    height: 19px;
+    cursor: pointer;
+    fill: #fff;
+    transition: 0.3s;
+    &:hover {
+        fill: grey;
+    }
+}
+
+.pencil {
+    height: 20px;
+    width: 20px;
+    fill: #fff;
+    &:hover {
+        fill: grey;
+    }
+}
+
+.exit {
+    height: 20px;
+    width: 20px;
+    fill: #fff;
+    &:hover {
+        fill: grey;
+    }
+}
+
+.plus {
+    height: 20px;
+    width: 20px;
+}
+
+.dots {
+    width: 5px;
+    height: 20px;
+    fill: white;
+}
+
+.dotsBig {
+    width: 6px;
+    height: 20px;
+    fill: #ad7955;
+}
+
+.small-cross {
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+}
+
+.subs {
+    width: 44px;
+    height: 44px;
+    fill: #fff;
+}
+
+.camera {
+    width: 44px;
+    height: 44px;
+    fill: #fff;
+}
+
+.facebook {
+    width: 24px;
+    height: 24px;
+    fill: #fff;
+}
+
+.inst {
+    width: 24px;
+    height: 24px;
+    fill: #fff;
+}
+
+.twitter {
+    width: 24px;
+    height: 24px;
+    fill: #fff;
+}
+
+.facebook,
+.inst,
+.twitter {
+    transition: 0.3s;
+    &:hover {
+        fill: grey;
+    }
+}
+
+.return-arrow {
+    width: 7.997px;
+    height: 13.94px;
+    fill: #fff;
+    transition: 0.3s;
+    cursor: pointer;
+    &:hover {
+        fill: grey;
+    }
+}
+
+.like,
+.dislike {
+    width: 18px;
+    height: 19px;
+    fill: #fff;
+    cursor: pointer;
+    &:hover {
+        fill: grey;
+    }
+}
+
+.comments {
+    width: 18px;
+    height: 15px;
+    cursor: pointer;
+    stroke: #fff;
+    &:hover {
+        stroke: grey;
+        // fill: #ad7955;
+    }
+}

@@ -2,7 +2,8 @@
 
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import counterReducer from './slice/couter/couter';
-import storage from 'redux-persist/lib/storage';
+// import storage from 'redux-persist/lib/storage';
+import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 import {
     persistStore,
     persistReducer,
@@ -14,17 +15,31 @@ import {
     REGISTER,
 } from 'redux-persist';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { productsApi } from './features/apiSlice';
+
+const isClient = typeof window !== 'undefined';
+
+const createNoopStorage = () => {
+    return {
+        getItem(_key: any) {
+            return Promise.resolve(null);
+        },
+        setItem(_key: any, value: any) {
+            return Promise.resolve(value);
+        },
+        removeItem(_key: any) {
+            return Promise.resolve();
+        },
+    };
+};
+const storage = typeof window !== 'undefined' ? createWebStorage('local') : createNoopStorage();
 
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: [productsApi.reducerPath],
 };
 
 const rootReducer = combineReducers({
     counterReducer,
-    [productsApi.reducerPath]: productsApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -36,7 +51,7 @@ const store = configureStore({
             serializableCheck: {
                 ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
             },
-        }).concat(productsApi.middleware),
+        }),
     devTools: true,
 });
 
