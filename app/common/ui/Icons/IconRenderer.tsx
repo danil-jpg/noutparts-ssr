@@ -1,12 +1,8 @@
+'use client';
 import React, { FC } from 'react';
 import sprites from './sprites.svg';
 import './icons.scss';
-
-interface IIConRenderer {
-    id: string;
-    onClick?: () => void;
-    className?: string;
-}
+import { IIConRenderer } from '../../types/types';
 
 const IconRenderer: FC<IIConRenderer> = ({ id, className = '', ...props }) => {
     return (

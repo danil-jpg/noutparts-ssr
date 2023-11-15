@@ -2,7 +2,6 @@
 
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import counterReducer from './slice/couter/couter';
-// import storage from 'redux-persist/lib/storage';
 import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 import {
     persistStore,
@@ -15,8 +14,6 @@ import {
     REGISTER,
 } from 'redux-persist';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-
-const isClient = typeof window !== 'undefined';
 
 const createNoopStorage = () => {
     return {

@@ -1,8 +1,10 @@
 // 'use client';
 // import { useGetAllProductsQuery } from '../Redux/features/apiSlice';
 
-import '@/icons/icons.scss';
-
+// import '@/icons/icons.scss';
+import './testFolder.scss';
+import PrimaryBtn from '../common/ui/buttons/primary/PrimaryBtn';
+import IconRenderer from '../common/ui/Icons/IconRenderer';
 // Как на клиенте получать данные - понятно,но как на сервере - загадка,
 // тк с реакт квери - ты импортируешь хуки и при их помощи отправляешь запрос,но хуки в нексте доступны только в клиентских компонентах
 
@@ -20,9 +22,10 @@ export default async function Page() {
     // const { data } = useGetAllProductsQuery();
     const dataFromServerCall = await getData();
     return (
-        <main>
-            <p>rtk-query data: {JSON.stringify(dataFromServerCall)}</p>
-            <p></p>
+        <main className='testFolderMain'>
+            {/* <p>rtk-query data: {JSON.stringify(dataFromServerCall)}</p> */}
+            <PrimaryBtn type='default' text='Перейти в каталог' />
+            <PrimaryBtn type='buying' text='Купить' icon={<IconRenderer id='basket' />} />
         </main>
     );
 }

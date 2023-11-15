@@ -1,0 +1,33 @@
+.primaryBtn {
+    color: #fff;
+    text-align: center;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+    text-transform: uppercase;
+    border-radius: 26px;
+    background: #36dd65;
+    border: none;
+    transition: 0.3s;
+    cursor: pointer;
+    &:hover {
+        background: #1ba341;
+    }
+    &.default {
+        padding: 16px 32px;
+    }
+    &.buying {
+        padding: 16px 38px;
+    }
+    &.basket {
+        padding: 16px 26px;
+    }
+    &.medium {
+        padding: 16px 45px;
+    }
+    &.large {
+        padding: 16px 80px;
+    }
+}
