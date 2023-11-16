@@ -1,8 +1,8 @@
 "use client";
 import React, { FC, useState, useEffect, ChangeEvent } from "react";
 import { IPrimaryInput } from "@/types";
-// import InputMask from "react-input-mask";
-import IconRenderer from "../../Icons/IconRenderer";
+import InputMask from "react-input-mask";
+import IconRenderer from "../Icons/IconRenderer";
 import "./PrimaryInput.scss";
 
 const PrimaryInput: FC<IPrimaryInput> = ({ placeholder, label, type = "text" }) => {
@@ -14,17 +14,20 @@ const PrimaryInput: FC<IPrimaryInput> = ({ placeholder, label, type = "text" }) 
 		handleValidation(inputValue);
 	}, []);
 
-	const handleInputChange = (event: ChangeEvent<HTMLInputElement>):void => {
+	const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
 		setInputValue(event.target.value);
 		handleValidation(event.target.value);
 	};
 
-	const handleValidation = (value: string):void => {
-		if (value.trim() === "") {
-			setError("This field cannot be empty.");
-		} else {
-			if (type === "email" && !value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
+	const handleValidation = (value: string) => {
+		if (type === "email") {
+			if (value.trim() !== "" && !value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
 				setError("Email введён некоректно");
+				return;
+			}
+		} else {
+			if (value.trim() === "") {
+				setError("This field cannot be empty.");
 			} else if (type === "tel" && !value.match(/^[\d\s()+-]+$/)) {
 				setError("Please enter a valid phone number.");
 			} else {
@@ -33,11 +36,11 @@ const PrimaryInput: FC<IPrimaryInput> = ({ placeholder, label, type = "text" }) 
 		}
 	};
 
-	const handleFocus = ():void => {
+	const handleFocus = (): void => {
 		setIsActive(true);
 	};
 
-	const handleBlur = ():void => {
+	const handleBlur = (): void => {
 		setIsActive(false);
 	};
 
@@ -46,21 +49,18 @@ const PrimaryInput: FC<IPrimaryInput> = ({ placeholder, label, type = "text" }) 
 	return (
 		<div className="primary-input">
 			<label htmlFor={placeholder} className="primary-input__label">
-				<span>*</span>
+				{type !== "email" && <span>*</span>}
 				{label}
 			</label>
 			<div className={`primary-input__container ${isActive ? "active" : ""} ${error ? "error" : ""} ${type === "email" ? "email" : type === "tel" ? "tel" : type === "text" ? "text" : ""}`}>
-				{/* {type === "tel" ? (
-					<InputMask mask={maskTel} value={inputValue} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur}>
-						{(inputProps: any) => <input {...inputProps} type={type} className={`primary-input__input ${type}`} id={placeholder} placeholder={placeholder} />}
-					</InputMask>
-				) : ( */}
-					<input type={type} className={`primary-input__input ${type}`} id={placeholder} placeholder={placeholder} value={inputValue} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur} />
-				{/* )} */}
+				{type === "tel" ? <InputMask className={`primary-input__input ${type}`} mask={maskTel} value={inputValue} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur}></InputMask> : <input type={type} className={`primary-input__input ${type}`} id={placeholder} placeholder={placeholder} value={inputValue} onChange={handleInputChange} onFocus={handleFocus} onBlur={handleBlur} />}
 
 				{error ? <IconRenderer id="not-validated-sign"></IconRenderer> : <IconRenderer id="validated-sign"></IconRenderer>}
 				{error && isActive && <div className="primary-input__error-popup">{error}</div>}
 			</div>
+			{type === "email" && ( 
+				<div className="primary-input__email-description">Для отслеживания статуса заказа</div>
+			)}
 		</div>
 	);
 };

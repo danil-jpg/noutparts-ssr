@@ -30,6 +30,8 @@ input::-ms-clear {
 	}
 
 	&__container {
+		width: 100%;
+		max-width: 428px;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
@@ -57,6 +59,7 @@ input::-ms-clear {
 	}
 
 	&__input {
+		width: 100%;
 		color: #212529;
 		font-family: Roboto;
 		font-size: 16px;
@@ -68,7 +71,7 @@ input::-ms-clear {
 		top: 0;
 		left: 110%;
 		height: 48px;
-        width: 220px;
+		width: 220px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -79,6 +82,17 @@ input::-ms-clear {
 		font-size: 14px;
 		font-weight: 400;
 		letter-spacing: 0.2px;
-        background: #FFE3E3;
+		background: #ffe3e3;
+	}
+
+	&__email-description {
+		margin: 3px 0 0 0;
+		color: #868e96;
+		font-family: Roboto;
+		font-size: 12px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: normal;
+		letter-spacing: 0.2px;
 	}
 }

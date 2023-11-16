@@ -8,9 +8,11 @@ export interface IPrimaryInput {
     placeholder?: string;
     label?: string;
     type: 'text' | 'email' | 'tel';
-    // text?: string;
-    // icon?: JSX.Element;
 }
+export interface ITextAreaInput {
+    label?: string;
+}
+
 
 export interface IIConRenderer {
     id: string;
