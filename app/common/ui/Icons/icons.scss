@@ -3,3 +3,21 @@
     height: 20px;
     fill: #fff;
 }
+
+.success-sign {
+    width: 17px;
+    height: 14px;
+    fill: #fff;
+    &.active {
+        fill: blue;
+    }
+}
+
+.arrow-down {
+    width: 12px;
+    height: 8px;
+    fill: black;
+    &.active {
+        transform: rotate(180deg);
+    }
+}

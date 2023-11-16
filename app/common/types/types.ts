@@ -9,3 +9,11 @@ export interface IIConRenderer {
     onClick?: () => void;
     className?: string;
 }
+
+export interface ISelect {
+    className?: string;
+    arr: Array<string>;
+    defValue: string;
+    value?: string;
+    setValue: React.Dispatch<React.SetStateAction<string>>;
+}
