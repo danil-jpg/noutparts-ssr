@@ -5,7 +5,7 @@
 import './testFolder.scss';
 import PrimaryBtn from '../common/ui/buttons/primary/PrimaryBtn';
 import IconRenderer from '../common/ui/Icons/IconRenderer';
-import Select from '../common/ui/select/Select';
+import Select from '../common/ui/form/select/Select';
 import FilterComp from './filters/filtersComp';
 // Как на клиенте получать данные - понятно,но как на сервере - загадка,
 // тк с реакт квери - ты импортируешь хуки и при их помощи отправляешь запрос,но хуки в нексте доступны только в клиентских компонентах

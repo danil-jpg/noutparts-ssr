@@ -1,8 +1,8 @@
 'use client';
 import React, { useState, useRef, useEffect, FC } from 'react';
-import IconRenderer from '../Icons/IconRenderer';
+import IconRenderer from '../../Icons/IconRenderer';
 import './Select.scss';
-import { ISelect } from '../../types/types';
+import { ISelect } from '../../../types/types';
 
 const Select: FC<ISelect> = ({
     value,

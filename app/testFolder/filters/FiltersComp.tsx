@@ -1,5 +1,5 @@
 'use client';
-import Select from '@/app/common/ui/select/Select';
+import Select from '@/app/common/ui/form/select/Select';
 import React, { useState } from 'react';
 
 const FilterComp = () => {

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.scss';
-import 'public/fonts.scss';
+import 'public/fonts.css';
 import { Providers } from './Redux/provider';
 
 export const metadata: Metadata = {
