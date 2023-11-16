@@ -11,6 +11,9 @@
     background: #36dd65;
     border: none;
     transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 2px;
     cursor: pointer;
     &:hover {
         background: #1ba341;
