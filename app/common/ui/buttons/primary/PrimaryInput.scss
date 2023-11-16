@@ -1,0 +1,84 @@
+input {
+	background: transparent;
+	border: none;
+	outline: none;
+}
+
+input,
+button,
+textarea {
+	font-family: inherit;
+}
+
+input::-ms-clear {
+	display: none;
+}
+
+.primary-input {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+
+	&__label {
+		color: #868e96;
+		font-family: Roboto;
+		font-size: 14px;
+		font-weight: 400;
+		span {
+			color: #ed1c24;
+		}
+	}
+
+	&__container {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		border-radius: 2px;
+		border: 1px solid #dfe1e2;
+		background: #fff;
+		position: relative;
+		&.error {
+			border: 1px solid #e74836;
+		}
+		&.active {
+			border: 1px solid #36dd65;
+			background: #e5fbe2;
+		}
+
+		&.text {
+			padding: 15px 11px 14px 12px;
+		}
+		&.tel {
+			padding: 14px 13px 15px 16px;
+		}
+		&.email {
+			padding: 16px 12px 13px 13px;
+		}
+	}
+
+	&__input {
+		color: #212529;
+		font-family: Roboto;
+		font-size: 16px;
+		font-weight: 400;
+	}
+
+	&__error-popup {
+		position: absolute;
+		top: 0;
+		left: 110%;
+		height: 48px;
+        width: 220px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0 20px;
+		z-index: 200;
+		color: #e74836;
+		font-family: Roboto;
+		font-size: 14px;
+		font-weight: 400;
+		letter-spacing: 0.2px;
+        background: #FFE3E3;
+	}
+}

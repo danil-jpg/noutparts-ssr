@@ -1,23 +1,15 @@
 .basket {
-    width: 21px;
-    height: 20px;
-    fill: #fff;
+	width: 21px;
+	height: 20px;
+	fill: #fff;
 }
 
-.success-sign {
-    width: 17px;
-    height: 14px;
-    fill: #fff;
-    &.active {
-        fill: blue;
-    }
+.validated-sign {
+	width: 21px;
+	height: 20px;
 }
+.not-validated-sign {
+	width: 21px;
+	height: 20px;
 
-.arrow-down {
-    width: 12px;
-    height: 8px;
-    fill: black;
-    &.active {
-        transform: rotate(180deg);
-    }
 }
