@@ -1,5 +1,3 @@
-'use client';
-
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import counterReducer from './slice/couter/couter';
 import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
