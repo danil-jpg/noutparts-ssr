@@ -4,6 +4,16 @@ export interface IPrimaryBtn {
     icon?: JSX.Element;
 }
 
+export interface IPrimaryInput {
+    placeholder?: string;
+    label?: string;
+    type: 'text' | 'email' | 'tel';
+}
+export interface ITextAreaInput {
+    label?: string;
+}
+
+
 export interface IIConRenderer {
     id: string;
     onClick?: () => void;
@@ -25,4 +35,12 @@ export interface IRadio {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     checked: boolean;
     value: string;
+}
+
+export interface IBasicRadio {
+    texts?: string[];
+    descriptions?: string[];
+    type: 'row' | 'col';
+    setChosenRadio: React.Dispatch<React.SetStateAction<string | null>>;
+    heading?: string;
 }
