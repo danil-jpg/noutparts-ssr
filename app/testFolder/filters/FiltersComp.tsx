@@ -1,7 +1,6 @@
 'use client';
-import Radio from '@/app/common/ui/form/radio/Radio';
-import Select from '@/app/common/ui/form/select/Select';
 import React, { useState } from 'react';
+import Loading from '@/app/common/components/Loading/Loading';
 
 const FilterComp = () => {
     const [select1, useSelect1] = useState('');
@@ -9,20 +8,7 @@ const FilterComp = () => {
 
     return (
         <div>
-            {/* <Select
-                arr={['1', '2', '3']}
-                defValue='default1'
-                value={select1}
-                setValue={useSelect1}></Select>
-            <br />
-            <Select
-                arr={['4', '5', '6']}
-                defValue='default2'
-                value={select2}
-                setValue={useSelect2}></Select> */}
-            <Radio></Radio>
-            <Radio></Radio>
-            <Radio></Radio>
+            <Loading />
         </div>
     );
 };
