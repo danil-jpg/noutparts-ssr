@@ -1,0 +1,23 @@
+.product-tag {
+	color: #fff;
+	font-family: Roboto;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 150%; /* 24px */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 127px;
+	height: 33px;
+	border-radius: 23px;
+	&.salesHit {
+		background: #91df2e;
+	}
+	&.new {
+		background: #14af1b;
+	}
+	&.discount {
+		background: #f5c311;
+	}
+}

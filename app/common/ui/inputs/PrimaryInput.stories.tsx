@@ -26,7 +26,7 @@ export const Primary: Story = {
     },
     argTypes: {
         type: {
-            description: 'size and padding of the button',
+            description: 'type of the input',
             options: ['text' , 'email' , 'tel'],
             control: { type: 'select' },
         },

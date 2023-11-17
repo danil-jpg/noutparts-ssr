@@ -18,5 +18,15 @@
   			<path d="M7.34961 7L14.1746 13.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
   			<path d="M14.1758 7L7.35078 13.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
 		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" class="available-sign" id="available-sign" viewBox="0 0 20 20">
+  			<path d="M15 6L8.125 13L5 9.81818" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" class="ending-sign" id="ending-sign" viewBox="0 0 14 14" >
+  			<path d="M7 14C3.13401 14 0 10.866 0 7C0 3.13401 3.13401 0 7 0C10.866 0 14 3.13401 14 7C13.9958 10.8642 10.8642 13.9958 7 14ZM6.3 9.1V10.5H7.7V9.1H6.3ZM6.3 3.5V7.7H7.7V3.5H6.3Z" fill="white"/>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" class="out-of-stock-sign" id="out-of-stock-sign" viewBox="0 0 18 18" >
+  			<path d="M13.5 4.5L5.54464 12.4579L5.39999 12.6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  			<path d="M5.39999 4.5L13.3579 12.4554L13.5 12.6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+		</svg>
 	</defs>
 </svg>

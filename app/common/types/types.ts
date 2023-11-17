@@ -36,3 +36,11 @@ export interface IRadio {
     checked: boolean;
     value: string;
 }
+
+export interface IBasicRadio {
+    texts?: string[];
+    descriptions?: string[];
+    type: 'row' | 'col';
+    setChosenRadio: React.Dispatch<React.SetStateAction<string | null>>;
+    heading?: string;
+}
