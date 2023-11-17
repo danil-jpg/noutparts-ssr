@@ -1,0 +1,39 @@
+.radiobutton-input {
+    visibility: hidden;
+}
+
+.radiobutton-label {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+    border-radius: 8px;
+    background: #222;
+    padding: 8px 10px;
+    width: 130px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.custom-radiobutton {
+    width: 28px;
+    height: 28px;
+    border: 2px solid grey;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: #d2c5ef;
+    display: inline-block;
+    background-color: transparent;
+    margin-right: 8px;
+}
+.radiobutton-input:checked + .custom-radiobutton {
+    border: 7px solid rgba(173, 121, 85, 1);
+}
+
+@media screen and (max-width: 576px) {
+    .radiobutton-label {
+        padding: 8px 0px;
+        width: 105px;
+    }
+}

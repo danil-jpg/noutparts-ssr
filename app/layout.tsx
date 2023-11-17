@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.scss';
 import 'public/fonts.css';
 import { Providers } from './Redux/provider';
+import { v1 } from 'uuid';
 
 export const metadata: Metadata = {
     title: 'Create Next App',
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang='en'>
-            <body>
+            <body key={v1()}>
                 <Providers>{children}</Providers>
             </body>
         </html>
