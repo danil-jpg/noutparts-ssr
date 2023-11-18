@@ -10,6 +10,8 @@ import BasicRadio from "./common/ui/form/radio/BasicRadio";
 import IconRenderer from "./common/ui/Icons/IconRenderer";
 import Link from "next/link";
 
+import Header from "./common/components/Header/Header";
+
 export default function Home() {
 	const countSelector = useAppSelector((state) => state.counterReducer.value);
 	const dispatch = useAppDispatch();
@@ -20,6 +22,8 @@ export default function Home() {
 
 	return (
 		<main className={styles.main}>
+			
+
 			<button className={styles.button} onClick={() => dispatch(increment())}>
 				inc
 			</button>

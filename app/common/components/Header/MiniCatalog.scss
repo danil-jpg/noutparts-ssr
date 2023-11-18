@@ -1,0 +1,50 @@
+.mini-catalog {
+	&__header-button {
+		margin: 31px 0 0 0;
+		border-radius: 5px;
+		background: #4e4e4e;
+		width: 135px;
+		height: 46px;
+		flex-shrink: 0;
+		display: flex;
+		flex-direction: row;
+		gap: 13px;
+		color: #fff;
+		font-family: Roboto;
+		font-size: 18px;
+		font-style: normal;
+		font-weight: 700;
+		line-height: normal;
+		padding: 12px 0 0 19px;
+	}
+
+	&__header-button-icon {
+		margin: 2px 0 0 0;
+	}
+}
+@media (max-width: 1200px) {
+	.mini-catalog {
+		&__header-button {
+			margin: 31px 0 0 0;
+			border-radius: 5px;
+			background: #4e4e4e;
+			width: 105px;
+			height: 46px;
+			flex-shrink: 0;
+			display: flex;
+			flex-direction: row;
+			gap: 10px;
+			color: #fff;
+			font-family: Roboto;
+			font-size: 16px;
+			font-style: normal;
+			font-weight: 700;
+			line-height: normal;
+			padding: 13px 0 0 9px;
+		}
+	
+		&__header-button-icon {
+			margin: 1px 0 0 0;
+		}
+	}
+}
