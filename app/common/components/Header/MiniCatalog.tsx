@@ -4,7 +4,7 @@ import { IPrimaryInput } from "@/types";
 import IconRenderer from "../../ui/Icons/IconRenderer";
 import "./MiniCatalog.scss";
 
-const MiniCatalog = ({}) => {
+const MiniCatalog: FC = ({}) => {
 	return (
 		// make big nav menu with logic
 		<div className="mini-catalog">

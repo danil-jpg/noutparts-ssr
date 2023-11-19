@@ -4,7 +4,7 @@ import { IPrimaryInput } from "@/types";
 import IconRenderer from "../../ui/Icons/IconRenderer";
 import "./HeaderFavs.scss";
 
-const HeaderFavs = ({}) => {
+const HeaderFavs: FC = ({}) => {
 	return (
 		<div className="header-favs">
 			<div className="header-favs__icon">

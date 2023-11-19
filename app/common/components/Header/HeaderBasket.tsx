@@ -4,11 +4,12 @@ import { IPrimaryInput } from "@/types";
 import IconRenderer from "../../ui/Icons/IconRenderer";
 import "./HeaderBasket.scss";
 
-const HeaderBasket = ({}) => {
+const HeaderBasket: FC = ({}) => {
 	return (
 		<div className="header-basket">
 			<div className="header-basket__icon">
 				<IconRenderer id="header-basket-sign"></IconRenderer>
+				<div className="header-basket__quantity">0</div>
 			</div>
 			{/* add how many products we have */}
 			<div className="header-basket__texts">

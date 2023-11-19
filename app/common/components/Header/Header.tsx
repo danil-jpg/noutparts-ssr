@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import IconRenderer from "../../ui/Icons/IconRenderer";
 import "./Header.scss";
 import Image from "next/image";
@@ -8,12 +8,13 @@ import MiniCatalog from "./MiniCatalog";
 import HeaderSearch from "./HeaderSearch";
 import HeaderFavs from "./HeaderFavs";
 import HeaderBasket from "./HeaderBasket";
+import BurgerMenu from "./BurgerMenu";
 
 import siteLogo from "../../../../public/img/site-logo.svg";
 import instaIcon from "../../../../public/img/insta-icon.svg";
 import facebookIcon from "../../../../public/img/facebook-icon.svg";
 
-const Header = ({}) => {
+const Header: FC = ({}) => {
 	return (
 		<div className="header__wrapper">
 			<div className="header__top">
@@ -55,15 +56,29 @@ const Header = ({}) => {
 			<div className="header__bottom">
 				<div className="header__container">
 					<div className="header__lower-left">
+						<div className="header__components-container mobile left">
+							<BurgerMenu></BurgerMenu>
+						</div>
 						<Link href="/main">
 							<Image src={siteLogo} alt="siteLogo" className="header__site-logo"></Image>
 						</Link>
-						<MiniCatalog></MiniCatalog>
+
+						<div className="header__components-container">
+							<MiniCatalog></MiniCatalog>
+						</div>
+
+						<div className="header__components-container mobile right">
+							<HeaderBasket></HeaderBasket>
+						</div>
 					</div>
 					<HeaderSearch></HeaderSearch>
 					<div className="header__lower-right">
-						<HeaderFavs></HeaderFavs>
-						<HeaderBasket></HeaderBasket>
+						<div className="header__components-container">
+							<HeaderFavs></HeaderFavs>
+						</div>
+						<div className="header__components-container">
+							<HeaderBasket></HeaderBasket>
+						</div>
 					</div>
 				</div>
 			</div>

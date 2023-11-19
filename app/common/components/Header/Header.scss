@@ -153,10 +153,19 @@
 		flex-direction: row;
 		gap: 35px;
 	}
-}
 
+	&__components-container {
+		display: flex;
+		&.mobile {
+			display: none;
+		}
+	}
+}
+.height {
+	height: 3000px;
+}
 @media (max-width: 1200px) {
-	.header{
+	.header {
 		&__site-logo {
 			margin: 33px 0 0 0;
 			width: 101px;
@@ -168,13 +177,68 @@
 			flex-direction: row;
 			gap: 28px;
 		}
-	
-	
+
+		&__lower-right {
+			display: flex;
+			flex-direction: row;
+			gap: 25px;
+		}
+	}
+}
+
+@media (max-width: 900px) {
+	.tel-sign{
+		fill: #36DD65;
+		width: 18px;
+		height: 18px;
+	}
+	.header {
+		&__top {
+			display: none;
+		}
+
+		&__container {
+			width: 100%;
+			max-width: 1240px;
+			padding: 0 16px;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+			height: 124px;
+		}
+
+		&__site-logo {
+			margin: 17px 0 0 40px;
+			width: 101px;
+			height: 37.484px;
+			display: flex;
+			justify-self: center;
+		}
+
+		&__lower-left {
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			// display: grid;
+			// grid-template-columns: 1fr 1fr 1fr;
+		}
+
 		&__lower-right {
 			display: flex;
 			flex-direction: row;
 			gap: 25px;
 		}
 
+		&__components-container {
+			display: none;
+
+			&.mobile {
+				display: flex;
+				// position: relative;
+				width: fit-content;
+			}
+		}
 	}
 }
