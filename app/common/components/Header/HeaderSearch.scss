@@ -1,0 +1,123 @@
+input {
+	background: transparent;
+	outline: none;
+	border: none;
+}
+.header-search-sign {
+	fill: #fff;
+	// width: 16px;
+	// height: 16px;
+}
+
+.header-search {
+	margin: 33px 0 0 0;
+	display: flex;
+	flex-direction: row;
+	&__input-container {
+		background: #fff;
+		width: 351px;
+		height: 40px;
+		flex-shrink: 0;
+		padding: 8px 0 0 12px;
+	}
+	&__lupa-icon {
+		display: none;
+	}
+	&__input {
+		width: 100%;
+		color: #a3a3a3;
+		font-family: Roboto;
+		font-size: 15px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 150%; /* 22.5px */
+	}
+
+	&__search-button {
+		background: #35cf60;
+		width: 50px;
+		height: 40px;
+		flex-shrink: 0;
+		display: flex;
+		padding: 8px 0 0 13px;
+	}
+}
+
+@media (max-width: 1200px) {
+	.header-search {
+		margin: 33px 0 0 0;
+		display: flex;
+		flex-direction: row;
+		&__input-container {
+			background: #fff;
+			width: 251px;
+			height: 40px;
+			flex-shrink: 0;
+			padding: 8px 0 0 12px;
+		}
+
+		&__input {
+			width: 100%;
+			color: #a3a3a3;
+			font-family: Roboto;
+			font-size: 15px;
+			font-style: normal;
+			font-weight: 400;
+			line-height: 150%; /* 22.5px */
+		}
+
+		&__search-button {
+			background: #35cf60;
+			width: 50px;
+			height: 40px;
+			flex-shrink: 0;
+			display: flex;
+			padding: 8px 0 0 13px;
+		}
+	}
+}
+
+@media (max-width: 900px) {
+	.header-search-sign {
+		fill: #bababa;
+		// width: 16px;
+		// height: 16px;
+	}
+
+	.header-search {
+		margin: 13.37px 0 0 0;
+		display: flex;
+		flex-direction: row;
+		&__input-container {
+			background: #fff;
+			width: 288px;
+			height: 41px;
+			flex-shrink: 0;
+			padding: 10px 0 0 11px;
+
+			display: flex;
+			flex-direction: row;
+			gap: 2px;
+		}
+
+		&__lupa-icon {
+			display: flex;
+		}
+
+		&__input {
+			margin: -9px 0 0 0;
+			width: 100%;
+			color: var(--colors-grey, #bababa);
+			font-family: Roboto;
+			font-size: 12px;
+			font-style: normal;
+			font-weight: 400;
+			line-height: 10px; /* 83.333% */
+			letter-spacing: 0.2px;
+		}
+
+		&__search-button {
+			display: none;
+		}
+	}
+}
