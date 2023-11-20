@@ -13,7 +13,6 @@ export interface ITextAreaInput {
     label?: string;
 }
 
-
 export interface IIConRenderer {
     id: string;
     onClick?: () => void;
@@ -43,4 +42,10 @@ export interface IBasicRadio {
     type: 'row' | 'col';
     setChosenRadio: React.Dispatch<React.SetStateAction<string | null>>;
     heading?: string;
+}
+
+export interface Breadcrumb {
+    label: string;
+    href: string;
+    active?: boolean;
 }
