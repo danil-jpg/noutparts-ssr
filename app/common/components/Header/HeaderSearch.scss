@@ -4,7 +4,7 @@ input {
 	border: none;
 }
 .header-search-sign {
-	fill: #FFF;
+	fill: #fff;
 	// width: 16px;
 	// height: 16px;
 }
@@ -20,9 +20,9 @@ input {
 		flex-shrink: 0;
 		padding: 8px 0 0 12px;
 	}
-&__lupa-icon{
-	display: none;
-}
+	&__lupa-icon {
+		display: none;
+	}
 	&__input {
 		width: 100%;
 		color: #a3a3a3;
@@ -56,7 +56,6 @@ input {
 			padding: 8px 0 0 12px;
 		}
 
-
 		&__input {
 			width: 100%;
 			color: #a3a3a3;
@@ -86,7 +85,7 @@ input {
 	}
 
 	.header-search {
-		margin: 16.37px 0 0 0;
+		margin: 13.37px 0 0 0;
 		display: flex;
 		flex-direction: row;
 		&__input-container {
@@ -94,19 +93,19 @@ input {
 			width: 288px;
 			height: 41px;
 			flex-shrink: 0;
-			padding: 12px 0 0 13px;
+			padding: 10px 0 0 11px;
 
 			display: flex;
 			flex-direction: row;
-			gap: 8px;
+			gap: 2px;
 		}
 
-		&__lupa-icon{
+		&__lupa-icon {
 			display: flex;
 		}
 
 		&__input {
-			margin: -8px 0 0 0;
+			margin: -9px 0 0 0;
 			width: 100%;
 			color: var(--colors-grey, #bababa);
 			font-family: Roboto;

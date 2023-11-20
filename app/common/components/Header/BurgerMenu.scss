@@ -28,11 +28,11 @@
 	&__icon {
 		z-index: 100;
 		position: absolute;
-		top: 25.5px;
+		top: 25px;
 		left: 3.25px;
 		display: flex;
 		flex-direction: column;
-		gap: 8.5px;
+		gap: 7px;
 		cursor: pointer;
 
 		span {
@@ -43,13 +43,13 @@
 			border-radius: 2px;
 
 			&:nth-child(1) {
-				width: 18.5px;
+				width: 19.5px;
 			}
 			&:nth-child(2) {
-				width: 25.5px;
+				width: 26.5px;
 			}
 			&:nth-child(3) {
-				width: 12.75px;
+				width: 14.75px;
 			}
 		}
 
