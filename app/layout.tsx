@@ -3,6 +3,7 @@ import './globals.scss';
 import 'public/fonts.scss';
 import { Providers } from './Redux/provider';
 import { v1 } from 'uuid';
+import Header from './common/components/Header/Header';
 
 export const metadata: Metadata = {
     title: 'Create Next App',
@@ -13,6 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
         <html lang='en'>
             <body key={v1()}>
+                <Header />
                 <Providers>{children}</Providers>
             </body>
         </html>
