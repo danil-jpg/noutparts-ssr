@@ -5,12 +5,12 @@ import './catalogue.scss';
 export default async function Page() {
     const breadcrumbArr: Breadcrumb[] = [
         {
-            label: 'main',
+            label: 'Аккумуляторы',
             href: 'catalogue/1',
             active: true,
         },
         {
-            label: 'main',
+            label: 'Аккумуляторы (батарея) для Asus',
             href: 'catalogue/2',
             active: true,
         },

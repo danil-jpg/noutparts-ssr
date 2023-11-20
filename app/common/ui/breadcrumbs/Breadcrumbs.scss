@@ -1,0 +1,21 @@
+.breadcrumbs {
+    &__ul {
+        display: flex;
+    }
+
+    &__li {
+        color: #7e7c7c;
+        font-family: Roboto;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        &_active {
+            color: #000;
+        }
+    }
+
+    &__separator {
+        margin: 0 5px;
+    }
+}
