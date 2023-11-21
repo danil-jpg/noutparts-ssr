@@ -3,10 +3,26 @@ import './CatalogueItem.scss';
 import { Image } from 'next/dist/client/image-component';
 
 interface ICatalogueItem {
-    title: string;
+    title?: string;
+    query?: string;
 }
 
-const CatalogueItem: FC<ICatalogueItem> = ({ title }) => {
+const CatalogueItem: FC<ICatalogueItem> = ({ title, query }) => {
+    // const fetchData = async () => {
+    //     const data = await fetch(`http://127.0.0.1:1337/api/Products?${query}`, {
+    //         cache: 'force-cache',
+    //     });
+    //     // const data = await fetch(
+    //     //     `http://127.0.0.1:1337/api/Products?filters[product_status][$eq]=ready`,
+    //     //     {
+    //     //         cache: 'force-cache',
+    //     //     }
+    //     // );
+    //     const dataParsed = await data.json();
+    //     console.log(dataParsed);
+    //     return dataParsed;
+    // };
+
     return (
         <div className='catalogue-item'>
             <div className='catalogue-item__top'>

@@ -1,0 +1,53 @@
+.filter {
+    padding: 25px 27px;
+
+    border: 1px solid #dedede;
+    background: #fff;
+    width: 282px;
+
+    &_title {
+        color: #000;
+        font-feature-settings: 'clig' off, 'liga' off;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 36px; /* 150% */
+        letter-spacing: 0.2px;
+        margin-bottom: 22px;
+    }
+
+    &_items {
+        margin-top: 22px;
+    }
+}
+.filter_item {
+    border-bottom: 1px solid #dcdcdc;
+    &__title {
+        color: #19191d;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 150%;
+        letter-spacing: 0.495px;
+    }
+
+    &__descr {
+        color: #787885;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 143%;
+        letter-spacing: 0.288px;
+        margin-top: -3px;
+    }
+
+    &__values {
+        margin-top: 13px;
+        margin-bottom: 18px;
+    }
+
+    &__value {
+        color: #313131;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 240%; /* 38.4px */
+        margin-bottom: 9px;
+    }
+}
