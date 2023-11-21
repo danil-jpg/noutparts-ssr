@@ -1,25 +1,29 @@
 import { Breadcrumb } from '../common/types/types';
-import Breadcrumbs from '../common/ui/breadcrumbs/Breadcrumbs';
+import Breadcrumbs from '../common/components/breadcrumbs/Breadcrumbs';
 import './catalogue.scss';
+import CatalogueItem from '../common/components/CatalogueItem/CatalogueItem';
 
 export default async function Page() {
     const breadcrumbArr: Breadcrumb[] = [
         {
-            label: 'Аккумуляторы',
-            href: 'catalogue/1',
-            active: true,
-        },
-        {
-            label: 'Аккумуляторы (батарея) для Asus',
-            href: 'catalogue/2',
+            label: 'Каталог товаров',
+            href: '/catalogue',
             active: true,
         },
     ];
 
     return (
-        <main className='container'>
-            <Breadcrumbs breadcrumbs={breadcrumbArr} />
-            <div>hey</div>
+        <main className='container catalogue'>
+            <Breadcrumbs classname='catalogue__breadcrumbs' breadcrumbs={breadcrumbArr} />
+            <div className='catalogue__title_wr'>
+                <div className='catalogue__title'>Каталог</div>
+                <div className='catalogue__title_descr'>
+                    Выберите комплектующее, которое вам нужно
+                </div>
+            </div>
+            <div className='catalogue__items-wr'>
+                <CatalogueItem title='Матрицы' />
+            </div>
         </main>
     );
 }

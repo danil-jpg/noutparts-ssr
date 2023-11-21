@@ -1,0 +1,29 @@
+.catalogue-item {
+    max-width: 380px;
+    position: relative;
+    &__top {
+        background: #f5fcf3;
+        height: 210px;
+        width: 100%;
+
+        &_img {
+            // position: absolute;
+            // bottom: 12px;
+            // right: 0;
+        }
+    }
+
+    &__main {
+        &_ul {
+        }
+
+        &_li {
+            color: #000;
+            font-family: Roboto;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 240%;
+        }
+    }
+}
