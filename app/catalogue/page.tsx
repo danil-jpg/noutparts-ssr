@@ -1,8 +1,7 @@
 import { Breadcrumb } from '../common/types/types';
 import Breadcrumbs from '../common/components/breadcrumbs/Breadcrumbs';
 import './catalogue.scss';
-import CatalogueItem from '../common/components/CatalogueItem/CatalogueItem';
-import qs from 'qs';
+import CatalogueItem from '../common/components/CatalogueItem/catalogueItem';
 import { Suspense } from 'react';
 import Loading from '../common/components/Loading/Loading';
 
@@ -66,7 +65,11 @@ export default async function Page() {
             </div>
             <div className='catalogue__items-wr'>
                 <Suspense fallback={<div>skeleton</div>}>
-                    <CatalogueItem title='Матрицы' />
+                    {/* @ts-expect-error Server Component */}
+                    <CatalogueItem
+                        image='/img/catalogue/matrix.png'
+                        query='batteries?fields[0]=brand'
+                    />
                 </Suspense>
             </div>
         </main>

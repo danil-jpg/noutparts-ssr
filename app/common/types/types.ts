@@ -49,3 +49,12 @@ export interface Breadcrumb {
     href: string;
     active?: boolean;
 }
+
+export interface ICatalogueItemRes {
+    data: {
+        id: number;
+        attributes: {
+            brand: string;
+        };
+    }[];
+}
