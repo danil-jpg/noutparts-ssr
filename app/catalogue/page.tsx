@@ -68,7 +68,38 @@ export default async function Page() {
                     {/* @ts-expect-error Server Component */}
                     <CatalogueItem
                         image='/img/catalogue/matrix.png'
+                        query='matrices?fields[0]=brand'
+                        mobImage='/img/catalogue/matrix_mob.png'
+                    />
+                    {/* @ts-expect-error Server Component */}
+                    <CatalogueItem
+                        image='/img/catalogue/battery.png'
                         query='batteries?fields[0]=brand'
+                        mobImage='/img/catalogue/battery_mob.png'
+                    />
+                    {/* @ts-expect-error Server Component */}
+                    <CatalogueItem
+                        image='/img/catalogue/hdd.png'
+                        query='hdds?fields[0]=brand'
+                        mobImage='/img/catalogue/hdd_mob.png'
+                    />
+                    {/* @ts-expect-error Server Component */}
+                    <CatalogueItem
+                        image='/img/catalogue/keyboard.png'
+                        query='keyboards?fields[0]=brand'
+                        mobImage='/img/catalogue/keyboard_mob.png'
+                    />
+                    {/* @ts-expect-error Server Component */}
+                    <CatalogueItem
+                        image='/img/catalogue/ram.png'
+                        query='rams?fields[0]=brand'
+                        mobImage='/img/catalogue/ram_mob.png'
+                    />
+                    {/* @ts-expect-error Server Component */}
+                    <CatalogueItem
+                        image='/img/catalogue/power_unit.png'
+                        query='rams?fields[0]=brand'
+                        mobImage='/img/catalogue/power_unit_mob.png'
                     />
                 </Suspense>
             </div>

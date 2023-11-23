@@ -1,42 +1,34 @@
 import './CatalogueItem.scss';
 import { Image } from 'next/dist/client/image-component';
-import qs from 'qs';
-import { ICatalogueItemRes } from '../../types/types';
 import { getCatalogueItemData } from '@/app/lib/data';
 
 interface ICatalogueItem {
     image: string;
+    mobImage: string;
     query: string;
 }
 
 export default async function CatalogueItem({
     image,
     query,
+    mobImage,
 }: ICatalogueItem): Promise<React.JSX.Element> {
     const res = await getCatalogueItemData(query);
-    //
-    // const fetchData = async <T extends unknown>(): Promise<T> => {
-    //     // const data = await fetch(`http://127.0.0.1:1337/api/Products?${query}`, {
-    //     //     cache: 'force-cache',
-    //     // });
 
-    //     return dataParsed;
-    // };
-
-    // const data = await fetch(`http://127.0.0.1:1337/api/${query}`, {
-    //     cache: 'force-cache',
-    // });
-
-    // const dataParsed = (await data.json()) as ICatalogueItemRes;
-    // '/img/catalogue/matrix.png'
     return (
         <div className='catalogue-item'>
             <div className='catalogue-item__top'>
                 <Image
                     className='catalogue-item__top_img'
-                    width={380}
-                    height={210}
+                    fill={true}
                     src={image}
+                    sizes='(max-width: 768px) 200px,200px'
+                    alt='catalogue-item'
+                />
+                <Image
+                    className='catalogue-item__top_img catalogue-item__top_img_mob'
+                    fill={true}
+                    src={mobImage}
                     alt='catalogue-item'
                 />
             </div>
