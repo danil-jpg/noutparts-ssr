@@ -49,3 +49,21 @@ export interface Breadcrumb {
     href: string;
     active?: boolean;
 }
+
+
+export interface CatalogItem {
+	item: any;
+    isOpen: boolean;
+    bigMenuActive: boolean;
+	toggleItem: () => void;
+	activeProperty: string | null;
+	setActiveProperty: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+export interface PropertyItem {
+	property: string;
+	subProperties: string[];
+    setActiveSubProperty: (property: string | null) => void;
+    catalogItemName: string;
+    onSelectionChange: (selectedOptions: string[]) => void;
+}

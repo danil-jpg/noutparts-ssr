@@ -2,11 +2,15 @@
 import React, { FC, useState } from "react";
 import "./BurgerMenu.scss";
 import Link from "next/dist/client/link";
+import Image from "next/image";
+
 import HeaderFavs from "./HeaderFavs";
 import IconRenderer from "../../ui/Icons/IconRenderer";
-import Image from "next/image";
+import MiniCatalog from "./MiniCatalog/MiniCatalog";
+
 import instaIcon from "../../../../public/img/insta-icon.svg";
 import facebookIcon from "../../../../public/img/facebook-icon.svg";
+
 const BurgerMenu: FC = () => {
 	const [isActive, setIsActive] = useState(false);
 
@@ -31,6 +35,7 @@ const BurgerMenu: FC = () => {
 
 				<div className="burger-menu__menu-body">
 					<div className="burger-menu__nav">
+						<MiniCatalog></MiniCatalog>
 						<Link href="/about">
 							<div className="burger-menu__nav-item">О нас</div>
 						</Link>

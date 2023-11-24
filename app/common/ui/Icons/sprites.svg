@@ -187,5 +187,8 @@
 				  d="M0 7.73639L7.4344 0.236299C7.7468 -0.0787662 8.2532 -0.0787662 8.5656 0.236299L16 7.73639H14.4V14.1929C14.4 14.6387 14.0418 15 13.6 15H9.6V9.35052H6.4V15H2.4C1.95817 15 1.6 14.6387 1.6 14.1929V7.73639H0Z"
 				  fill="black" />
 		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" class="dropdown-arrow-right" id="dropdown-arrow-right" viewBox="0 0 7 10" fill="none">
+  			<path d="M1 1L5 5L1 9" stroke="black" stroke-width="1.6" stroke-linecap="round"/>
+		</svg>
 	</defs>
 </svg>
