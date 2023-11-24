@@ -1,7 +1,6 @@
 import { Breadcrumb } from '../../common/types/types';
 import Breadcrumbs from '../../common/components/breadcrumbs/Breadcrumbs';
 import './filter-page.scss';
-import { Suspense } from 'react';
 import Filter from '@/app/common/components/filter/Filter';
 
 export default async function Page() {
