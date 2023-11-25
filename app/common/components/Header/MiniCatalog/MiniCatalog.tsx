@@ -4,7 +4,7 @@ import { IPrimaryInput } from "@/types";
 import IconRenderer from "../../../ui/Icons/IconRenderer";
 import "./MiniCatalog.scss";
 
-import CatalogItem from "./CatalogItem";
+import HeaderMiniCatalogItem from "./HeaderMiniCatalogItem";
 
 const MiniCatalog: FC = () => {
 	const [bigMenuActive, setBigMenuActive] = useState<boolean>(false);
@@ -61,7 +61,7 @@ const MiniCatalog: FC = () => {
 
 			<div className={`mini-catalog__big-menu ${bigMenuActive ? "active" : ""}`}>
 				{items.map((item, index) => (
-					<CatalogItem key={index} item={item} isOpen={activeIndex === index} bigMenuActive={bigMenuActive} toggleItem={() => toggleItem(index)} activeProperty={activeProperty} setActiveProperty={setActiveProperty} />
+					<HeaderMiniCatalogItem key={index} item={item} isOpen={activeIndex === index} bigMenuActive={bigMenuActive} toggleItem={() => toggleItem(index)} activeProperty={activeProperty} setActiveProperty={setActiveProperty} />
 				))}
 			</div>
 		</div>

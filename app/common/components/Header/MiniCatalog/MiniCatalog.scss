@@ -73,6 +73,9 @@
 
 	&__dropdown-arrow {
 		&.active {
+			margin: 4px 0 0 0;
+			display: flex;
+			align-items: flex-end;
 			transform: rotate(180deg);
 		}
 	}
@@ -308,8 +311,16 @@
 		}
 
 		&__dropdown-arrow {
+			&.active {
+				
+				transform: rotate(180deg);
+			}
+		}
+
+		&__dropdown-arrow {
 			transform: rotate(90deg);
 			&.active {
+				margin: 0px 0 0 3px;
 				transform: rotate(-90deg);
 			}
 		}

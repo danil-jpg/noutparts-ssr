@@ -51,7 +51,7 @@ export interface Breadcrumb {
 }
 
 
-export interface CatalogItem {
+export interface IHeaderMiniCatalogItem {
 	item: any;
     isOpen: boolean;
     bigMenuActive: boolean;
@@ -60,10 +60,9 @@ export interface CatalogItem {
 	setActiveProperty: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-export interface PropertyItem {
+export interface IHeaderMiniCatalogPropertyItem {
 	property: string;
 	subProperties: string[];
     setActiveSubProperty: (property: string | null) => void;
     catalogItemName: string;
-    onSelectionChange: (selectedOptions: string[]) => void;
 }

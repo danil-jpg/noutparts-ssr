@@ -21,7 +21,7 @@
 		margin: 19px 0 0 0;
 		display: flex;
 		flex-direction: row;
-		gap: 28px;
+		gap: 28.5px;
 	}
 
 	&__nav-item {
@@ -70,7 +70,7 @@
 	}
 
 	&__tel-button {
-		margin: 0 0 0 2px;
+		margin: 1px 0 0 2px;
 		color: #36dd65;
 		font-family: Roboto;
 		font-size: 14px;
@@ -81,7 +81,7 @@
 	}
 
 	&__lang {
-		margin: 0px 0 0 0;
+		margin: 2px 0 0 0;
 		display: flex;
 		flex-direction: row;
 		align-items: center;
@@ -97,6 +97,7 @@
 		font-weight: 500;
 		line-height: 67%; /* 10.72px */
 		&.active {
+			margin: 1px 0 0 0;
 			color: #000;
 		}
 	}
@@ -108,10 +109,10 @@
 	}
 
 	&__socials {
-		margin: 14px 0 0 0;
+		margin: 14px -1px 0 0;
 		display: flex;
 		flex-direction: row;
-		gap: 7px;
+		gap: 8px;
 	}
 
 	&__social {
@@ -149,9 +150,10 @@
 	}
 
 	&__lower-right {
+		margin: 0 3px 0 0 ;
 		display: flex;
 		flex-direction: row;
-		gap: 35px;
+		gap: 35.5px;
 	}
 
 	&__components-container {
