@@ -4,7 +4,7 @@ import "./Header.scss";
 import Image from "next/image";
 import Link from "next/dist/client/link";
 
-import MiniCatalog from "./MiniCatalog";
+import MiniCatalog from "./MiniCatalog/MiniCatalog";
 import HeaderSearch from "./HeaderSearch";
 import HeaderFavs from "./HeaderFavs";
 import HeaderBasket from "./HeaderBasket";

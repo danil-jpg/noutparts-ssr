@@ -5,7 +5,7 @@
 	&.active {
 		background: rgba(0, 0, 0, 0.5);
 		width: 100%;
-		height: 100vh;
+		height: auto;
 	}
 
 	&__menu {
@@ -60,7 +60,7 @@
 				&:nth-child(1) {
 					background-color: #000000;
 					width: 21.2px;
-					transform: translateY(10.5px) rotate(45deg);
+					transform: translateY(9px) rotate(45deg);
 				}
 				&:nth-child(2) {
 					opacity: 0;
@@ -68,7 +68,7 @@
 				&:nth-child(3) {
 					background-color: #000000;
 					width: 21.2px;
-					transform: translateY(-10.5px) rotate(-45deg);
+					transform: translateY(-9px) rotate(-45deg);
 				}
 			}
 		}
@@ -105,6 +105,8 @@
 		margin: 54px 0 0 0;
 		display: flex;
 		flex-direction: column;
+
+		height: auto;
 	}
 
 	&__nav {
@@ -112,6 +114,8 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0;
+
+		height: auto;
 	}
 
 	&__nav-item {
@@ -173,7 +177,7 @@
 		font-weight: 700;
 		line-height: 80%; /* 11.2px */
 		padding: 0 0 0px 0;
-		border-bottom: 1px dashed #36DD65;
+		border-bottom: 1px dashed #36dd65;
 	}
 
 	&__socials {
