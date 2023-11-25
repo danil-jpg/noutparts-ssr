@@ -50,20 +50,28 @@ export interface Breadcrumb {
     active?: boolean;
 }
 
-
 export interface CatalogItem {
-	item: any;
+    item: any;
     isOpen: boolean;
     bigMenuActive: boolean;
-	toggleItem: () => void;
-	activeProperty: string | null;
-	setActiveProperty: React.Dispatch<React.SetStateAction<string | null>>;
+    toggleItem: () => void;
+    activeProperty: string | null;
+    setActiveProperty: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 export interface PropertyItem {
-	property: string;
-	subProperties: string[];
+    property: string;
+    subProperties: string[];
     setActiveSubProperty: (property: string | null) => void;
     catalogItemName: string;
     onSelectionChange: (selectedOptions: string[]) => void;
+}
+
+export interface ICatalogueItemRes {
+    data: {
+        id: number;
+        attributes: {
+            brand: string;
+        };
+    }[];
 }

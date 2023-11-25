@@ -2,12 +2,18 @@ import { clsx } from 'clsx';
 import Link from 'next/link';
 import { Breadcrumb } from '../../types/types';
 import { v1 } from 'uuid';
-import IconRenderer from '../Icons/IconRenderer';
+import IconRenderer from '../../ui/Icons/IconRenderer';
 import './Breadcrumbs.scss';
 
-export default function Breadcrumbs({ breadcrumbs }: { breadcrumbs: Breadcrumb[] }) {
+export default function Breadcrumbs({
+    breadcrumbs,
+    classname = '',
+}: {
+    breadcrumbs: Breadcrumb[];
+    classname: string;
+}) {
     return (
-        <nav aria-label='Breadcrumb' className=''>
+        <nav aria-label='Breadcrumb' className={clsx(classname)}>
             <ul className='breadcrumbs__ul'>
                 <li key={v1()} className='breadcrumbs__li'>
                     <Link href={'/'}>
