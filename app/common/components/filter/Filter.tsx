@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import './Filter.scss';
 import { getFilterItemData } from '@/app/lib/data';
 import { v1 } from 'uuid';
+import FilterLi from './atoms/FilterLi';
 
 interface IFilter {
     type: string;
@@ -95,10 +96,12 @@ export default async function Filter({ type }: IFilter) {
                     <p className='filter_item__descr'>Емкость аккамулятора</p>
                     <ul className='filter_item__values'>
                         {capacity.data.map((el: any) => (
-                            <li key={el.id} data-modal={el.id} className='filter_item__value'>
-                                {el.attributes.battery_capacity} mAh
-                                <p>({el.attributes.numOfOccurance})</p>
-                            </li>
+                            <FilterLi key={el.id} el={el}>
+                                <>
+                                    {el.attributes.battery_capacity} mAh
+                                    <p>({el.attributes.numOfOccurance})</p>
+                                </>
+                            </FilterLi>
                         ))}
                     </ul>
                 </div>
