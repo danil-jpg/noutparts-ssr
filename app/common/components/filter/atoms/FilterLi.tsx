@@ -17,8 +17,6 @@ const FilterLi: NextPage<Props> = ({ el, children }) => {
     const pathname = usePathname();
     const { replace } = useRouter();
 
-    console.log(pathname);
-
     return (
         <li
             onClick={() => {

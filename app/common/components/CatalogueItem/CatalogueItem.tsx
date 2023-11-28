@@ -31,7 +31,7 @@ export default function CatalogueItem({ image, query, mobImage }: ICatalogueItem
             <div className='catalogue-item'>
                 <div className='catalogue-item__top'>
                     {/*  @ts-ignore: Object is possibly 'null'. */}
-                    <Link href={`catalogue/filter-page?${query.match(/^([^\s?]+)(?=\?)/)[0]}`}>
+                    <Link href={`catalogue/filter-page/${query.match(/^([^\s?]+)(?=\?)/)[0]}`}>
                         <Image
                             className='catalogue-item__top_img'
                             fill={true}
@@ -51,11 +51,12 @@ export default function CatalogueItem({ image, query, mobImage }: ICatalogueItem
                     <ul className='catalogue-item__main_ul'>
                         {res?.data
                             ? res.data.map((el) => (
+                                  // тут поймал багу компилятора
                                   <Link
                                       key={el.id}
-                                      href={`catalogue/filter-page?${
+                                      href={`catalogue/filter-page/${
                                           query.match(/^([^\s?]+)(?=\?)/)[0]
-                                      }&filters[brand][$eq]=${el.attributes.brand}`}>
+                                      }?query=filters[brand][$eq]=${el.attributes.brand}`}>
                                       <li
                                           key={el.id}
                                           data-modal={el.id}
