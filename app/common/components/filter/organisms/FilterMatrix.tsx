@@ -1,10 +1,13 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { getFilterItemData } from '@/app/lib/data';
 import { v1 } from 'uuid';
 import FilterLi from '../atoms/FilterLi';
 import Loading from '../../Loading/Loading';
 import { makeUniqueAndLoopFunc } from '@/app/lib/service';
+import { createPortal } from 'react-dom';
+import PrimaryBtn from '@/app/common/ui/buttons/primary/PrimaryBtn';
+import clsx from 'clsx';
 
 let [
     diagonale,
@@ -19,10 +22,14 @@ let [
 export default function FilterMatrix() {
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
+    const [isActive, setIsActive] = useState<boolean>(false);
+
+    const rootRef = useRef<HTMLDivElement | null>(null);
+
     useEffect(() => {
         const fetchData = async () => {
             const diagonaleRow: any = getFilterItemData(
-                'matrices?fields[0]=matrix_diagonale&sort[0]=matrix_diagonale:asc&fields[0]=matrix_permission&sort[0]=matrix_permission:asc'
+                'matrices?fields[0]=matrix_diagonale&sort[0]=matrix_diagonale:asc'
             );
 
             const permissionRow: any = getFilterItemData(
@@ -82,11 +89,30 @@ export default function FilterMatrix() {
         fetchData();
     }, []);
 
+    useEffect(() => {
+        // const handleClick = (event: MouseEvent) => {
+        //     const { target } = event;
+        //     if (target instanceof Node && !rootRef.current?.contains(target)) {
+        //         setIsActive(false);
+        //     }
+        // };
+        // window.addEventListener('click', handleClick);
+        // return () => {
+        //     window.removeEventListener('click', handleClick);
+        // };
+    }, []);
+
     if (!isLoaded) {
         return <Loading></Loading>;
     }
     return (
-        <div className='filter'>
+        <div className={clsx('filter', { active: isActive })} ref={rootRef}>
+            {createPortal(
+                <div className='portal-div-test' onClick={() => setIsActive(!isActive)}>
+                    click me
+                </div>,
+                document.body
+            )}
             <p className='filter_title'>Фильтр</p>
             <div className='filter_items'>
                 <div className='filter_item'>

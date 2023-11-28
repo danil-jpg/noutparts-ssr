@@ -68,3 +68,34 @@
         }
     }
 }
+
+.portal-div-test {
+    z-index: 999;
+}
+
+@media screen and (max-width: 768px) {
+    .filter-page {
+        min-height: 100vh;
+        margin: 0;
+
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+    }
+    .filter {
+        display: grid;
+        grid-template-rows: 0fr;
+        overflow: hidden;
+        position: absolute;
+        transition: 0.3s;
+        opacity: 0;
+        min-height: 50px;
+        width: 100%;
+        fill: #fff;
+        left: 0;
+        border: none;
+        &.active {
+            opacity: 1;
+            grid-template-rows: 1fr;
+        }
+    }
+}
