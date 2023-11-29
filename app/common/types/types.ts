@@ -75,3 +75,5 @@ export interface ICatalogueItemRes {
         };
     }[];
 }
+
+export type categories = 'matrices' | 'batteries' | 'hdds' | 'keyboards' | 'rams' | 'power_unit';

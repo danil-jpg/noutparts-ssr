@@ -14,6 +14,7 @@ import {
     REGISTER,
 } from 'redux-persist';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import queryReducer from './slice/query/query';
 
 const createNoopStorage = () => {
     return {
@@ -36,7 +37,7 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-    counterReducer,
+    queryReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

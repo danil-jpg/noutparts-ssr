@@ -1,13 +1,17 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
-import { getFilterItemData } from '@/app/lib/data';
+import { fetchDataFromServer, getFilterItemData } from '@/app/lib/data';
 import { v1 } from 'uuid';
 import FilterLi from '../atoms/FilterLi';
 import Loading from '../../Loading/Loading';
-import { makeUniqueAndLoopFunc } from '@/app/lib/service';
+import { filterItemOnclickHandler, makeUniqueAndLoopFunc } from '@/app/lib/service';
 import { createPortal } from 'react-dom';
-import PrimaryBtn from '@/app/common/ui/buttons/primary/PrimaryBtn';
 import clsx from 'clsx';
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
+import { setData } from '@/app/Redux/slice/query/query';
+import qs from 'qs';
+import { categories } from '@/app/common/types/types';
 
 let [
     diagonale,
@@ -19,12 +23,16 @@ let [
     hashrate,
 ]: any = '';
 
+const matrixPerms: string[] = [];
+
 export default function FilterMatrix() {
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
     const [isActive, setIsActive] = useState<boolean>(false);
 
     const rootRef = useRef<HTMLDivElement | null>(null);
+
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -134,7 +142,19 @@ export default function FilterMatrix() {
                     <p className='filter_item__descr'>Разрешение матрицы</p>
                     <ul className='filter_item__values'>
                         {permission.data.map((el: any) => (
-                            <li key={el.id} className='filter_item__value'>
+                            <li
+                                key={el.id}
+                                className='filter_item__value'
+                                onClick={async () => {
+                                    const res = await filterItemOnclickHandler(
+                                        matrixPerms,
+                                        'matrices',
+                                        el,
+                                        'matrix_permission'
+                                    );
+                                    console.log(res);
+                                    dispatch(setData(res));
+                                }}>
                                 {el.attributes.matrix_permission} px
                                 <p>({el.attributes.numOfOccurance})</p>
                             </li>
