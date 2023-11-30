@@ -20,8 +20,8 @@ export const getFilterItemData = async <T extends unknown>(query: string) => {
     return (await data.json()) as T;
 };
 
-export const fetchDataFromServer = async (type: categories, queryBuilder: string) => {
+export const fetchDataFromServer = async (type: categories, query: string) => {
     'use server';
-    const dataRow = await fetch(`http://127.0.0.1:1337/api/${type}?${queryBuilder}`);
+    const dataRow = await fetch(`http://127.0.0.1:1337/api/${type}?${query}`);
     return await dataRow.json();
 };

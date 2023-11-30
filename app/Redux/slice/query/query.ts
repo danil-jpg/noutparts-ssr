@@ -3,11 +3,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface IFilteredData {
-    data: {};
+    data: {
+        data: [];
+    };
 }
 
 const initialState: IFilteredData = {
-    data: {},
+    data: {
+        data: [],
+    },
 };
 
 const filteredData = createSlice({

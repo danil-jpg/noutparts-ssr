@@ -23,14 +23,28 @@ let [
     hashrate,
 ]: any = '';
 
-const matrixPerms: string[] = [];
+interface IQuery {
+    searchParam: string;
+    searchParamKeys: string[];
+}
+
+const diagonaleArr: string[] = [];
+const matrixPermsArr: string[] = [];
+const fasteningArr: string[] = [];
+const fiberOpticTechnologyArr: string[] = [];
+const connectorArr: string[] = [];
+const backlightTypeArr: string[] = [];
+const hashrateArr: string[] = [];
 
 export default function FilterMatrix() {
+    const queriesArr: IQuery[] = [];
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
     const [isActive, setIsActive] = useState<boolean>(false);
 
     const rootRef = useRef<HTMLDivElement | null>(null);
+
+    const selector = useAppSelector((state) => state.queryReducer.data.data);
 
     const dispatch = useAppDispatch();
 
@@ -128,12 +142,77 @@ export default function FilterMatrix() {
                     <p className='filter_item__descr'>Диагональ матрицы</p>
                     <ul className='filter_item__values'>
                         {diagonale.data.map((el: any) => (
-                            <FilterLi key={el.id} el={el}>
+                            <li
+                                key={el.id}
+                                className='filter_item__value'
+                                onClick={async (e) => {
+                                    // if (selector) {
+                                    //     console.log(selector);
+                                    // }
+                                    // const res = await filterItemOnclickHandler(
+                                    //     diagonaleArr,
+                                    //     'matrices',
+                                    //     el,
+                                    //     'matrix_diagonale'
+                                    // );
+                                    // console.log(res);
+                                    // dispatch(setData(res));
+                                    e.currentTarget.classList.toggle('active');
+
+                                    if (!queriesArr.length) {
+                                        queriesArr.push({
+                                            searchParam: 'matrix_diagonale',
+                                            searchParamKeys: [el.attributes.matrix_diagonale],
+                                        });
+                                    } else {
+                                        for (let i = 0; i < queriesArr.length; i++) {
+                                            if (queriesArr[i].searchParam === 'matrix_diagonale') {
+                                                if (
+                                                    !queriesArr[i].searchParamKeys.includes(
+                                                        el.attributes.matrix_diagonale
+                                                    )
+                                                ) {
+                                                    if (
+                                                        el.attributes.matrix_diagonale !== undefined
+                                                    ) {
+                                                        queriesArr[i].searchParamKeys.push(
+                                                            el.attributes.matrix_diagonale
+                                                        );
+                                                    }
+                                                } else {
+                                                    queriesArr[i].searchParamKeys.splice(
+                                                        queriesArr[i].searchParamKeys.indexOf(
+                                                            el.attributes.matrix_diagonale
+                                                        ),
+                                                        1
+                                                    );
+                                                }
+                                            } else if (i === queriesArr.length - 1) {
+                                                queriesArr.push({
+                                                    searchParam: 'matrix_diagonale',
+                                                    searchParamKeys: [
+                                                        el.attributes.matrix_diagonale,
+                                                    ],
+                                                });
+                                                ++i;
+                                            }
+                                        }
+                                    }
+
+                                    const res = await filterItemOnclickHandler(
+                                        queriesArr,
+                                        'matrices'
+                                    );
+
+                                    // console.log(res);
+
+                                    console.log(res, queriesArr);
+                                }}>
                                 <>
                                     {el.attributes.matrix_diagonale} D
                                     <p>({el.attributes.numOfOccurance})</p>
                                 </>
-                            </FilterLi>
+                            </li>
                         ))}
                     </ul>
                 </div>
@@ -145,15 +224,59 @@ export default function FilterMatrix() {
                             <li
                                 key={el.id}
                                 className='filter_item__value'
-                                onClick={async () => {
+                                onClick={async (e) => {
+                                    // const res = await filterItemOnclickHandler(
+                                    //     matrixPermsArr,
+                                    //     'matrices',
+                                    //     el,
+                                    //     'matrix_permission'
+                                    // );
+                                    // dispatch(setData(res));
+                                    e.currentTarget.classList.toggle('active');
+
+                                    if (!queriesArr.length) {
+                                        queriesArr.push({
+                                            searchParam: 'matrix_permission',
+                                            searchParamKeys: [el.attributes.matrix_permission],
+                                        });
+                                    } else {
+                                        for (let i = 0; i < queriesArr.length; i++) {
+                                            if (queriesArr[i].searchParam === 'matrix_permission') {
+                                                if (
+                                                    !queriesArr[i].searchParamKeys.includes(
+                                                        el.attributes.matrix_permission
+                                                    )
+                                                ) {
+                                                    queriesArr[i].searchParamKeys.push(
+                                                        el.attributes.matrix_permission
+                                                    );
+                                                } else {
+                                                    queriesArr[i].searchParamKeys.splice(
+                                                        queriesArr[i].searchParamKeys.indexOf(
+                                                            el.attributes.matrix_permission
+                                                        ),
+                                                        1
+                                                    );
+                                                }
+                                            } else if (i === queriesArr.length - 1) {
+                                                queriesArr.push({
+                                                    searchParam: 'matrix_permission',
+                                                    searchParamKeys: [
+                                                        el.attributes.matrix_permission,
+                                                    ],
+                                                });
+                                                ++i;
+                                            }
+                                        }
+                                    }
+
                                     const res = await filterItemOnclickHandler(
-                                        matrixPerms,
-                                        'matrices',
-                                        el,
-                                        'matrix_permission'
+                                        queriesArr,
+                                        'matrices'
                                     );
-                                    console.log(res);
-                                    dispatch(setData(res));
+
+                                    console.log(res, queriesArr);
+                                    // console.log(queriesArr);
                                 }}>
                                 {el.attributes.matrix_permission} px
                                 <p>({el.attributes.numOfOccurance})</p>
@@ -165,12 +288,23 @@ export default function FilterMatrix() {
                     <p className='filter_item__title'>Крепление</p>
                     <p className='filter_item__descr'>Tип крепления</p>
                     <ul className='filter_item__values'>
-                        {fastening.data.map((el: any) => (
-                            <li key={v1()} className='filter_item__value'>
+                        {/* {fastening.data.map((el: any) => (
+                            <li
+                                key={el.id}
+                                className='filter_item__value'
+                                onClick={async () => {
+                                    const res = await filterItemOnclickHandler(
+                                        fasteningArr,
+                                        'matrices',
+                                        el,
+                                        'matrix_fastening'
+                                    );
+                                    dispatch(setData(res));
+                                }}>
                                 {el.attributes.matrix_fastening}
                                 <p>({el.attributes.numOfOccurance})</p>
                             </li>
-                        ))}
+                        ))} */}
                     </ul>
                 </div>
                 <div className='filter_item'>

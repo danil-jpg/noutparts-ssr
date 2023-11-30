@@ -59,6 +59,9 @@
         display: flex;
         gap: 5px;
         cursor: pointer;
+        &.active {
+            background-color: #ebffed;
+        }
 
         p {
             color: #717171;
