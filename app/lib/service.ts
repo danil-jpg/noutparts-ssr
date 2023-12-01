@@ -1,4 +1,4 @@
-import { categories } from '../common/types/types';
+import { IQuery, categories } from '../common/types/types';
 import qs from 'qs';
 import { fetchDataFromServer } from './data';
 
@@ -40,4 +40,41 @@ export const filterItemOnclickHandler = async (dataToGet: IObjectKey[], type: ca
     } else {
         return [];
     }
+};
+
+export const onFilterItemClickHandler = async (
+    e: React.MouseEvent<HTMLLIElement, MouseEvent>,
+    queriesArr: IQuery[],
+    el: { attributes: any },
+    searchParam: string
+) => {
+    e.currentTarget.classList.toggle('active');
+    if (!queriesArr.length) {
+        queriesArr.push({
+            searchParam: searchParam,
+            searchParamKeys: [el.attributes[searchParam]],
+        });
+    } else {
+        let numOfOccuranceCounter = 0;
+        for (let i = 0; i < queriesArr.length; i++) {
+            if (queriesArr[i].searchParam === searchParam) {
+                numOfOccuranceCounter = 1;
+                if (queriesArr[i].searchParamKeys.includes(el.attributes[searchParam]) === false) {
+                    queriesArr[i].searchParamKeys.push(el.attributes[searchParam]);
+                } else {
+                    const index = queriesArr[i].searchParamKeys.indexOf(el.attributes[searchParam]);
+                    queriesArr[i].searchParamKeys.splice(index, 1);
+                }
+            }
+        }
+        if (numOfOccuranceCounter === 0) {
+            queriesArr.push({
+                searchParam: searchParam,
+                searchParamKeys: [el.attributes[searchParam]],
+            });
+        }
+    }
+
+    const res = await filterItemOnclickHandler(queriesArr, 'matrices');
+    return res;
 };
