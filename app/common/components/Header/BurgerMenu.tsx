@@ -7,6 +7,7 @@ import Image from "next/image";
 import HeaderFavs from "./HeaderFavs";
 import IconRenderer from "../../ui/Icons/IconRenderer";
 import MiniCatalog from "./MiniCatalog/MiniCatalog";
+import HeaderCallBack from "./HeaderCallBack";
 
 import instaIcon from "../../../../public/img/insta-icon.svg";
 import facebookIcon from "../../../../public/img/facebook-icon.svg";
@@ -56,12 +57,7 @@ const BurgerMenu: FC = () => {
 				</div>
 
 				<div className="burger-menu__info">
-					<div className="burger-menu__tel">(066) 388-88 95</div>
-					<div className="burger-menu__time">С 9:00 до 18:00 Без выходных</div>
-					<div className="burger-menu__tel-button">
-						<IconRenderer id="tel-sign"></IconRenderer>
-						<div className="burger-menu__tel-btn-text">Обратный звонок</div>
-					</div>
+					<HeaderCallBack></HeaderCallBack>
 				</div>
 
 				<div className="burger-menu__socials">

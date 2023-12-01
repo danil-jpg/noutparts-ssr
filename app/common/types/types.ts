@@ -8,9 +8,13 @@ export interface IPrimaryInput {
     placeholder?: string;
     label?: string;
     type: 'text' | 'email' | 'tel';
+    setValue: React.Dispatch<React.SetStateAction<string>>;
+
 }
 export interface ITextAreaInput {
     label?: string;
+    setValue: React.Dispatch<React.SetStateAction<string>>;
+
 }
 
 export interface IIConRenderer {

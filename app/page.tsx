@@ -23,7 +23,7 @@ export default function Home() {
 	return (
 		<main className={styles.main}>
 			
-
+			<div className="height"></div>
 			<button className={styles.button} onClick={() => dispatch(increment())}>
 				inc
 			</button>
@@ -39,6 +39,8 @@ export default function Home() {
 			<BasicRadio texts={texts} descriptions={descriptions} type="col" setChosenRadio={setChosenRadio} heading="Куда отправляем?"></BasicRadio>
 
 			<IconRenderer id="validated-sign"></IconRenderer>
+
+			
 		</main>
 	);
 }

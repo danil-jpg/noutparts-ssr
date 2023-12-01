@@ -1,57 +1,70 @@
 "use client";
 import React, { FC, useState, useEffect } from "react";
 import { IHeaderMiniCatalogPropertyItem } from "@/types";
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/dist/client/link";
 
-const HeaderMiniCatalogPropertyItem: FC<IHeaderMiniCatalogPropertyItem> = ({ catalogItemName, property, subProperties, setActiveSubProperty,}) => {
-    const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+const HeaderMiniCatalogPropertyItem: FC<IHeaderMiniCatalogPropertyItem> = ({ catalogItemName, property, subProperties }) => {
+	const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
-    const createPageURL = (chosenParams: string[]) => {
-        const params = new URLSearchParams();
-		params.set('catalogItemName', chosenParams[0]);
-		params.set('property', chosenParams[1]);
-		params.set('subProperty', chosenParams[2]);
-        return `${params.toString()}`;
-    };
+	const handleClick = (subProperty: string) => {
+		console.log("Options" + [catalogItemName, property, subProperty]);
+		let updatedOptions: string[] = [];
 
-    const handleClick = (subProperty: string) => {
-        let updatedOptions: string[] = [];
+		if (selectedOptions.includes(subProperty)) {
+			updatedOptions = selectedOptions.filter((option) => option !== subProperty);
+		} else {
+			updatedOptions = [catalogItemName, property, subProperty];
+		}
+		console.log("updatedOptions" + updatedOptions);
+		setSelectedOptions(updatedOptions);
+		console.log("🚀 ~ file: HeaderMiniCatalogPropertyItem.tsx:22 ~ handleClick ~ setSelectedOptions(updatedOptions);:", setSelectedOptions(updatedOptions));
+	};
 
-        if (selectedOptions.includes(subProperty)) {
-            updatedOptions = selectedOptions.filter((option) => option !== subProperty);
-        } else {
-            updatedOptions = [catalogItemName, property, subProperty];
-        }
+	useEffect(() => {
+		if (selectedOptions.length === 3) {
+			createPageURL();
+		}
+	}, [selectedOptions]);
 
-        setSelectedOptions(updatedOptions);
-    };
+	const createPageURL = () => {
+		if (selectedOptions.length !== 3) {
+			// selectedOptions should have three elements to proceed
+			return;
+		}
 
-    // useEffect(() => {
-    //     createPageURL(selectedOptions);
-    // }, [selectedOptions]);
+		let params = new URLSearchParams();
 
-    const generateCatalogURL = () => {
-        return `catalogue?${createPageURL(selectedOptions)}`;
-    };
+		console.log("selectedOptions", selectedOptions);
+		params.set("catalogItemName", selectedOptions[0]);
+		params.set("property", selectedOptions[1]);
+		params.set("subProperty", selectedOptions[2]);
 
-    return (
-        <>
-            {subProperties && (
-                <div className="mini-catalog__properties">
-                    {subProperties.map((subProperty, index) => (
-                        <div
-                            key={index}
-                            onClick={() => handleClick(subProperty)}
-                            className={`mini-catalog__sub-property ${selectedOptions.includes(subProperty) ? "selected" : ""}`}
-                        >
-                            <Link href={generateCatalogURL()}>{subProperty}</Link>
-                        </div>
-                    ))}
-                </div>
-            )}
-        </>
-    );
+		const url = `catalogue?${params}`;
+
+		// Do something with the URL (e.g., navigate to it)
+		window.location.href = url;
+	};
+
+	return (
+		<>
+			{subProperties && (
+				<div className="mini-catalog__properties">
+					{subProperties.map((subProperty, index) => (
+						<div
+							key={index}
+							className={`mini-catalog__sub-property ${selectedOptions.includes(subProperty) ? "selected" : ""}`}
+							onClick={() => {
+								handleClick(subProperty);
+							}}
+						>
+							{subProperty}
+						</div>
+					))}
+				</div>
+			)}
+		</>
+	);
 };
 
 export default HeaderMiniCatalogPropertyItem;
