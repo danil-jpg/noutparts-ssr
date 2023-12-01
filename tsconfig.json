@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "target": "es5",
+        "target": "es6",
         "lib": ["dom", "dom.iterable", "esnext"],
         "allowJs": true,
         "skipLibCheck": true,
@@ -22,7 +22,8 @@
             "@/app/*": ["./app/*"],
             "@/icons/*": ["./app/common/ui/Icons/*"],
             "@/types": ["./app/common/types/types.ts"],
-            "@/common/*": ["./app/common/*"]
+            "@/common/*": ["./app/common/*"],
+            "@/img/*": ["./public/img/*"]
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
