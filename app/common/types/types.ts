@@ -8,9 +8,13 @@ export interface IPrimaryInput {
     placeholder?: string;
     label?: string;
     type: 'text' | 'email' | 'tel';
+    setValue: React.Dispatch<React.SetStateAction<string>>;
+
 }
 export interface ITextAreaInput {
     label?: string;
+    setValue: React.Dispatch<React.SetStateAction<string>>;
+
 }
 
 export interface IIConRenderer {
@@ -50,7 +54,7 @@ export interface Breadcrumb {
     active?: boolean;
 }
 
-export interface CatalogItem {
+export interface IHeaderMiniCatalogItem {
     item: any;
     isOpen: boolean;
     bigMenuActive: boolean;
@@ -59,7 +63,7 @@ export interface CatalogItem {
     setActiveProperty: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-export interface PropertyItem {
+export interface IHeaderMiniCatalogPropertyItem {
     property: string;
     subProperties: string[];
     setActiveSubProperty: (property: string | null) => void;

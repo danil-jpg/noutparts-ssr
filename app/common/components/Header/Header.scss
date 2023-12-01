@@ -5,6 +5,8 @@
 		flex-direction: column;
 		align-items: center;
 		background: #fff;
+
+		transition: all 0.3s ease;
 	}
 
 	&__top {
@@ -15,13 +17,17 @@
 		justify-content: space-between;
 		height: 55px;
 		padding: 0 5px;
+
+		transition: all 0.3s ease;
 	}
 
 	&__nav {
 		margin: 19px 0 0 0;
 		display: flex;
 		flex-direction: row;
-		gap: 28px;
+		gap: 28.5px;
+
+		transition: all 0.3s ease;
 	}
 
 	&__nav-item {
@@ -32,60 +38,29 @@
 		font-weight: 400;
 		line-height: normal;
 		cursor: pointer;
+
+		transition: all 0.3s ease;/* Added color transition for nav items */
+		&:hover {
+			color: #36DD65; /* Change color on hover */
+		}
 	}
 
 	&__info {
 		display: flex;
 		flex-direction: row;
 		gap: 34px;
-	}
 
-	&__tel {
-		margin: 8px 0 0 0;
-		display: flex;
-		flex-direction: row;
-		gap: 8px;
-	}
-
-	&__tel-icon {
-		margin: 12px 0 0 0;
-		width: 24px;
-		height: 24px;
-	}
-
-	&__tel-box {
-		display: flex;
-		flex-direction: column;
-		gap: 3px;
-	}
-
-	&__tel-number {
-		color: #000;
-		text-align: center;
-		font-family: Roboto;
-		font-size: 16px;
-		font-style: normal;
-		font-weight: 500;
-		line-height: 150%; /* 24px */
-	}
-
-	&__tel-button {
-		margin: 0 0 0 2px;
-		color: #36dd65;
-		font-family: Roboto;
-		font-size: 14px;
-		font-style: normal;
-		font-weight: 400;
-		line-height: 80%; /* 11.2px */
-		text-decoration-line: underline;
+		transition: all 0.3s ease;
 	}
 
 	&__lang {
-		margin: 0px 0 0 0;
+		margin: 2px 0 0 0;
 		display: flex;
 		flex-direction: row;
 		align-items: center;
 		gap: 6px;
+
+		transition: all 0.3s ease;
 	}
 
 	&__lang-item {
@@ -96,7 +71,11 @@
 		font-style: normal;
 		font-weight: 500;
 		line-height: 67%; /* 10.72px */
+
+		transition: all 0.3s ease;
+		cursor: pointer;
 		&.active {
+			margin: 1px 0 0 0;
 			color: #000;
 		}
 	}
@@ -108,15 +87,23 @@
 	}
 
 	&__socials {
-		margin: 14px 0 0 0;
+		margin: 14px -1px 0 0;
 		display: flex;
 		flex-direction: row;
-		gap: 7px;
+		gap: 8px;
 	}
 
 	&__social {
 		width: 28px;
 		height: 26px;
+		transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added transition for social */
+		border-radius: 50%;
+		&:hover {
+		  transform: translateY(-3px) scale(1.1); /* Move up on hover */
+		  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Refined box-shadow on hover */
+		}
+
+		cursor: pointer;
 	}
 
 	&__bottom {
@@ -146,12 +133,17 @@
 		margin: 19px 0 0 0;
 		width: 162px;
 		height: 69px;
+		transition: transform 0.3s ease; /* Added transition for transform */
+    &:hover {
+      transform: scale(1.05); /* Scale up on hover */
+    }
 	}
 
 	&__lower-right {
+		margin: 0 3px 0 0;
 		display: flex;
 		flex-direction: row;
-		gap: 35px;
+		gap: 35.5px;
 	}
 
 	&__components-container {
@@ -187,11 +179,6 @@
 }
 
 @media (max-width: 900px) {
-	.tel-sign {
-		fill: #36dd65;
-		width: 18px;
-		height: 18px;
-	}
 	.header {
 		&__top {
 			display: none;

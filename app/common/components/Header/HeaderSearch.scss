@@ -9,10 +9,19 @@ input {
 	// height: 16px;
 }
 
+.header-history-sign {
+	fill: #8c8c8c;
+	width: 12px;
+	height: 12px;
+	transform: rotate(-10deg);
+	flex-shrink: 0;
+}
+
 .header-search {
 	margin: 33px 0 0 0;
 	display: flex;
 	flex-direction: row;
+	position: relative;
 	&__input-container {
 		background: #fff;
 		width: 351px;
@@ -40,6 +49,126 @@ input {
 		flex-shrink: 0;
 		display: flex;
 		padding: 8px 0 0 13px;
+
+		cursor: pointer
+	}
+
+	&__search-field {
+		position: absolute;
+		top: 40px;
+		left: 0;
+		border-radius: 0 0 10px 10px;
+
+		display: flex;
+		flex-direction: column;
+		padding: 10px 0 10px 0;
+		gap: 30px;
+		background: #ffffff;
+
+		width: 100%;
+		max-width: 351px;
+
+		transition: 0.3s ease;
+	}
+
+	&__suggestions-box {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	&__box-heading {
+		margin: 10px 0 0 10px;
+		color: #000;
+		font-family: Roboto;
+		font-size: 12px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 150%; /* 18px */
+
+		width: 100%;
+		max-width: 270px;
+
+		padding: 0 0 13px 0;
+		border-bottom: 1px solid #ddd;
+
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	&__clear-button {
+		color: #fe2942;
+		font-family: Roboto;
+		font-size: 12px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 150%; /* 18px */
+	}
+
+	&__category {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	&__category-heading {
+		margin: 7px 0 0 20px;
+		color: #000;
+		font-family: Roboto;
+		font-size: 12px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 150%; /* 18px */
+	}
+
+	&__suggestions {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__suggestion {
+		padding: 0 0 0 15px;
+
+		width: 100%;
+		color: #959595;
+		font-family: Roboto;
+		font-size: 12px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 150%; /* 18px */
+
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 11px;
+
+		height: 49px;
+		.header-search-sign {
+			fill: #959595;
+		}
+
+		transition: 0.3s ease;
+
+		&:hover {
+			cursor: pointer;
+			background: #daffe4;
+			color: #1ba341;
+			.header-search-sign {
+				fill: #1ba341;
+			}
+		}
+
+		div{
+			max-width: 162px;
+		}
+	}
+
+	&__history-box {
+		display: flex;
+		flex-direction: column;
+		gap: 15px;
 	}
 }
 

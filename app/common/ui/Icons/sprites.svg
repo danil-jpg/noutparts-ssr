@@ -190,5 +190,14 @@
 		<svg xmlns="http://www.w3.org/2000/svg" class="dropdown-arrow-right" id="dropdown-arrow-right" viewBox="0 0 7 10" fill="none">
   			<path d="M1 1L5 5L1 9" stroke="black" stroke-width="1.6" stroke-linecap="round"/>
 		</svg>
+
+		<svg xmlns="http://www.w3.org/2000/svg" class="popup-cross-sign" id="popup-cross-sign" viewBox="0 0 15 16" >
+			<path d="M1 1L14 14.5" stroke="black" stroke-width="2" stroke-linecap="round"/>
+			<path d="M14 1L1 14.5" stroke="black" stroke-width="2" stroke-linecap="round"/>
+		</svg>
+
+		<svg xmlns="http://www.w3.org/2000/svg"  class="header-history-sign" id="header-history-sign" viewBox="0 0 13 13">
+			<path d="M10.3869 2.04218C9.12645 1.16016 7.53849 0.754745 5.90515 1.04275C2.63847 1.61875 0.466245 4.72819 1.04189 7.99283C1.61753 11.2575 4.72225 13.4364 7.98893 12.8604C10.7457 12.3744 12.7121 10.0856 12.9205 7.42145L11.3832 7.69251C11.0807 9.52032 9.65742 11.0431 7.72846 11.3832C5.28214 11.8146 2.94372 10.1783 2.51263 7.7335C2.08155 5.28871 3.71931 2.95131 6.16562 2.51996C7.39248 2.30363 8.57616 2.6204 9.51631 3.28474L7.55587 6.08267L12.7293 5.17045L11.8177 0.000206301L10.3869 2.04218Z" fill="#8C8C8C"/>
+		</svg>
 	</defs>
 </svg>

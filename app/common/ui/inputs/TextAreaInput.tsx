@@ -2,7 +2,7 @@ import React, { FC, useState, ChangeEvent, useRef, useEffect } from "react";
 import { ITextAreaInput } from "@/types";
 import "./TextAreaInput.scss";
 
-const TextAreaInput: FC<ITextAreaInput> = ({ label }) => {
+const TextAreaInput: FC<ITextAreaInput> = ({ label, setValue }) => {
 	const [inputValue, setInputValue] = useState<string>("");
 	const [isActive, setIsActive] = useState<boolean>(false);
 
@@ -10,6 +10,7 @@ const TextAreaInput: FC<ITextAreaInput> = ({ label }) => {
 
 	const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
 		setInputValue(event.target.value);
+		setValue(inputValue);
 	};
 
 	const handleFocus = (): void => {
