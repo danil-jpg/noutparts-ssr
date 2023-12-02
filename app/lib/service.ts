@@ -45,6 +45,7 @@ export const filterItemOnclickHandler = async (dataToGet: IObjectKey[], type: ca
 export const onFilterItemClickHandler = async (
     e: React.MouseEvent<HTMLLIElement, MouseEvent>,
     queriesArr: IQuery[],
+    type: categories,
     el: { attributes: any },
     searchParam: string
 ) => {
@@ -75,6 +76,6 @@ export const onFilterItemClickHandler = async (
         }
     }
 
-    const res = await filterItemOnclickHandler(queriesArr, 'matrices');
+    const res = await filterItemOnclickHandler(queriesArr, type);
     return res;
 };

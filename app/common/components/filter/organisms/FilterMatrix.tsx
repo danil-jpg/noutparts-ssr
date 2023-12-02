@@ -1,28 +1,17 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
-import { fetchDataFromServer, getFilterItemData } from '@/app/lib/data';
+import { getFilterItemData } from '@/app/lib/data';
 import { v1 } from 'uuid';
-import FilterLi from '../atoms/FilterLi';
 import Loading from '../../Loading/Loading';
-import { filterItemOnclickHandler, makeUniqueAndLoopFunc } from '@/app/lib/service';
+import { makeUniqueAndLoopFunc } from '@/app/lib/service';
 import { createPortal } from 'react-dom';
 import clsx from 'clsx';
-import { useSearchParams, usePathname, useRouter } from 'next/navigation';
-import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
+import { useAppDispatch } from '@/app/Redux/store';
 import { setData } from '@/app/Redux/slice/query/query';
-import qs from 'qs';
-import { IQuery, categories } from '@/app/common/types/types';
+import { IQuery } from '@/app/common/types/types';
 import { onFilterItemClickHandler } from '@/app/lib/service';
 
 let [diagonale, permission, fastening, fiberOpticTechnology, connector, backlightType, hashrate]: any = '';
-
-const diagonaleArr: string[] = [];
-const matrixPermsArr: string[] = [];
-const fasteningArr: string[] = [];
-const fiberOpticTechnologyArr: string[] = [];
-const connectorArr: string[] = [];
-const backlightTypeArr: string[] = [];
-const hashrateArr: string[] = [];
 
 export default function FilterMatrix() {
     const [queriesArr, useQueryarr] = useState<IQuery[]>([]);
@@ -104,7 +93,7 @@ export default function FilterMatrix() {
             )}
             <p className='filter_title'>Фильтр</p>
             <div className='filter_items'>
-                <div className='filter_item'>
+                <div className='filter_item' onClick={() => {}}>
                     <p className='filter_item__title'>Диагональ</p>
                     <p className='filter_item__descr'>Диагональ матрицы</p>
                     <ul className='filter_item__values'>
@@ -113,7 +102,7 @@ export default function FilterMatrix() {
                                 key={el.id}
                                 className='filter_item__value'
                                 onClick={async (e) => {
-                                    const res = await onFilterItemClickHandler(e, queriesArr, el, 'matrix_diagonale');
+                                    const res = await onFilterItemClickHandler(e, queriesArr, 'matrices', el, 'matrix_diagonale');
                                     dispatch(setData(res));
                                 }}>
                                 <>
@@ -132,7 +121,7 @@ export default function FilterMatrix() {
                                 key={el.id}
                                 className='filter_item__value'
                                 onClick={async (e) => {
-                                    const res = await onFilterItemClickHandler(e, queriesArr, el, 'matrix_permission');
+                                    const res = await onFilterItemClickHandler(e, queriesArr, 'matrices', el, 'matrix_permission');
                                     dispatch(setData(res));
                                 }}>
                                 {el.attributes.matrix_permission} px
@@ -150,7 +139,7 @@ export default function FilterMatrix() {
                                 key={el.id}
                                 className='filter_item__value'
                                 onClick={async (e) => {
-                                    const res = await onFilterItemClickHandler(e, queriesArr, el, 'matrix_fastening');
+                                    const res = await onFilterItemClickHandler(e, queriesArr, 'matrices', el, 'matrix_fastening');
                                     dispatch(setData(res));
                                 }}>
                                 {el.attributes.matrix_fastening}
@@ -168,7 +157,7 @@ export default function FilterMatrix() {
                                 key={v1()}
                                 className='filter_item__value'
                                 onClick={async (e) => {
-                                    const res = await onFilterItemClickHandler(e, queriesArr, el, 'matrix_fiber_optic_technology');
+                                    const res = await onFilterItemClickHandler(e, queriesArr, 'matrices', el, 'matrix_fiber_optic_technology');
                                     dispatch(setData(res));
                                 }}>
                                 {el.attributes.matrix_fiber_optic_technology}
@@ -186,7 +175,7 @@ export default function FilterMatrix() {
                                 key={v1()}
                                 className='filter_item__value'
                                 onClick={async (e) => {
-                                    const res = await onFilterItemClickHandler(e, queriesArr, el, 'matrix_backlight_type');
+                                    const res = await onFilterItemClickHandler(e, queriesArr, 'matrices', el, 'matrix_backlight_type');
                                     dispatch(setData(res));
                                 }}>
                                 {el.attributes.matrix_backlight_type}
@@ -204,7 +193,7 @@ export default function FilterMatrix() {
                                 key={v1()}
                                 className='filter_item__value'
                                 onClick={async (e) => {
-                                    const res = await onFilterItemClickHandler(e, queriesArr, el, 'matrix_hashrate');
+                                    const res = await onFilterItemClickHandler(e, queriesArr, 'matrices', el, 'matrix_hashrate');
                                     dispatch(setData(res));
                                 }}>
                                 {el.attributes.matrix_hashrate}
