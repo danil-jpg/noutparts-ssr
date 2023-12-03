@@ -1,0 +1,136 @@
+.categories-row {
+	&__wrapper {
+		height: 133px;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		border-bottom: 1px solid #e3e3e3;
+	}
+
+	&__container {
+		display: flex;
+		flex-direction: row;
+		width: fit-content;
+		gap: 50px;
+	}
+
+	&__item {
+		height: 105px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		cursor: pointer;
+		&:hover {
+			.categories-row__text {
+				color: #36dd65;
+				opacity: 1;
+			}
+			.categories-row__img {
+				animation: jumpAnimation 0.5s ease alternate;
+			}
+		}
+	}
+
+	&__img {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		padding: 29px 0 0 0;
+	}
+
+	&__text {
+		color: #2d2d2d;
+		text-align: center;
+		font-family: Roboto;
+		font-size: 16px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 108.9%; /* 17.424px */
+		opacity: 0.7;
+	}
+}
+@keyframes jumpAnimation {
+	0% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-5px); /* Adjust this value for the jump height */
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+
+@media (max-width: 900px) {
+	.categories-row {
+		&__wrapper {
+			height: 68px;
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			border-bottom: 1px solid #e3e3e3;
+		}
+
+		&__container {
+			display: flex;
+			flex-direction: row;
+			// align-items: center;
+			width: fit-content;
+			gap: 25px;
+
+			overflow-x: scroll;
+
+			padding: 0 16px;
+		}
+
+		&__item {
+			margin: -5px 0 0 0;
+			height: 52px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			gap: 23px;
+			cursor: pointer;
+			&:hover {
+				.categories-row__text {
+					color: #36dd65;
+					opacity: 1;
+				}
+				.categories-row__img {
+					animation: jumpAnimation 0.5s ease alternate;
+				}
+			}
+		}
+
+		&__matrix-img {
+			width: 34.338px;
+			height: 21.81px;
+		}
+
+		&__img {
+			width: auto;
+			max-height: 27px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			svg {
+				max-height: 27px;
+			}
+		}
+
+		&__text {
+			color: #2d2d2d;
+			text-align: center;
+			font-family: Roboto;
+			font-size: 11px;
+			font-style: normal;
+			font-weight: 400;
+			line-height: 108.9%; /* 17.424px */
+			opacity: 0.7;
+
+			white-space: nowrap;
+		}
+	}
+}

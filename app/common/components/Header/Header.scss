@@ -10,13 +10,14 @@
 	}
 
 	&__top {
+		margin: 0 0 0 1px;
 		width: 100%;
-		max-width: 1240px;
+		max-width: 1230px;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
 		height: 55px;
-		padding: 0 5px;
+		padding: 0 0px;
 
 		transition: all 0.3s ease;
 	}
@@ -39,9 +40,9 @@
 		line-height: normal;
 		cursor: pointer;
 
-		transition: all 0.3s ease;/* Added color transition for nav items */
+		transition: all 0.3s ease; /* Added color transition for nav items */
 		&:hover {
-			color: #36DD65; /* Change color on hover */
+			color: #36dd65; /* Change color on hover */
 		}
 	}
 
@@ -99,8 +100,8 @@
 		transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added transition for social */
 		border-radius: 50%;
 		&:hover {
-		  transform: translateY(-3px) scale(1.1); /* Move up on hover */
-		  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Refined box-shadow on hover */
+			transform: translateY(-3px) scale(1.1); /* Move up on hover */
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Refined box-shadow on hover */
 		}
 
 		cursor: pointer;
@@ -134,9 +135,9 @@
 		width: 162px;
 		height: 69px;
 		transition: transform 0.3s ease; /* Added transition for transform */
-    &:hover {
-      transform: scale(1.05); /* Scale up on hover */
-    }
+		&:hover {
+			transform: scale(1.05); /* Scale up on hover */
+		}
 	}
 
 	&__lower-right {
@@ -163,6 +164,25 @@
 		// 	width: 101px;
 		// 	height: 37.484px;
 		// }
+		&__top {
+			width: 100%;
+			max-width: 1240px;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			height: 55px;
+			padding: 0 15px;
+
+			transition: all 0.3s ease;
+		}
+		&__container {
+			width: 100%;
+			max-width: 1240px;
+			padding: 0 15px;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+		}
 
 		&__lower-left {
 			display: flex;
