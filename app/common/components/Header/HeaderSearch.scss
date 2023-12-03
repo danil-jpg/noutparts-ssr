@@ -54,6 +54,7 @@ input {
 	}
 
 	&__search-field {
+		z-index: 30;
 		position: absolute;
 		top: 40px;
 		left: 0;
@@ -69,6 +70,9 @@ input {
 		max-width: 351px;
 
 		transition: 0.3s ease;
+
+		max-height: 331px;
+		overflow-y: scroll;
 	}
 
 	&__suggestions-box {

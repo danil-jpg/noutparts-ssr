@@ -64,11 +64,49 @@
 .dropdown-arrow-right {
 	width: 4px;
 	height: 8px;
-    
 }
 
-.popup-cross-sign{
+.popup-cross-sign {
 	width: 13px;
-height: 13.5px;
-fill: #FFFFFF;
+	height: 13.5px;
+	fill: none;
+}
+
+.category-row-battery-icon {
+	width: 44.436px;
+	height: 48px;
+	flex-shrink: 0;
+
+	fill: #ffffff;
+}
+.category-row-hdd-icon {
+	width: 60.99px;
+	height: 43.383px;
+	flex-shrink: 0;
+
+	fill: #ffffff;
+}
+
+.category-row-keyboard-icon {
+	width: 57.263px;
+	height: 27.57px;
+	flex-shrink: 0;
+
+	fill: #ffffff;
+}
+
+.category-row-ram-icon {
+	width: 57.163px;
+	height: 35.112px;
+	flex-shrink: 0;
+
+	fill: #ffffff;
+}
+
+.category-row-power-unit-icon {
+	width: 68.599px;
+	height: 44.471px;
+	flex-shrink: 0;
+
+	fill: #ffffff;
 }

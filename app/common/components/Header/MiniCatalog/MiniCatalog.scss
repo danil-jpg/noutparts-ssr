@@ -37,6 +37,7 @@
 		width: 0;
 		height: 0;
 		&.active {
+			z-index: 50;
 			position: absolute;
 			top: 107px;
 			left: -223px;
