@@ -175,6 +175,10 @@
             overflow: hidden;
             transition: 0.3s;
 
+            ul {
+                min-height: 0;
+            }
+
             &.active {
                 grid-template-rows: 1fr;
                 margin-top: 13px;
