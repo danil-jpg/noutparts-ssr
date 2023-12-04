@@ -9,6 +9,7 @@ import HeaderSearch from "./HeaderSearch";
 import HeaderFavs from "./HeaderFavs";
 import HeaderBasket from "./HeaderBasket";
 import BurgerMenu from "./BurgerMenu";
+import HeaderCallBack from "./HeaderCallBack";
 
 import siteLogo from "../../../../public/img/site-logo.svg";
 import instaIcon from "../../../../public/img/insta-icon.svg";
@@ -33,15 +34,7 @@ const Header: FC = ({}) => {
 					</Link>
 				</div>
 				<div className="header__info">
-					<div className="header__tel">
-						<div className="header__tel-icon">
-							<IconRenderer id="tel-sign"></IconRenderer>
-						</div>
-						<div className="header__tel-box">
-							<div className="header__tel-number">(066) 388-88 95</div>
-							<div className="header__tel-button">Обратный звонок</div>
-						</div>
-					</div>
+					<HeaderCallBack></HeaderCallBack>
 					<div className="header__lang">
 						<div className="header__lang-item">Укр</div>
 						<div className="header__lang-line"></div>

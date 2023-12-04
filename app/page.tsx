@@ -1,18 +1,18 @@
-'use client';
-import styles from './page.module.css';
-
-import { useState } from 'react';
-
-import { RootState, useAppDispatch, useAppSelector } from './Redux/store';
-import { useSelector, useDispatch } from 'react-redux';
-import { increment, decrement, incrementByAmount } from './Redux/slice/couter/couter';
-import BasicRadio from './common/ui/form/radio/BasicRadio';
-import IconRenderer from './common/ui/Icons/IconRenderer';
-import Link from 'next/link';
-
-import Header from './common/components/Header/Header';
-import CatalogueItem from './common/components/CatalogueItem/catalogueItem';
+import CategoriesRow from './common/components/MainStatics/CategoriesRow';
+import MainHero from './common/components/MainStatics/MainHero';
+import CategoryGallery from './common/components/MainStatics/CategoryGallery';
+import BrandsGallery from './common/components/MainStatics/BrandsGallery';
+import FeaturesStatic from './common/components/MainStatics/FeaturesStatic';
 
 export default function Home() {
-    return <main className={styles.main}></main>;
+    return (
+        <>
+            <CategoriesRow></CategoriesRow>
+            <MainHero></MainHero>
+            <CategoryGallery></CategoryGallery>
+            <BrandsGallery></BrandsGallery>
+            <FeaturesStatic></FeaturesStatic>
+            <div className='height'></div>
+        </>
+    );
 }

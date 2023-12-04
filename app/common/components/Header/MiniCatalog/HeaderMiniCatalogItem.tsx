@@ -1,23 +1,18 @@
 "use client";
 import React, { FC, useState } from "react";
-import { CatalogItem } from "@/types";
+import { IHeaderMiniCatalogItem } from "@/types";
 
 import IconRenderer from "../../../ui/Icons/IconRenderer";
 
-import PropertyItem from "./PropertyItem";
+import HeaderMiniCatalogPropertyItem from "./HeaderMiniCatalogPropertyItem";
 
-const CatalogItem: FC<CatalogItem> = ({ item, isOpen, bigMenuActive, toggleItem, activeProperty, setActiveProperty }) => {
+const HeaderMiniCatalogItem: FC<IHeaderMiniCatalogItem> = ({ item, isOpen, bigMenuActive, toggleItem, activeProperty, setActiveProperty }) => {
 	const [activeSubProperty, setActiveSubProperty] = useState<string | null>(null);
 
 	const toggleProperty = (property: string) => {
 		setActiveProperty(property === activeProperty ? null : property);
 		setActiveSubProperty(null);
 	};
-
-	const handleOptionTrace = (selectedOptions: string[]) => {
-		console.log(selectedOptions);
-	};
-
 	const properties = Object.keys(item.product_group_types).map((property) => {
 		const subProperties = item.product_group_types[property];
 
@@ -26,7 +21,7 @@ const CatalogItem: FC<CatalogItem> = ({ item, isOpen, bigMenuActive, toggleItem,
 				{property}
 				{activeProperty === property && (
 					<div className="mini-catalog__sub-properties" onClick={(e) => e.stopPropagation()}>
-						<PropertyItem catalogItemName={item.product_group_name} property={property} subProperties={Array.isArray(subProperties) ? subProperties : [subProperties]} setActiveSubProperty={setActiveSubProperty} onSelectionChange={handleOptionTrace} />
+						<HeaderMiniCatalogPropertyItem catalogItemName={item.product_group_name} property={property} subProperties={Array.isArray(subProperties) ? subProperties : [subProperties]} setActiveSubProperty={setActiveSubProperty} />
 					</div>
 				)}
 			</div>
@@ -46,12 +41,9 @@ const CatalogItem: FC<CatalogItem> = ({ item, isOpen, bigMenuActive, toggleItem,
 					>
 						{item.product_group_name}
 
-
 						<div className={`mini-catalog__dropdown-arrow ${isOpen && "active"}`}>
 							<IconRenderer id="dropdown-arrow-right"></IconRenderer>
 						</div>
-
-
 					</div>
 					{isOpen && bigMenuActive && (
 						<div className="mini-catalog__properties" onClick={(e) => e.stopPropagation()}>
@@ -64,4 +56,4 @@ const CatalogItem: FC<CatalogItem> = ({ item, isOpen, bigMenuActive, toggleItem,
 	);
 };
 
-export default CatalogItem;
+export default HeaderMiniCatalogItem;
