@@ -16,3 +16,19 @@
         gap: 40px;
     }
 }
+
+.filter-menu-burger-wr {
+    display: none;
+}
+
+.select-container {
+    &__title {
+        color: #000;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 150%; /*  */
+        letter-spacing: 0.44px;
+        margin-top: 11px;
+        margin-bottom: 8px;
+    }
+}

@@ -10,6 +10,7 @@ import { useAppDispatch } from '@/app/Redux/store';
 import { setData } from '@/app/Redux/slice/query/query';
 import { IQuery } from '@/app/common/types/types';
 import { onFilterItemClickHandler } from '@/app/lib/service';
+import IconRenderer from '@/app/common/ui/Icons/IconRenderer';
 
 let [diagonale, permission, fastening, fiberOpticTechnology, connector, backlightType, hashrate]: any = '';
 
@@ -25,6 +26,8 @@ export default function FilterMatrix() {
     const substrateRef = useRef<HTMLDivElement | null>(null);
 
     const dispatch = useAppDispatch();
+
+    const topFilterPlace = document.getElementById('filter-menu-burger-wr');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -78,9 +81,10 @@ export default function FilterMatrix() {
             document.body.style.overflow = 'auto';
             substrateRef.current?.classList.remove('active');
         }
+        console.log(topFilterPlace);
     }, [isActive]);
 
-    if (!isLoaded || !document.getElementById('filter-menu-burger')) {
+    if (!isLoaded) {
         return <Loading></Loading>;
     }
 
@@ -95,14 +99,14 @@ export default function FilterMatrix() {
             <div className={clsx('filter', { active: isActive })} ref={rootRef}>
                 {createPortal(
                     <div
-                        className='portal-div-test'
+                        className='portal-div'
                         onClick={() => {
                             substrateRef.current?.classList.add('active');
                             setIsActive(!isActive);
                         }}>
-                        click me
+                        <IconRenderer id='filter-menu-burger' />
                     </div>,
-                    document.body
+                    topFilterPlace!
                 )}
                 <p className='filter_title'>Фильтр</p>
                 <div className='filter_items'>
