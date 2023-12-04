@@ -1,0 +1,18 @@
+.top-filter {
+    margin-top: 77px;
+
+    &_title {
+        color: #000;
+        font-family: Roboto;
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 108.9%;
+        margin-bottom: 11px;
+    }
+
+    &_filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+    }
+}

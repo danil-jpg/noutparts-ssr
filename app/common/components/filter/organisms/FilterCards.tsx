@@ -8,7 +8,7 @@ const FilterCards: NextPage<Props> = ({}) => {
 
     console.log(selector);
 
-    return <div>hey it filter cards wr</div>;
+    return <div></div>;
 };
 
 export default FilterCards;

@@ -80,9 +80,10 @@ export default function FilterMatrix() {
         }
     }, [isActive]);
 
-    if (!isLoaded) {
+    if (!isLoaded || !document.getElementById('filter-menu-burger')) {
         return <Loading></Loading>;
     }
+
     return (
         <>
             <div

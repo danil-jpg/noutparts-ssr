@@ -2,6 +2,13 @@
     position: relative;
     min-height: 100vh;
     min-width: 100%;
+}
+
+.filter-page {
+    display: grid;
+
+    gap: 34px;
+    grid-template-columns: 282px 1fr;
 
     &__breadcrumbs {
         margin-top: 20px;
