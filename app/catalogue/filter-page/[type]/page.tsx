@@ -8,7 +8,7 @@ import FilterCards from '@/app/common/components/filter/organisms/FilterCards';
 
 export default function Page({ params }: { params: { type: string } }) {
     useEffect(() => {
-        document.body.classList.add('filter-page');
+        document.body.classList.add('filter-page-body');
     }, []);
 
     const breadcrumbArr: Breadcrumb[] = [
