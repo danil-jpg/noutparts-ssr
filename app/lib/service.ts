@@ -1,6 +1,9 @@
+import { setData, setQueryArr as setQueryArrRed } from '@/app/Redux/slice/query/query';
 import { IQuery, categories } from '../common/types/types';
 import qs from 'qs';
 import { fetchDataFromServer } from './data';
+import { AppDispatch } from '../Redux/store';
+import { useEffect } from 'react';
 
 export const makeUniqueAndLoopFunc = (obj: any, propToCompare: string | number) => {
     for (let i = 0; i < obj.data.length; i++) {
@@ -15,12 +18,7 @@ export const makeUniqueAndLoopFunc = (obj: any, propToCompare: string | number) 
     }
 };
 
-interface IObjectKey {
-    searchParam: string;
-    searchParamKeys: string[];
-}
-
-export const filterItemOnclickHandler = async (dataToGet: IObjectKey[], type: categories) => {
+export const filterItemOnclickHandler = async (dataToGet: IQuery[], type: categories) => {
     if (dataToGet.length) {
         const queryBuilderObj: any = {
             filters: {},
@@ -45,37 +43,72 @@ export const filterItemOnclickHandler = async (dataToGet: IObjectKey[], type: ca
 export const onFilterItemClickHandler = async (
     e: React.MouseEvent<HTMLLIElement, MouseEvent>,
     queriesArr: IQuery[],
+    setQueryArr: React.Dispatch<React.SetStateAction<IQuery[]>>,
+    dispatch: (func: {}) => AppDispatch,
     type: categories,
     el: { attributes: any },
     searchParam: string
 ) => {
+    let copy: IQuery[] = [];
     e.currentTarget.classList.toggle('active');
     if (!queriesArr.length) {
-        queriesArr.push({
-            searchParam: searchParam,
-            searchParamKeys: [el.attributes[searchParam]],
+        setQueryArr((prev) => {
+            copy = structuredClone(prev);
+            copy.push({
+                searchParam: searchParam,
+                searchParamKeys: [el.attributes[searchParam]],
+            });
+            dispatch(setQueryArrRed(copy));
+            return copy;
         });
+        // queriesArr.push({
+        //     searchParam: searchParam,
+        //     searchParamKeys: [el.attributes[searchParam]],
+        // });
     } else {
         let numOfOccuranceCounter = 0;
         for (let i = 0; i < queriesArr.length; i++) {
             if (queriesArr[i].searchParam === searchParam) {
                 numOfOccuranceCounter = 1;
                 if (queriesArr[i].searchParamKeys.includes(el.attributes[searchParam]) === false) {
-                    queriesArr[i].searchParamKeys.push(el.attributes[searchParam]);
+                    setQueryArr((prev) => {
+                        copy = structuredClone(prev);
+                        copy[i].searchParamKeys.push(el.attributes[searchParam]);
+                        dispatch(setQueryArrRed(copy));
+                        return copy;
+                    });
+                    // queriesArr[i].searchParamKeys.push(el.attributes[searchParam]);
                 } else {
                     const index = queriesArr[i].searchParamKeys.indexOf(el.attributes[searchParam]);
-                    queriesArr[i].searchParamKeys.splice(index, 1);
+                    setQueryArr((prev) => {
+                        copy = structuredClone(prev);
+                        copy[i].searchParamKeys.splice(index, 1);
+                        dispatch(setQueryArrRed(copy));
+                        return copy;
+                    });
+                    // queriesArr[i].searchParamKeys.splice(index, 1);
                 }
             }
         }
         if (numOfOccuranceCounter === 0) {
-            queriesArr.push({
-                searchParam: searchParam,
-                searchParamKeys: [el.attributes[searchParam]],
+            setQueryArr((prev) => {
+                copy = structuredClone(prev);
+                copy.push({
+                    searchParam: searchParam,
+                    searchParamKeys: [el.attributes[searchParam]],
+                });
+                dispatch(setQueryArrRed(copy));
+                return copy;
             });
+            // queriesArr.push({
+            //     searchParam: searchParam,
+            //     searchParamKeys: [el.attributes[searchParam]],
+            // });
         }
     }
-
+    console.log(queriesArr);
     const res = await filterItemOnclickHandler(queriesArr, type);
     return res;
+
+    // dispatch(setData(res));
 };

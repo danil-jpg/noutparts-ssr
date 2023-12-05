@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import Select from '../../../../ui/form/select/Select';
 import './TopFilter.scss';
 import IconRenderer from '@/app/common/ui/Icons/IconRenderer';
-import ProductTag from '@/app/common/ui/product-ui/ProductTag';
 
 const TopFilter = () => {
     const [brand, setBrand] = useState<string>('');
@@ -23,10 +22,10 @@ const TopFilter = () => {
                     <Select defValue='Цена' arr={['по возрастанию', 'по убыванию']} setValue={setPrice} value={price} />
                 </div>
             </div>
-            <div>
-                <ProductTag type='new'></ProductTag>
-                <ProductTag type='discount'></ProductTag>
-                <ProductTag type='salesHit'></ProductTag>
+            <div className='top-filter_filters_middle'>
+                <div className='top-filters_filters_middle_btn active'>Есть на складе</div>
+                <div className='top-filters_filters_middle_btn'>Скидка</div>
+                <div className='top-filters_filters_middle_btn'>Новинки</div>
             </div>
         </div>
     );

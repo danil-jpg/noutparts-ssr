@@ -6,7 +6,7 @@ interface Props {}
 const FilterCards: NextPage<Props> = ({}) => {
     const selector = useAppSelector((state) => state.queryReducer.data.data);
 
-    console.log(selector);
+    // console.log(selector);
 
     return <div></div>;
 };

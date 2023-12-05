@@ -6,12 +6,14 @@ export interface IFilteredData {
     data: {
         data: [];
     };
+    queryArr: [];
 }
 
 const initialState: IFilteredData = {
     data: {
         data: [],
     },
+    queryArr: [],
 };
 
 const filteredData = createSlice({
@@ -21,9 +23,12 @@ const filteredData = createSlice({
         setData: (state, action) => {
             state.data = action.payload;
         },
+        setQueryArr: (state, action) => {
+            state.queryArr = action.payload;
+        },
     },
 });
 
-export const { setData } = filteredData.actions;
+export const { setData, setQueryArr } = filteredData.actions;
 
 export default filteredData.reducer;
