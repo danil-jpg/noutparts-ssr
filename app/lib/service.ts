@@ -106,9 +106,12 @@ export const onFilterItemClickHandler = async (
             // });
         }
     }
-    console.log(queriesArr);
-    const res = await filterItemOnclickHandler(queriesArr, type);
-    return res;
+    setTimeout(async () => {
+        console.log(copy);
+
+        const res = await filterItemOnclickHandler(queriesArr, type);
+        return res;
+    }, 0);
 
     // dispatch(setData(res));
 };
