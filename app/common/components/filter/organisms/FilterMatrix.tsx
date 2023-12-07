@@ -6,17 +6,19 @@ import Loading from '../../Loading/Loading';
 import { makeUniqueAndLoopFunc } from '@/app/lib/service';
 import { createPortal } from 'react-dom';
 import clsx from 'clsx';
-import { useAppDispatch } from '@/app/Redux/store';
-import { setData, setQueryArr } from '@/app/Redux/slice/query/query';
+import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
 import { IQuery } from '@/app/common/types/types';
 import { onFilterItemClickHandler } from '@/app/lib/service';
 import IconRenderer from '@/app/common/ui/Icons/IconRenderer';
+import { setData, setQueryArr as setQueriesArrRed } from '@/app/Redux/slice/query/query';
 
 let [diagonale, permission, fastening, fiberOpticTechnology, connector, backlightType, hashrate]: any = '';
 
 export default function FilterMatrix() {
-    let [queriesArr, setQueriesArr] = useState<IQuery[]>([]);
-    // так делать плохая идея,тк далее я пушу в сам квериесАрр
+    const selector = useAppSelector((state) => state.queryReducer.queryArr);
+
+    let [queriesArr, setQueriesArr] = useState<IQuery[]>(selector);
+
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
     const [isActive, setIsActive] = useState<boolean>(false);
@@ -31,16 +33,13 @@ export default function FilterMatrix() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const diagonaleRow: any = getFilterItemData('matrices?fields[0]=matrix_diagonale&sort[0]=matrix_diagonale:asc');
-
-            const permissionRow: any = getFilterItemData('matrices?fields[0]=matrix_permission&sort[0]=matrix_permission:asc');
-            const fasteningRow: any = getFilterItemData('matrices?fields[0]=matrix_fastening&sort[0]=matrix_fastening:asc');
-            const connectorRow: any = getFilterItemData('matrices?fields[0]=matrix_connector&sort[0]=matrix_connector:asc');
-            const fiberOpticTechnologyRow: any = getFilterItemData(
-                'matrices?fields[0]=matrix_fiber_optic_technology&sort[0]=matrix_fiber_optic_technology:asc'
-            );
-            const backlightTypeRow: any = getFilterItemData('matrices?fields[0]=matrix_backlight_type&sort[0]=matrix_backlight_type:asc');
-            const hashrateRow: any = getFilterItemData('matrices?fields[0]=matrix_hashrate&sort[0]=matrix_hashrate:asc');
+            const diagonaleRow: any = getFilterItemData('matrices?fields[0]=diagonale&sort[0]=diagonale:asc');
+            const permissionRow: any = getFilterItemData('matrices?fields[0]=permission&sort[0]=permission:asc');
+            const fasteningRow: any = getFilterItemData('matrices?fields[0]=fastening&sort[0]=fastening:asc');
+            const connectorRow: any = getFilterItemData('matrices?fields[0]=connector&sort[0]=connector:asc');
+            const fiberOpticTechnologyRow: any = getFilterItemData('matrices?fields[0]=fiber_optic_technology&sort[0]=fiber_optic_technology:asc');
+            const backlightTypeRow: any = getFilterItemData('matrices?fields[0]=backlight_type&sort[0]=backlight_type:asc');
+            const hashrateRow: any = getFilterItemData('matrices?fields[0]=hashrate&sort[0]=hashrate:asc');
 
             [diagonale, permission, fastening, connector, fiberOpticTechnology, backlightType, hashrate] = await Promise.all([
                 diagonaleRow,
@@ -52,19 +51,19 @@ export default function FilterMatrix() {
                 hashrateRow,
             ]);
 
-            makeUniqueAndLoopFunc(diagonale, 'matrix_diagonale');
+            makeUniqueAndLoopFunc(diagonale, 'diagonale');
 
-            makeUniqueAndLoopFunc(permission, 'matrix_permission');
+            makeUniqueAndLoopFunc(permission, 'permission');
 
-            makeUniqueAndLoopFunc(fastening, 'matrix_fastening');
+            makeUniqueAndLoopFunc(fastening, 'fastening');
 
-            makeUniqueAndLoopFunc(connector, 'matrix_connector');
+            makeUniqueAndLoopFunc(connector, 'connector');
 
-            makeUniqueAndLoopFunc(fiberOpticTechnology, 'matrix_fiber_optic_technology');
+            makeUniqueAndLoopFunc(fiberOpticTechnology, 'fiber_optic_technology');
 
-            makeUniqueAndLoopFunc(backlightType, 'matrix_backlight_type');
+            makeUniqueAndLoopFunc(backlightType, 'backlight_type');
 
-            makeUniqueAndLoopFunc(hashrate, 'matrix_hashrate');
+            makeUniqueAndLoopFunc(hashrate, 'hashrate');
 
             setIsLoaded(true);
         };
@@ -81,8 +80,11 @@ export default function FilterMatrix() {
             document.body.style.overflow = 'auto';
             substrateRef.current?.classList.remove('active');
         }
-        // console.log(topFilterPlace);
     }, [isActive]);
+
+    useEffect(() => {
+        dispatch(setQueriesArrRed(queriesArr));
+    }, [queriesArr, dispatch]);
 
     if (!isLoaded) {
         return <Loading></Loading>;
@@ -133,20 +135,11 @@ export default function FilterMatrix() {
                                         key={el.id}
                                         className='filter_item__value'
                                         onClick={async (e) => {
-                                            const res = await onFilterItemClickHandler(
-                                                e,
-                                                queriesArr,
-                                                setQueriesArr,
-                                                dispatch,
-                                                'matrices',
-                                                el,
-                                                'matrix_diagonale'
-                                            );
+                                            await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'diagonale');
                                             e.stopPropagation();
-                                            dispatch(setData(res));
                                         }}>
                                         <>
-                                            {el.attributes.matrix_diagonale} D<p>({el.attributes.numOfOccurance})</p>
+                                            {el.attributes.diagonale} D<p>({el.attributes.numOfOccurance})</p>
                                         </>
                                     </li>
                                 ))}
@@ -175,19 +168,10 @@ export default function FilterMatrix() {
                                         key={el.id}
                                         className='filter_item__value'
                                         onClick={async (e) => {
-                                            const res = await onFilterItemClickHandler(
-                                                e,
-                                                queriesArr,
-                                                setQueriesArr,
-                                                dispatch,
-                                                'matrices',
-                                                el,
-                                                'matrix_permission'
-                                            );
+                                            await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'permission');
                                             e.stopPropagation();
-                                            dispatch(setData(res));
                                         }}>
-                                        {el.attributes.matrix_permission} px
+                                        {el.attributes.permission} px
                                         <p>({el.attributes.numOfOccurance})</p>
                                     </li>
                                 ))}
@@ -216,19 +200,10 @@ export default function FilterMatrix() {
                                         key={el.id}
                                         className='filter_item__value'
                                         onClick={async (e) => {
-                                            const res = await onFilterItemClickHandler(
-                                                e,
-                                                queriesArr,
-                                                setQueriesArr,
-                                                dispatch,
-                                                'matrices',
-                                                el,
-                                                'matrix_fastening'
-                                            );
+                                            await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'fastening');
                                             e.stopPropagation();
-                                            dispatch(setData(res));
                                         }}>
-                                        {el.attributes.matrix_fastening}
+                                        {el.attributes.fastening}
                                         <p>({el.attributes.numOfOccurance})</p>
                                     </li>
                                 ))}
@@ -257,19 +232,10 @@ export default function FilterMatrix() {
                                         key={v1()}
                                         className='filter_item__value'
                                         onClick={async (e) => {
-                                            const res = await onFilterItemClickHandler(
-                                                e,
-                                                queriesArr,
-                                                setQueriesArr,
-                                                dispatch,
-                                                'matrices',
-                                                el,
-                                                'matrix_fiber_optic_technology'
-                                            );
+                                            await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'fiber_optic_technology');
                                             e.stopPropagation();
-                                            dispatch(setData(res));
                                         }}>
-                                        {el.attributes.matrix_fiber_optic_technology}
+                                        {el.attributes.fiber_optic_technology}
                                         <p>({el.attributes.numOfOccurance})</p>
                                     </li>
                                 ))}
@@ -298,19 +264,10 @@ export default function FilterMatrix() {
                                         key={v1()}
                                         className='filter_item__value'
                                         onClick={async (e) => {
-                                            const res = await onFilterItemClickHandler(
-                                                e,
-                                                queriesArr,
-                                                setQueriesArr,
-                                                dispatch,
-                                                'matrices',
-                                                el,
-                                                'matrix_backlight_type'
-                                            );
+                                            await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'backlight_type');
                                             e.stopPropagation();
-                                            dispatch(setData(res));
                                         }}>
-                                        {el.attributes.matrix_backlight_type}
+                                        {el.attributes.backlight_type}
                                         <p>({el.attributes.numOfOccurance})</p>
                                     </li>
                                 ))}
@@ -339,19 +296,10 @@ export default function FilterMatrix() {
                                         key={v1()}
                                         className='filter_item__value'
                                         onClick={async (e) => {
-                                            const res = await onFilterItemClickHandler(
-                                                e,
-                                                queriesArr,
-                                                setQueriesArr,
-                                                dispatch,
-                                                'matrices',
-                                                el,
-                                                'matrix_hashrate'
-                                            );
+                                            await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'hashrate');
                                             e.stopPropagation();
-                                            dispatch(setData(res));
                                         }}>
-                                        {el.attributes.matrix_hashrate}
+                                        {el.attributes.hashrate}
                                         <p>({el.attributes.numOfOccurance})</p>
                                     </li>
                                 ))}

@@ -32,7 +32,7 @@ export default function Page({ params }: { params: { type: string } }) {
                 <Filter type={params.type} />
             </div>
             <div>
-                <TopFilter />
+                <TopFilter type={params.type} />
                 <FilterCards />
             </div>
         </main>

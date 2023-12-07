@@ -3,7 +3,6 @@ import { IQuery, categories } from '../common/types/types';
 import qs from 'qs';
 import { fetchDataFromServer } from './data';
 import { AppDispatch } from '../Redux/store';
-import { useEffect } from 'react';
 
 export const makeUniqueAndLoopFunc = (obj: any, propToCompare: string | number) => {
     for (let i = 0; i < obj.data.length; i++) {
@@ -32,8 +31,6 @@ export const filterItemOnclickHandler = async (dataToGet: IQuery[], type: catego
 
         const queryBuilder = qs.stringify(queryBuilderObj);
 
-        // console.log(queryBuilder);
-
         return await fetchDataFromServer(type, queryBuilder);
     } else {
         return [];
@@ -58,13 +55,8 @@ export const onFilterItemClickHandler = async (
                 searchParam: searchParam,
                 searchParamKeys: [el.attributes[searchParam]],
             });
-            dispatch(setQueryArrRed(copy));
             return copy;
         });
-        // queriesArr.push({
-        //     searchParam: searchParam,
-        //     searchParamKeys: [el.attributes[searchParam]],
-        // });
     } else {
         let numOfOccuranceCounter = 0;
         for (let i = 0; i < queriesArr.length; i++) {
@@ -74,19 +66,15 @@ export const onFilterItemClickHandler = async (
                     setQueryArr((prev) => {
                         copy = structuredClone(prev);
                         copy[i].searchParamKeys.push(el.attributes[searchParam]);
-                        dispatch(setQueryArrRed(copy));
                         return copy;
                     });
-                    // queriesArr[i].searchParamKeys.push(el.attributes[searchParam]);
                 } else {
                     const index = queriesArr[i].searchParamKeys.indexOf(el.attributes[searchParam]);
                     setQueryArr((prev) => {
                         copy = structuredClone(prev);
                         copy[i].searchParamKeys.splice(index, 1);
-                        dispatch(setQueryArrRed(copy));
                         return copy;
                     });
-                    // queriesArr[i].searchParamKeys.splice(index, 1);
                 }
             }
         }
@@ -97,21 +85,14 @@ export const onFilterItemClickHandler = async (
                     searchParam: searchParam,
                     searchParamKeys: [el.attributes[searchParam]],
                 });
-                dispatch(setQueryArrRed(copy));
                 return copy;
             });
-            // queriesArr.push({
-            //     searchParam: searchParam,
-            //     searchParamKeys: [el.attributes[searchParam]],
-            // });
         }
     }
-    setTimeout(async () => {
-        console.log(copy);
 
-        const res = await filterItemOnclickHandler(queriesArr, type);
+    setTimeout(async () => {
+        const res = await filterItemOnclickHandler(copy, type);
+        dispatch(setData(res));
         return res;
     }, 0);
-
-    // dispatch(setData(res));
 };
