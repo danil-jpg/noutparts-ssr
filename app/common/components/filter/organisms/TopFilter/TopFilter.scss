@@ -63,3 +63,24 @@
         background: #fff;
     }
 }
+
+.choosen {
+    border-radius: 2px;
+    border: 1px solid #cacdd8;
+    background: #fff;
+    color: #000;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 210%;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.choosen-wr {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+}

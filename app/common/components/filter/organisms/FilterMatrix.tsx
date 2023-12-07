@@ -17,7 +17,7 @@ let [diagonale, permission, fastening, fiberOpticTechnology, connector, backligh
 export default function FilterMatrix() {
     const selector = useAppSelector((state) => state.queryReducer.queryArr);
 
-    let [queriesArr, setQueriesArr] = useState<IQuery[]>(selector);
+    let [queriesArr, setQueriesArr] = useState<IQuery[]>(selector ? selector : []);
 
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
@@ -69,6 +69,9 @@ export default function FilterMatrix() {
         };
 
         fetchData();
+
+        // dispatch(setQueriesArrRed([]));
+        // dispatch(setData([]));
     }, []);
 
     useEffect(() => {

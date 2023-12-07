@@ -29,56 +29,76 @@ const TopFilter = ({ type }: { type: string }) => {
     const selector = useAppSelector((state) => state.queryReducer.queryArr);
     const dispatch = useAppDispatch();
 
-    const onSelectClickHandler = async () => {
-        filterItemOnclickHandler(queriesArr, 'matrices');
+    // const onSelectClickHandler = async () => {
+    //     filterItemOnclickHandler(queriesArr, 'matrices');
+    // };
+
+    // useEffect(() => {
+    //     const getData = async () => {
+    //         const res = (await getFilterItemData(`matrices?fields[0]=brand&fields[1]`)) as IBrand;
+    //         const formattedAns = [];
+    //         for (let key in res.data) {
+    //             formattedAns.push(res.data[key].attributes.brand);
+    //         }
+    //         setBrandArr(formattedAns);
+    //     };
+
+    //     getData();
+    // }, []);
+
+    // useEffect(() => {
+    //     const deepCopy = structuredClone(selector);
+    //     setQueriesArr(deepCopy);
+
+    //     if (brand === 'Бренд') {
+    //     } else {
+    //         const newItem: IQuery = {
+    //             searchParam: 'brand',
+    //             searchParamKeys: [brand],
+    //         };
+
+    //         setQueriesArr((prev) => {
+    //             for (let i = 0; i < prev.length; i++) {
+    //                 if (prev[i].searchParam === 'brand') {
+    //                     prev[i].searchParamKeys.push(brand);
+    //                 } else if (prev[prev.length - 1].searchParam !== 'brand') {
+    //                     // return [...prev, newItem];
+    //                     prev.push(newItem);
+    //                 }
+    //             }
+    //             return prev;
+    //         });
+    //     }
+    // }, [brand]);
+
+    // useEffect(() => {
+    //     (async () => {
+    //         const res = await filterItemOnclickHandler(queriesArr, 'matrices');
+    //         console.log(res, queriesArr);
+    //         dispatch(setQueriesArrRed(queriesArr));
+    //         dispatch(setData(res));
+    //     })();
+    // }, [queriesArr, dispatch]);
+
+    const RenderChoosen = () => {
+        // dispatch(setQueriesArrRed());
+        // console.log(selector);
+        return (
+            <div className='choosen-wr'>
+                {/* {selector
+                    ? selector.map((el: IQuery) => {
+                          return el.searchParamKeys.map((el) => {
+                              return (
+                                  <div className='choosen' key={el}>
+                                      {el}
+                                  </div>
+                              );
+                          });
+                      })
+                    : []} */}
+            </div>
+        );
     };
-
-    useEffect(() => {
-        const getData = async () => {
-            const res = (await getFilterItemData(`matrices?fields[0]=brand&fields[1]`)) as IBrand;
-            const formattedAns = [];
-            for (let key in res.data) {
-                formattedAns.push(res.data[key].attributes.brand);
-            }
-            setBrandArr(formattedAns);
-        };
-
-        getData();
-    }, []);
-
-    useEffect(() => {
-        const deepCopy = structuredClone(selector);
-        setQueriesArr(deepCopy);
-
-        if (brand === 'Бренд') {
-        } else {
-            const newItem: IQuery = {
-                searchParam: 'brand',
-                searchParamKeys: [brand],
-            };
-
-            setQueriesArr((prev) => {
-                for (let i = 0; i < prev.length; i++) {
-                    if (prev[i].searchParam === 'brand') {
-                        prev[i].searchParamKeys.push(brand);
-                    } else if (prev[prev.length - 1].searchParam !== 'brand') {
-                        // return [...prev, newItem];
-                        prev.push(newItem);
-                    }
-                }
-                return prev;
-            });
-        }
-    }, [brand]);
-
-    useEffect(() => {
-        (async () => {
-            const res = await filterItemOnclickHandler(queriesArr, 'matrices');
-            console.log(res, queriesArr);
-            dispatch(setQueriesArrRed(queriesArr));
-            dispatch(setData(res));
-        })();
-    }, [queriesArr, dispatch]);
 
     return (
         <div className='top-filter'>
@@ -99,6 +119,7 @@ const TopFilter = ({ type }: { type: string }) => {
                 <div className='top-filters_filters_middle_btn'>Скидка</div>
                 <div className='top-filters_filters_middle_btn'>Новинки</div>
             </div>
+            <RenderChoosen />
         </div>
     );
 };
