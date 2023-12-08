@@ -97,19 +97,121 @@
     }
 }
 
+.top-filter {
+    margin-top: 77px;
+
+    &_title {
+        color: #000;
+        font-family: Roboto;
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 108.9%;
+        margin-bottom: 11px;
+    }
+
+    &_filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+    }
+    &_filters {
+    }
+}
+
+.filter-menu-burger-wr {
+    display: none;
+}
+
+.select-container {
+    &__title {
+        color: #000;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 150%; /*  */
+        letter-spacing: 0.44px;
+        margin-top: 11px;
+        margin-bottom: 8px;
+    }
+}
+
+.top-filter {
+}
+.top-filters {
+}
+
+.top-filter_filters_middle {
+    display: flex;
+    margin-top: 23px;
+    gap: 22px;
+}
+
+.top-filters_filters_middle_btn {
+    padding: 11px 34px;
+    background: #36dd65;
+    color: #fff;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 108.9%;
+    cursor: pointer;
+    border: 1px solid transparent;
+    &.active {
+        color: #555;
+        border: 1px solid #36dd65;
+        background: #fff;
+    }
+}
+
+.choosen {
+    border-radius: 2px;
+    border: 1px solid #cacdd8;
+    background: #fff;
+    color: #000;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 210%;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.choosen-wr {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.filter-wr {
+    display: grid;
+    grid-gap: 34px;
+    gap: 34px;
+    grid-template-columns: 282px 1fr;
+}
+
 @media screen and (max-width: 768px) {
+    .filter-wr {
+        position: relative;
+        min-height: 100vh;
+        margin: 0;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        min-width: 100%;
+    }
     .filter_item__values {
         margin-top: 0;
         margin-bottom: 0;
     }
     .filter-page {
-        position: relative;
+        // position: relative;
 
-        min-height: 100vh;
-        margin: 0;
-        display: grid;
-        grid-template-rows: auto 1fr auto; /* position: relative; */
-        min-width: 100%;
+        // min-height: 100vh;
+        // margin: 0;
+        // display: grid;
+        // grid-template-rows: auto 1fr auto; /* position: relative; */
+        // min-width: 100%;
     }
     .filter {
         display: grid;

@@ -33,6 +33,7 @@ export const fetchDataFromServer = async (type: categories, query: string) => {
         const dataRow = await fetch(`http://127.0.0.1:1337/api/${type}?${query}`, {
             cache: 'no-store',
         });
+
         return await dataRow.json();
     } catch (e) {
         console.error(e);

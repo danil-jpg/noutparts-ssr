@@ -17,7 +17,7 @@ export const makeUniqueAndLoopFunc = (obj: any, propToCompare: string | number) 
     }
 };
 
-export const filterItemOnclickHandler = async (dataToGet: IQuery[], type: categories) => {
+export const filterItemOnclickHandler = async (dataToGet: IQuery[], type: categories, sort?: 'asc' | 'desc' | '', dispatch?: (func: {}) => AppDispatch) => {
     if (dataToGet.length) {
         const queryBuilderObj: any = {
             filters: {},
@@ -26,12 +26,16 @@ export const filterItemOnclickHandler = async (dataToGet: IQuery[], type: catego
         for (let i = 0; i < dataToGet.length; i++) {
             queryBuilderObj.filters[dataToGet[i].searchParam] = {
                 $eq: [...dataToGet[i].searchParamKeys],
+                $sort: [`price:${sort}`],
             };
         }
 
         const queryBuilder = qs.stringify(queryBuilderObj);
-
-        return await fetchDataFromServer(type, queryBuilder);
+        const res = await fetchDataFromServer(type, queryBuilder);
+        if (sort && dispatch) {
+            dispatch(setData(res));
+        }
+        return res;
     } else {
         return [];
     }
@@ -90,9 +94,66 @@ export const onFilterItemClickHandler = async (
         }
     }
 
-    setTimeout(async () => {
-        const res = await filterItemOnclickHandler(copy, type);
+    let res = '';
+
+    await setTimeout(async () => {
+        dispatch(setQueryArrRed(copy));
+        res = await filterItemOnclickHandler(copy, type);
         dispatch(setData(res));
-        return res;
     }, 0);
+
+    return res;
+};
+
+export const onSelectItemChangeHandler = async (
+    queriesArr: IQuery[],
+    setQueryArr: React.Dispatch<React.SetStateAction<IQuery[]>>,
+    brand: string,
+    dispatch: (func: {}) => AppDispatch,
+    type: categories
+) => {
+    let copy: IQuery[] = [];
+
+    if (!queriesArr.length) {
+        setQueryArr((prev) => {
+            copy = structuredClone(prev);
+            copy.push({
+                searchParam: 'brand',
+                searchParamKeys: [brand],
+            });
+            return copy;
+        });
+    } else {
+        let numOfOccuranceCounter = 0;
+        for (let i = 0; i < queriesArr.length; i++) {
+            if (queriesArr[i].searchParam === 'brand') {
+                numOfOccuranceCounter = 1;
+                setQueryArr((prev) => {
+                    copy = structuredClone(prev);
+                    copy[i].searchParamKeys[0] = brand;
+                    return copy;
+                });
+            }
+        }
+        if (numOfOccuranceCounter === 0) {
+            setQueryArr((prev) => {
+                copy = structuredClone(prev);
+                copy.push({
+                    searchParam: 'brand',
+                    searchParamKeys: [brand],
+                });
+                return copy;
+            });
+        }
+    }
+
+    let res = '';
+
+    await setTimeout(async () => {
+        dispatch(setQueryArrRed(copy));
+        res = await filterItemOnclickHandler(copy, type);
+        dispatch(setData(res));
+    }, 0);
+
+    return res;
 };

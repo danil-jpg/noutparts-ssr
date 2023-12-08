@@ -1,23 +1,35 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
-import { getFilterItemData } from '@/app/lib/data';
+import { fetchDataFromServer, getFilterItemData } from '@/app/lib/data';
 import { v1 } from 'uuid';
 import Loading from '../../Loading/Loading';
-import { makeUniqueAndLoopFunc } from '@/app/lib/service';
+import { filterItemOnclickHandler, makeUniqueAndLoopFunc, onSelectItemChangeHandler } from '@/app/lib/service';
 import { createPortal } from 'react-dom';
 import clsx from 'clsx';
 import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
 import { IQuery } from '@/app/common/types/types';
 import { onFilterItemClickHandler } from '@/app/lib/service';
 import IconRenderer from '@/app/common/ui/Icons/IconRenderer';
-import { setData, setQueryArr as setQueriesArrRed } from '@/app/Redux/slice/query/query';
+import { setData, setDefaultDataAndQueryArr, setQueryArr as setQueriesArrRed } from '@/app/Redux/slice/query/query';
+import Select from '@/app/common/ui/form/select/Select';
 
 let [diagonale, permission, fastening, fiberOpticTechnology, connector, backlightType, hashrate]: any = '';
 
-export default function FilterMatrix() {
-    const selector = useAppSelector((state) => state.queryReducer.queryArr);
+interface IBrand {
+    data: [
+        {
+            attributes: {
+                brand: string;
+            };
+        }
+    ];
+}
 
-    let [queriesArr, setQueriesArr] = useState<IQuery[]>(selector ? selector : []);
+export default function FilterMatrix() {
+    // const selector = useAppSelector((state) => state.queryReducer.queryArr);
+
+    let [queriesArr, setQueriesArr] = useState<IQuery[]>([]);
+    // let [queriesArr, setQueriesArr] = useState<IQuery[]>(selector ? selector : []);
 
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
@@ -29,7 +41,62 @@ export default function FilterMatrix() {
 
     const dispatch = useAppDispatch();
 
-    const topFilterPlace = document.getElementById('filter-menu-burger-wr');
+    // const topFilterPlace = document.getElementById('filter-menu-burger-wr');
+    // filter-top
+    const [brand, setBrand] = useState<string>('');
+    const [price, setPrice] = useState<string>('');
+    const [brandArr, setBrandArr] = useState<string[]>([]);
+    const [priceArr, setPriceArr] = useState<string[]>([]);
+
+    useEffect(() => {
+        const getData = async () => {
+            const res = (await getFilterItemData(`matrices?fields[0]=brand&fields[1]`)) as IBrand;
+            const formattedAns = [];
+            for (let key in res.data) {
+                formattedAns.push(res.data[key].attributes.brand);
+            }
+            setBrandArr(formattedAns);
+        };
+
+        getData();
+    }, []);
+
+    useEffect(() => {
+        if (brand === 'Бренд' || brand === '') {
+        } else {
+            (async function () {
+                await onSelectItemChangeHandler(queriesArr, setQueriesArr, brand, dispatch, 'matrices');
+            })();
+        }
+    }, [brand]);
+
+    useEffect(() => {
+        if (price === 'по возрастанию') {
+            filterItemOnclickHandler(queriesArr, 'matrices', 'asc', dispatch);
+        } else if (price === 'по убыванию') {
+            filterItemOnclickHandler(queriesArr, 'matrices', 'desc', dispatch);
+        } else {
+        }
+    }, [price]);
+
+    const RenderChoosen = () => {
+        // dispatch(setQueriesArrRed());
+        // console.log(selector);
+        return (
+            <div className='choosen-wr'>
+                {queriesArr.map((el: IQuery) => {
+                    return el.searchParamKeys.map((el) => {
+                        return (
+                            <div className='choosen' key={el}>
+                                {el}
+                            </div>
+                        );
+                    });
+                })}
+            </div>
+        );
+    };
+    //
 
     useEffect(() => {
         const fetchData = async () => {
@@ -86,8 +153,8 @@ export default function FilterMatrix() {
     }, [isActive]);
 
     useEffect(() => {
-        dispatch(setQueriesArrRed(queriesArr));
-    }, [queriesArr, dispatch]);
+        dispatch(setDefaultDataAndQueryArr());
+    }, []);
 
     if (!isLoaded) {
         return <Loading></Loading>;
@@ -101,8 +168,9 @@ export default function FilterMatrix() {
                 onClick={() => {
                     setIsActive(false);
                 }}></div>
-            <div className={clsx('filter', { active: isActive })} ref={rootRef}>
-                {createPortal(
+            <div className='filter-wr'>
+                <div className={clsx('filter', { active: isActive })} ref={rootRef}>
+                    {/* {createPortal(
                     <div
                         className='portal-div'
                         onClick={() => {
@@ -112,203 +180,241 @@ export default function FilterMatrix() {
                         <IconRenderer id='filter-menu-burger' />
                     </div>,
                     topFilterPlace!
-                )}
-                <p className='filter_title'>Фильтр</p>
-                <div className='filter_items'>
-                    <div
-                        className='filter_item'
-                        onClick={(e) => {
-                            e.currentTarget.classList.toggle('active');
-                        }}>
+                )} */}
+                    <p className='filter_title'>Фильтр</p>
+                    <div className='filter_items'>
                         <div
+                            className='filter_item'
                             onClick={(e) => {
-                                if (e.currentTarget.nextElementSibling) {
-                                    const sibling = e.currentTarget.nextSibling as HTMLElement;
-                                    sibling.classList.toggle('active');
-                                }
+                                e.currentTarget.classList.toggle('active');
                             }}>
-                            <p className='filter_item__title'>Диагональ</p>
-                            <p className='filter_item__descr'>Диагональ матрицы</p>
-                        </div>
+                            <div
+                                onClick={(e) => {
+                                    if (e.currentTarget.nextElementSibling) {
+                                        const sibling = e.currentTarget.nextSibling as HTMLElement;
+                                        sibling.classList.toggle('active');
+                                    }
+                                }}>
+                                <p className='filter_item__title'>Диагональ</p>
+                                <p className='filter_item__descr'>Диагональ матрицы</p>
+                            </div>
 
-                        <div className='filter_item__values'>
-                            <ul>
-                                {diagonale.data.map((el: any) => (
-                                    <li
-                                        key={el.id}
-                                        className='filter_item__value'
-                                        onClick={async (e) => {
-                                            await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'diagonale');
-                                            e.stopPropagation();
-                                        }}>
-                                        <>
-                                            {el.attributes.diagonale} D<p>({el.attributes.numOfOccurance})</p>
-                                        </>
-                                    </li>
-                                ))}
-                            </ul>
+                            <div className='filter_item__values'>
+                                <ul>
+                                    {diagonale.data.map((el: any) => (
+                                        <li
+                                            key={el.id}
+                                            className='filter_item__value'
+                                            onClick={async (e) => {
+                                                await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'diagonale');
+                                                e.stopPropagation();
+                                            }}>
+                                            <>
+                                                {el.attributes.diagonale} D<p>({el.attributes.numOfOccurance})</p>
+                                            </>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div
-                        className='filter_item'
-                        onClick={(e) => {
-                            e.currentTarget.classList.toggle('active');
-                        }}>
                         <div
+                            className='filter_item'
                             onClick={(e) => {
-                                if (e.currentTarget.nextElementSibling) {
-                                    const sibling = e.currentTarget.nextSibling as HTMLElement;
-                                    sibling.classList.toggle('active');
-                                }
+                                e.currentTarget.classList.toggle('active');
                             }}>
-                            <p className='filter_item__title'>Разрешение</p>
-                            <p className='filter_item__descr'>Разрешение матрицы</p>
+                            <div
+                                onClick={(e) => {
+                                    if (e.currentTarget.nextElementSibling) {
+                                        const sibling = e.currentTarget.nextSibling as HTMLElement;
+                                        sibling.classList.toggle('active');
+                                    }
+                                }}>
+                                <p className='filter_item__title'>Разрешение</p>
+                                <p className='filter_item__descr'>Разрешение матрицы</p>
+                            </div>
+                            <div className='filter_item__values'>
+                                <ul>
+                                    {permission.data.map((el: any) => (
+                                        <li
+                                            key={el.id}
+                                            className='filter_item__value'
+                                            onClick={async (e) => {
+                                                await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'permission');
+                                                e.stopPropagation();
+                                            }}>
+                                            {el.attributes.permission} px
+                                            <p>({el.attributes.numOfOccurance})</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
-                        <div className='filter_item__values'>
-                            <ul>
-                                {permission.data.map((el: any) => (
-                                    <li
-                                        key={el.id}
-                                        className='filter_item__value'
-                                        onClick={async (e) => {
-                                            await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'permission');
-                                            e.stopPropagation();
-                                        }}>
-                                        {el.attributes.permission} px
-                                        <p>({el.attributes.numOfOccurance})</p>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                    <div
-                        className='filter_item'
-                        onClick={(e) => {
-                            e.currentTarget.classList.toggle('active');
-                        }}>
                         <div
+                            className='filter_item'
                             onClick={(e) => {
-                                if (e.currentTarget.nextElementSibling) {
-                                    const sibling = e.currentTarget.nextSibling as HTMLElement;
-                                    sibling.classList.toggle('active');
-                                }
+                                e.currentTarget.classList.toggle('active');
                             }}>
-                            <p className='filter_item__title'>Крепление</p>
-                            <p className='filter_item__descr'>Tип крепления</p>
+                            <div
+                                onClick={(e) => {
+                                    if (e.currentTarget.nextElementSibling) {
+                                        const sibling = e.currentTarget.nextSibling as HTMLElement;
+                                        sibling.classList.toggle('active');
+                                    }
+                                }}>
+                                <p className='filter_item__title'>Крепление</p>
+                                <p className='filter_item__descr'>Tип крепления</p>
+                            </div>
+                            <div className='filter_item__values'>
+                                <ul>
+                                    {fastening.data.map((el: any) => (
+                                        <li
+                                            key={el.id}
+                                            className='filter_item__value'
+                                            onClick={async (e) => {
+                                                await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'fastening');
+                                                e.stopPropagation();
+                                            }}>
+                                            {el.attributes.fastening}
+                                            <p>({el.attributes.numOfOccurance})</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
-                        <div className='filter_item__values'>
-                            <ul>
-                                {fastening.data.map((el: any) => (
-                                    <li
-                                        key={el.id}
-                                        className='filter_item__value'
-                                        onClick={async (e) => {
-                                            await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'fastening');
-                                            e.stopPropagation();
-                                        }}>
-                                        {el.attributes.fastening}
-                                        <p>({el.attributes.numOfOccurance})</p>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                    <div
-                        className='filter_item'
-                        onClick={(e) => {
-                            e.currentTarget.classList.toggle('active');
-                        }}>
                         <div
+                            className='filter_item'
                             onClick={(e) => {
-                                if (e.currentTarget.nextElementSibling) {
-                                    const sibling = e.currentTarget.nextSibling as HTMLElement;
-                                    sibling.classList.toggle('active');
-                                }
+                                e.currentTarget.classList.toggle('active');
                             }}>
-                            <p className='filter_item__title'>Опт. технология</p>
-                            <p className='filter_item__descr'>Тип опт. технологии</p>
+                            <div
+                                onClick={(e) => {
+                                    if (e.currentTarget.nextElementSibling) {
+                                        const sibling = e.currentTarget.nextSibling as HTMLElement;
+                                        sibling.classList.toggle('active');
+                                    }
+                                }}>
+                                <p className='filter_item__title'>Опт. технология</p>
+                                <p className='filter_item__descr'>Тип опт. технологии</p>
+                            </div>
+                            <div className='filter_item__values'>
+                                <ul>
+                                    {fiberOpticTechnology.data.map((el: any) => (
+                                        <li
+                                            key={v1()}
+                                            className='filter_item__value'
+                                            onClick={async (e) => {
+                                                await onFilterItemClickHandler(
+                                                    e,
+                                                    queriesArr,
+                                                    setQueriesArr,
+                                                    dispatch,
+                                                    'matrices',
+                                                    el,
+                                                    'fiber_optic_technology'
+                                                );
+                                                e.stopPropagation();
+                                            }}>
+                                            {el.attributes.fiber_optic_technology}
+                                            <p>({el.attributes.numOfOccurance})</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
-                        <div className='filter_item__values'>
-                            <ul>
-                                {fiberOpticTechnology.data.map((el: any) => (
-                                    <li
-                                        key={v1()}
-                                        className='filter_item__value'
-                                        onClick={async (e) => {
-                                            await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'fiber_optic_technology');
-                                            e.stopPropagation();
-                                        }}>
-                                        {el.attributes.fiber_optic_technology}
-                                        <p>({el.attributes.numOfOccurance})</p>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                    <div
-                        className='filter_item'
-                        onClick={(e) => {
-                            e.currentTarget.classList.toggle('active');
-                        }}>
                         <div
+                            className='filter_item'
                             onClick={(e) => {
-                                if (e.currentTarget.nextElementSibling) {
-                                    const sibling = e.currentTarget.nextSibling as HTMLElement;
-                                    sibling.classList.toggle('active');
-                                }
+                                e.currentTarget.classList.toggle('active');
                             }}>
-                            <p className='filter_item__title'>Цвет</p>
-                            <p className='filter_item__descr'>Цвет подсветки</p>
+                            <div
+                                onClick={(e) => {
+                                    if (e.currentTarget.nextElementSibling) {
+                                        const sibling = e.currentTarget.nextSibling as HTMLElement;
+                                        sibling.classList.toggle('active');
+                                    }
+                                }}>
+                                <p className='filter_item__title'>Цвет</p>
+                                <p className='filter_item__descr'>Цвет подсветки</p>
+                            </div>
+                            <div className='filter_item__values'>
+                                <ul>
+                                    {backlightType.data.map((el: any) => (
+                                        <li
+                                            key={v1()}
+                                            className='filter_item__value'
+                                            onClick={async (e) => {
+                                                await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'backlight_type');
+                                                e.stopPropagation();
+                                            }}>
+                                            {el.attributes.backlight_type}
+                                            <p>({el.attributes.numOfOccurance})</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
-                        <div className='filter_item__values'>
-                            <ul>
-                                {backlightType.data.map((el: any) => (
-                                    <li
-                                        key={v1()}
-                                        className='filter_item__value'
-                                        onClick={async (e) => {
-                                            await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'backlight_type');
-                                            e.stopPropagation();
-                                        }}>
-                                        {el.attributes.backlight_type}
-                                        <p>({el.attributes.numOfOccurance})</p>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                    <div
-                        className='filter_item'
-                        onClick={(e) => {
-                            e.currentTarget.classList.toggle('active');
-                        }}>
                         <div
+                            className='filter_item'
                             onClick={(e) => {
-                                if (e.currentTarget.nextElementSibling) {
-                                    const sibling = e.currentTarget.nextSibling as HTMLElement;
-                                    sibling.classList.toggle('active');
-                                }
+                                e.currentTarget.classList.toggle('active');
                             }}>
-                            <p className='filter_item__title'>Частота обнов.</p>
-                            <p className='filter_item__descr'>Частота обнов.</p>
-                        </div>
-                        <div className='filter_item__values'>
-                            <ul>
-                                {hashrate.data.map((el: any) => (
-                                    <li
-                                        key={v1()}
-                                        className='filter_item__value'
-                                        onClick={async (e) => {
-                                            await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'hashrate');
-                                            e.stopPropagation();
-                                        }}>
-                                        {el.attributes.hashrate}
-                                        <p>({el.attributes.numOfOccurance})</p>
-                                    </li>
-                                ))}
-                            </ul>
+                            <div
+                                onClick={(e) => {
+                                    if (e.currentTarget.nextElementSibling) {
+                                        const sibling = e.currentTarget.nextSibling as HTMLElement;
+                                        sibling.classList.toggle('active');
+                                    }
+                                }}>
+                                <p className='filter_item__title'>Частота обнов.</p>
+                                <p className='filter_item__descr'>Частота обнов.</p>
+                            </div>
+                            <div className='filter_item__values'>
+                                <ul>
+                                    {hashrate.data.map((el: any) => (
+                                        <li
+                                            key={v1()}
+                                            className='filter_item__value'
+                                            onClick={async (e) => {
+                                                await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'hashrate');
+                                                e.stopPropagation();
+                                            }}>
+                                            {el.attributes.hashrate}
+                                            <p>({el.attributes.numOfOccurance})</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <div className='top-filter'>
+                    <p className='top-filter_title'>Аккумуляторы</p>
+                    <div className='top-filter_filters'>
+                        <div id='filter-menu-burger-wr' className='filter-menu-burger-wr'>
+                            <div
+                                className='portal-div'
+                                onClick={() => {
+                                    substrateRef.current?.classList.add('active');
+                                    setIsActive(!isActive);
+                                }}>
+                                <IconRenderer id='filter-menu-burger' />
+                            </div>
+                        </div>
+                        <div className='select-container'>
+                            <p className='select-container__title'>Выберите бренд</p>
+                            <Select defValue='Бренд' arr={brandArr} setValue={setBrand} value={brand} />
+                        </div>
+                        <div className='select-container'>
+                            <p className='select-container__title'>Цена</p>
+                            <Select defValue='Цена' arr={['по возрастанию', 'по убыванию']} setValue={setPrice} value={price} />
+                        </div>
+                    </div>
+                    <div className='top-filter_filters_middle'>
+                        <div className='top-filters_filters_middle_btn active'>Есть на складе</div>
+                        <div className='top-filters_filters_middle_btn'>Скидка</div>
+                        <div className='top-filters_filters_middle_btn'>Новинки</div>
+                    </div>
+                    <RenderChoosen />
                 </div>
             </div>
         </>

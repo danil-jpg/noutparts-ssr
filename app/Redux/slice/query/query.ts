@@ -1,12 +1,13 @@
 'use client';
 
+import { IQuery } from '@/app/common/types/types';
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface IFilteredData {
     data: {
         data: [];
     };
-    queryArr: [];
+    queryArr: IQuery[];
 }
 
 const initialState: IFilteredData = {
@@ -26,9 +27,14 @@ const filteredData = createSlice({
         setQueryArr: (state, action) => {
             state.queryArr = action.payload;
         },
+
+        setDefaultDataAndQueryArr: (state) => {
+            state.data = { data: [] };
+            state.queryArr = [];
+        },
     },
 });
 
-export const { setData, setQueryArr } = filteredData.actions;
+export const { setData, setQueryArr, setDefaultDataAndQueryArr } = filteredData.actions;
 
 export default filteredData.reducer;

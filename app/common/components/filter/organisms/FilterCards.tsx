@@ -4,11 +4,23 @@ import { NextPage } from 'next';
 interface Props {}
 
 const FilterCards: NextPage<Props> = ({}) => {
-    // const selector = useAppSelector((state) => state.queryReducer.data.data);
+    const selector = useAppSelector((state) => state.queryReducer.data.data);
 
-    // console.log(selector);
+    console.log(selector);
 
-    return <div></div>;
+    return (
+        <div>
+            {/* {selector ? (
+                selector.map((el) => {
+                    return <div>
+                        {el.attributes.}
+                    </div>;
+                })
+            ) : (
+                <div>nothing</div>
+            )} */}
+        </div>
+    );
 };
 
 export default FilterCards;

@@ -5,7 +5,7 @@ import Filter from '@/app/common/components/filter/Filter';
 import './filter-page.scss';
 import { useEffect } from 'react';
 import FilterCards from '@/app/common/components/filter/organisms/FilterCards';
-import TopFilter from '@/app/common/components/filter/organisms/TopFilter/TopFilter';
+// import TopFilter from '@/app/common/components/filter/organisms/TopFilter/TopFilter';
 
 export default function Page({ params }: { params: { type: string } }) {
     useEffect(() => {
@@ -32,7 +32,7 @@ export default function Page({ params }: { params: { type: string } }) {
                 <Filter type={params.type} />
             </div>
             <div>
-                <TopFilter type={params.type} />
+                {/* <TopFilter type={params.type} /> */}
                 <FilterCards />
             </div>
         </main>
