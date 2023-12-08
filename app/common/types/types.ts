@@ -9,12 +9,10 @@ export interface IPrimaryInput {
     label?: string;
     type: 'text' | 'email' | 'tel';
     setValue: React.Dispatch<React.SetStateAction<string>>;
-
 }
 export interface ITextAreaInput {
     label?: string;
     setValue: React.Dispatch<React.SetStateAction<string>>;
-
 }
 
 export interface IIConRenderer {
@@ -85,4 +83,14 @@ export type categories = 'matrices' | 'batteries' | 'hdds' | 'keyboards' | 'rams
 export interface IQuery {
     searchParam: string;
     searchParamKeys: string[];
+}
+
+export interface IBrand {
+    data: [
+        {
+            attributes: {
+                brand: string;
+            };
+        }
+    ];
 }

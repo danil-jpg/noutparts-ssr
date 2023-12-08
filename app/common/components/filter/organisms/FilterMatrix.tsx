@@ -1,35 +1,23 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
-import { fetchDataFromServer, getFilterItemData } from '@/app/lib/data';
+import { getFilterItemData } from '@/app/lib/data';
 import { v1 } from 'uuid';
 import Loading from '../../Loading/Loading';
 import { filterItemOnclickHandler, makeUniqueAndLoopFunc, onSelectItemChangeHandler } from '@/app/lib/service';
-import { createPortal } from 'react-dom';
 import clsx from 'clsx';
-import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
+import { useAppDispatch } from '@/app/Redux/store';
 import { IQuery } from '@/app/common/types/types';
 import { onFilterItemClickHandler } from '@/app/lib/service';
 import IconRenderer from '@/app/common/ui/Icons/IconRenderer';
-import { setData, setDefaultDataAndQueryArr, setQueryArr as setQueriesArrRed } from '@/app/Redux/slice/query/query';
+import { setDefaultDataAndQueryArr } from '@/app/Redux/slice/query/query';
 import Select from '@/app/common/ui/form/select/Select';
+import { IBrand } from '@/app/common/types/types';
+import FilterCards from './FilterCards';
 
 let [diagonale, permission, fastening, fiberOpticTechnology, connector, backlightType, hashrate]: any = '';
 
-interface IBrand {
-    data: [
-        {
-            attributes: {
-                brand: string;
-            };
-        }
-    ];
-}
-
 export default function FilterMatrix() {
-    // const selector = useAppSelector((state) => state.queryReducer.queryArr);
-
     let [queriesArr, setQueriesArr] = useState<IQuery[]>([]);
-    // let [queriesArr, setQueriesArr] = useState<IQuery[]>(selector ? selector : []);
 
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
@@ -41,7 +29,6 @@ export default function FilterMatrix() {
 
     const dispatch = useAppDispatch();
 
-    // const topFilterPlace = document.getElementById('filter-menu-burger-wr');
     // filter-top
     const [brand, setBrand] = useState<string>('');
     const [price, setPrice] = useState<string>('');
@@ -80,8 +67,6 @@ export default function FilterMatrix() {
     }, [price]);
 
     const RenderChoosen = () => {
-        // dispatch(setQueriesArrRed());
-        // console.log(selector);
         return (
             <div className='choosen-wr'>
                 {queriesArr.map((el: IQuery) => {
@@ -170,17 +155,6 @@ export default function FilterMatrix() {
                 }}></div>
             <div className='filter-wr'>
                 <div className={clsx('filter', { active: isActive })} ref={rootRef}>
-                    {/* {createPortal(
-                    <div
-                        className='portal-div'
-                        onClick={() => {
-                            substrateRef.current?.classList.add('active');
-                            setIsActive(!isActive);
-                        }}>
-                        <IconRenderer id='filter-menu-burger' />
-                    </div>,
-                    topFilterPlace!
-                )} */}
                     <p className='filter_title'>Фильтр</p>
                     <div className='filter_items'>
                         <div
@@ -415,6 +389,7 @@ export default function FilterMatrix() {
                         <div className='top-filters_filters_middle_btn'>Новинки</div>
                     </div>
                     <RenderChoosen />
+                    <FilterCards />
                 </div>
             </div>
         </>

@@ -31,10 +31,6 @@ export default function Page({ params }: { params: { type: string } }) {
                 <Breadcrumbs classname='filter-page__breadcrumbs' breadcrumbs={breadcrumbArr} />
                 <Filter type={params.type} />
             </div>
-            <div>
-                {/* <TopFilter type={params.type} /> */}
-                <FilterCards />
-            </div>
         </main>
     );
 }

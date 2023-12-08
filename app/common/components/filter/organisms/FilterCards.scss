@@ -1,0 +1,46 @@
+.card-wr {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.card {
+    cursor: pointer;
+    border: 1px solid transparent;
+    position: relative;
+    padding: 0 34px;
+    padding-bottom: 80px;
+
+    &:hover {
+        border: 1px solid #36dd65;
+    }
+    img {
+        margin-top: 51px;
+        width: 231px;
+        height: 196px;
+    }
+    &__name {
+        color: #19191d;
+        font-family: Roboto;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 150%; /* 24px */
+        letter-spacing: 0.32px;
+    }
+
+    &__tag {
+        position: absolute;
+        top: 18px;
+        left: 20px;
+    }
+
+    &__price {
+        color: rgba(0, 0, 0, 0.87);
+        font-family: Roboto;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 150%; /* 36px */
+        position: absolute;
+        bottom: 25px;
+    }
+}
