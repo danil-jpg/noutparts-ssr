@@ -103,6 +103,14 @@ export default function FilterMatrix() {
                 hashrateRow,
             ]);
 
+            // diagonale = await diagonaleRow;
+            // permission = await permissionRow;
+            // fastening = await fasteningRow;
+            // connector = await connectorRow;
+            // fiberOpticTechnology = await fiberOpticTechnologyRow;
+            // backlightType = await backlightTypeRow;
+            // hashrate = await hashrateRow;
+
             makeUniqueAndLoopFunc(diagonale, 'diagonale');
 
             makeUniqueAndLoopFunc(permission, 'permission');
