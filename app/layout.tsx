@@ -3,9 +3,12 @@ import './globals.scss';
 import 'public/fonts.scss';
 import { Providers } from './Redux/provider';
 import { v1 } from 'uuid';
-import Header from './common/components/Header/Header';
+
 import { Suspense } from 'react';
 import Loading from './common/components/Loading/Loading';
+
+import Header from './common/components/Header/Header';
+import Footer from './common/components/Footer/Footer';
 
 export const metadata: Metadata = {
     title: 'Create Next App',
@@ -20,6 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Providers>
                     <Suspense fallback={<Loading></Loading>}>{children}</Suspense>
                 </Providers>
+                <Footer></Footer>
             </body>
         </html>
     );

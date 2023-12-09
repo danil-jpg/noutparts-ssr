@@ -8,7 +8,10 @@ import callingIcon from "/public/img/calling-icon.svg";
 
 import PrimaryInput from "../../ui/inputs/PrimaryInput";
 import TextAreaInput from "../../ui/inputs/TextAreaInput";
-const HeaderCallBack: FC = ({}) => {
+
+
+
+const HeaderCallBack = ({ white } : {white?: boolean}) => {
 	const [callTrace, setCallTrace] = useState<number>(0);
 
 	const [nameState, setNameState] = useState<string>("");
@@ -32,7 +35,7 @@ const HeaderCallBack: FC = ({}) => {
 				<div className="header-tel__icon">
 					<IconRenderer id="tel-sign"></IconRenderer>
 				</div>
-				<div className="header-tel__box">
+				<div className={`header-tel__box ${white && 'white'}`}>
 					<div className="header-tel__number">(066) 388-88 95</div>
 					<div className="header-tel__button">Обратный звонок</div>
 				</div>

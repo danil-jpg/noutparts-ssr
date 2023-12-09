@@ -265,10 +265,10 @@
 			position: absolute;
 			top: 74px;
 			left: -200px;
-	
+
 			display: flex;
 			flex-direction: column;
-	
+
 			width: 328px;
 			height: auto;
 			background: #fff;
@@ -276,7 +276,7 @@
 			fill: #fff;
 			border: 1px solid #d1d1d1;
 			border-radius: 0 0 5px 5px;
-	
+
 			padding: 14px 14px 22px 14px;
 		}
 	}
@@ -333,7 +333,7 @@
 		}
 
 		&__popup {
-			z-index: 10;
+			z-index: 40;
 			position: absolute;
 			top: 53px;
 			left: -179px;
