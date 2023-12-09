@@ -64,8 +64,7 @@ const initialHistorySuggestions = {
 };
 let products: Products = {};
 
-const HeaderSearch: FC = () => {
-
+const HeaderSearch = () => {
 	const fetchProductsData = async (productType: string) => {
 		// let fieldName: keyof ProductAttributes;
 		let attributes: ProductAttributes;
@@ -96,7 +95,7 @@ const HeaderSearch: FC = () => {
 		}
 
 		try {
-			const response = await axios.get<ProductData>(`https://noutparts-strapi.onrender.com/api/${productType === "matrix" ? "matrice" : productType === "power_supply" ? "power-supplie" : productType === "battery" ? "batterie" : productType}s/?fields[0]=${fieldName}`);
+			const response = await axios.get<ProductData>(`https://127.0.0.1:1337/api/${productType === "matrix" ? "matrice" : productType === "power_supply" ? "power-supplie" : productType === "battery" ? "batterie" : productType}s/?fields[0]=${fieldName}`);
 
 			const data: ProductData = response.data;
 			console.log(`🚀 ~ Data for ${productType}:`, data.data);
@@ -124,17 +123,17 @@ const HeaderSearch: FC = () => {
 		}
 	};
 
+	
 
-	const handleInputClick = () => {
+	useEffect(() => {
+		// if(window.location.href !=) maybe fix!!!!!
 		fetchProductsData("matrix");
 		fetchProductsData("hdd");
 		fetchProductsData("keyboard");
 		fetchProductsData("ram");
 		fetchProductsData("battery");
 		fetchProductsData("power_supply");
-	};
-
-
+	}, []);
 
 	const [searchInput, setSearchInput] = useState<string>("");
 	const [suggestions, setSuggestions] = useState<{ category: string; suggestions: string[] }[]>([]);
@@ -201,7 +200,13 @@ const HeaderSearch: FC = () => {
 				<div className="header-search__lupa-icon">
 					<IconRenderer id="header-search-sign" />
 				</div>
-				<input type="text" className="header-search__input" placeholder="Поиск по каталогу.." value={searchInput} onChange={handleInputChange} onClick={()=>{handleInputClick()}} />
+				<input
+					type="text"
+					className="header-search__input"
+					placeholder="Поиск по каталогу.."
+					value={searchInput}
+					onChange={handleInputChange}
+				/>
 			</div>
 			<div className="header-search__search-button">
 				<IconRenderer id="header-search-sign" />
