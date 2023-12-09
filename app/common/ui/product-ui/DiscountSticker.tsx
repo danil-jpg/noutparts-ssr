@@ -10,7 +10,7 @@ const DiscountSticker = ({ amount } : {amount: number}) => {
 
 	return (
 		<div className="discount-sticker">
-			{amount}
+			{amount} ₴
 		</div>
 	);
 };
