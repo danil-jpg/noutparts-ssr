@@ -50,8 +50,11 @@ export const onFilterItemClickHandler = async (
     el: { attributes: any },
     searchParam: string
 ) => {
+    'use client';
     let copy: IQuery[] = [];
-    e.currentTarget.classList.toggle('active');
+    let isActive = false;
+    // e.currentTarget.classList.toggle('active');
+
     if (!queriesArr.length) {
         setQueryArr((prev) => {
             copy = structuredClone(prev);
@@ -61,8 +64,10 @@ export const onFilterItemClickHandler = async (
             });
             return copy;
         });
+        isActive = true;
     } else {
         let numOfOccuranceCounter = 0;
+
         for (let i = 0; i < queriesArr.length; i++) {
             if (queriesArr[i].searchParam === searchParam) {
                 numOfOccuranceCounter = 1;
@@ -70,6 +75,7 @@ export const onFilterItemClickHandler = async (
                     setQueryArr((prev) => {
                         copy = structuredClone(prev);
                         copy[i].searchParamKeys.push(el.attributes[searchParam]);
+                        isActive = true;
                         return copy;
                     });
                 } else {
@@ -77,6 +83,7 @@ export const onFilterItemClickHandler = async (
                     setQueryArr((prev) => {
                         copy = structuredClone(prev);
                         copy[i].searchParamKeys.splice(index, 1);
+                        isActive = false;
                         return copy;
                     });
                 }
@@ -89,20 +96,35 @@ export const onFilterItemClickHandler = async (
                     searchParam: searchParam,
                     searchParamKeys: [el.attributes[searchParam]],
                 });
+                isActive = true;
                 return copy;
             });
         }
     }
 
-    let res = '';
+    if (isActive) {
+        e.currentTarget.classList.add('active');
+    } else {
+        e.currentTarget.classList.remove('active');
+    }
 
-    await setTimeout(async () => {
-        dispatch(setQueryArrRed(copy));
-        res = await filterItemOnclickHandler(copy, type);
-        dispatch(setData(res));
-    }, 0);
+    // let res = '';
 
-    return res;
+    // await setTimeout(async () => {
+    // dispatch(setQueryArrRed(copy));
+    // res = await filterItemOnclickHandler(copy, type);
+    // dispatch(setData(res));
+    // }, 0);
+
+    // for (let i = 0; i < copy.length; i++) {
+    //     if (copy[i].searchParamKeys.includes(el.attributes.diagonale)) {
+    //         e.currentTarget.classList.add('active');
+    //     } else {
+    //         e.currentTarget.classList.remove('active');
+    //     }
+    // }
+
+    return isActive;
 };
 
 export const onSelectItemChangeHandler = async (
@@ -147,13 +169,19 @@ export const onSelectItemChangeHandler = async (
         }
     }
 
-    let res = '';
+    // let res = '';
 
-    await setTimeout(async () => {
-        dispatch(setQueryArrRed(copy));
-        res = await filterItemOnclickHandler(copy, type);
-        dispatch(setData(res));
-    }, 0);
+    // await setTimeout(async () => {
+    //     dispatch(setQueryArrRed(copy));
+    //     res = await filterItemOnclickHandler(copy, type);
+    //     dispatch(setData(res));
+    // }, 0);
 
+    // return res;
+};
+
+export const onChoosenItemClickHandler = async (queriesArr: IQuery[], dispatch: (func: {}) => AppDispatch, type: categories) => {
+    let res = await filterItemOnclickHandler(queriesArr, type);
+    // console.log(queriesArr, res);
     return res;
 };

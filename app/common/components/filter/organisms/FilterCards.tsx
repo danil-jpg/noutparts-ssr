@@ -38,7 +38,6 @@ const FilterCards = ({}) => {
     const selector = useAppSelector((state) => state.queryReducer.data.data) as IMatrixCard[];
     const dispatch = useAppDispatch();
 
-    console.log(selector);
 
     useEffect(() => {
         (async function () {
@@ -53,7 +52,6 @@ const FilterCards = ({}) => {
     return (
         <div className='card-wr'>
             {selector.map((el, index) => {
-                console.log(el.attributes.photo.data[0].attributes.url);
                 return (
                     <div key={index} className='card'>
                         {/* <Image alt='cardimg' src={el.attributes.photo.data[0].attributes.url} fill={true} /> */}

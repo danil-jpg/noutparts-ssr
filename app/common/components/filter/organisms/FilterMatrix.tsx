@@ -3,21 +3,24 @@ import React, { useEffect, useRef, useState } from 'react';
 import { getFilterItemData } from '@/app/lib/data';
 import { v1 } from 'uuid';
 import Loading from '../../Loading/Loading';
-import { filterItemOnclickHandler, makeUniqueAndLoopFunc, onSelectItemChangeHandler } from '@/app/lib/service';
+import { filterItemOnclickHandler, makeUniqueAndLoopFunc, onChoosenItemClickHandler, onSelectItemChangeHandler } from '@/app/lib/service';
 import clsx from 'clsx';
-import { useAppDispatch } from '@/app/Redux/store';
+import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
 import { IQuery } from '@/app/common/types/types';
 import { onFilterItemClickHandler } from '@/app/lib/service';
 import IconRenderer from '@/app/common/ui/Icons/IconRenderer';
-import { setDefaultDataAndQueryArr } from '@/app/Redux/slice/query/query';
+import { setData, setDefaultDataAndQueryArr } from '@/app/Redux/slice/query/query';
 import Select from '@/app/common/ui/form/select/Select';
 import { IBrand } from '@/app/common/types/types';
 import FilterCards from './FilterCards';
+import { setQueryArr as setQueriesArrRed } from '@/app/Redux/slice/query/query';
 
 let [diagonale, permission, fastening, fiberOpticTechnology, connector, backlightType, hashrate]: any = '';
 
 export default function FilterMatrix() {
-    let [queriesArr, setQueriesArr] = useState<IQuery[]>([]);
+    const [queriesArr, setQueriesArr] = useState<IQuery[]>([]);
+
+    // const [isActiveLi,setIsActiveLi] = useState<boolean>([])
 
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
@@ -74,6 +77,25 @@ export default function FilterMatrix() {
                         return (
                             <div className='choosen' key={el}>
                                 {el}
+                                <IconRenderer
+                                    id='cross-icon'
+                                    onClick={() => {
+                                        for (let i = 0; i < queriesArr.length; i++) {
+                                            if (queriesArr[i].searchParamKeys.includes(el)) {
+                                                const index = queriesArr[i].searchParamKeys.indexOf(el);
+                                                setQueriesArr((prev) => {
+                                                    const copy = structuredClone(prev);
+                                                    copy[i].searchParamKeys.splice(index, 1);
+                                                    dispatch(setQueriesArrRed(copy));
+
+                                                    return copy;
+                                                });
+
+                                                break;
+                                            }
+                                        }
+                                    }}
+                                />
                             </div>
                         );
                     });
@@ -149,6 +171,15 @@ export default function FilterMatrix() {
         dispatch(setDefaultDataAndQueryArr());
     }, []);
 
+    useEffect(() => {
+        (async function () {
+            const res = await onChoosenItemClickHandler(queriesArr, dispatch, 'matrices');
+
+            dispatch(setData(res));
+            dispatch(setQueriesArrRed(queriesArr));
+        })();
+    }, [queriesArr, dispatch]);
+
     if (!isLoaded) {
         return <Loading></Loading>;
     }
@@ -183,12 +214,18 @@ export default function FilterMatrix() {
 
                             <div className='filter_item__values'>
                                 <ul>
-                                    {diagonale.data.map((el: any) => (
+                                    {diagonale.data.map((el: { id: number; attributes: { [key: string]: string } }) => (
                                         <li
                                             key={el.id}
                                             className='filter_item__value'
-                                            onClick={async (e) => {
-                                                await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'diagonale');
+                                            onClick={(e) => {
+                                                console.log(el);
+                                                (async function () {
+                                                    await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'diagonale');
+                                                })();
+
+                                                // e.currentTarget.classList.toggle('active');
+
                                                 e.stopPropagation();
                                             }}>
                                             <>
@@ -222,6 +259,14 @@ export default function FilterMatrix() {
                                             className='filter_item__value'
                                             onClick={async (e) => {
                                                 await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'permission');
+                                                for (let i = 0; i < queriesArr.length; i++) {
+                                                    if (queriesArr[i].searchParamKeys.includes(el)) {
+                                                        e.currentTarget.classList.add('active');
+                                                        break;
+                                                    } else {
+                                                        e.currentTarget.classList.remove('active');
+                                                    }
+                                                }
                                                 e.stopPropagation();
                                             }}>
                                             {el.attributes.permission} px
@@ -254,6 +299,14 @@ export default function FilterMatrix() {
                                             className='filter_item__value'
                                             onClick={async (e) => {
                                                 await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'fastening');
+                                                for (let i = 0; i < queriesArr.length; i++) {
+                                                    if (queriesArr[i].searchParamKeys.includes(el)) {
+                                                        e.currentTarget.classList.add('active');
+                                                        break;
+                                                    } else {
+                                                        e.currentTarget.classList.remove('active');
+                                                    }
+                                                }
                                                 e.stopPropagation();
                                             }}>
                                             {el.attributes.fastening}
