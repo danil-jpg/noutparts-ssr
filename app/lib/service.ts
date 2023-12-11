@@ -17,17 +17,20 @@ export const makeUniqueAndLoopFunc = (obj: any, propToCompare: string | number) 
     }
 };
 
-export const filterItemOnclickHandler = async (dataToGet: IQuery[], type: categories, sort?: 'asc' | 'desc' | '', dispatch?: (func: {}) => AppDispatch) => {
+export const filterItemOnclickHandler = async (dataToGet: IQuery[], type: categories, sort: 'asc' | 'desc' | '' = '', dispatch?: (func: {}) => AppDispatch) => {
     if (dataToGet.length) {
         const queryBuilderObj: any = {
             filters: {},
+            sort: [],
         };
-
+        console.log(dataToGet);
         for (let i = 0; i < dataToGet.length; i++) {
             queryBuilderObj.filters[dataToGet[i].searchParam] = {
-                $eq: [...dataToGet[i].searchParamKeys],
-                $sort: [`price:${sort}`],
+                eq: [...dataToGet[i].searchParamKeys],
             };
+        }
+        if (sort) {
+            queryBuilderObj.sort = [`price:${sort}`];
         }
 
         const queryBuilder = qs.stringify(queryBuilderObj);

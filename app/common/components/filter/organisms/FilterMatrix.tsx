@@ -32,6 +32,8 @@ export default function FilterMatrix() {
 
     const dispatch = useAppDispatch();
 
+    const dataInRedux = useAppSelector((state) => state.queryReducer.data.data);
+
     // filter-top
     const [brand, setBrand] = useState<string>('');
     const [price, setPrice] = useState<string>('');
@@ -62,10 +64,16 @@ export default function FilterMatrix() {
 
     useEffect(() => {
         if (price === 'по возрастанию') {
-            filterItemOnclickHandler(queriesArr, 'matrices', 'asc', dispatch);
+            // filterItemOnclickHandler(queriesArr, 'matrices', 'asc', dispatch);
+            dataInRedux.sort((a, b) => {
+                console.log(a);
+                return a - b;
+                // return a.price-b.price
+            });
         } else if (price === 'по убыванию') {
-            filterItemOnclickHandler(queriesArr, 'matrices', 'desc', dispatch);
+            // filterItemOnclickHandler(queriesArr, 'matrices', 'desc', dispatch);
         } else {
+            // console.log(price);
         }
     }, [price]);
 
@@ -219,7 +227,6 @@ export default function FilterMatrix() {
                                             key={el.id}
                                             className='filter_item__value'
                                             onClick={(e) => {
-                                                console.log(el);
                                                 (async function () {
                                                     await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'diagonale');
                                                 })();
