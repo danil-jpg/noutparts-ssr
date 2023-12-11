@@ -149,12 +149,14 @@ export const onSelectItemChangeHandler = async (
         let numOfOccuranceCounter = 0;
         for (let i = 0; i < queriesArr.length; i++) {
             if (queriesArr[i].searchParam === 'brand') {
-                numOfOccuranceCounter = 1;
-                setQueryArr((prev) => {
-                    copy = structuredClone(prev);
-                    copy[i].searchParamKeys[0] = brand;
-                    return copy;
-                });
+                if (!queriesArr[i].searchParamKeys.includes(brand)) {
+                    numOfOccuranceCounter = 1;
+                    setQueryArr((prev) => {
+                        copy = structuredClone(prev);
+                        copy[i].searchParamKeys.push(brand);
+                        return copy;
+                    });
+                }
             }
         }
         if (numOfOccuranceCounter === 0) {
