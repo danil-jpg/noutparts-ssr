@@ -40,6 +40,8 @@ export default function FilterMatrix() {
 
     const dataInRedux = useAppSelector((state) => state.queryReducer.data.data as IPrice[]);
 
+    const [availible, setAvailible] = useState<boolean>(false);
+
     // filter-top
     const [brand, setBrand] = useState<string>('');
     const [price, setPrice] = useState<string>('');
@@ -63,7 +65,7 @@ export default function FilterMatrix() {
         if (brand === 'Бренд' || brand === '') {
         } else {
             (async function () {
-                await onSelectItemChangeHandler(queriesArr, setQueriesArr, brand, dispatch, 'matrices');
+                await onSelectItemChangeHandler(queriesArr, setQueriesArr, brand);
             })();
         }
     }, [brand]);
@@ -95,7 +97,7 @@ export default function FilterMatrix() {
                     return el.searchParamKeys.map((el) => {
                         return (
                             <div className='choosen' key={el}>
-                                {el}
+                                {el === 'available' ? 'Есть на складе' : el === 'discount' ? 'Скидка' : el === 'salesHit' ? 'Хит продаж' : el}
                                 <IconRenderer
                                     id='cross-icon'
                                     onClick={() => {
@@ -188,6 +190,7 @@ export default function FilterMatrix() {
     }, []);
 
     useEffect(() => {
+        console.log(queriesArr);
         (async function () {
             const res = await filterItemOnclickHandler(queriesArr, 'matrices');
 

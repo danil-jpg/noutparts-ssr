@@ -123,16 +123,10 @@ export const onFilterItemClickHandler = async (
     // return isActive;
 };
 
-export const onSelectItemChangeHandler = async (
-    queriesArr: IQuery[],
-    setQueryArr: React.Dispatch<React.SetStateAction<IQuery[]>>,
-    brand: string,
-    dispatch: (func: {}) => AppDispatch,
-    type: categories
-) => {
+export const onSelectItemChangeHandler = async (queriesArr: IQuery[], setQueryArr: React.Dispatch<React.SetStateAction<IQuery[]>>, brand: string) => {
     'use client';
     let copy: IQuery[] = [];
-
+    console.log('select handler handled');
     if (!queriesArr.length) {
         setQueryArr((prev) => {
             copy = structuredClone(prev);
@@ -157,6 +151,7 @@ export const onSelectItemChangeHandler = async (
                     });
                 } else {
                     const index = queriesArr[i].searchParamKeys.indexOf(brand);
+                    console.log(index);
                     setQueryArr((prev) => {
                         copy = structuredClone(prev);
                         copy[i].searchParamKeys.splice(index, 1);
