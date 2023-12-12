@@ -178,8 +178,85 @@ export const onSelectItemChangeHandler = async (
     // return res;
 };
 
-export const onChoosenItemClickHandler = async (queriesArr: IQuery[], dispatch: (func: {}) => AppDispatch, type: categories) => {
-    let res = '';
-    // console.log(queriesArr, res);
-    return res;
+export const onStatusItemClickHandler = async (
+    queriesArr: IQuery[],
+    setQueryArr: React.Dispatch<React.SetStateAction<IQuery[]>>,
+    searchParam: string,
+    searchParamKey: string
+) => {
+    'use client';
+    let copy: IQuery[] = [];
+    let isActive = false;
+    // e.currentTarget.classList.toggle('active');
+
+    if (!queriesArr.length) {
+        setQueryArr((prev) => {
+            copy = structuredClone(prev);
+            copy.push({
+                searchParam: searchParam,
+                searchParamKeys: [searchParamKey],
+            });
+            return copy;
+        });
+        isActive = true;
+    } else {
+        let numOfOccuranceCounter = 0;
+
+        for (let i = 0; i < queriesArr.length; i++) {
+            if (queriesArr[i].searchParam === searchParam) {
+                numOfOccuranceCounter = 1;
+                if (queriesArr[i].searchParamKeys.includes(searchParamKey) === false) {
+                    setQueryArr((prev) => {
+                        copy = structuredClone(prev);
+                        copy[i].searchParamKeys.push(searchParamKey);
+                        isActive = true;
+                        return copy;
+                    });
+                } else {
+                    const index = queriesArr[i].searchParamKeys.indexOf(searchParam);
+                    setQueryArr((prev) => {
+                        copy = structuredClone(prev);
+                        copy[i].searchParamKeys.splice(index, 1);
+                        isActive = false;
+                        return copy;
+                    });
+                }
+            }
+        }
+        if (numOfOccuranceCounter === 0) {
+            setQueryArr((prev) => {
+                copy = structuredClone(prev);
+                copy.push({
+                    searchParam: searchParam,
+                    searchParamKeys: [searchParamKey],
+                });
+                isActive = true;
+                return copy;
+            });
+        }
+    }
+
+    if (isActive) {
+        // e.currentTarget.classList.add('active');
+    } else {
+        // e.currentTarget.classList.remove('active');
+    }
+
+    // let res = '';
+
+    // await setTimeout(async () => {
+    // dispatch(setQueryArrRed(copy));
+    // await filterItemOnclickHandler(copy, type);
+    // dispatch(setData(res));
+    // }, 0);
+
+    // for (let i = 0; i < copy.length; i++) {
+    //     if (copy[i].searchParamKeys.includes(el.attributes.diagonale)) {
+    //         e.currentTarget.classList.add('active');
+    //     } else {
+    //         e.currentTarget.classList.remove('active');
+    //     }
+    // }
+
+    // return isActive;
 };

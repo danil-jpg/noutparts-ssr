@@ -3,7 +3,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { getFilterItemData } from '@/app/lib/data';
 import { v1 } from 'uuid';
 import Loading from '../../Loading/Loading';
-import { filterItemOnclickHandler, makeUniqueAndLoopFunc, onChoosenItemClickHandler, onSelectItemChangeHandler } from '@/app/lib/service';
+import {
+    filterItemOnclickHandler,
+    makeUniqueAndLoopFunc,
+    onChoosenItemClickHandler,
+    onSelectItemChangeHandler,
+    onStatusItemClickHandler,
+} from '@/app/lib/service';
 import clsx from 'clsx';
 import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
 import { IQuery } from '@/app/common/types/types';
@@ -192,7 +198,6 @@ export default function FilterMatrix() {
             const res = await filterItemOnclickHandler(queriesArr, 'matrices');
 
             dispatch(setData(res));
-            console.log(queriesArr);
             dispatch(setQueriesArrRed(queriesArr));
         })();
     }, [queriesArr, dispatch]);
@@ -461,9 +466,33 @@ export default function FilterMatrix() {
                         </div>
                     </div>
                     <div className='top-filter_filters_middle'>
-                        <div className='top-filters_filters_middle_btn active'>Есть на складе</div>
-                        <div className='top-filters_filters_middle_btn'>Скидка</div>
-                        <div className='top-filters_filters_middle_btn'>Новинки</div>
+                        <div
+                            className='top-filters_filters_middle_btn '
+                            onClick={() => {
+                                (async function () {
+                                    onStatusItemClickHandler(queriesArr, setQueriesArr, 'availability', 'available');
+                                })();
+                            }}>
+                            Есть на складе
+                        </div>
+                        <div
+                            className='top-filters_filters_middle_btn'
+                            onClick={() => {
+                                (async function () {
+                                    onStatusItemClickHandler(queriesArr, setQueriesArr, 'tag', 'discount');
+                                })();
+                            }}>
+                            Скидка
+                        </div>
+                        <div
+                            className='top-filters_filters_middle_btn'
+                            onClick={() => {
+                                (async function () {
+                                    onStatusItemClickHandler(queriesArr, setQueriesArr, 'tag', 'salesHit');
+                                })();
+                            }}>
+                            Хит продаж
+                        </div>
                     </div>
                     <RenderChoosen />
                     <FilterCards />
