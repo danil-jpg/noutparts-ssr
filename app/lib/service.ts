@@ -17,27 +17,20 @@ export const makeUniqueAndLoopFunc = (obj: any, propToCompare: string | number) 
     }
 };
 
-export const filterItemOnclickHandler = async (dataToGet: IQuery[], type: categories, sort: 'asc' | 'desc' | '' = '', dispatch?: (func: {}) => AppDispatch) => {
+export const filterItemOnclickHandler = async (dataToGet: IQuery[], type: categories) => {
     if (dataToGet.length) {
         const queryBuilderObj: any = {
             filters: {},
-            sort: [],
         };
-        console.log(dataToGet);
         for (let i = 0; i < dataToGet.length; i++) {
             queryBuilderObj.filters[dataToGet[i].searchParam] = {
-                eq: [...dataToGet[i].searchParamKeys],
+                $eq: [...dataToGet[i].searchParamKeys],
             };
-        }
-        if (sort) {
-            queryBuilderObj.sort = [`price:${sort}`];
         }
 
         const queryBuilder = qs.stringify(queryBuilderObj);
         const res = await fetchDataFromServer(type, queryBuilder);
-        if (sort && dispatch) {
-            dispatch(setData(res));
-        }
+
         return res;
     } else {
         return [];
@@ -106,16 +99,16 @@ export const onFilterItemClickHandler = async (
     }
 
     if (isActive) {
-        e.currentTarget.classList.add('active');
+        // e.currentTarget.classList.add('active');
     } else {
-        e.currentTarget.classList.remove('active');
+        // e.currentTarget.classList.remove('active');
     }
 
     // let res = '';
 
     // await setTimeout(async () => {
     // dispatch(setQueryArrRed(copy));
-    // res = await filterItemOnclickHandler(copy, type);
+    // await filterItemOnclickHandler(copy, type);
     // dispatch(setData(res));
     // }, 0);
 
@@ -127,7 +120,7 @@ export const onFilterItemClickHandler = async (
     //     }
     // }
 
-    return isActive;
+    // return isActive;
 };
 
 export const onSelectItemChangeHandler = async (
@@ -178,7 +171,7 @@ export const onSelectItemChangeHandler = async (
 
     // await setTimeout(async () => {
     //     dispatch(setQueryArrRed(copy));
-    //     res = await filterItemOnclickHandler(copy, type);
+    // await filterItemOnclickHandler(copy, type);
     //     dispatch(setData(res));
     // }, 0);
 
@@ -186,7 +179,7 @@ export const onSelectItemChangeHandler = async (
 };
 
 export const onChoosenItemClickHandler = async (queriesArr: IQuery[], dispatch: (func: {}) => AppDispatch, type: categories) => {
-    let res = await filterItemOnclickHandler(queriesArr, type);
+    let res = '';
     // console.log(queriesArr, res);
     return res;
 };

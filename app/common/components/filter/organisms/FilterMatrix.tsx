@@ -15,6 +15,12 @@ import { IBrand } from '@/app/common/types/types';
 import FilterCards from './FilterCards';
 import { setQueryArr as setQueriesArrRed } from '@/app/Redux/slice/query/query';
 
+interface IPrice {
+    attributes: {
+        price: number;
+    };
+}
+
 let [diagonale, permission, fastening, fiberOpticTechnology, connector, backlightType, hashrate]: any = '';
 
 export default function FilterMatrix() {
@@ -32,7 +38,7 @@ export default function FilterMatrix() {
 
     const dispatch = useAppDispatch();
 
-    const dataInRedux = useAppSelector((state) => state.queryReducer.data.data);
+    const dataInRedux = useAppSelector((state) => state.queryReducer.data.data as IPrice[]);
 
     // filter-top
     const [brand, setBrand] = useState<string>('');
@@ -64,16 +70,21 @@ export default function FilterMatrix() {
 
     useEffect(() => {
         if (price === 'по возрастанию') {
-            // filterItemOnclickHandler(queriesArr, 'matrices', 'asc', dispatch);
-            dataInRedux.sort((a, b) => {
-                console.log(a);
-                return a - b;
-                // return a.price-b.price
+            const dataInReduxCopy = structuredClone(dataInRedux);
+
+            dataInReduxCopy.sort((a, b) => {
+                return a.attributes.price - b.attributes.price;
             });
+
+            dispatch(setData({ data: dataInReduxCopy }));
         } else if (price === 'по убыванию') {
-            // filterItemOnclickHandler(queriesArr, 'matrices', 'desc', dispatch);
-        } else {
-            // console.log(price);
+            const dataInReduxCopy = structuredClone(dataInRedux);
+
+            dataInReduxCopy.sort((a, b) => {
+                return b.attributes.price - a.attributes.price;
+            });
+
+            dispatch(setData({ data: dataInReduxCopy }));
         }
     }, [price]);
 
@@ -159,9 +170,6 @@ export default function FilterMatrix() {
         };
 
         fetchData();
-
-        // dispatch(setQueriesArrRed([]));
-        // dispatch(setData([]));
     }, []);
 
     useEffect(() => {
@@ -181,9 +189,10 @@ export default function FilterMatrix() {
 
     useEffect(() => {
         (async function () {
-            const res = await onChoosenItemClickHandler(queriesArr, dispatch, 'matrices');
+            const res = await filterItemOnclickHandler(queriesArr, 'matrices');
 
             dispatch(setData(res));
+            console.log(queriesArr);
             dispatch(setQueriesArrRed(queriesArr));
         })();
     }, [queriesArr, dispatch]);
@@ -268,10 +277,10 @@ export default function FilterMatrix() {
                                                 await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'permission');
                                                 for (let i = 0; i < queriesArr.length; i++) {
                                                     if (queriesArr[i].searchParamKeys.includes(el)) {
-                                                        e.currentTarget.classList.add('active');
+                                                        // e.currentTarget.classList.add('active');
                                                         break;
                                                     } else {
-                                                        e.currentTarget.classList.remove('active');
+                                                        // e.currentTarget.classList.remove('active');
                                                     }
                                                 }
                                                 e.stopPropagation();
