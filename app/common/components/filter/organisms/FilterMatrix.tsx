@@ -27,8 +27,6 @@ const choosenFilterParametrs: (string | number)[] = [];
 export default function FilterMatrix() {
     const [queriesArr, setQueriesArr] = useState<IQuery[]>([]);
 
-    // const [isActiveLi,setIsActiveLi] = useState<boolean>([])
-
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
     const [isActive, setIsActive] = useState<boolean>(false);
@@ -41,13 +39,10 @@ export default function FilterMatrix() {
 
     const dataInRedux = useAppSelector((state) => state.queryReducer.data.data as IPrice[]);
 
-    const [availible, setAvailible] = useState<boolean>(false);
-
     // filter-top
     const [brand, setBrand] = useState<string>('');
     const [price, setPrice] = useState<string>('');
     const [brandArr, setBrandArr] = useState<string[]>([]);
-    const [priceArr, setPriceArr] = useState<string[]>([]);
 
     useEffect(() => {
         const getData = async () => {
@@ -60,6 +55,8 @@ export default function FilterMatrix() {
         };
 
         getData();
+
+        dispatch(setDefaultDataAndQueryArr());
     }, []);
 
     useEffect(() => {
@@ -91,7 +88,7 @@ export default function FilterMatrix() {
         }
     }, [price]);
 
-    const RenderChoosen = () => {
+    const RenderChoosen = (): React.JSX.Element => {
         return (
             <div className='choosen-wr'>
                 {queriesArr.map((el: IQuery) => {
@@ -190,10 +187,6 @@ export default function FilterMatrix() {
     }, [isActive]);
 
     useEffect(() => {
-        dispatch(setDefaultDataAndQueryArr());
-    }, []);
-
-    useEffect(() => {
         (async function () {
             const res = await filterItemOnclickHandler(queriesArr, 'matrices');
 
@@ -242,7 +235,7 @@ export default function FilterMatrix() {
                                             className={clsx({ active: choosenFilterParametrs.includes(el.attributes.diagonale), filter_item__value: true })}
                                             onClick={(e) => {
                                                 (async function () {
-                                                    await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'diagonale');
+                                                    await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'diagonale');
                                                 })();
                                                 if (choosenFilterParametrs.includes(el.attributes.diagonale)) {
                                                     const index = choosenFilterParametrs.indexOf(el.attributes.diagonale);
@@ -250,8 +243,6 @@ export default function FilterMatrix() {
                                                 } else {
                                                     choosenFilterParametrs.push(el.attributes.diagonale);
                                                 }
-
-                                                // e.currentTarget.classList.toggle('active');
 
                                                 e.stopPropagation();
                                             }}>
@@ -283,17 +274,17 @@ export default function FilterMatrix() {
                                     {permission.data.map((el: any) => (
                                         <li
                                             key={el.id}
-                                            className='filter_item__value'
+                                            className={clsx({ active: choosenFilterParametrs.includes(el.attributes.permission), filter_item__value: true })}
                                             onClick={async (e) => {
-                                                await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'permission');
-                                                for (let i = 0; i < queriesArr.length; i++) {
-                                                    if (queriesArr[i].searchParamKeys.includes(el)) {
-                                                        // e.currentTarget.classList.add('active');
-                                                        break;
-                                                    } else {
-                                                        // e.currentTarget.classList.remove('active');
-                                                    }
+                                                await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'permission');
+
+                                                if (choosenFilterParametrs.includes(el.attributes.permission)) {
+                                                    const index = choosenFilterParametrs.indexOf(el.attributes.permission);
+                                                    choosenFilterParametrs.splice(index, 1);
+                                                } else {
+                                                    choosenFilterParametrs.push(el.attributes.permission);
                                                 }
+
                                                 e.stopPropagation();
                                             }}>
                                             {el.attributes.permission} px
@@ -323,17 +314,17 @@ export default function FilterMatrix() {
                                     {fastening.data.map((el: any) => (
                                         <li
                                             key={el.id}
-                                            className='filter_item__value'
+                                            className={clsx({ active: choosenFilterParametrs.includes(el.attributes.fastening), filter_item__value: true })}
                                             onClick={async (e) => {
-                                                await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'fastening');
-                                                for (let i = 0; i < queriesArr.length; i++) {
-                                                    if (queriesArr[i].searchParamKeys.includes(el)) {
-                                                        e.currentTarget.classList.add('active');
-                                                        break;
-                                                    } else {
-                                                        e.currentTarget.classList.remove('active');
-                                                    }
+                                                await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'fastening');
+
+                                                if (choosenFilterParametrs.includes(el.attributes.fastening)) {
+                                                    const index = choosenFilterParametrs.indexOf(el.attributes.fastening);
+                                                    choosenFilterParametrs.splice(index, 1);
+                                                } else {
+                                                    choosenFilterParametrs.push(el.attributes.fastening);
                                                 }
+
                                                 e.stopPropagation();
                                             }}>
                                             {el.attributes.fastening}
@@ -363,17 +354,20 @@ export default function FilterMatrix() {
                                     {fiberOpticTechnology.data.map((el: any) => (
                                         <li
                                             key={v1()}
-                                            className='filter_item__value'
+                                            className={clsx({
+                                                active: choosenFilterParametrs.includes(el.attributes.fiber_optic_technology),
+                                                filter_item__value: true,
+                                            })}
                                             onClick={async (e) => {
-                                                await onFilterItemClickHandler(
-                                                    e,
-                                                    queriesArr,
-                                                    setQueriesArr,
-                                                    dispatch,
-                                                    'matrices',
-                                                    el,
-                                                    'fiber_optic_technology'
-                                                );
+                                                await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'fiber_optic_technology');
+
+                                                if (choosenFilterParametrs.includes(el.attributes.fiber_optic_technology)) {
+                                                    const index = choosenFilterParametrs.indexOf(el.attributes.fiber_optic_technology);
+                                                    choosenFilterParametrs.splice(index, 1);
+                                                } else {
+                                                    choosenFilterParametrs.push(el.attributes.fiber_optic_technology);
+                                                }
+
                                                 e.stopPropagation();
                                             }}>
                                             {el.attributes.fiber_optic_technology}
@@ -403,9 +397,20 @@ export default function FilterMatrix() {
                                     {backlightType.data.map((el: any) => (
                                         <li
                                             key={v1()}
-                                            className='filter_item__value'
+                                            className={clsx({
+                                                active: choosenFilterParametrs.includes(el.attributes.backlight_type),
+                                                filter_item__value: true,
+                                            })}
                                             onClick={async (e) => {
-                                                await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'backlight_type');
+                                                await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'backlight_type');
+
+                                                if (choosenFilterParametrs.includes(el.attributes.backlight_type)) {
+                                                    const index = choosenFilterParametrs.indexOf(el.attributes.backlight_type);
+                                                    choosenFilterParametrs.splice(index, 1);
+                                                } else {
+                                                    choosenFilterParametrs.push(el.attributes.backlight_type);
+                                                }
+
                                                 e.stopPropagation();
                                             }}>
                                             {el.attributes.backlight_type}
@@ -435,9 +440,17 @@ export default function FilterMatrix() {
                                     {hashrate.data.map((el: any) => (
                                         <li
                                             key={v1()}
-                                            className='filter_item__value'
+                                            className={clsx({ active: choosenFilterParametrs.includes(el.attributes.hashrate), filter_item__value: true })}
                                             onClick={async (e) => {
-                                                await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'hashrate');
+                                                await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'hashrate');
+
+                                                if (choosenFilterParametrs.includes(el.attributes.hashrate)) {
+                                                    const index = choosenFilterParametrs.indexOf(el.attributes.hashrate);
+                                                    choosenFilterParametrs.splice(index, 1);
+                                                } else {
+                                                    choosenFilterParametrs.push(el.attributes.hashrate);
+                                                }
+
                                                 e.stopPropagation();
                                             }}>
                                             {el.attributes.hashrate}

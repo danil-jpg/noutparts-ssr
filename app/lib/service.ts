@@ -38,18 +38,13 @@ export const filterItemOnclickHandler = async (dataToGet: IQuery[], type: catego
 };
 
 export const onFilterItemClickHandler = async (
-    e: React.MouseEvent<HTMLLIElement, MouseEvent>,
     queriesArr: IQuery[],
     setQueryArr: React.Dispatch<React.SetStateAction<IQuery[]>>,
-    dispatch: (func: {}) => AppDispatch,
-    type: categories,
     el: { attributes: any },
     searchParam: string
 ) => {
     'use client';
     let copy: IQuery[] = [];
-    let isActive = false;
-    // e.currentTarget.classList.toggle('active');
 
     if (!queriesArr.length) {
         setQueryArr((prev) => {
@@ -60,7 +55,6 @@ export const onFilterItemClickHandler = async (
             });
             return copy;
         });
-        isActive = true;
     } else {
         let numOfOccuranceCounter = 0;
 
@@ -71,7 +65,6 @@ export const onFilterItemClickHandler = async (
                     setQueryArr((prev) => {
                         copy = structuredClone(prev);
                         copy[i].searchParamKeys.push(el.attributes[searchParam]);
-                        isActive = true;
                         return copy;
                     });
                 } else {
@@ -79,7 +72,6 @@ export const onFilterItemClickHandler = async (
                     setQueryArr((prev) => {
                         copy = structuredClone(prev);
                         copy[i].searchParamKeys.splice(index, 1);
-                        isActive = false;
                         return copy;
                     });
                 }
@@ -92,35 +84,10 @@ export const onFilterItemClickHandler = async (
                     searchParam: searchParam,
                     searchParamKeys: [el.attributes[searchParam]],
                 });
-                isActive = true;
                 return copy;
             });
         }
     }
-
-    if (isActive) {
-        // e.currentTarget.classList.add('active');
-    } else {
-        // e.currentTarget.classList.remove('active');
-    }
-
-    // let res = '';
-
-    // await setTimeout(async () => {
-    // dispatch(setQueryArrRed(copy));
-    // await filterItemOnclickHandler(copy, type);
-    // dispatch(setData(res));
-    // }, 0);
-
-    // for (let i = 0; i < copy.length; i++) {
-    //     if (copy[i].searchParamKeys.includes(el.attributes.diagonale)) {
-    //         e.currentTarget.classList.add('active');
-    //     } else {
-    //         e.currentTarget.classList.remove('active');
-    //     }
-    // }
-
-    // return isActive;
 };
 
 export const onSelectItemChangeHandler = async (queriesArr: IQuery[], setQueryArr: React.Dispatch<React.SetStateAction<IQuery[]>>, brand: string) => {
