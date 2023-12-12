@@ -22,6 +22,7 @@ interface IPrice {
 }
 
 let [diagonale, permission, fastening, fiberOpticTechnology, connector, backlightType, hashrate]: any = '';
+const choosenFilterParametrs: (string | number)[] = [];
 
 export default function FilterMatrix() {
     const [queriesArr, setQueriesArr] = useState<IQuery[]>([]);
@@ -104,6 +105,7 @@ export default function FilterMatrix() {
                                         for (let i = 0; i < queriesArr.length; i++) {
                                             if (queriesArr[i].searchParamKeys.includes(el)) {
                                                 const index = queriesArr[i].searchParamKeys.indexOf(el);
+
                                                 setQueriesArr((prev) => {
                                                     const copy = structuredClone(prev);
                                                     copy[i].searchParamKeys.splice(index, 1);
@@ -111,6 +113,8 @@ export default function FilterMatrix() {
 
                                                     return copy;
                                                 });
+
+                                                choosenFilterParametrs.splice(index, 1);
 
                                                 break;
                                             }
@@ -190,7 +194,6 @@ export default function FilterMatrix() {
     }, []);
 
     useEffect(() => {
-        console.log(queriesArr);
         (async function () {
             const res = await filterItemOnclickHandler(queriesArr, 'matrices');
 
@@ -236,11 +239,17 @@ export default function FilterMatrix() {
                                     {diagonale.data.map((el: { id: number; attributes: { [key: string]: string } }) => (
                                         <li
                                             key={el.id}
-                                            className='filter_item__value'
+                                            className={clsx({ active: choosenFilterParametrs.includes(el.attributes.diagonale), filter_item__value: true })}
                                             onClick={(e) => {
                                                 (async function () {
                                                     await onFilterItemClickHandler(e, queriesArr, setQueriesArr, dispatch, 'matrices', el, 'diagonale');
                                                 })();
+                                                if (choosenFilterParametrs.includes(el.attributes.diagonale)) {
+                                                    const index = choosenFilterParametrs.indexOf(el.attributes.diagonale);
+                                                    choosenFilterParametrs.splice(index, 1);
+                                                } else {
+                                                    choosenFilterParametrs.push(el.attributes.diagonale);
+                                                }
 
                                                 // e.currentTarget.classList.toggle('active');
 
@@ -464,29 +473,59 @@ export default function FilterMatrix() {
                     </div>
                     <div className='top-filter_filters_middle'>
                         <div
-                            className='top-filters_filters_middle_btn '
+                            className={clsx({
+                                'top-filters_filters_middle_btn': true,
+                                active: choosenFilterParametrs.includes('available'),
+                            })}
                             onClick={() => {
                                 (async function () {
                                     onStatusItemClickHandler(queriesArr, setQueriesArr, 'availability', 'available');
                                 })();
+
+                                if (choosenFilterParametrs.includes('available')) {
+                                    const index = choosenFilterParametrs.indexOf('available');
+                                    choosenFilterParametrs.splice(index, 1);
+                                } else {
+                                    choosenFilterParametrs.push('available');
+                                }
                             }}>
                             Есть на складе
                         </div>
                         <div
-                            className='top-filters_filters_middle_btn'
+                            className={clsx({
+                                'top-filters_filters_middle_btn': true,
+                                active: choosenFilterParametrs.includes('discount'),
+                            })}
                             onClick={() => {
                                 (async function () {
                                     onStatusItemClickHandler(queriesArr, setQueriesArr, 'tag', 'discount');
                                 })();
+
+                                if (choosenFilterParametrs.includes('discount')) {
+                                    const index = choosenFilterParametrs.indexOf('discount');
+                                    choosenFilterParametrs.splice(index, 1);
+                                } else {
+                                    choosenFilterParametrs.push('discount');
+                                }
                             }}>
                             Скидка
                         </div>
                         <div
-                            className='top-filters_filters_middle_btn'
+                            className={clsx({
+                                'top-filters_filters_middle_btn': true,
+                                active: choosenFilterParametrs.includes('salesHit'),
+                            })}
                             onClick={() => {
                                 (async function () {
                                     onStatusItemClickHandler(queriesArr, setQueriesArr, 'tag', 'salesHit');
                                 })();
+
+                                if (choosenFilterParametrs.includes('salesHit')) {
+                                    const index = choosenFilterParametrs.indexOf('salesHit');
+                                    choosenFilterParametrs.splice(index, 1);
+                                } else {
+                                    choosenFilterParametrs.push('salesHit');
+                                }
                             }}>
                             Хит продаж
                         </div>
