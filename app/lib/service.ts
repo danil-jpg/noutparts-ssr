@@ -67,7 +67,7 @@ export const onFilterItemClickHandler = async (
         for (let i = 0; i < queriesArr.length; i++) {
             if (queriesArr[i].searchParam === searchParam) {
                 numOfOccuranceCounter = 1;
-                if (queriesArr[i].searchParamKeys.includes(el.attributes[searchParam]) === false) {
+                if (!queriesArr[i].searchParamKeys.includes(el.attributes[searchParam])) {
                     setQueryArr((prev) => {
                         copy = structuredClone(prev);
                         copy[i].searchParamKeys.push(el.attributes[searchParam]);
@@ -130,6 +130,7 @@ export const onSelectItemChangeHandler = async (
     dispatch: (func: {}) => AppDispatch,
     type: categories
 ) => {
+    'use client';
     let copy: IQuery[] = [];
 
     if (!queriesArr.length) {
@@ -143,18 +144,28 @@ export const onSelectItemChangeHandler = async (
         });
     } else {
         let numOfOccuranceCounter = 0;
+
         for (let i = 0; i < queriesArr.length; i++) {
             if (queriesArr[i].searchParam === 'brand') {
+                numOfOccuranceCounter = 1;
+
                 if (!queriesArr[i].searchParamKeys.includes(brand)) {
-                    numOfOccuranceCounter = 1;
                     setQueryArr((prev) => {
                         copy = structuredClone(prev);
                         copy[i].searchParamKeys.push(brand);
                         return copy;
                     });
+                } else {
+                    const index = queriesArr[i].searchParamKeys.indexOf(brand);
+                    setQueryArr((prev) => {
+                        copy = structuredClone(prev);
+                        copy[i].searchParamKeys.splice(index, 1);
+                        return copy;
+                    });
                 }
             }
         }
+
         if (numOfOccuranceCounter === 0) {
             setQueryArr((prev) => {
                 copy = structuredClone(prev);

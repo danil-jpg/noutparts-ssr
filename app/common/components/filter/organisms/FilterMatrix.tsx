@@ -3,13 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { getFilterItemData } from '@/app/lib/data';
 import { v1 } from 'uuid';
 import Loading from '../../Loading/Loading';
-import {
-    filterItemOnclickHandler,
-    makeUniqueAndLoopFunc,
-    onChoosenItemClickHandler,
-    onSelectItemChangeHandler,
-    onStatusItemClickHandler,
-} from '@/app/lib/service';
+import { filterItemOnclickHandler, makeUniqueAndLoopFunc, onSelectItemChangeHandler, onStatusItemClickHandler } from '@/app/lib/service';
 import clsx from 'clsx';
 import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
 import { IQuery } from '@/app/common/types/types';
