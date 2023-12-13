@@ -85,3 +85,33 @@
     margin-top: 20px;
     flex-wrap: wrap;
 }
+
+.top-filter_filters_middle {
+    display: flex;
+    margin-top: 23px;
+    gap: 22px;
+}
+
+.top-filters_filters_middle_btn {
+    padding: 11px 34px;
+    background: #36dd65;
+    color: #fff;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 108.9%;
+    cursor: pointer;
+    border: 1px solid transparent;
+    &.active {
+        color: #555;
+        border: 1px solid #36dd65;
+        background: #fff;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .filter-menu-burger-wr {
+        display: block;
+    }
+}

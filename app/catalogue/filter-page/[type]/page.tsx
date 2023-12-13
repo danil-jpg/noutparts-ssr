@@ -4,7 +4,7 @@ import { Breadcrumb } from '@/app/common/types/types';
 import Filter from '@/app/common/components/filter/Filter';
 import './filter-page.scss';
 import { useEffect } from 'react';
-import FilterCards from '@/app/common/components/filter/organisms/FilterCards';
+import FilterCards from '@/app/common/components/filter/organisms/FilterCards/FilterCards';
 // import TopFilter from '@/app/common/components/filter/organisms/TopFilter/TopFilter';
 
 export default function Page({ params }: { params: { type: string } }) {

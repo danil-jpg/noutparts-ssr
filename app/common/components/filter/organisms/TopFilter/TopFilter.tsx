@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
 import { onSelectItemChangeHandler, onStatusItemClickHandler } from '@/app/lib/service';
 import { IQuery, categories } from '@/app/common/types/types';
 import { setData, setDefaultDataAndQueryArr } from '@/app/Redux/slice/query/query';
-import FilterCards from '../FilterCards';
+import FilterCards from '../FilterCards/FilterCards';
 import clsx from 'clsx';
 
 interface IBrand {
@@ -95,7 +95,6 @@ const TopFilter = ({
         return (
             <div className='choosen-wr'>
                 {queriesArr.map((el: IQuery) => {
-                    console.log(queriesArr);
                     return el.searchParamKeys.map((el) => {
                         return (
                             <div className='choosen' key={el}>

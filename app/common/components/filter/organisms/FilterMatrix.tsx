@@ -11,7 +11,7 @@ import { onFilterItemClickHandler } from '@/app/lib/service';
 import IconRenderer from '@/app/common/ui/Icons/IconRenderer';
 import { setData, setDefaultDataAndQueryArr } from '@/app/Redux/slice/query/query';
 import Select from '@/app/common/ui/form/select/Select';
-import FilterCards from './FilterCards';
+import FilterCards from './FilterCards/FilterCards';
 import { setQueryArr as setQueriesArrRed } from '@/app/Redux/slice/query/query';
 import TopFilter from './TopFilter/TopFilter';
 
@@ -31,8 +31,6 @@ export default function FilterMatrix() {
     const substrateRef = useRef<HTMLDivElement | null>(null);
 
     const dispatch = useAppDispatch();
-
-    const selector = useAppSelector((state) => state.queryReducer.queryArr);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -72,8 +70,6 @@ export default function FilterMatrix() {
         };
 
         dispatch(setDefaultDataAndQueryArr());
-
-        // setQueriesArr(selector);
 
         fetchData();
     }, []);

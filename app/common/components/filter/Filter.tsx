@@ -33,7 +33,7 @@ export default function Filter({ type }: IFilter) {
 
     return (
         <Suspense fallback={<Loading />}>
-            <RenderFilter />;
+            <RenderFilter />
         </Suspense>
     );
 }
