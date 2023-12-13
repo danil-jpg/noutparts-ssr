@@ -73,7 +73,7 @@ export default function FilterMatrix() {
 
         dispatch(setDefaultDataAndQueryArr());
 
-        setQueriesArr(selector);
+        // setQueriesArr(selector);
 
         fetchData();
     }, []);

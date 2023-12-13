@@ -1,14 +1,13 @@
 'use client';
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Select from '../../../../ui/form/select/Select';
 import './TopFilter.scss';
 import IconRenderer from '@/app/common/ui/Icons/IconRenderer';
 import { getFilterItemData } from '@/app/lib/data';
 import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
-import { filterItemOnclickHandler, onFilterItemClickHandler, onSelectItemChangeHandler, onStatusItemClickHandler } from '@/app/lib/service';
+import { onSelectItemChangeHandler, onStatusItemClickHandler } from '@/app/lib/service';
 import { IQuery, categories } from '@/app/common/types/types';
 import { setData, setDefaultDataAndQueryArr } from '@/app/Redux/slice/query/query';
-import { setQueryArr as setQueriesArrRed } from '@/app/Redux/slice/query/query';
 import FilterCards from '../FilterCards';
 import clsx from 'clsx';
 
@@ -28,7 +27,23 @@ interface IPrice {
     };
 }
 
-const TopFilter = ({ queriesArr, setQueriesArr, isActive, setIsActive, substrateRef, choosenFilterParametrs, setChoosenFilterParametrs }) => {
+const TopFilter = ({
+    queriesArr,
+    setQueriesArr,
+    isActive,
+    setIsActive,
+    substrateRef,
+    choosenFilterParametrs,
+    setChoosenFilterParametrs,
+}: {
+    queriesArr: IQuery[];
+    setQueriesArr: React.Dispatch<React.SetStateAction<IQuery[]>>;
+    isActive: boolean;
+    setIsActive: React.Dispatch<React.SetStateAction<boolean>>;
+    substrateRef: React.MutableRefObject<HTMLDivElement | null>;
+    choosenFilterParametrs: (string | number)[];
+    setChoosenFilterParametrs: React.Dispatch<React.SetStateAction<(string | number)[]>>;
+}) => {
     const [brand, setBrand] = useState<string>('');
     const [price, setPrice] = useState<string>('');
     const [brandArr, setBrandArr] = useState<string[]>([]);
@@ -46,7 +61,6 @@ const TopFilter = ({ queriesArr, setQueriesArr, isActive, setIsActive, substrate
             }
             setBrandArr(formattedAns);
         };
-
         getData();
     }, []);
 
@@ -81,6 +95,7 @@ const TopFilter = ({ queriesArr, setQueriesArr, isActive, setIsActive, substrate
         return (
             <div className='choosen-wr'>
                 {queriesArr.map((el: IQuery) => {
+                    console.log(queriesArr);
                     return el.searchParamKeys.map((el) => {
                         return (
                             <div className='choosen' key={el}>
