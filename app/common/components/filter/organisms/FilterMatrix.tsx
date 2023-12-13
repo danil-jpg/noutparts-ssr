@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { getFilterItemData } from '@/app/lib/data';
 import { v1 } from 'uuid';
 import Loading from '../../Loading/Loading';
@@ -11,20 +11,15 @@ import { onFilterItemClickHandler } from '@/app/lib/service';
 import IconRenderer from '@/app/common/ui/Icons/IconRenderer';
 import { setData, setDefaultDataAndQueryArr } from '@/app/Redux/slice/query/query';
 import Select from '@/app/common/ui/form/select/Select';
-import { IBrand } from '@/app/common/types/types';
 import FilterCards from './FilterCards';
 import { setQueryArr as setQueriesArrRed } from '@/app/Redux/slice/query/query';
-
-interface IPrice {
-    attributes: {
-        price: number;
-    };
-}
+import TopFilter from './TopFilter/TopFilter';
 
 let [diagonale, permission, fastening, fiberOpticTechnology, connector, backlightType, hashrate]: any = '';
-const choosenFilterParametrs: (string | number)[] = [];
 
 export default function FilterMatrix() {
+    const [choosenFilterParametrs, setChoosenFilterParametrs] = useState<(string | number)[]>([]);
+
     const [queriesArr, setQueriesArr] = useState<IQuery[]>([]);
 
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -37,95 +32,7 @@ export default function FilterMatrix() {
 
     const dispatch = useAppDispatch();
 
-    const dataInRedux = useAppSelector((state) => state.queryReducer.data.data as IPrice[]);
-
-    // filter-top
-    const [brand, setBrand] = useState<string>('');
-    const [price, setPrice] = useState<string>('');
-    const [brandArr, setBrandArr] = useState<string[]>([]);
-
-    useEffect(() => {
-        const getData = async () => {
-            const res = (await getFilterItemData(`matrices?fields[0]=brand&fields[1]`)) as IBrand;
-            const formattedAns = [];
-            for (let key in res.data) {
-                formattedAns.push(res.data[key].attributes.brand);
-            }
-            setBrandArr(formattedAns);
-        };
-
-        getData();
-
-        dispatch(setDefaultDataAndQueryArr());
-    }, []);
-
-    useEffect(() => {
-        if (brand === 'Бренд' || brand === '') {
-        } else {
-            (async function () {
-                await onSelectItemChangeHandler(queriesArr, setQueriesArr, brand);
-            })();
-        }
-    }, [brand]);
-
-    useEffect(() => {
-        if (price === 'по возрастанию') {
-            const dataInReduxCopy = structuredClone(dataInRedux);
-
-            dataInReduxCopy.sort((a, b) => {
-                return a.attributes.price - b.attributes.price;
-            });
-
-            dispatch(setData({ data: dataInReduxCopy }));
-        } else if (price === 'по убыванию') {
-            const dataInReduxCopy = structuredClone(dataInRedux);
-
-            dataInReduxCopy.sort((a, b) => {
-                return b.attributes.price - a.attributes.price;
-            });
-
-            dispatch(setData({ data: dataInReduxCopy }));
-        }
-    }, [price]);
-
-    const RenderChoosen = (): React.JSX.Element => {
-        return (
-            <div className='choosen-wr'>
-                {queriesArr.map((el: IQuery) => {
-                    return el.searchParamKeys.map((el) => {
-                        return (
-                            <div className='choosen' key={el}>
-                                {el === 'available' ? 'Есть на складе' : el === 'discount' ? 'Скидка' : el === 'salesHit' ? 'Хит продаж' : el}
-                                <IconRenderer
-                                    id='cross-icon'
-                                    onClick={() => {
-                                        for (let i = 0; i < queriesArr.length; i++) {
-                                            if (queriesArr[i].searchParamKeys.includes(el)) {
-                                                const index = queriesArr[i].searchParamKeys.indexOf(el);
-
-                                                setQueriesArr((prev) => {
-                                                    const copy = structuredClone(prev);
-                                                    copy[i].searchParamKeys.splice(index, 1);
-                                                    dispatch(setQueriesArrRed(copy));
-
-                                                    return copy;
-                                                });
-
-                                                choosenFilterParametrs.splice(index, 1);
-
-                                                break;
-                                            }
-                                        }
-                                    }}
-                                />
-                            </div>
-                        );
-                    });
-                })}
-            </div>
-        );
-    };
-    //
+    const selector = useAppSelector((state) => state.queryReducer.queryArr);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -147,14 +54,6 @@ export default function FilterMatrix() {
                 hashrateRow,
             ]);
 
-            // diagonale = await diagonaleRow;
-            // permission = await permissionRow;
-            // fastening = await fasteningRow;
-            // connector = await connectorRow;
-            // fiberOpticTechnology = await fiberOpticTechnologyRow;
-            // backlightType = await backlightTypeRow;
-            // hashrate = await hashrateRow;
-
             makeUniqueAndLoopFunc(diagonale, 'diagonale');
 
             makeUniqueAndLoopFunc(permission, 'permission');
@@ -171,6 +70,10 @@ export default function FilterMatrix() {
 
             setIsLoaded(true);
         };
+
+        dispatch(setDefaultDataAndQueryArr());
+
+        setQueriesArr(selector);
 
         fetchData();
     }, []);
@@ -193,7 +96,7 @@ export default function FilterMatrix() {
             dispatch(setData(res));
             dispatch(setQueriesArrRed(queriesArr));
         })();
-    }, [queriesArr, dispatch]);
+    }, [queriesArr]);
 
     if (!isLoaded) {
         return <Loading></Loading>;
@@ -239,9 +142,16 @@ export default function FilterMatrix() {
                                                 })();
                                                 if (choosenFilterParametrs.includes(el.attributes.diagonale)) {
                                                     const index = choosenFilterParametrs.indexOf(el.attributes.diagonale);
-                                                    choosenFilterParametrs.splice(index, 1);
+
+                                                    setChoosenFilterParametrs((prev) => {
+                                                        prev.splice(index, 1);
+                                                        return prev;
+                                                    });
                                                 } else {
-                                                    choosenFilterParametrs.push(el.attributes.diagonale);
+                                                    setChoosenFilterParametrs((prev) => {
+                                                        prev.push(el.attributes.diagonale);
+                                                        return prev;
+                                                    });
                                                 }
 
                                                 e.stopPropagation();
@@ -275,14 +185,22 @@ export default function FilterMatrix() {
                                         <li
                                             key={el.id}
                                             className={clsx({ active: choosenFilterParametrs.includes(el.attributes.permission), filter_item__value: true })}
-                                            onClick={async (e) => {
-                                                await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'permission');
+                                            onClick={(e) => {
+                                                (async function () {
+                                                    await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'permission');
+                                                })();
 
                                                 if (choosenFilterParametrs.includes(el.attributes.permission)) {
                                                     const index = choosenFilterParametrs.indexOf(el.attributes.permission);
-                                                    choosenFilterParametrs.splice(index, 1);
+                                                    setChoosenFilterParametrs((prev) => {
+                                                        prev.splice(index, 1);
+                                                        return prev;
+                                                    });
                                                 } else {
-                                                    choosenFilterParametrs.push(el.attributes.permission);
+                                                    setChoosenFilterParametrs((prev) => {
+                                                        prev.push(el.attributes.permission);
+                                                        return prev;
+                                                    });
                                                 }
 
                                                 e.stopPropagation();
@@ -315,14 +233,22 @@ export default function FilterMatrix() {
                                         <li
                                             key={el.id}
                                             className={clsx({ active: choosenFilterParametrs.includes(el.attributes.fastening), filter_item__value: true })}
-                                            onClick={async (e) => {
-                                                await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'fastening');
+                                            onClick={(e) => {
+                                                (async function () {
+                                                    await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'fastening');
+                                                })();
 
                                                 if (choosenFilterParametrs.includes(el.attributes.fastening)) {
                                                     const index = choosenFilterParametrs.indexOf(el.attributes.fastening);
-                                                    choosenFilterParametrs.splice(index, 1);
+                                                    setChoosenFilterParametrs((prev) => {
+                                                        prev.splice(index, 1);
+                                                        return prev;
+                                                    });
                                                 } else {
-                                                    choosenFilterParametrs.push(el.attributes.fastening);
+                                                    setChoosenFilterParametrs((prev) => {
+                                                        prev.push(el.attributes.fastening);
+                                                        return prev;
+                                                    });
                                                 }
 
                                                 e.stopPropagation();
@@ -358,14 +284,22 @@ export default function FilterMatrix() {
                                                 active: choosenFilterParametrs.includes(el.attributes.fiber_optic_technology),
                                                 filter_item__value: true,
                                             })}
-                                            onClick={async (e) => {
-                                                await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'fiber_optic_technology');
+                                            onClick={(e) => {
+                                                (async function () {
+                                                    await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'fiber_optic_technology');
+                                                })();
 
                                                 if (choosenFilterParametrs.includes(el.attributes.fiber_optic_technology)) {
                                                     const index = choosenFilterParametrs.indexOf(el.attributes.fiber_optic_technology);
-                                                    choosenFilterParametrs.splice(index, 1);
+                                                    setChoosenFilterParametrs((prev) => {
+                                                        prev.splice(index, 1);
+                                                        return prev;
+                                                    });
                                                 } else {
-                                                    choosenFilterParametrs.push(el.attributes.fiber_optic_technology);
+                                                    setChoosenFilterParametrs((prev) => {
+                                                        prev.push(el.attributes.fiber_optic_technology);
+                                                        return prev;
+                                                    });
                                                 }
 
                                                 e.stopPropagation();
@@ -401,14 +335,22 @@ export default function FilterMatrix() {
                                                 active: choosenFilterParametrs.includes(el.attributes.backlight_type),
                                                 filter_item__value: true,
                                             })}
-                                            onClick={async (e) => {
-                                                await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'backlight_type');
+                                            onClick={(e) => {
+                                                (async function () {
+                                                    await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'backlight_type');
+                                                })();
 
                                                 if (choosenFilterParametrs.includes(el.attributes.backlight_type)) {
                                                     const index = choosenFilterParametrs.indexOf(el.attributes.backlight_type);
-                                                    choosenFilterParametrs.splice(index, 1);
+                                                    setChoosenFilterParametrs((prev) => {
+                                                        prev.splice(index, 1);
+                                                        return prev;
+                                                    });
                                                 } else {
-                                                    choosenFilterParametrs.push(el.attributes.backlight_type);
+                                                    setChoosenFilterParametrs((prev) => {
+                                                        prev.push(el.attributes.backlight_type);
+                                                        return prev;
+                                                    });
                                                 }
 
                                                 e.stopPropagation();
@@ -441,14 +383,22 @@ export default function FilterMatrix() {
                                         <li
                                             key={v1()}
                                             className={clsx({ active: choosenFilterParametrs.includes(el.attributes.hashrate), filter_item__value: true })}
-                                            onClick={async (e) => {
-                                                await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'hashrate');
+                                            onClick={(e) => {
+                                                (async function () {
+                                                    await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'hashrate');
+                                                })();
 
                                                 if (choosenFilterParametrs.includes(el.attributes.hashrate)) {
                                                     const index = choosenFilterParametrs.indexOf(el.attributes.hashrate);
-                                                    choosenFilterParametrs.splice(index, 1);
+                                                    setChoosenFilterParametrs((prev) => {
+                                                        prev.splice(index, 1);
+                                                        return prev;
+                                                    });
                                                 } else {
-                                                    choosenFilterParametrs.push(el.attributes.hashrate);
+                                                    setChoosenFilterParametrs((prev) => {
+                                                        prev.push(el.attributes.hashrate);
+                                                        return prev;
+                                                    });
                                                 }
 
                                                 e.stopPropagation();
@@ -462,90 +412,15 @@ export default function FilterMatrix() {
                         </div>
                     </div>
                 </div>
-                <div className='top-filter'>
-                    <p className='top-filter_title'>Аккумуляторы</p>
-                    <div className='top-filter_filters'>
-                        <div id='filter-menu-burger-wr' className='filter-menu-burger-wr'>
-                            <div
-                                className='portal-div'
-                                onClick={() => {
-                                    substrateRef.current?.classList.add('active');
-                                    setIsActive(!isActive);
-                                }}>
-                                <IconRenderer id='filter-menu-burger' />
-                            </div>
-                        </div>
-                        <div className='select-container'>
-                            <p className='select-container__title'>Выберите бренд</p>
-                            <Select defValue='Бренд' arr={brandArr} setValue={setBrand} value={brand} />
-                        </div>
-                        <div className='select-container'>
-                            <p className='select-container__title'>Цена</p>
-                            <Select defValue='Цена' arr={['по возрастанию', 'по убыванию']} setValue={setPrice} value={price} />
-                        </div>
-                    </div>
-                    <div className='top-filter_filters_middle'>
-                        <div
-                            className={clsx({
-                                'top-filters_filters_middle_btn': true,
-                                active: choosenFilterParametrs.includes('available'),
-                            })}
-                            onClick={() => {
-                                (async function () {
-                                    onStatusItemClickHandler(queriesArr, setQueriesArr, 'availability', 'available');
-                                })();
-
-                                if (choosenFilterParametrs.includes('available')) {
-                                    const index = choosenFilterParametrs.indexOf('available');
-                                    choosenFilterParametrs.splice(index, 1);
-                                } else {
-                                    choosenFilterParametrs.push('available');
-                                }
-                            }}>
-                            Есть на складе
-                        </div>
-                        <div
-                            className={clsx({
-                                'top-filters_filters_middle_btn': true,
-                                active: choosenFilterParametrs.includes('discount'),
-                            })}
-                            onClick={() => {
-                                (async function () {
-                                    onStatusItemClickHandler(queriesArr, setQueriesArr, 'tag', 'discount');
-                                })();
-
-                                if (choosenFilterParametrs.includes('discount')) {
-                                    const index = choosenFilterParametrs.indexOf('discount');
-                                    choosenFilterParametrs.splice(index, 1);
-                                } else {
-                                    choosenFilterParametrs.push('discount');
-                                }
-                            }}>
-                            Скидка
-                        </div>
-                        <div
-                            className={clsx({
-                                'top-filters_filters_middle_btn': true,
-                                active: choosenFilterParametrs.includes('salesHit'),
-                            })}
-                            onClick={() => {
-                                (async function () {
-                                    onStatusItemClickHandler(queriesArr, setQueriesArr, 'tag', 'salesHit');
-                                })();
-
-                                if (choosenFilterParametrs.includes('salesHit')) {
-                                    const index = choosenFilterParametrs.indexOf('salesHit');
-                                    choosenFilterParametrs.splice(index, 1);
-                                } else {
-                                    choosenFilterParametrs.push('salesHit');
-                                }
-                            }}>
-                            Хит продаж
-                        </div>
-                    </div>
-                    <RenderChoosen />
-                    <FilterCards />
-                </div>
+                <TopFilter
+                    queriesArr={queriesArr}
+                    setQueriesArr={setQueriesArr}
+                    isActive={isActive}
+                    setIsActive={setIsActive}
+                    substrateRef={substrateRef}
+                    choosenFilterParametrs={choosenFilterParametrs}
+                    setChoosenFilterParametrs={setChoosenFilterParametrs}
+                />
             </div>
         </>
     );

@@ -1,133 +1,222 @@
-// 'use client';
-// import React, { useEffect, useState } from 'react';
-// import Select from '../../../../ui/form/select/Select';
-// import './TopFilter.scss';
-// import IconRenderer from '@/app/common/ui/Icons/IconRenderer';
-// import { getFilterItemData } from '@/app/lib/data';
-// import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
-// import { filterItemOnclickHandler, onFilterItemClickHandler } from '@/app/lib/service';
-// import { IQuery, categories } from '@/app/common/types/types';
-// import { setData, setDefaultDataAndQueryArr, updateQueryArr } from '@/app/Redux/slice/query/query';
-// import { setQueryArr as setQueriesArrRed } from '@/app/Redux/slice/query/query';
-// interface IBrand {
-//     data: [
-//         {
-//             attributes: {
-//                 brand: string;
-//             };
-//         }
-//     ];
-// }
+'use client';
+import React, { Suspense, useEffect, useState } from 'react';
+import Select from '../../../../ui/form/select/Select';
+import './TopFilter.scss';
+import IconRenderer from '@/app/common/ui/Icons/IconRenderer';
+import { getFilterItemData } from '@/app/lib/data';
+import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
+import { filterItemOnclickHandler, onFilterItemClickHandler, onSelectItemChangeHandler, onStatusItemClickHandler } from '@/app/lib/service';
+import { IQuery, categories } from '@/app/common/types/types';
+import { setData, setDefaultDataAndQueryArr } from '@/app/Redux/slice/query/query';
+import { setQueryArr as setQueriesArrRed } from '@/app/Redux/slice/query/query';
+import FilterCards from '../FilterCards';
+import clsx from 'clsx';
 
-// const TopFilter = ({ type }: { type: string }) => {
-//     const [queriesArr, setQueriesArr] = useState<IQuery[]>([]);
-//     const [brand, setBrand] = useState<string>('');
-//     const [price, setPrice] = useState<string>('');
-//     const [brandArr, setBrandArr] = useState<string[]>([]);
-//     const [priceArr, setPriceArr] = useState<string[]>([]);
+interface IBrand {
+    data: [
+        {
+            attributes: {
+                brand: string;
+            };
+        }
+    ];
+}
 
-//     const selector = useAppSelector((state) => state.queryReducer.queryArr);
-//     const dispatch = useAppDispatch();
+interface IPrice {
+    attributes: {
+        price: number;
+    };
+}
 
-//     const onSelectClickHandler = async () => {
-//         filterItemOnclickHandler(queriesArr, 'matrices');
-//     };
+const TopFilter = ({ queriesArr, setQueriesArr, isActive, setIsActive, substrateRef, choosenFilterParametrs, setChoosenFilterParametrs }) => {
+    const [brand, setBrand] = useState<string>('');
+    const [price, setPrice] = useState<string>('');
+    const [brandArr, setBrandArr] = useState<string[]>([]);
 
-//     useEffect(() => {
-//         const getData = async () => {
-//             const res = (await getFilterItemData(`matrices?fields[0]=brand&fields[1]`)) as IBrand;
-//             const formattedAns = [];
-//             for (let key in res.data) {
-//                 formattedAns.push(res.data[key].attributes.brand);
-//             }
-//             setBrandArr(formattedAns);
-//         };
+    const dispatch = useAppDispatch();
 
-//         getData();
+    const dataInRedux = useAppSelector((state) => state.queryReducer.data.data as IPrice[]);
 
-//         // dispatch(setDefaultDataAndQueryArr());
+    useEffect(() => {
+        const getData = async () => {
+            const res = (await getFilterItemData(`matrices?fields[0]=brand&fields[1]`)) as IBrand;
+            const formattedAns = [];
+            for (let key in res.data) {
+                formattedAns.push(res.data[key].attributes.brand);
+            }
+            setBrandArr(formattedAns);
+        };
 
-//         setQueriesArr(selector);
-//     }, []);
+        getData();
+    }, []);
 
-//     useEffect(() => {
-//         if (brand === 'Бренд') {
-//         } else {
-//             const newItem: IQuery = {
-//                 searchParam: 'brand',
-//                 searchParamKeys: [brand],
-//             };
+    useEffect(() => {
+        if (brand === 'Бренд' || brand === '') {
+        } else {
+            onSelectItemChangeHandler(queriesArr, setQueriesArr, brand);
+        }
+    }, [brand]);
 
-//             setQueriesArr((state) => {
-//                 for (let i = 0; i < state.length; i++) {
-//                     if (state[i].searchParam === 'brand') {
-//                         state[i].searchParamKeys[0] = brand;
-//                     } else if (state[i].searchParam !== 'brand' && i === state.length - 1) {
-//                         state[i + 1] = newItem;
-//                         console.log(state);
-//                     }
-//                 }
-//                 return state;
-//             });
-//         }
-//     }, [brand]);
+    useEffect(() => {
+        if (price === 'по возрастанию') {
+            const dataInReduxCopy = structuredClone(dataInRedux);
 
-//     useEffect(() => {
-//         setQueriesArr(selector);
-//     }, [selector]);
+            dataInReduxCopy.sort((a, b) => {
+                return a.attributes.price - b.attributes.price;
+            });
 
-//     useEffect(() => {
-//         // dispatch(updateQueryArr(queriesArr));
+            dispatch(setData({ data: dataInReduxCopy }));
+        } else if (price === 'по убыванию') {
+            const dataInReduxCopy = structuredClone(dataInRedux);
 
-//         (async () => {
-//             // const res = await filterItemOnclickHandler(queriesArr, 'matrices');
-//             // console.log(res, queriesArr);
-//             // dispatch(setData(res));
-//         })();
-//     }, [brand]);
+            dataInReduxCopy.sort((a, b) => {
+                return b.attributes.price - a.attributes.price;
+            });
 
-//     const RenderChoosen = () => {
-//         // dispatch(setQueriesArrRed());
-//         // console.log(selector);
-//         return (
-//             <div className='choosen-wr'>
-//                 {/* {selector
-//                     ? selector.map((el: IQuery) => {
-//                           return el.searchParamKeys.map((el) => {
-//                               return (
-//                                   <div className='choosen' key={el}>
-//                                       {el}
-//                                   </div>
-//                               );
-//                           });
-//                       })
-//                     : []} */}
-//             </div>
-//         );
-//     };
+            dispatch(setData({ data: dataInReduxCopy }));
+        }
+    }, [price]);
 
-//     return (
-//         <div className='top-filter'>
-//             <p className='top-filter_title'>Аккумуляторы</p>
-//             <div className='top-filter_filters'>
-//                 <div id='filter-menu-burger-wr' className='filter-menu-burger-wr'></div>
-//                 <div className='select-container'>
-//                     <p className='select-container__title'>Выберите бренд</p>
-//                     <Select defValue='Бренд' arr={brandArr} setValue={setBrand} value={brand} />
-//                 </div>
-//                 <div className='select-container'>
-//                     <p className='select-container__title'>Цена</p>
-//                     <Select defValue='Цена' arr={['по возрастанию', 'по убыванию']} setValue={setPrice} value={price} />
-//                 </div>
-//             </div>
-//             <div className='top-filter_filters_middle'>
-//                 <div className='top-filters_filters_middle_btn active'>Есть на складе</div>
-//                 <div className='top-filters_filters_middle_btn'>Скидка</div>
-//                 <div className='top-filters_filters_middle_btn'>Новинки</div>
-//             </div>
-//             <RenderChoosen />
-//         </div>
-//     );
-// };
+    const RenderChoosen = (): React.JSX.Element => {
+        return (
+            <div className='choosen-wr'>
+                {queriesArr.map((el: IQuery) => {
+                    return el.searchParamKeys.map((el) => {
+                        return (
+                            <div className='choosen' key={el}>
+                                {el === 'available' ? 'Есть на складе' : el === 'discount' ? 'Скидка' : el === 'salesHit' ? 'Хит продаж' : el}
+                                <IconRenderer
+                                    id='cross-icon'
+                                    onClick={() => {
+                                        for (let i = 0; i < queriesArr.length; i++) {
+                                            if (queriesArr[i].searchParamKeys.includes(el)) {
+                                                const index = queriesArr[i].searchParamKeys.indexOf(el);
+                                                setQueriesArr((prev) => {
+                                                    const copy = structuredClone(prev);
+                                                    copy[i].searchParamKeys.splice(index, 1);
+                                                    return copy;
+                                                });
+                                                setChoosenFilterParametrs((prev) => {
+                                                    prev.splice(index, 1);
+                                                    return prev;
+                                                });
+                                            }
+                                        }
+                                    }}
+                                />
+                            </div>
+                        );
+                    });
+                })}
+            </div>
+        );
+    };
 
-// export default TopFilter;
+    return (
+        <div className='top-filter'>
+            <p className='top-filter_title'>Аккумуляторы</p>
+            <div className='top-filter_filters'>
+                <div id='filter-menu-burger-wr' className='filter-menu-burger-wr'>
+                    <div
+                        className='portal-div'
+                        onClick={() => {
+                            substrateRef.current?.classList.add('active');
+                            setIsActive(!isActive);
+                        }}>
+                        <IconRenderer id='filter-menu-burger' />
+                    </div>
+                </div>
+                <div className='select-container'>
+                    <p className='select-container__title'>Выберите бренд</p>
+                    <Select defValue='Бренд' arr={brandArr} setValue={setBrand} value={brand} />
+                </div>
+                <div className='select-container'>
+                    <p className='select-container__title'>Цена</p>
+                    <Select defValue='Цена' arr={['по возрастанию', 'по убыванию']} setValue={setPrice} value={price} />
+                </div>
+            </div>
+            <div className='top-filter_filters_middle'>
+                <div
+                    className={clsx({
+                        'top-filters_filters_middle_btn': true,
+                        active: choosenFilterParametrs.includes('available'),
+                    })}
+                    onClick={() => {
+                        (async function () {
+                            onStatusItemClickHandler(queriesArr, setQueriesArr, 'availability', 'available');
+                        })();
+
+                        if (choosenFilterParametrs.includes('available')) {
+                            const index = choosenFilterParametrs.indexOf('available');
+
+                            setChoosenFilterParametrs((prev) => {
+                                prev.splice(index, 1);
+                                return prev;
+                            });
+                        } else {
+                            setChoosenFilterParametrs((prev) => {
+                                prev.push('available');
+                                return prev;
+                            });
+                        }
+                    }}>
+                    Есть на складе
+                </div>
+                <div
+                    className={clsx({
+                        'top-filters_filters_middle_btn': true,
+                        active: choosenFilterParametrs.includes('discount'),
+                    })}
+                    onClick={() => {
+                        (async function () {
+                            onStatusItemClickHandler(queriesArr, setQueriesArr, 'tag', 'discount');
+                        })();
+
+                        if (choosenFilterParametrs.includes('discount')) {
+                            const index = choosenFilterParametrs.indexOf('discount');
+                            setChoosenFilterParametrs((prev) => {
+                                prev.splice(index, 1);
+                                return prev;
+                            });
+                        } else {
+                            setChoosenFilterParametrs((prev) => {
+                                prev.push('discount');
+                                return prev;
+                            });
+                        }
+                    }}>
+                    Скидка
+                </div>
+                <div
+                    className={clsx({
+                        'top-filters_filters_middle_btn': true,
+                        active: choosenFilterParametrs.includes('salesHit'),
+                    })}
+                    onClick={() => {
+                        (async function () {
+                            onStatusItemClickHandler(queriesArr, setQueriesArr, 'tag', 'salesHit');
+                        })();
+
+                        if (choosenFilterParametrs.includes('salesHit')) {
+                            const index = choosenFilterParametrs.indexOf('salesHit');
+                            setChoosenFilterParametrs((prev) => {
+                                prev.splice(index, 1);
+                                return prev;
+                            });
+                        } else {
+                            setChoosenFilterParametrs((prev) => {
+                                prev.push('salesHit');
+                                return prev;
+                            });
+                        }
+                    }}>
+                    Хит продаж
+                </div>
+            </div>
+            <RenderChoosen />
+            <FilterCards />
+        </div>
+    );
+};
+
+export default TopFilter;

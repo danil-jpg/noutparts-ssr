@@ -1,9 +1,11 @@
 'use client';
-import React, { useState } from 'react';
+import React, { Suspense, lazy, useState } from 'react';
 import Loading from '../Loading/Loading';
 import FilterBattery from './organisms/FilterBattery';
 import './Filter.scss';
-import FilterMatrix from './organisms/FilterMatrix';
+// import FilterMatrix from './organisms/FilterMatrix';
+
+const FilterMatrix = lazy(() => import('./organisms/FilterMatrix'));
 
 interface IFilter {
     type: string;
@@ -29,5 +31,9 @@ export default function Filter({ type }: IFilter) {
         }
     };
 
-    return <RenderFilter />;
+    return (
+        <Suspense fallback={<Loading />}>
+            <RenderFilter />;
+        </Suspense>
+    );
 }
