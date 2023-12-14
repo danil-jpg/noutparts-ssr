@@ -133,34 +133,34 @@ h6 {
 
 @media screen and (max-width: 1230px) {
     .container {
-        max-width: 1024px;
-        padding: 0 5px;
+        padding: 0 15px;
+        max-width: 1260px;
     }
 }
 
-@media screen and (max-width: 996px) {
-    .container {
-        max-width: 768px;
-        padding: 0 5px;
-    }
-}
+// @media screen and (max-width: 996px) {
+//     .container {
+//         max-width: 768px;
+//         padding: 0 5px;
+//     }
+// }
 
-@media screen and (max-width: 768px) {
-    .container {
-        max-width: 576px;
-        padding: 0 5px;
-    }
-}
+// @media screen and (max-width: 768px) {
+//     .container {
+//         max-width: 576px;
+//         padding: 0 5px;
+//     }
+// }
 
-@media screen and (max-width: 576px) {
-    .container {
-        max-width: 375px;
-        padding: 0 5px;
-    }
-}
+// @media screen and (max-width: 576px) {
+//     .container {
+//         max-width: 375px;
+//         padding: 0 5px;
+//     }
+// }
 
-@media screen and (max-width: 425px) {
-    .container {
-        max-width: 288px;
-    }
-}
+// @media screen and (max-width: 425px) {
+//     .container {
+//         max-width: 288px;
+//     }
+// }

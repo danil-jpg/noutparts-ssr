@@ -129,24 +129,26 @@ const TopFilter = ({
     return (
         <div className='top-filter'>
             <p className='top-filter_title'>Аккумуляторы</p>
-            <div className='top-filter_filters'>
-                <div id='filter-menu-burger-wr' className='filter-menu-burger-wr'>
-                    <div
-                        className='portal-div'
-                        onClick={() => {
-                            substrateRef.current?.classList.add('active');
-                            setIsActive(!isActive);
-                        }}>
-                        <IconRenderer id='filter-menu-burger' />
+            <div>
+                <div className='top-filter_filters'>
+                    <div id='filter-menu-burger-wr' className='filter-menu-burger-wr'>
+                        <div
+                            className='portal-div'
+                            onClick={() => {
+                                substrateRef.current?.classList.add('active');
+                                setIsActive(!isActive);
+                            }}>
+                            <IconRenderer id='filter-menu-burger' />
+                        </div>
                     </div>
-                </div>
-                <div className='select-container'>
-                    <p className='select-container__title'>Выберите бренд</p>
-                    <Select defValue='Бренд' arr={brandArr} setValue={setBrand} value={brand} />
-                </div>
-                <div className='select-container'>
-                    <p className='select-container__title'>Цена</p>
-                    <Select defValue='Цена' arr={['по возрастанию', 'по убыванию']} setValue={setPrice} value={price} />
+                    <div className='select-container'>
+                        <p className='select-container__title'>Выберите бренд</p>
+                        <Select defValue='Бренд' arr={brandArr} setValue={setBrand} value={brand} />
+                    </div>
+                    <div className='select-container'>
+                        <p className='select-container__title'>Цена</p>
+                        <Select defValue='Цена' arr={['по возрастанию', 'по убыванию']} setValue={setPrice} value={price} />
+                    </div>
                 </div>
             </div>
             <div className='top-filter__scroll'>

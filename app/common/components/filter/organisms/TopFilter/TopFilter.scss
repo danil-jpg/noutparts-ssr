@@ -17,10 +17,10 @@
     }
     &_filters {
     }
-    &__scroll {
-        overflow: scroll;
-        width: 530px;
-    }
+    // &__scroll {
+    //     overflow: scroll;
+    //     max-width: 530px;
+    // }
 }
 
 .filter-menu-burger-wr {
@@ -94,7 +94,8 @@
     display: flex;
     margin-top: 23px;
     gap: 22px;
-    width: 530px;
+    overflow: scroll;
+    max-width: 530px;
 }
 
 .top-filters_filters_middle_btn {
@@ -108,6 +109,7 @@
     line-height: 108.9%;
     cursor: pointer;
     border: 1px solid transparent;
+    flex-shrink: 0;
     &.active {
         color: #555;
         border: 1px solid #36dd65;
@@ -115,8 +117,51 @@
     }
 }
 
+@media screen and (max-width: 992px) {
+    .top-filter_filters {
+        flex-wrap: nowrap;
+        overflow: auto;
+        max-width: 530px;
+    }
+}
+
 @media screen and (max-width: 768px) {
+    .filter-wr {
+        grid-template-columns: 1fr;
+    }
     .filter-menu-burger-wr {
         display: block;
+
+        flex-shrink: 0;
+    }
+    .filter-menu-burger-wr {
+        width: 54px;
+        height: 36px;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        border-radius: 4px;
+        background: #f4f4f4;
+        cursor: pointer;
+    }
+    .select-container__title {
+        display: none;
+    }
+    .top-filter_filters {
+        margin-bottom: -250px;
+        padding-bottom: 250px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .top-filter_filters_middle {
+        max-width: 350px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .top-filter_filters {
+        max-width: 290px;
+        gap: 14px;
     }
 }
