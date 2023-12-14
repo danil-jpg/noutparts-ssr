@@ -17,6 +17,10 @@
     }
     &_filters {
     }
+    &__scroll {
+        overflow: scroll;
+        width: 530px;
+    }
 }
 
 .filter-menu-burger-wr {
@@ -90,6 +94,7 @@
     display: flex;
     margin-top: 23px;
     gap: 22px;
+    width: 530px;
 }
 
 .top-filters_filters_middle_btn {

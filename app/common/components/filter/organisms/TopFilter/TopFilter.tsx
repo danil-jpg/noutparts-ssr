@@ -149,84 +149,87 @@ const TopFilter = ({
                     <Select defValue='Цена' arr={['по возрастанию', 'по убыванию']} setValue={setPrice} value={price} />
                 </div>
             </div>
-            <div className='top-filter_filters_middle'>
-                <div
-                    className={clsx({
-                        'top-filters_filters_middle_btn': true,
-                        active: choosenFilterParametrs.includes('available'),
-                    })}
-                    onClick={() => {
-                        (async function () {
-                            onStatusItemClickHandler(queriesArr, setQueriesArr, 'availability', 'available');
-                        })();
+            <div className='top-filter__scroll'>
+                <div className='top-filter_filters_middle'>
+                    <div
+                        className={clsx({
+                            'top-filters_filters_middle_btn': true,
+                            active: choosenFilterParametrs.includes('available'),
+                        })}
+                        onClick={() => {
+                            (async function () {
+                                onStatusItemClickHandler(queriesArr, setQueriesArr, 'availability', 'available');
+                            })();
 
-                        if (choosenFilterParametrs.includes('available')) {
-                            const index = choosenFilterParametrs.indexOf('available');
+                            if (choosenFilterParametrs.includes('available')) {
+                                const index = choosenFilterParametrs.indexOf('available');
 
-                            setChoosenFilterParametrs((prev) => {
-                                prev.splice(index, 1);
-                                return prev;
-                            });
-                        } else {
-                            setChoosenFilterParametrs((prev) => {
-                                prev.push('available');
-                                return prev;
-                            });
-                        }
-                    }}>
-                    Есть на складе
-                </div>
-                <div
-                    className={clsx({
-                        'top-filters_filters_middle_btn': true,
-                        active: choosenFilterParametrs.includes('discount'),
-                    })}
-                    onClick={() => {
-                        (async function () {
-                            onStatusItemClickHandler(queriesArr, setQueriesArr, 'tag', 'discount');
-                        })();
+                                setChoosenFilterParametrs((prev) => {
+                                    prev.splice(index, 1);
+                                    return prev;
+                                });
+                            } else {
+                                setChoosenFilterParametrs((prev) => {
+                                    prev.push('available');
+                                    return prev;
+                                });
+                            }
+                        }}>
+                        Есть на складе
+                    </div>
+                    <div
+                        className={clsx({
+                            'top-filters_filters_middle_btn': true,
+                            active: choosenFilterParametrs.includes('discount'),
+                        })}
+                        onClick={() => {
+                            (async function () {
+                                onStatusItemClickHandler(queriesArr, setQueriesArr, 'tag', 'discount');
+                            })();
 
-                        if (choosenFilterParametrs.includes('discount')) {
-                            const index = choosenFilterParametrs.indexOf('discount');
-                            setChoosenFilterParametrs((prev) => {
-                                prev.splice(index, 1);
-                                return prev;
-                            });
-                        } else {
-                            setChoosenFilterParametrs((prev) => {
-                                prev.push('discount');
-                                return prev;
-                            });
-                        }
-                    }}>
-                    Скидка
-                </div>
-                <div
-                    className={clsx({
-                        'top-filters_filters_middle_btn': true,
-                        active: choosenFilterParametrs.includes('salesHit'),
-                    })}
-                    onClick={() => {
-                        (async function () {
-                            onStatusItemClickHandler(queriesArr, setQueriesArr, 'tag', 'salesHit');
-                        })();
+                            if (choosenFilterParametrs.includes('discount')) {
+                                const index = choosenFilterParametrs.indexOf('discount');
+                                setChoosenFilterParametrs((prev) => {
+                                    prev.splice(index, 1);
+                                    return prev;
+                                });
+                            } else {
+                                setChoosenFilterParametrs((prev) => {
+                                    prev.push('discount');
+                                    return prev;
+                                });
+                            }
+                        }}>
+                        Скидка
+                    </div>
+                    <div
+                        className={clsx({
+                            'top-filters_filters_middle_btn': true,
+                            active: choosenFilterParametrs.includes('salesHit'),
+                        })}
+                        onClick={() => {
+                            (async function () {
+                                onStatusItemClickHandler(queriesArr, setQueriesArr, 'tag', 'salesHit');
+                            })();
 
-                        if (choosenFilterParametrs.includes('salesHit')) {
-                            const index = choosenFilterParametrs.indexOf('salesHit');
-                            setChoosenFilterParametrs((prev) => {
-                                prev.splice(index, 1);
-                                return prev;
-                            });
-                        } else {
-                            setChoosenFilterParametrs((prev) => {
-                                prev.push('salesHit');
-                                return prev;
-                            });
-                        }
-                    }}>
-                    Хит продаж
+                            if (choosenFilterParametrs.includes('salesHit')) {
+                                const index = choosenFilterParametrs.indexOf('salesHit');
+                                setChoosenFilterParametrs((prev) => {
+                                    prev.splice(index, 1);
+                                    return prev;
+                                });
+                            } else {
+                                setChoosenFilterParametrs((prev) => {
+                                    prev.push('salesHit');
+                                    return prev;
+                                });
+                            }
+                        }}>
+                        Хит продаж
+                    </div>
                 </div>
             </div>
+
             <RenderChoosen />
             <FilterCards />
         </div>

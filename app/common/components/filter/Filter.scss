@@ -92,6 +92,7 @@
     height: 100%;
     display: none;
     opacity: 0.7;
+    z-index: 2;
     &.active {
         display: block;
     }
@@ -141,6 +142,10 @@
     grid-template-columns: 282px 1fr;
 }
 
+.filter-page {
+    overflow: hidden;
+}
+
 @media screen and (max-width: 768px) {
     .filter-wr {
         position: relative;
@@ -154,15 +159,7 @@
         margin-top: 0;
         margin-bottom: 0;
     }
-    .filter-page {
-        // position: relative;
 
-        // min-height: 100vh;
-        // margin: 0;
-        // display: grid;
-        // grid-template-rows: auto 1fr auto; /* position: relative; */
-        // min-width: 100%;
-    }
     .filter {
         display: grid;
         grid-template-rows: 0fr;
@@ -178,14 +175,15 @@
         position: absolute;
         max-height: 500px;
         bottom: -5px;
-
+        pointer-events: none;
         &.active {
             opacity: 1;
             overflow: scroll;
             grid-template-rows: 1fr;
             position: fixed;
             // border-bottom: -1px;
-            // left: 0;
+            left: 0;
+            pointer-events: all;
         }
         &_title {
             text-align: center;
