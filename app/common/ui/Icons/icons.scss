@@ -1,4 +1,4 @@
-.basket {
+.basket-icon {
     width: 21px;
     height: 20px;
     fill: #fff;
@@ -134,4 +134,12 @@
     width: 20px;
     height: 20px;
     cursor: pointer;
+}
+
+.heart-icon {
+    width: 18.4px;
+    height: 16.727px;
+    flex-shrink: 0;
+    fill: #0acf83;
+    transition: 0.3s;
 }

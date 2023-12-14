@@ -7,16 +7,38 @@
     cursor: pointer;
     border: 1px solid transparent;
     position: relative;
-    padding: 0 34px;
-    padding-bottom: 80px;
-
+    padding: 14px 21px 14px 28px;
+    border: 1px solid #e3e3e3;
+    display: flex;
     &:hover {
         border: 1px solid #36dd65;
     }
+    &__etc-params {
+        p {
+            margin-top: 8px;
+            color: #8c8b8b;
+            font-family: Roboto;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            span {
+                color: #151515;
+            }
+        }
+    }
+    &__data {
+        &_center {
+            max-width: 60%;
+        }
+        &_right {
+            margin-top: 70px;
+        }
+    }
     img {
-        margin-top: 51px;
-        width: 231px;
-        height: 196px;
+        width: 152px;
+        height: 152px;
+        margin-right: 47px;
     }
     &__name {
         color: #19191d;
@@ -26,12 +48,39 @@
         font-weight: 400;
         line-height: 150%; /* 24px */
         letter-spacing: 0.32px;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &__availability {
+        margin-top: 107px;
+        margin-right: 70px;
+    }
+    &__like-sign {
+        margin-top: 107px;
+        padding: 15px;
+        fill: #0acf83;
+        border-radius: 27px;
+        border: 2px solid #81e18a;
+        height: fit-content;
+        width: auto;
+        cursor: pointer;
+        margin-right: 25px;
+
+        flex-shrink: 0;
+        &:hover {
+            svg {
+                fill: red;
+                transform: scale(1.2);
+            }
+        }
     }
 
     &__tag {
         position: absolute;
-        top: 18px;
-        left: 20px;
+        top: 16px;
+        left: 21px;
     }
 
     &__price {
@@ -41,7 +90,7 @@
         font-style: normal;
         font-weight: 700;
         line-height: 150%; /* 36px */
-        position: absolute;
-        bottom: 25px;
+        // position: absolute;
+        // bottom: 25px;
     }
 }

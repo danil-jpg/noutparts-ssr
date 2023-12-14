@@ -10,6 +10,8 @@ import ProductTag from '@/app/common/ui/product-ui/ProductTag';
 import Loading from '../../../Loading/Loading';
 import { categories } from '@/app/common/types/types';
 import PrimaryBtn from '@/app/common/ui/buttons/primary/PrimaryBtn';
+import IconRenderer from '@/app/common/ui/Icons/IconRenderer';
+import ProductAvailability from '@/app/common/ui/product-ui/ProductAvailability';
 
 interface Props {}
 
@@ -56,22 +58,40 @@ const FilterCards = ({ type = 'matrices' }: { type: categories }) => {
             {selector.map((el, index) => {
                 return (
                     <div key={index} className='card'>
-                        <Image alt='cardimg' src={el.attributes.photo.data[0].attributes.url} fill={true} />
-                        <p className='card__name'>{el.attributes.name}</p>
-                        <div className='card__etc-params'>
-                            <p>Диагональ: {el.attributes.diagonale}</p>
-                        </div>
-                        <div className='card__etc-params'>
-                            <p>Тип крепления: {el.attributes.connector}</p>
-                        </div>
-                        <div className='card__etc-params'>
-                            <p>Разрешение: {el.attributes.permission}</p>
-                        </div>
                         <div className='card__tag'>
                             <ProductTag type={el.attributes.tag as 'discount' | 'new' | 'salesHit'}></ProductTag>
                         </div>
-                        <p className='card__price'>{el.attributes.price} грн</p>
-                        <PrimaryBtn type='basket'></PrimaryBtn>
+                        <Image alt='cardimg' src={el.attributes.photo.data[0].attributes.url} height={152} width={152} />
+                        <div className='card__data_center'>
+                            <p className='card__name'>{el.attributes.name}</p>
+                            <div className='card__etc-params'>
+                                <p>
+                                    Диагональ: <span>{el.attributes.diagonale}</span>
+                                </p>
+                            </div>
+                            <div className='card__etc-params'>
+                                <p>
+                                    Тип крепления: <span>{el.attributes.connector}</span>
+                                </p>
+                            </div>
+                            <div className='card__etc-params'>
+                                <p>
+                                    Разрешение: <span>{el.attributes.permission}</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div className='card__availability'>
+                            <ProductAvailability type={el.attributes.availability as 'available' | 'ending' | 'outOfStock'}>
+                                {el.attributes.availability}
+                            </ProductAvailability>
+                        </div>
+                        <div className='card__like-sign'>
+                            <IconRenderer id='heart-icon' className='heart-icon' />
+                        </div>
+                        <div className='card__data_right'>
+                            <p className='card__price'>{el.attributes.price} грн</p>
+                            <PrimaryBtn text='Купить' type='basket' icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                        </div>
                     </div>
                 );
             })}
