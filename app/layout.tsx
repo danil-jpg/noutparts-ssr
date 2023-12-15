@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
         <html lang='en'>
             <body key={v1()}>
-                <Header />
+                {/* <Header /> */}
                 <Providers>
                     <Suspense fallback={<Loading></Loading>}>{children}</Suspense>
                 </Providers>
