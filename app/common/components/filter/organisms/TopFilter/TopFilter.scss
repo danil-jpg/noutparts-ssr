@@ -126,6 +126,9 @@
 }
 
 @media screen and (max-width: 768px) {
+    .top-filter {
+        margin-top: 10px;
+    }
     .filter-wr {
         grid-template-columns: 1fr;
     }
@@ -143,6 +146,7 @@
         border-radius: 4px;
         background: #f4f4f4;
         cursor: pointer;
+        align-self: center;
     }
     .select-container__title {
         display: none;

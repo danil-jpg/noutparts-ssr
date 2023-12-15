@@ -95,30 +95,46 @@ const TopFilter = ({
         return (
             <div className='choosen-wr'>
                 {queriesArr.map((el: IQuery) => {
+                    // {
+                    //     choosenFilterParametrs.length > 0 ? (
+                    //         <div
+                    //             className='choosen'
+                    //             onClick={() => {
+                    //                 setQueriesArr([]);
+                    //                 setChoosenFilterParametrs([]);
+                    //             }}>
+                    //             Очистить все
+                    //         </div>
+                    //     ) : (
+                    //         ''
+                    //     );
+                    // }
                     return el.searchParamKeys.map((el) => {
                         return (
-                            <div className='choosen' key={el}>
-                                {el === 'available' ? 'Есть на складе' : el === 'discount' ? 'Скидка' : el === 'salesHit' ? 'Хит продаж' : el}
-                                <IconRenderer
-                                    id='cross-icon'
-                                    onClick={() => {
-                                        for (let i = 0; i < queriesArr.length; i++) {
-                                            if (queriesArr[i].searchParamKeys.includes(el)) {
-                                                const index = queriesArr[i].searchParamKeys.indexOf(el);
-                                                setQueriesArr((prev) => {
-                                                    const copy = structuredClone(prev);
-                                                    copy[i].searchParamKeys.splice(index, 1);
-                                                    return copy;
-                                                });
-                                                setChoosenFilterParametrs((prev) => {
-                                                    prev.splice(index, 1);
-                                                    return prev;
-                                                });
+                            <>
+                                <div className='choosen'>
+                                    {el === 'available' ? 'Есть на складе' : el === 'discount' ? 'Скидка' : el === 'salesHit' ? 'Хит продаж' : el}
+                                    <IconRenderer
+                                        id='cross-icon'
+                                        onClick={() => {
+                                            for (let i = 0; i < queriesArr.length; i++) {
+                                                if (queriesArr[i].searchParamKeys.includes(el)) {
+                                                    const index = queriesArr[i].searchParamKeys.indexOf(el);
+                                                    setQueriesArr((prev) => {
+                                                        const copy = structuredClone(prev);
+                                                        copy[i].searchParamKeys.splice(index, 1);
+                                                        return copy;
+                                                    });
+                                                    setChoosenFilterParametrs((prev) => {
+                                                        prev.splice(index, 1);
+                                                        return prev;
+                                                    });
+                                                }
                                             }
-                                        }
-                                    }}
-                                />
-                            </div>
+                                        }}
+                                    />
+                                </div>
+                            </>
                         );
                     });
                 })}
