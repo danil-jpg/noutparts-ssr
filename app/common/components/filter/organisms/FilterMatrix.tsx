@@ -1,17 +1,14 @@
 'use client';
-import React, { Suspense, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { getFilterItemData } from '@/app/lib/data';
 import { v1 } from 'uuid';
 import Loading from '../../Loading/Loading';
-import { filterItemOnclickHandler, makeUniqueAndLoopFunc, onSelectItemChangeHandler, onStatusItemClickHandler } from '@/app/lib/service';
+import { filterItemOnclickHandler, makeUniqueAndLoopFunc } from '@/app/lib/service';
 import clsx from 'clsx';
 import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
 import { IQuery } from '@/app/common/types/types';
 import { onFilterItemClickHandler } from '@/app/lib/service';
-import IconRenderer from '@/app/common/ui/Icons/IconRenderer';
 import { setData, setDefaultDataAndQueryArr } from '@/app/Redux/slice/query/query';
-import Select from '@/app/common/ui/form/select/Select';
-import FilterCards from './FilterCards/FilterCards';
 import { setQueryArr as setQueriesArrRed } from '@/app/Redux/slice/query/query';
 import TopFilter from './TopFilter/TopFilter';
 
