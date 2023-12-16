@@ -8,7 +8,7 @@ import axios from "axios";
 
 import HeaderCallBack from "../Header/HeaderCallBack";
 
-import siteLogo from "/public/img/site-logo.svg";
+import siteLogo from "/public/img/footer-logo.png";
 import facebookIcon from "/public/img/footer-facebook-icon.svg";
 import instaIcon from "/public/img/footer-insta-icon.svg";
 import visaIcon from "/public/img/footer-visa-icon.svg";
@@ -93,7 +93,7 @@ const Footer = ({}) => {
 								<div className="footer__list-item">Телефон: (066) 388-88 95</div>
 							</Link>
 							<Link href={"/"}>
-								<div className="footer__list-item">Мы работаем Понедельник-Пятница: 10:00 - 19:00</div>
+								<div className="footer__list-item">Мы работаем <br /> Понедельник-Пятница:<br /> 10:00 - 19:00</div>
 							</Link>
 							<Link href={"/"}>
 								<div className="footer__list-item">E-mail: shop@email.com</div>

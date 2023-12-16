@@ -3,54 +3,49 @@ import React, { FC, useState, useEffect } from "react";
 import IconRenderer from "../../ui/Icons/IconRenderer";
 import "./HeaderBasket.scss";
 import Image from "next/image";
-
+import { useAppSelector } from "@/app/Redux/store";
+import { useAppDispatch } from "@/app/Redux/store";
+import { removeProduct } from "@/app/Redux/slice/basket/basketSlice";
 import deleteIcon from "/public/img/delete-icon.svg";
 
 interface Product {
+	id: number;
 	name: string;
 	price: number;
-	imageUrl: string; // Add imageUrl property for the product image
+	photo_url: string; // Add imageUrl property for the product image
 }
 
-const staticChosenProducts: Product[] = [
-	{ name: "Product A", price: 500, imageUrl: "https://techiestore.in/wp-content/uploads/2020/03/laptop-battery-poster-e1584275970841.png" },
-	{ name: "Product B", price: 750, imageUrl: "https://techiestore.in/wp-content/uploads/2020/03/laptop-battery-poster-e1584275970841.png" },
-	{ name: "Product C", price: 300, imageUrl: "https://techiestore.in/wp-content/uploads/2020/03/laptop-battery-poster-e1584275970841.png" }
-];
+// const staticChosenProducts: Product[] = [
+// 	{ name: "Product A", price: 500, photo_url: "https://techiestore.in/wp-content/uploads/2020/03/laptop-battery-poster-e1584275970841.png" },
+// 	{ name: "Product B", price: 750, photo_url: "https://techiestore.in/wp-content/uploads/2020/03/laptop-battery-poster-e1584275970841.png" },
+// 	{ name: "Product C", price: 300, photo_url: "https://techiestore.in/wp-content/uploads/2020/03/laptop-battery-poster-e1584275970841.png" }
+// ];
 
 const HeaderBasket: FC = () => {
+	const dispatch = useAppDispatch();
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
-	const [chosenProducts, setChosenProducts] = useState<Product[]>([]);
 
 	const togglePopup = () => {
 		setIsPopupOpen(!isPopupOpen);
 	};
 
+	const products = useAppSelector((state) => state.basketReducer.products);
 
+	const removeProductOnClick = (index: number) => {
+		dispatch(removeProduct(index));
+	};
 
-	// Function to calculate total price of chosen products
-	
-	useEffect(() => {
-		setChosenProducts(staticChosenProducts);
-	}, [staticChosenProducts]);
-	
-	const removeProduct = (index: number) => {
-		const updatedProducts = [...chosenProducts];
-        updatedProducts.splice(index, 1);
-        setChosenProducts(updatedProducts);
-    };
-	
 	const calculateTotalPrice = (products: Product[]): number => {
 		return products.reduce((total, product) => total + product.price, 0);
 	};
-	// Calculate total price of chosen products
-	const totalPrice = calculateTotalPrice(chosenProducts);
+
+	const totalPrice = calculateTotalPrice(products);
 
 	return (
 		<div className="header-basket">
 			<div className="header-basket__icon" onClick={togglePopup}>
 				<IconRenderer id="header-basket-sign"></IconRenderer>
-				<div className="header-basket__quantity">{chosenProducts.length}</div>
+				<div className="header-basket__quantity">{products.length}</div>
 			</div>
 			<div className="header-basket__texts">
 				<div className="header-basket__text">Корзина</div>
@@ -61,14 +56,21 @@ const HeaderBasket: FC = () => {
 				<div className="header-basket__popup">
 					<div className="header-basket__chosen-products">
 						{/* Display chosen products */}
-						{chosenProducts.map((product, index) => (
+						{products.map((product, index) => (
 							<div className="header-basket__chosen-product" key={index}>
-								<Image src={product.imageUrl} alt={product.name} className="header-basket__chosen-product-image" width={74} height={62}/>
+								<Image src={product.photo_url} alt={product.name} className="header-basket__chosen-product-image" width={74} height={62} />
 								<div className="header-basket__chosen-product-infos">
-									<div className="header-basket__chosen-product-name">{product.name}</div>
+									<div className="header-basket__chosen-product-name">{product.name.length > 30 ? `${product.name.slice(0, 30)}...` : product.name}</div>
 									<div className="header-basket__chosen-product-price">{product.price} грн</div>
-								</div> 
-								<Image src={deleteIcon} alt={deleteIcon} className="header-basket__chosen-product-delete-icon" onClick={()=>{removeProduct(index)}}/>
+								</div>
+								<Image
+									src={deleteIcon}
+									alt={deleteIcon}
+									className="header-basket__chosen-product-delete-icon"
+									onClick={() => {
+										removeProductOnClick(index);
+									}}
+								/>
 							</div>
 						))}
 					</div>

@@ -26,14 +26,17 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		position: relative;
 	}
 
 	&__image {
+		position: relative;
 		width: auto;
 		max-width: 230px;
 		height: auto;
 		max-height: 124px;
 		margin: 22px auto;
+		object-fit: contain;
 	}
 
 	&__name {
@@ -102,6 +105,9 @@
 	}
 
 	&__fav-icon {
+		&.active{
+			fill: #36DD65;
+		}
 	}
 
 	&__second-price {
@@ -210,7 +216,7 @@
 			max-width: 54px;
 			height: auto;
 			max-height: 54px;
-			margin:16px auto;
+			margin: 16px auto;
 		}
 
 		&__name {

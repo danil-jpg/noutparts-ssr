@@ -5,7 +5,11 @@ import counterReducer from './slice/couter/couter';
 import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+
 import queryReducer from './slice/query/query';
+import basketReducer from './slice/basket/basketSlice';
+import searchReducer from './slice/search/searchSlice';
+import favsReducer from './slice/favs/favsSlice';
 
 const createNoopStorage = () => {
     return {
@@ -29,6 +33,9 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     queryReducer,
+    basketReducer,
+    searchReducer,
+    favsReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -3,8 +3,11 @@ import React, { FC, useState, useEffect, ChangeEvent } from "react";
 import IconRenderer from "../../ui/Icons/IconRenderer";
 import "./HeaderSearch.scss";
 import axios from "axios";
-
-import { fetchProductNames } from "@/app/lib/data";
+import { useRouter } from "next/navigation";
+import { useAppDispatch } from "@/app/Redux/store";
+import { addProducts } from "@/app/Redux/slice/search/searchSlice";
+import { useAppSelector } from "@/app/Redux/store";
+import { removeProduct } from "@/app/Redux/slice/search/searchSlice";
 
 type IProductNamesAttributes = {
 	name: string;
@@ -25,7 +28,7 @@ type Products = {
 	[key: string]: string[];
 };
 
-const initialHistorySuggestions = {
+const initialHistorySuggestions: Products = {
 	matrix: [],
 	battery: [],
 	hdd: [],
@@ -36,7 +39,34 @@ const initialHistorySuggestions = {
 };
 let products: Products = {};
 
+interface ProductWithId {
+	attributes: {
+		name: string;
+	};
+	id: number;
+}
+
+type ProductsWithId = {
+	[key: string]: ProductWithId[];
+};
+let productsObject: ProductsWithId = {};
+
 const HeaderSearch = () => {
+	const router = useRouter();
+	const dispatch = useAppDispatch();
+
+	const fetchProductNames = async (productType: string) => {
+		try {
+			const response = await axios.get<ProductData>(`http://127.0.0.1:1337/api/${productType === "matrix" ? "matrice" : productType === "power_supply" ? "power-supplie" : productType === "battery" ? "batterie" : productType}s/?fields[0]=name`);
+			const data: ProductData = response.data;
+
+			return data.data || [];
+		} catch (error) {
+			console.error("Error fetching data:", error);
+			return [];
+		}
+	};
+
 	const processFetchedData = (productType: string, data: ProductData["data"]) => {
 		if (data.length > 0) {
 			if (!products[productType]) {
@@ -51,43 +81,35 @@ const HeaderSearch = () => {
 
 	const fetchProductsData = async (productType: string) => {
 		const fetchedData = await fetchProductNames(productType);
+
 		processFetchedData(productType, fetchedData);
+
+		productsObject[productType] = fetchedData;
+		console.log("🚀 ~ file: HeaderSearch.tsx:82 ~ fetchProductsData ~ productsAray:", productsObject);
 	};
 
 	// Inside useEffect
 	useEffect(() => {
 		const productTypes: string[] = ["matrix", "hdd", "keyboard", "ram", "battery", "power_supply"];
 
-		// const fetchDataPromises: Promise<void>[] = [];
-		// console.log("🚀 ~ file: HeaderSearch.tsx:62 ~ useEffect ~ fetchDataPromises:", fetchDataPromises)
-
-		// productTypes.forEach((productType) => {
-		// 	const promise = fetchProductsData(productType);
-		// 	fetchDataPromises.push(promise);
-		// });
-
-		// Promise.all(fetchDataPromises)
-		// 	.then(() => {
-		// 		console.log("Products:", products);
-		// 	})
-		// 	.catch((error) => {
-		// 		console.error("Error fetching products:", error);
-		// 	});
+		const promises = productTypes.map((type) => fetchProductsData(type));
 
 		const runPromises = async () => {
-			await Promise.all([fetchProductsData(productTypes[0]), fetchProductsData(productTypes[1]), fetchProductsData(productTypes[2]), fetchProductsData(productTypes[3]), fetchProductsData(productTypes[4]), fetchProductsData(productTypes[5])]);
+			await Promise.all(promises);
 		};
+		console.log("🚀 ~ file: HeaderSearch.tsx:42 ~ products:", products);
 
 		runPromises();
 	}, []);
 
 	const [searchInput, setSearchInput] = useState<string>("");
 	const [suggestions, setSuggestions] = useState<{ category: string; suggestions: string[] }[]>([]);
-	const [historySuggestions, setHistorySuggestions] = useState<{ category: string; suggestions: string[] }[]>(Object.entries(initialHistorySuggestions).map(([category, suggestions]) => ({ category, suggestions })));
+	const historySuggestions = useAppSelector((state) => Object.entries(state.searchReducer).map(([category, suggestions]) => ({ category, suggestions })));
 
 	const clearHistory = () => {
-		const clearedHistory = Object.entries(initialHistorySuggestions).map(([category, suggestions]) => ({ category, suggestions: [] }));
-		setHistorySuggestions(clearedHistory);
+		Object.keys(initialHistorySuggestions).forEach((key) => {
+			dispatch(removeProduct(0));
+		});
 	};
 
 	const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -103,12 +125,16 @@ const HeaderSearch = () => {
 
 		setSuggestions(filteredSuggestions);
 
-		const filteredHistorySuggestions = Object.entries(initialHistorySuggestions).map(([category, suggestions]) => ({
-			category,
-			suggestions
+		// Transforming filteredHistorySuggestions to match the expected structure
+		const transformedHistorySuggestions = filteredSuggestions.map(({ category, suggestions }) => ({
+			key: category,
+			products: suggestions
 		}));
 
-		setHistorySuggestions(filteredHistorySuggestions);
+		// Dispatching the first transformed suggestion object instead of the array
+		if (transformedHistorySuggestions.length > 0) {
+			dispatch(addProducts(transformedHistorySuggestions[0]));
+		}
 	};
 
 	const handleSuggestionClick = (clickedSuggestion: string, category: string) => {
@@ -119,28 +145,46 @@ const HeaderSearch = () => {
 
 		if (categoryIndex !== -1) {
 			// Check if the suggestion already exists in history
-			const suggestionIndex = updatedHistorySuggestions[categoryIndex].suggestions.indexOf(clickedSuggestion);
+			const exists = updatedHistorySuggestions[categoryIndex].suggestions.includes(clickedSuggestion);
 
-			if (suggestionIndex === -1) {
-				// Add the clicked suggestion to history
-				updatedHistorySuggestions[categoryIndex].suggestions.unshift(clickedSuggestion);
-				// Update the state with the modified history suggestions
-				setHistorySuggestions(updatedHistorySuggestions);
+			if (!exists) {
+				// Create a new array with the updated suggestions
+				const updatedSuggestions = [...updatedHistorySuggestions[categoryIndex].suggestions, clickedSuggestion];
+
+				// Create a new history suggestion object with updated suggestions
+				const updatedCategorySuggestions = { ...updatedHistorySuggestions[categoryIndex], suggestions: updatedSuggestions };
+
+				dispatch(
+					addProducts({
+						key: category,
+						products: updatedCategorySuggestions.suggestions
+					})
+				);
 			}
 		} else {
 			// If category not found in history, create a new entry with the clicked suggestion
-			setHistorySuggestions([
-				...updatedHistorySuggestions,
-				{
-					category,
-					suggestions: [clickedSuggestion]
-				}
-			]);
+			dispatch(
+				addProducts({
+					key: category,
+					products: [clickedSuggestion]
+				})
+			);
 		}
-		// console.log(historySuggestions);
-		// console.log(products[0]);
+
+		router.push(`/product/${category}/${findIdByNameInCategory(productsObject, category, clickedSuggestion)}`);
 	};
 
+	function findIdByNameInCategory(products: ProductsWithId, category: string, name: string): number | null {
+		if (products.hasOwnProperty(category)) {
+			const productList = products[category];
+			for (let i = 0; i < productList.length; i++) {
+				if (productList[i].attributes.name === name) {
+					return productList[i].id;
+				}
+			}
+		}
+		return null;
+	}
 	return (
 		<div className="header-search">
 			<div className="header-search__input-container">

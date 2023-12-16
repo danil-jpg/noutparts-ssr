@@ -19,7 +19,7 @@ const MainHero: FC = ({}) => {
 		<div className="main-hero__wrapper">
 			<div className="main-hero">
 				<Image src={mainHeroImg} alt="mainHeroImg" className="main-hero__background-img"></Image>
-				<Image src={mainHeroBackground} alt="mainHeroImg" className="main-hero__background"></Image>
+				<Image src={mainHeroBackground} alt="mainHeroImg" className="main-hero__background" priority={true} fill={true} sizes="(max-width: 600px) 327px, 1230px"></Image>
 				<div className="main-hero__z-container">
 					<div className="main-hero__left">
 						<div className="main-hero__title">Магазин компьютерных комплектующих</div>
