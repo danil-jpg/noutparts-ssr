@@ -29,6 +29,16 @@
 				animation: jumpAnimation 0.5s ease alternate;
 			}
 		}
+
+		&.active{
+			.categories-row__text {
+				color: #36dd65;
+				opacity: 1;
+			}
+			.categories-row__img {
+				animation: jumpAnimation 0.5s ease alternate;
+			}
+		}
 	}
 
 	&__img {
