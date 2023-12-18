@@ -148,7 +148,7 @@ const TopFilter = ({
     return (
         <div className='top-filter'>
             <p className='top-filter_title'>
-                {type === 'matrices'
+                {type.toLowerCase() === 'matrices'
                     ? 'Матрицы'
                     : type === 'batteries'
                     ? 'Аккумуляторы'
