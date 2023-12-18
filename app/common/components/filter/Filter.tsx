@@ -13,7 +13,7 @@ interface IFilter {
 
 export default function Filter({ type }: IFilter) {
     const RenderFilter = () => {
-        switch (type) {
+        switch (type.toLowerCase()) {
             case 'matrices':
                 return <FilterMatrix />;
             case 'batteries':
@@ -27,7 +27,7 @@ export default function Filter({ type }: IFilter) {
             case 'power_unit':
                 return <div>power_unit</div>;
             default:
-                return <FilterBattery />;
+                return <FilterMatrix />;
         }
     };
 

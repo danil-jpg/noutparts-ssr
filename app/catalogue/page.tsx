@@ -12,7 +12,9 @@ export default function Page() {
             active: true,
         },
     ];
-
+    // if (!) {
+    //     return <Loading />;
+    // }
     return (
         <main className='container catalogue'>
             <Breadcrumbs classname='catalogue__breadcrumbs' breadcrumbs={breadcrumbArr} />

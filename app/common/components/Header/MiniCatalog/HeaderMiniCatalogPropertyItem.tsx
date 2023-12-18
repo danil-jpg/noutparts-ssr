@@ -32,7 +32,14 @@ const HeaderMiniCatalogPropertyItem: FC<IHeaderMiniCatalogPropertyItem> = ({ cat
         if (selectedOptions.length === 3) {
             console.log(selectedOptions);
             if (selectedOptions[0] === 'Matrices') {
-                router.replace('/catalogue/filter-page/' + selectedOptions[0]);
+                if (window.location.href.match(/\bmatrices\b/gi)) {
+                    console.log(window.location.href.match(/\bmatrices\b/gi));
+                    router.refresh();
+                    // router.push('/catalogue/filter-page/' + selectedOptions[0]);
+                } else {
+                    router.push('/catalogue/filter-page/' + selectedOptions[0]);
+                }
+
                 dispatch(
                     setQueryArr([
                         {
@@ -40,7 +47,7 @@ const HeaderMiniCatalogPropertyItem: FC<IHeaderMiniCatalogPropertyItem> = ({ cat
                             searchParamKeys: [selectedOptions[1]],
                         },
                         {
-                            searchParam: 'brand',
+                            searchParam: 'fastening',
                             searchParamKeys: [selectedOptions[2]],
                         },
                     ])

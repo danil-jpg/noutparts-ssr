@@ -18,7 +18,6 @@ export default function FilterMatrix() {
     const [choosenFilterParametrs, setChoosenFilterParametrs] = useState<(string | number)[]>([]);
 
     const selector = useAppSelector((state) => state.queryReducer.queryArr);
-    console.log(selector);
 
     const [queriesArr, setQueriesArr] = useState<IQuery[]>(selector);
 

@@ -21,7 +21,7 @@ export default function Page({ params }: { params: { type: categories } }) {
         },
         {
             label: `${
-                params.type === 'matrices'
+                params.type.toLowerCase() === 'matrices'
                     ? 'Матрицы'
                     : params.type === 'batteries'
                     ? 'Аккумуляторы'
