@@ -27,6 +27,9 @@ const filteredData = createSlice({
         setQueryArr: (state, action) => {
             state.queryArr = action.payload;
         },
+        // setOutFilterQueryArr: (state, action) => {
+        //     state.queryArr = action.payload;
+        // },
 
         setDefaultDataAndQueryArr: (state) => {
             state.data = { data: [] };

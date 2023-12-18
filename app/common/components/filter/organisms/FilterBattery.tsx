@@ -5,7 +5,7 @@ import { v1 } from 'uuid';
 import Loading from '../../Loading/Loading';
 import { filterItemOnclickHandler, makeUniqueAndLoopFunc } from '@/app/lib/service';
 import clsx from 'clsx';
-import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
+import { useAppDispatch } from '@/app/Redux/store';
 import { IQuery } from '@/app/common/types/types';
 import { onFilterItemClickHandler } from '@/app/lib/service';
 import { setData, setDefaultDataAndQueryArr } from '@/app/Redux/slice/query/query';
@@ -294,6 +294,7 @@ export default function FilterBattery() {
                     substrateRef={substrateRef}
                     choosenFilterParametrs={choosenFilterParametrs}
                     setChoosenFilterParametrs={setChoosenFilterParametrs}
+                    type='batteries'
                 />
             </div>
         </>

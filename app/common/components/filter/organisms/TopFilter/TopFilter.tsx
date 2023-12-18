@@ -7,9 +7,10 @@ import { getFilterItemData } from '@/app/lib/data';
 import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
 import { onSelectItemChangeHandler, onStatusItemClickHandler } from '@/app/lib/service';
 import { IQuery, categories } from '@/app/common/types/types';
-import { setData, setDefaultDataAndQueryArr } from '@/app/Redux/slice/query/query';
+import { setData } from '@/app/Redux/slice/query/query';
 import FilterCards from '../FilterCards/FilterCards';
 import clsx from 'clsx';
+import { v1 } from 'uuid';
 
 interface IBrand {
     data: [
@@ -35,6 +36,7 @@ const TopFilter = ({
     substrateRef,
     choosenFilterParametrs,
     setChoosenFilterParametrs,
+    type,
 }: {
     queriesArr: IQuery[];
     setQueriesArr: React.Dispatch<React.SetStateAction<IQuery[]>>;
@@ -43,6 +45,7 @@ const TopFilter = ({
     substrateRef: React.MutableRefObject<HTMLDivElement | null>;
     choosenFilterParametrs: (string | number)[];
     setChoosenFilterParametrs: React.Dispatch<React.SetStateAction<(string | number)[]>>;
+    type: categories;
 }) => {
     const [brand, setBrand] = useState<string>('');
     const [price, setPrice] = useState<string>('');
@@ -54,7 +57,7 @@ const TopFilter = ({
 
     useEffect(() => {
         const getData = async () => {
-            const res = (await getFilterItemData(`matrices?fields[0]=brand&fields[1]`)) as IBrand;
+            const res = (await getFilterItemData(`${type}?fields[0]=brand&fields[1]`)) as IBrand;
             const formattedAns = [];
             for (let key in res.data) {
                 formattedAns.push(res.data[key].attributes.brand);
@@ -111,7 +114,7 @@ const TopFilter = ({
                     // }
                     return el.searchParamKeys.map((el) => {
                         return (
-                            <>
+                            <div key={v1()}>
                                 <div className='choosen'>
                                     {el === 'available' ? 'Есть на складе' : el === 'discount' ? 'Скидка' : el === 'salesHit' ? 'Хит продаж' : el}
                                     <IconRenderer
@@ -134,7 +137,7 @@ const TopFilter = ({
                                         }}
                                     />
                                 </div>
-                            </>
+                            </div>
                         );
                     });
                 })}
@@ -144,7 +147,21 @@ const TopFilter = ({
 
     return (
         <div className='top-filter'>
-            <p className='top-filter_title'>Аккумуляторы</p>
+            <p className='top-filter_title'>
+                {type === 'matrices'
+                    ? 'Матрицы'
+                    : type === 'batteries'
+                    ? 'Аккумуляторы'
+                    : type === 'hdds'
+                    ? 'Жесткие диски'
+                    : type === 'keyboards'
+                    ? 'Клавиатуры'
+                    : type === 'rams'
+                    ? 'Оперативная память'
+                    : type === 'power_unit'
+                    ? 'Блок питания'
+                    : type}
+            </p>
             <div>
                 <div className='top-filter_filters'>
                     <div id='filter-menu-burger-wr' className='filter-menu-burger-wr'>
@@ -249,7 +266,7 @@ const TopFilter = ({
             </div>
 
             <RenderChoosen />
-            <FilterCards />
+            <FilterCards type={type} />
         </div>
     );
 };

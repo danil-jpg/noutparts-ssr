@@ -43,8 +43,8 @@ export default function Page({ params }: { params: { type: categories } }) {
     return (
         <main className='container filter-page'>
             <div>
-                {/* <Breadcrumbs classname='filter-page__breadcrumbs' breadcrumbs={breadcrumbArr} /> */}
-                {/* <CategoriesRow /> */}
+                <Breadcrumbs classname='filter-page__breadcrumbs' breadcrumbs={breadcrumbArr} />
+                <CategoriesRow />
                 <Filter type={params.type} />
             </div>
         </main>

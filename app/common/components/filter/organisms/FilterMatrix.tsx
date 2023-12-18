@@ -17,7 +17,10 @@ let [diagonale, permission, fastening, fiberOpticTechnology, connector, backligh
 export default function FilterMatrix() {
     const [choosenFilterParametrs, setChoosenFilterParametrs] = useState<(string | number)[]>([]);
 
-    const [queriesArr, setQueriesArr] = useState<IQuery[]>([]);
+    const selector = useAppSelector((state) => state.queryReducer.queryArr);
+    console.log(selector);
+
+    const [queriesArr, setQueriesArr] = useState<IQuery[]>(selector);
 
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
@@ -66,7 +69,10 @@ export default function FilterMatrix() {
             setIsLoaded(true);
         };
 
-        dispatch(setDefaultDataAndQueryArr());
+        // dispatch(setDefaultDataAndQueryArr());
+
+        // selector.length ? setQueriesArr(selector) : setQueriesArr([]);
+        // console.log(selector);
 
         fetchData();
     }, []);
@@ -413,6 +419,7 @@ export default function FilterMatrix() {
                     substrateRef={substrateRef}
                     choosenFilterParametrs={choosenFilterParametrs}
                     setChoosenFilterParametrs={setChoosenFilterParametrs}
+                    type='matrices'
                 />
             </div>
         </>

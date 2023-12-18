@@ -2,7 +2,6 @@
 import { setData } from '@/app/Redux/slice/query/query';
 import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
 import { getFilterItemData } from '@/app/lib/data';
-import { NextPage } from 'next';
 import { useEffect } from 'react';
 import Image from 'next/image';
 import './FilterCards.scss';
@@ -39,14 +38,18 @@ interface IMatrixCard {
     };
 }
 
-const FilterCards = ({ type = 'matrices' }: { type: categories }) => {
+const FilterCards = ({ type }: { type: categories }) => {
     const selector = useAppSelector((state) => state.queryReducer.data.data) as IMatrixCard[];
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         (async function () {
-            const res = await getFilterItemData('matrices?populate=*');
-            dispatch(setData(res));
+            if (selector && selector.length > 0) {
+                return;
+            } else {
+                const res = await getFilterItemData('matrices?populate=*');
+                dispatch(setData(res));
+            }
         })();
     }, []);
 
