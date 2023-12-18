@@ -1,6 +1,6 @@
 'use client';
 
-import { IQuery } from '@/app/common/types/types';
+import { IQuery, categories } from '@/app/common/types/types';
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface IFilteredData {
@@ -8,6 +8,7 @@ export interface IFilteredData {
         data: [];
     };
     queryArr: IQuery[];
+    type: categories | '';
 }
 
 const initialState: IFilteredData = {
@@ -15,6 +16,7 @@ const initialState: IFilteredData = {
         data: [],
     },
     queryArr: [],
+    type: '',
 };
 
 const filteredData = createSlice({
@@ -27,6 +29,9 @@ const filteredData = createSlice({
         setQueryArr: (state, action) => {
             state.queryArr = action.payload;
         },
+        setType: (state, action) => {
+            state.type = action.payload as categories;
+        },
         // setOutFilterQueryArr: (state, action) => {
         //     state.queryArr = action.payload;
         // },
@@ -38,6 +43,6 @@ const filteredData = createSlice({
     },
 });
 
-export const { setData, setQueryArr, setDefaultDataAndQueryArr } = filteredData.actions;
+export const { setData, setQueryArr, setDefaultDataAndQueryArr, setType } = filteredData.actions;
 
 export default filteredData.reducer;

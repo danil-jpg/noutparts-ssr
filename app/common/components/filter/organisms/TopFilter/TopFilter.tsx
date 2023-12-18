@@ -98,20 +98,6 @@ const TopFilter = ({
         return (
             <div className='choosen-wr'>
                 {queriesArr.map((el: IQuery) => {
-                    // {
-                    //     choosenFilterParametrs.length > 0 ? (
-                    //         <div
-                    //             className='choosen'
-                    //             onClick={() => {
-                    //                 setQueriesArr([]);
-                    //                 setChoosenFilterParametrs([]);
-                    //             }}>
-                    //             Очистить все
-                    //         </div>
-                    //     ) : (
-                    //         ''
-                    //     );
-                    // }
                     return el.searchParamKeys.map((el) => {
                         return (
                             <div key={v1()}>

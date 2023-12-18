@@ -4,7 +4,7 @@ import { IHeaderMiniCatalogPropertyItem } from '@/types';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Link from 'next/dist/client/link';
 import { useAppDispatch } from '@/app/Redux/store';
-import { setQueryArr } from '@/app/Redux/slice/query/query';
+import { setQueryArr, setType } from '@/app/Redux/slice/query/query';
 import { useRouter } from 'next/navigation';
 
 const HeaderMiniCatalogPropertyItem: FC<IHeaderMiniCatalogPropertyItem> = ({ catalogItemName, property, subProperties }) => {
@@ -30,29 +30,70 @@ const HeaderMiniCatalogPropertyItem: FC<IHeaderMiniCatalogPropertyItem> = ({ cat
 
     useEffect(() => {
         if (selectedOptions.length === 3) {
-            console.log(selectedOptions);
-            if (selectedOptions[0] === 'Matrices') {
-                if (window.location.href.match(/\bmatrices\b/gi)) {
-                    console.log(window.location.href.match(/\bmatrices\b/gi));
-                    router.refresh();
-                    // router.push('/catalogue/filter-page/' + selectedOptions[0]);
-                } else {
-                    router.push('/catalogue/filter-page/' + selectedOptions[0]);
-                }
+            switch (selectedOptions[0].toLowerCase()) {
+                case 'matrices':
+                    if (window.location.href.match(/\bmatrices\b/gi)) {
+                        router.refresh();
+                    } else {
+                        router.push('/catalogue/filter-page/' + selectedOptions[0]);
+                    }
 
-                dispatch(
-                    setQueryArr([
-                        {
-                            searchParam: 'permission',
-                            searchParamKeys: [selectedOptions[1]],
-                        },
-                        {
-                            searchParam: 'fastening',
-                            searchParamKeys: [selectedOptions[2]],
-                        },
-                    ])
-                );
+                    dispatch(
+                        setQueryArr([
+                            {
+                                searchParam: 'permission',
+                                searchParamKeys: [selectedOptions[1]],
+                            },
+                            {
+                                searchParam: 'fastening',
+                                searchParamKeys: [selectedOptions[2]],
+                            },
+                        ])
+                    );
+                    dispatch(setType('matrices'));
+                    break;
+                case 'batteries':
+                    if (window.location.href.match(/\bbatteries\b/gi)) {
+                        router.refresh();
+                    } else {
+                        router.push('/catalogue/filter-page/' + selectedOptions[0]);
+                    }
+
+                    dispatch(
+                        setQueryArr([
+                            {
+                                searchParam: 'capacity',
+                                searchParamKeys: [selectedOptions[1]],
+                            },
+                            {
+                                searchParam: 'voltage',
+                                searchParamKeys: [selectedOptions[2]],
+                            },
+                        ])
+                    );
+                    dispatch(setType('batteries'));
+                    break;
             }
+            // if (selectedOptions[0] === 'Matrices') {
+            //     if (window.location.href.match(/\bmatrices\b/gi)) {
+            //         router.refresh();
+            //     } else {
+            //         router.push('/catalogue/filter-page/' + selectedOptions[0]);
+            //     }
+
+            //     dispatch(
+            //         setQueryArr([
+            //             {
+            //                 searchParam: 'permission',
+            //                 searchParamKeys: [selectedOptions[1]],
+            //             },
+            //             {
+            //                 searchParam: 'fastening',
+            //                 searchParamKeys: [selectedOptions[2]],
+            //             },
+            //         ])
+            //     );
+            // }
 
             // createPageURL();
         } else {

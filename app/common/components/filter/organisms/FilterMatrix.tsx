@@ -8,7 +8,7 @@ import clsx from 'clsx';
 import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
 import { IQuery } from '@/app/common/types/types';
 import { onFilterItemClickHandler } from '@/app/lib/service';
-import { setData, setDefaultDataAndQueryArr } from '@/app/Redux/slice/query/query';
+import { setData, setDefaultDataAndQueryArr, setType } from '@/app/Redux/slice/query/query';
 import { setQueryArr as setQueriesArrRed } from '@/app/Redux/slice/query/query';
 import TopFilter from './TopFilter/TopFilter';
 
@@ -19,7 +19,9 @@ export default function FilterMatrix() {
 
     const selector = useAppSelector((state) => state.queryReducer.queryArr);
 
-    const [queriesArr, setQueriesArr] = useState<IQuery[]>(selector);
+    const prevType = useAppSelector((state) => state.queryReducer.type);
+
+    const [queriesArr, setQueriesArr] = useState<IQuery[]>(prevType === 'matrices' ? selector : []);
 
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
@@ -68,10 +70,14 @@ export default function FilterMatrix() {
             setIsLoaded(true);
         };
 
-        // dispatch(setDefaultDataAndQueryArr());
-
-        // selector.length ? setQueriesArr(selector) : setQueriesArr([]);
-        // console.log(selector);
+        if (!prevType) {
+            dispatch(setType('matrices'));
+        } else if (prevType === 'matrices') {
+            setQueriesArr(selector);
+        } else {
+            dispatch(setType('matrices'));
+            dispatch(setDefaultDataAndQueryArr());
+        }
 
         fetchData();
     }, []);

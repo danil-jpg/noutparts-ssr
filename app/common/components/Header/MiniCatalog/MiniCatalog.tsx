@@ -48,9 +48,10 @@ const MiniCatalog: FC = () => {
         {
             product_group_name: 'Batteries',
             product_group_types: {
-                '14.8 v': ['7200 mah', '2200 mah', '1700 mah', '1200 mah'],
-                '7.6 v': ['7200 mah', '2200 mah', '1700 mah', '1200 mah'],
-                '7.4 v': ['2200 mah', '1700 mah', '1200 mah'],
+                '2600': ['14.4'],
+                '3560': ['3,560'],
+                '4345': ['14.8'],
+                '5200': ['11.1'],
             },
         },
         {

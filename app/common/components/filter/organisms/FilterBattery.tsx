@@ -5,10 +5,10 @@ import { v1 } from 'uuid';
 import Loading from '../../Loading/Loading';
 import { filterItemOnclickHandler, makeUniqueAndLoopFunc } from '@/app/lib/service';
 import clsx from 'clsx';
-import { useAppDispatch } from '@/app/Redux/store';
+import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
 import { IQuery } from '@/app/common/types/types';
 import { onFilterItemClickHandler } from '@/app/lib/service';
-import { setData, setDefaultDataAndQueryArr } from '@/app/Redux/slice/query/query';
+import { setData, setDefaultDataAndQueryArr, setType } from '@/app/Redux/slice/query/query';
 import { setQueryArr as setQueriesArrRed } from '@/app/Redux/slice/query/query';
 import TopFilter from './TopFilter/TopFilter';
 
@@ -17,7 +17,11 @@ let [capacity, voltage, type, color]: any = '';
 export default function FilterBattery() {
     const [choosenFilterParametrs, setChoosenFilterParametrs] = useState<(string | number)[]>([]);
 
-    const [queriesArr, setQueriesArr] = useState<IQuery[]>([]);
+    const prevType = useAppSelector((state) => state.queryReducer.type);
+
+    const selector = useAppSelector((state) => state.queryReducer.queryArr);
+
+    const [queriesArr, setQueriesArr] = useState<IQuery[]>(prevType === 'batteries' ? selector : []);
 
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
@@ -49,7 +53,14 @@ export default function FilterBattery() {
             setIsLoaded(true);
         };
 
-        dispatch(setDefaultDataAndQueryArr());
+        if (!prevType) {
+            dispatch(setType('batteries'));
+        } else if (prevType === 'batteries') {
+            setQueriesArr(selector);
+        } else {
+            dispatch(setType('batteries'));
+            dispatch(setDefaultDataAndQueryArr());
+        }
 
         fetchData();
     }, []);
