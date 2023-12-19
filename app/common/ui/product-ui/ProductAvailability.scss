@@ -1,51 +1,51 @@
 .product-availability {
-	width: fit-content;
-	border-radius: 6px;
-	height: 46px;
+    width: max-content;
+    border-radius: 6px;
+    height: 46px;
 
-	font-family: Roboto;
-	font-size: 16px;
-	font-style: normal;
-	font-weight: 500;
-	line-height: 150%; /* 24px */
-	letter-spacing: 0.32px;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 24px */
+    letter-spacing: 0.32px;
 
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	gap: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 
-	padding: 0 20px 0 15px;
-	&.available {
-		color: #3dc964;
-		background: #d9ffe2;
-	}
-	&.ending {
-		color: #f3a32a;
-		background: #ffdecc;
-	}
-	&.outOfStock {
-		color: #ff5a5a;
-		background: #fcc;
-	}
+    padding: 0 20px 0 15px;
+    &.available {
+        color: #3dc964;
+        background: #d9ffe2;
+    }
+    &.ending {
+        color: #f3a32a;
+        background: #ffdecc;
+    }
+    &.outOfStock {
+        color: #ff5a5a;
+        background: #fcc;
+    }
 
-	&__icon-wrapper {
-		margin: -2px 0 0 0;
-		width: 24px;
-		height: 24px;
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		&.green {
-			background: #3dc964;
-		}
-		&.orange {
-			background: #f3a32a;
-		}
-		&.red {
-			background: #ff5a5a;
-		}
-	}
+    &__icon-wrapper {
+        margin: -2px 0 0 0;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &.green {
+            background: #3dc964;
+        }
+        &.orange {
+            background: #f3a32a;
+        }
+        &.red {
+            background: #ff5a5a;
+        }
+    }
 }

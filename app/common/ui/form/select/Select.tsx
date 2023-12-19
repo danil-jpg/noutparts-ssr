@@ -4,13 +4,7 @@ import IconRenderer from '../../Icons/IconRenderer';
 import './Select.scss';
 import { ISelect } from '../../../types/types';
 
-const Select: FC<ISelect> = ({
-    value,
-    setValue,
-    className = '',
-    defValue = 'choose your category',
-    arr = ['1', '2', '3'],
-}) => {
+const Select: FC<ISelect> = ({ value, setValue, className = '', defValue = 'choose your category', arr = ['1', '2', '3'] }) => {
     const rootRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
@@ -20,7 +14,9 @@ const Select: FC<ISelect> = ({
     const [open, setOpen] = useState<boolean>(false);
 
     const onElementClickHandler = (str: string) => {
-        setValue(str);
+        setValue((prev) => {
+            return str;
+        });
     };
 
     const onRootClickHandler = () => {
@@ -51,10 +47,7 @@ const Select: FC<ISelect> = ({
             <ul className={`select__ul  ${open ? ' active' : ''}`}>
                 <div style={{ minHeight: '0px' }}>
                     {arr.map((el) => (
-                        <li
-                            onClick={() => onElementClickHandler(el)}
-                            key={el}
-                            className='select__li'>
+                        <li onClick={() => onElementClickHandler(el)} key={el} className='select__li'>
                             {el}
                         </li>
                     ))}
