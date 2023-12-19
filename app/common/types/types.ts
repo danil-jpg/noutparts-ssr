@@ -94,3 +94,12 @@ export interface IBrand {
         }
     ];
 }
+
+export interface IProduct {
+    name: string;
+    price: number;
+    discount: number;
+    photo_url: string;
+    id: number;
+    category: string;
+}
