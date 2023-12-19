@@ -60,7 +60,6 @@ const Features = ({}) => {
 
 	const [products, setProducts] = useState<Product[]>([]); // Assuming Product is the interface for your products
 	
-	console.log("🚀 ~ file: Features.tsx:60 ~ Features ~ products:", products);
 
 	const productsInBasket = useAppSelector((state) => state.basketReducer.products);
 	const productsInFavs = useAppSelector((state) => state.favsReducer.products);

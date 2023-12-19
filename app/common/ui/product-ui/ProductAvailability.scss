@@ -49,3 +49,57 @@
 		}
 	}
 }
+
+@media(max-width: 600px){
+	.product-availability {
+		width: fit-content;
+		border-radius: 6px;
+		height: 34px;
+	
+		font-family: Roboto;
+		font-size: 12px;
+		font-style: normal;
+		font-weight: 500;
+		line-height: 150%; /* 24px */
+		letter-spacing: 0.32px;
+	
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		gap: 9px;
+	
+		padding: 0 17px 0 17px;
+		&.available {
+			color: #3dc964;
+			background: #d9ffe2;
+		}
+		&.ending {
+			color: #f3a32a;
+			background: #ffdecc;
+		}
+		&.outOfStock {
+			color: #ff5a5a;
+			background: #fcc;
+		}
+	
+		&__icon-wrapper {
+			margin: -2px 0 0 0;
+			width: 16px;
+			height: 16px;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			&.green {
+				background: #3dc964;
+			}
+			&.orange {
+				background: #f3a32a;
+			}
+			&.red {
+				background: #ff5a5a;
+			}
+		}
+	}
+}

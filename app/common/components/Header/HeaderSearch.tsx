@@ -85,7 +85,6 @@ const HeaderSearch = () => {
 		processFetchedData(productType, fetchedData);
 
 		productsObject[productType] = fetchedData;
-		console.log("🚀 ~ file: HeaderSearch.tsx:82 ~ fetchProductsData ~ productsAray:", productsObject);
 	};
 
 	// Inside useEffect
@@ -97,7 +96,6 @@ const HeaderSearch = () => {
 		const runPromises = async () => {
 			await Promise.all(promises);
 		};
-		console.log("🚀 ~ file: HeaderSearch.tsx:42 ~ products:", products);
 
 		runPromises();
 	}, []);
@@ -105,11 +103,14 @@ const HeaderSearch = () => {
 	const [searchInput, setSearchInput] = useState<string>("");
 	const [suggestions, setSuggestions] = useState<{ category: string; suggestions: string[] }[]>([]);
 	const historySuggestions = useAppSelector((state) => Object.entries(state.searchReducer).map(([category, suggestions]) => ({ category, suggestions })));
+	
 
 	const clearHistory = () => {
-		Object.keys(initialHistorySuggestions).forEach((key) => {
-			dispatch(removeProduct(0));
-		});
+		// Object.keys(initialHistorySuggestions).forEach((key) => {
+		
+
+		dispatch(removeProduct(0));
+		// });
 	};
 
 	const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -201,29 +202,39 @@ const HeaderSearch = () => {
 				<div className="header-search__search-field">
 					<div className="header-search__suggestions-box">
 						<div className="header-search__box-heading">Предложенные варианты</div>
-						{suggestions.map((categorySuggestion, index) => (
-							<div className="header-search__category" key={index}>
-								<h4 className="header-search__category-heading">{categorySuggestion.category}</h4>
-								<ul className="header-search__suggestions">
-									{categorySuggestion.suggestions.map((suggestion, idx) => {
-										const truncatedSuggestion = suggestion.length > 40 ? suggestion.slice(0, 50) + "..." : suggestion;
-										return (
-											<li className="header-search__suggestion" key={idx} onClick={() => handleSuggestionClick(suggestion, categorySuggestion.category)}>
-												<IconRenderer id="header-search-sign" />
-												<div>{truncatedSuggestion}</div>
-											</li>
-										);
-									})}
-								</ul>
+						{suggestions.length > 0 ? (
+							suggestions.map((categorySuggestion, index) => (
+								<div className="header-search__category" key={index}>
+									<h4 className="header-search__category-heading">{categorySuggestion.category}</h4>
+									<ul className="header-search__suggestions">
+										{categorySuggestion.suggestions.length > 0 ? (
+											categorySuggestion.suggestions.map((suggestion, idx) => {
+												const truncatedSuggestion = suggestion.length > 40 ? suggestion.slice(0, 50) + "..." : suggestion;
+												return (
+													<li className="header-search__suggestion" key={idx} onClick={() => handleSuggestionClick(suggestion, categorySuggestion.category)}>
+														<IconRenderer id="header-search-sign" />
+														<div>{truncatedSuggestion}</div>
+													</li>
+												);
+											})
+										) : (
+											<li className="header-search__suggestion">No such products found</li>
+										)}
+									</ul>
+								</div>
+							))
+						) : (
+							<div className="header-search__category">
+								<h4 className="header-search__category-heading">No such category</h4>
 							</div>
-						))}
+						)}
 					</div>
 
 					{historySuggestions.length > 0 && (
 						<div className="header-search__history-box">
 							<div className="header-search__box-heading">
 								История поиска
-								<button className="header-search__clear-button" onClick={clearHistory}>
+								<button className="header-search__clear-button" onClick={() => { clearHistory() }}>
 									Очистить историю
 								</button>
 							</div>
