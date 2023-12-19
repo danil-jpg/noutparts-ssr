@@ -1,18 +1,29 @@
 .features-static {
+	margin: 0 0 0 -12px;
 	width: 100%;
-	max-width: 1104px;
+	max-width: 1230px;
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
+	justify-content: flex-start;
+	// align-items: center;
+
+	&__container {
+		width: 100%;
+		max-width: 1118px;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
 	&__wrapper {
 		width: 100%;
 		display: flex;
 		justify-content: center;
 		height: 396px;
+		background: #f5fff5;
 	}
 
 	&__block {
+		margin: 90px 0 0 0;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -47,7 +58,7 @@
 		margin: 2px 0 0 0;
 		color: var(--575757, #575757);
 		text-align: center;
-		font-family: Poppins;
+		font-family: Roboto;
 		font-size: 16px;
 		font-style: normal;
 		font-weight: 400;
@@ -61,6 +72,185 @@
 		}
 		&.three {
 			width: 249px;
+		}
+	}
+}
+@media (max-width: 1200px) {
+	.features-static {
+		width: 100%;
+		max-width: 1104px;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 30px;
+		align-items: center;
+
+		// margin: 0 0 0 -12px;
+		// width: 100%;
+		// max-width: 1230px;
+		// display: flex;
+		// flex-direction: row;
+		// justify-content: flex-start;
+		// // align-items: center;
+
+		&__container {
+			width: 100%;
+			max-width: 1104px;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 30px;
+			align-items: center;
+		}
+		&__wrapper {
+			width: 100%;
+			display: flex;
+
+			justify-content: center;
+			height: 514px;
+			background: #f5fff5;
+		}
+
+		&__block {
+			margin: 0;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		&__icon-wrapper {
+			width: 62px;
+			height: 62px;
+			flex-shrink: 0;
+			border-radius: 10px;
+			background: #d3ffc8;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		&__icon {
+		}
+
+		&__heading {
+			margin: 8px 0 0 0;
+			color: var(--2-b-2-b-2-b, #2b2b2b);
+			font-family: Roboto;
+			font-size: 20px;
+			font-style: normal;
+			font-weight: 700;
+			line-height: 180%; /* 36px */
+			letter-spacing: -0.4px;
+		}
+
+		&__text {
+			margin: 2px 0 0 0;
+			color: var(--575757, #575757);
+			text-align: center;
+			font-family: Poppins;
+			font-size: 16px;
+			font-style: normal;
+			font-weight: 400;
+			line-height: 160%; /* 25.6px */
+			letter-spacing: -0.32px;
+			&.one {
+				width: 277px;
+			}
+			&.two {
+				width: 304px;
+			}
+			&.three {
+				width: 249px;
+			}
+		}
+	}
+}
+@media (max-width: 600px) {
+	.features-static {
+		width: 100%;
+		max-width: 1104px;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		gap: 36.5px;
+		align-items: center;
+		padding: 25px 0 0 10px;
+
+		&__container {
+			width: 100%;
+			max-width: 1104px;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			gap: 37px;
+			align-items: center;
+			padding: 0px 0 0 0;
+		}
+		&__wrapper {
+			margin: 40px 0 0 0;
+			width: 100%;
+			display: flex;
+
+			justify-content: center;
+			height: 614px;
+			background: #f5fff5;
+		}
+
+		&__block {
+			margin: 0;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		&__icon-wrapper {
+			width: 52px;
+			height: 52px;
+			flex-shrink: 0;
+			border-radius: 10px;
+			background: #d3ffc8;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		&__icon {
+			max-width: 24px;
+			max-height: 24px;
+		}
+
+		&__heading {
+			margin: 14px 0 0 0;
+			color: var(--2-b-2-b-2-b, #2b2b2b);
+			font-family: Roboto;
+			font-size: 16px;
+			font-style: normal;
+			font-weight: 700;
+			line-height: 180%; /* 36px */
+			letter-spacing: -0.4px;
+		}
+
+		&__text {
+			margin: 1px 0 0 0;
+			color: var(--575757, #575757);
+			text-align: center;
+			font-family: Roboto;
+			font-size: 14px;
+			font-style: normal;
+			font-weight: 400;
+			line-height: 150%; /* 25.6px */
+			letter-spacing: -0.32px;
+			&.one {
+				width: 245px;
+			}
+			&.two {
+				width: 256px;
+			}
+			&.three {
+				width: 249px;
+			}
 		}
 	}
 }

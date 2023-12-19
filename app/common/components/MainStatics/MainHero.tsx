@@ -19,30 +19,40 @@ const MainHero: FC = ({}) => {
 		<div className="main-hero__wrapper">
 			<div className="main-hero">
 				<Image src={mainHeroImg} alt="mainHeroImg" className="main-hero__background-img"></Image>
-				<Image src={mainHeroBackground} alt="mainHeroImg" className="main-hero__background"></Image>
+				<Image src={mainHeroBackground} alt="mainHeroImg" className="main-hero__background" priority={true} fill={true} sizes="(max-width: 600px) 327px, 1230px"></Image>
 				<div className="main-hero__z-container">
 					<div className="main-hero__left">
 						<div className="main-hero__title">Магазин компьютерных комплектующих</div>
 						<div className="main-hero__undertitle">У нас Вы найдете комплектующие для ноутбуков и планшетов:</div>
 						<div className="main-hero__list">
 							<div className="main-hero__list-item">
-								<Image src={mainHeroListIcon1} alt="mainHeroImg" className="main-hero__list-icon"></Image>
+								<div className="main-hero__list-icon-wrapper">
+									<Image src={mainHeroListIcon1} alt="mainHeroImg" className="main-hero__list-icon"></Image>
+								</div>
 								Корпуса, кулера, шлейфы, петли и разъемы
 							</div>
 							<div className="main-hero__list-item">
-								<Image src={mainHeroListIcon2} alt="mainHeroImg" className="main-hero__list-icon"></Image>
+								<div className="main-hero__list-icon-wrapper">
+									<Image src={mainHeroListIcon2} alt="mainHeroImg" className="main-hero__list-icon"></Image>
+								</div>
 								Зарядные устройства
 							</div>
 							<div className="main-hero__list-item">
-								<Image src={mainHeroListIcon3} alt="mainHeroImg" className="main-hero__list-icon"></Image>
+								<div className="main-hero__list-icon-wrapper">
+									<Image src={mainHeroListIcon3} alt="mainHeroImg" className="main-hero__list-icon"></Image>
+								</div>
 								Матрицы
 							</div>
 							<div className="main-hero__list-item">
-								<Image src={mainHeroListIcon4} alt="mainHeroImg" className="main-hero__list-icon"></Image>
+								<div className="main-hero__list-icon-wrapper">
+									<Image src={mainHeroListIcon4} alt="mainHeroImg" className="main-hero__list-icon"></Image>
+								</div>
 								Клавиатуры
 							</div>
 							<div className="main-hero__list-item">
-								<Image src={mainHeroListIcon5} alt="mainHeroImg" className="main-hero__list-icon"></Image>
+								<div className="main-hero__list-icon-wrapper">
+									<Image src={mainHeroListIcon5} alt="mainHeroImg" className="main-hero__list-icon"></Image>
+								</div>
 								Батареи
 							</div>
 						</div>

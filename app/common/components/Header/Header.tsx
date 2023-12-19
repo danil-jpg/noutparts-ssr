@@ -52,7 +52,7 @@ const Header: FC = ({}) => {
 						<div className="header__components-container mobile left">
 							<BurgerMenu></BurgerMenu>
 						</div>
-						<Link href="/main">
+						<Link href="/">
 							<Image src={siteLogo} alt="siteLogo" className="header__site-logo"></Image>
 						</Link>
 

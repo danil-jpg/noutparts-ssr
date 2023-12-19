@@ -3,45 +3,20 @@ import React, { FC, useState, useEffect, ChangeEvent } from "react";
 import IconRenderer from "../../ui/Icons/IconRenderer";
 import "./HeaderSearch.scss";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useAppDispatch } from "@/app/Redux/store";
+import { addProducts } from "@/app/Redux/slice/search/searchSlice";
+import { useAppSelector } from "@/app/Redux/store";
+import { removeProduct } from "@/app/Redux/slice/search/searchSlice";
 
-// Define specific interfaces for each product type
-interface MatrixAttributes {
-	matrix_name: string;
-	// Add other attributes specific to matrices
-}
+type IProductNamesAttributes = {
+	name: string;
+};
 
-interface HDDAttributes {
-	hdd_name: string;
-	// Add other attributes specific to HDDs
-}
-
-interface KeyboardAttributes {
-	keyboard_name: string;
-	// Add other attributes specific to keyboards
-}
-
-interface RAMAttributes {
-	ram_name: string;
-	// Add other attributes specific to keyboards
-}
-
-interface BatteryAttributes {
-	battery_name: string;
-	// Add other attributes specific to keyboards
-}
-
-interface PoweSupplyAttributes {
-	power_supply_name: string;
-	// Add other attributes specific to keyboards
-}
-
-// Union type for all possible attributes
-type ProductAttributes = MatrixAttributes | HDDAttributes | KeyboardAttributes | RAMAttributes | BatteryAttributes | PoweSupplyAttributes;
-
-interface ProductData {
+export interface ProductData {
 	data: {
 		id: number;
-		attributes: ProductAttributes;
+		attributes: IProductNamesAttributes;
 	}[];
 	meta: {
 		pagination: any; // You can define a specific type for pagination if available
@@ -53,116 +28,113 @@ type Products = {
 	[key: string]: string[];
 };
 
-const initialHistorySuggestions = {
-	// matrix: [],
-	// battery: [],
-	// hdd: [],
-	// keyboard: [],
-	// ram: [],
-	// "power-unit": []
+const initialHistorySuggestions: Products = {
+	matrix: [],
+	battery: [],
+	hdd: [],
+	keyboard: [],
+	ram: [],
+	"power-unit": []
 	// //... (other product categories)
 };
 let products: Products = {};
 
-const HeaderSearch: FC = () => {
+interface ProductWithId {
+	attributes: {
+		name: string;
+	};
+	id: number;
+}
 
-	const fetchProductsData = async (productType: string) => {
-		// let fieldName: keyof ProductAttributes;
-		let attributes: ProductAttributes;
+type ProductsWithId = {
+	[key: string]: ProductWithId[];
+};
+let productsObject: ProductsWithId = {};
 
-		let fieldName: keyof ProductAttributes;
+const HeaderSearch = () => {
+	const router = useRouter();
+	const dispatch = useAppDispatch();
 
-		switch (productType) {
-			case "matrix":
-				fieldName = "matrix_name" as keyof ProductAttributes;
-				break;
-			case "hdd":
-				fieldName = "hdd_name" as keyof ProductAttributes;
-				break;
-			case "keyboard":
-				fieldName = "keyboard_name" as keyof ProductAttributes;
-				break;
-			case "ram":
-				fieldName = "ram_name" as keyof ProductAttributes;
-				break;
-			case "power_supply":
-				fieldName = "power_supply_name" as keyof ProductAttributes;
-				break;
-			case "battery":
-				fieldName = "battery_name" as keyof ProductAttributes;
-				break;
-			default:
-				throw new Error("Invalid product type");
-		}
-
+	const fetchProductNames = async (productType: string) => {
 		try {
-			const response = await axios.get<ProductData>(`https://noutparts-strapi.onrender.com/api/${productType === "matrix" ? "matrice" : productType === "power_supply" ? "power-supplie" : productType === "battery" ? "batterie" : productType}s/?fields[0]=${fieldName}`);
-
+			const response = await axios.get<ProductData>(`http://127.0.0.1:1337/api/${productType === "matrix" ? "matrice" : productType === "power_supply" ? "power-supplie" : productType === "battery" ? "batterie" : productType}s/?fields[0]=name`);
 			const data: ProductData = response.data;
-			console.log(`🚀 ~ Data for ${productType}:`, data.data);
 
-			if (data.data && data.data.length > 0) {
-				// Check if the product type already exists in the products object
-				if (!products[productType]) {
-					products[productType] = [];
-				}
-
-				data.data.forEach((item) => {
-					if (fieldName in item.attributes) {
-						// Check if the product name already exists before pushing
-						if (!products[productType].includes(item.attributes[fieldName])) {
-							products[productType].push(item.attributes[fieldName]);
-						}
-					}
-				});
-			}
-
-			console.log("Products:", products);
+			return data.data || [];
 		} catch (error) {
 			console.error("Error fetching data:", error);
-			return {};
+			return [];
 		}
 	};
 
+	const processFetchedData = (productType: string, data: ProductData["data"]) => {
+		if (data.length > 0) {
+			if (!products[productType]) {
+				products[productType] = [];
+			}
 
-	const handleInputClick = () => {
-		fetchProductsData("matrix");
-		fetchProductsData("hdd");
-		fetchProductsData("keyboard");
-		fetchProductsData("ram");
-		fetchProductsData("battery");
-		fetchProductsData("power_supply");
+			data.forEach((item) => {
+				products[productType].push(item.attributes.name);
+			});
+		}
 	};
 
+	const fetchProductsData = async (productType: string) => {
+		const fetchedData = await fetchProductNames(productType);
 
+		processFetchedData(productType, fetchedData);
+
+		productsObject[productType] = fetchedData;
+		console.log("🚀 ~ file: HeaderSearch.tsx:82 ~ fetchProductsData ~ productsAray:", productsObject);
+	};
+
+	// Inside useEffect
+	useEffect(() => {
+		const productTypes: string[] = ["matrix", "hdd", "keyboard", "ram", "battery", "power_supply"];
+
+		const promises = productTypes.map((type) => fetchProductsData(type));
+
+		const runPromises = async () => {
+			await Promise.all(promises);
+		};
+		console.log("🚀 ~ file: HeaderSearch.tsx:42 ~ products:", products);
+
+		runPromises();
+	}, []);
 
 	const [searchInput, setSearchInput] = useState<string>("");
 	const [suggestions, setSuggestions] = useState<{ category: string; suggestions: string[] }[]>([]);
-	const [historySuggestions, setHistorySuggestions] = useState<{ category: string; suggestions: string[] }[]>(Object.entries(initialHistorySuggestions).map(([category, suggestions]) => ({ category, suggestions })));
+	const historySuggestions = useAppSelector((state) => Object.entries(state.searchReducer).map(([category, suggestions]) => ({ category, suggestions })));
 
 	const clearHistory = () => {
-		setHistorySuggestions(Object.entries(initialHistorySuggestions).map(([category, suggestions]) => ({ category, suggestions })));
+		Object.keys(initialHistorySuggestions).forEach((key) => {
+			dispatch(removeProduct(0));
+		});
 	};
 
 	const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const input = e.target.value;
 		setSearchInput(input);
 
-		const filteredSuggestions = Object.entries(products)
+		const filteredSuggestions: { category: string; suggestions: string[] }[] = Object.entries(products)
 			.map(([category, items]) => ({
 				category,
-				suggestions: items.filter((item) => item.toLowerCase().includes(input.toLowerCase()))
+				suggestions: items.filter((item) => item.toLowerCase().includes(input.toLowerCase())) as string[]
 			}))
 			.filter(({ suggestions }) => suggestions.length > 0);
 
 		setSuggestions(filteredSuggestions);
 
-		const filteredHistorySuggestions = Object.entries(initialHistorySuggestions).map(([category, suggestions]) => ({
-			category,
-			suggestions
+		// Transforming filteredHistorySuggestions to match the expected structure
+		const transformedHistorySuggestions = filteredSuggestions.map(({ category, suggestions }) => ({
+			key: category,
+			products: suggestions
 		}));
 
-		setHistorySuggestions(filteredHistorySuggestions);
+		// Dispatching the first transformed suggestion object instead of the array
+		if (transformedHistorySuggestions.length > 0) {
+			dispatch(addProducts(transformedHistorySuggestions[0]));
+		}
 	};
 
 	const handleSuggestionClick = (clickedSuggestion: string, category: string) => {
@@ -173,35 +145,53 @@ const HeaderSearch: FC = () => {
 
 		if (categoryIndex !== -1) {
 			// Check if the suggestion already exists in history
-			const suggestionIndex = updatedHistorySuggestions[categoryIndex].suggestions.indexOf(clickedSuggestion);
+			const exists = updatedHistorySuggestions[categoryIndex].suggestions.includes(clickedSuggestion);
 
-			if (suggestionIndex === -1) {
-				// Add the clicked suggestion to history
-				updatedHistorySuggestions[categoryIndex].suggestions.unshift(clickedSuggestion);
-				// Update the state with the modified history suggestions
-				setHistorySuggestions(updatedHistorySuggestions);
+			if (!exists) {
+				// Create a new array with the updated suggestions
+				const updatedSuggestions = [...updatedHistorySuggestions[categoryIndex].suggestions, clickedSuggestion];
+
+				// Create a new history suggestion object with updated suggestions
+				const updatedCategorySuggestions = { ...updatedHistorySuggestions[categoryIndex], suggestions: updatedSuggestions };
+
+				dispatch(
+					addProducts({
+						key: category,
+						products: updatedCategorySuggestions.suggestions
+					})
+				);
 			}
 		} else {
 			// If category not found in history, create a new entry with the clicked suggestion
-			setHistorySuggestions([
-				...updatedHistorySuggestions,
-				{
-					category,
-					suggestions: [clickedSuggestion]
-				}
-			]);
+			dispatch(
+				addProducts({
+					key: category,
+					products: [clickedSuggestion]
+				})
+			);
 		}
-		console.log(historySuggestions);
-		console.log(products[0]);
+
+		router.push(`/product/${category}/${findIdByNameInCategory(productsObject, category, clickedSuggestion)}`);
 	};
 
+	function findIdByNameInCategory(products: ProductsWithId, category: string, name: string): number | null {
+		if (products.hasOwnProperty(category)) {
+			const productList = products[category];
+			for (let i = 0; i < productList.length; i++) {
+				if (productList[i].attributes.name === name) {
+					return productList[i].id;
+				}
+			}
+		}
+		return null;
+	}
 	return (
 		<div className="header-search">
 			<div className="header-search__input-container">
 				<div className="header-search__lupa-icon">
 					<IconRenderer id="header-search-sign" />
 				</div>
-				<input type="text" className="header-search__input" placeholder="Поиск по каталогу.." value={searchInput} onChange={handleInputChange} onClick={()=>{handleInputClick()}} />
+				<input type="text" className="header-search__input" placeholder="Поиск по каталогу.." value={searchInput} onChange={handleInputChange} />
 			</div>
 			<div className="header-search__search-button">
 				<IconRenderer id="header-search-sign" />
@@ -237,24 +227,26 @@ const HeaderSearch: FC = () => {
 									Очистить историю
 								</button>
 							</div>
-							{historySuggestions.map((historyCategorySuggestion, historyIndex) => (
-								<div className="header-search__category" key={historyIndex}>
-									{historyCategorySuggestion.category.length > 0 && ( // Check if category is not empty
-										<h4 className="header-search__category-heading">{historyCategorySuggestion.category}</h4>
-									)}
-									<ul className="header-search__suggestions">
-										{historyCategorySuggestion.suggestions.map((suggestion, idx) => {
-											const truncatedSuggestion = suggestion.length > 40 ? suggestion.slice(0, 50) + "..." : suggestion;
-											return (
-												<li className="header-search__suggestion" key={idx}>
-													<IconRenderer id="header-history-sign" />
-													<div>{truncatedSuggestion}</div>
-												</li>
-											);
-										})}
-									</ul>
-								</div>
-							))}
+							{historySuggestions.map(
+								(historyCategorySuggestion, historyIndex) =>
+									// Only render if there are suggestions in the category
+									historyCategorySuggestion.suggestions.length > 0 && (
+										<div className="header-search__category" key={historyIndex}>
+											{historyCategorySuggestion.category.length > 0 && <h4 className="header-search__category-heading">{historyCategorySuggestion.category}</h4>}
+											<ul className="header-search__suggestions">
+												{historyCategorySuggestion.suggestions.map((suggestion, idx) => {
+													const truncatedSuggestion = suggestion.length > 40 ? suggestion.slice(0, 50) + "..." : suggestion;
+													return (
+														<li className="header-search__suggestion" key={idx}>
+															<IconRenderer id="header-history-sign" />
+															<div>{truncatedSuggestion}</div>
+														</li>
+													);
+												})}
+											</ul>
+										</div>
+									)
+							)}
 						</div>
 					)}
 				</div>

@@ -66,7 +66,7 @@ export interface IHeaderMiniCatalogPropertyItem {
     subProperties: string[];
     setActiveSubProperty: (property: string | null) => void;
     catalogItemName: string;
-    onSelectionChange: (selectedOptions: string[]) => void;
+    // onSelectionChange: (selectedOptions: string[]) => void;
 }
 
 export interface ICatalogueItemRes {

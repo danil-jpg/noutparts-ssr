@@ -69,10 +69,16 @@
 	}
 
 	&__list {
-		margin: 21px 0 0 3px;
+		margin: 21px 0 0 2px;
 		display: flex;
 		flex-direction: column;
 		gap: 17px;
+	}
+
+	&__list-icon-wrapper {
+		width: 18px;
+		display: flex;
+		justify-content: center;
 	}
 
 	&__list-item {
@@ -502,6 +508,9 @@
 			gap: 16px;
 		}
 
+		&__list-icon-wrapper {
+		}
+
 		&__list-item {
 			display: flex;
 			flex-direction: row;
@@ -514,6 +523,9 @@
 			font-weight: 400;
 			line-height: 145%; /* 17.4px */
 			max-width: 220px;
+		}
+
+		&__list-icon-wrapper {
 		}
 
 		&__list-icon {
@@ -539,7 +551,7 @@
 		}
 
 		&__right {
-			margin:36px 36px 36px 0;
+			margin: 36px 36px 36px 0;
 			display: flex;
 			flex-direction: column;
 			justify-content: space-between;
@@ -717,17 +729,17 @@
 		}
 
 		&__list {
-			margin: 12px 0 0 6px;
+			margin: 16px 0 0 3px;
 			display: flex;
 			flex-direction: column;
-			gap: 16px;
+			gap: 14.5px;
 		}
 
 		&__list-item {
 			display: flex;
 			flex-direction: row;
 			align-items: center;
-			gap: 14px;
+			gap: 13.5px;
 			color: #fff;
 			font-family: Roboto;
 			font-size: 12px;
@@ -737,13 +749,19 @@
 			max-width: 220px;
 		}
 
+		&__list-icon-wrapper {
+			width: 18px;
+			display: flex;
+			justify-content: center;
+		}
+
 		&__list-icon {
-			width: 14px;
-			height: 14px;
+			width: 17px;
+			height: 17px;
 		}
 
 		&__go-button {
-			margin: 14px 0 0 -4px;
+			margin: 16px 0 0 -4px;
 			border-radius: 26px;
 			background: #36dd65;
 			width: 176px;

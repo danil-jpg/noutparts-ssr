@@ -36,6 +36,8 @@
 .tel-sign {
     width: 24px;
     height: 24px;
+
+    fill: #36dd65;
 }
 
 .mini-catalog-sign {
@@ -126,6 +128,37 @@
     flex-shrink: 0;
 
     fill: #ffffff;
+}
+.features-lightning-sign {
+    fill: #929292;
+    width: 10.662px;
+    height: 15.984px;
+    flex-shrink: 0;
+    * {
+        fill: #929292;
+    }
+}
+.features-fire-sign {
+    width: 24px;
+    height: 26px;
+    flex-shrink: 0;
+    fill: #929292;
+}
+
+.features-discount-sign {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+    fill: #929292;
+    // use{
+    //     fill: #929292;
+    // }
+}
+
+.features-fav-sign {
+    width: 20.789px;
+    height: 18.48px;
+    fill: #0acf83;
 }
 
 .cross-icon {

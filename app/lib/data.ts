@@ -1,8 +1,12 @@
-'use server';
-
+'use server'
+import axios from "axios";
 import { categories } from '../common/types/types';
-
 import { ICatalogueItemRes } from '../common/types/types';
+
+
+import { ProductData } from '../common/components/Header/HeaderSearch';
+
+
 
 export const getCatalogueItemData = async (query: string) => {
     try {
@@ -14,6 +18,7 @@ export const getCatalogueItemData = async (query: string) => {
     } catch (e) {
         console.error(e);
     }
+    
 };
 
 export const getFilterItemData = async <T extends unknown>(query: string) => {
@@ -39,3 +44,12 @@ export const fetchDataFromServer = async (type: categories, query: string) => {
         console.error(e);
     }
 };
+
+
+
+
+
+
+
+
+

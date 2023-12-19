@@ -1,0 +1,121 @@
+"use client";
+import React, { useState, useEffect, ChangeEvent } from "react";
+import IconRenderer from "../../ui/Icons/IconRenderer";
+import "./Footer.scss";
+import Image from "next/image";
+import Link from "next/dist/client/link";
+import axios from "axios";
+
+import HeaderCallBack from "../Header/HeaderCallBack";
+
+import siteLogo from "/public/img/footer-logo.png";
+import facebookIcon from "/public/img/footer-facebook-icon.svg";
+import instaIcon from "/public/img/footer-insta-icon.svg";
+import visaIcon from "/public/img/footer-visa-icon.svg";
+import mastercardIcon from "/public/img/footer-mastercard-icon.svg";
+import privatIcon from "/public/img/footer-privat-icon.svg";
+
+const Footer = ({}) => {
+	return (
+		<div className="footer__wrapper">
+			<div className="footer">
+				<div className="footer__main-column">
+					<div className="footer__logo-wrapper">
+						<Image src={siteLogo} alt="siteLogo" className="footer__logo"></Image>
+					</div>
+					<div className="footer__callback-wrapper">
+						<HeaderCallBack white={true}></HeaderCallBack>
+					</div>
+					<div className="footer__subscribe">
+						<div className="footer__sub-title">Подпишитесь, чтобы знать о скидках</div>
+						<div className="footer__sub-undertitle">Узнавайте первыми о интересных предложениях</div>
+						<div className="footer__sub-input-block">
+							<div className="footer__sub-input-box">
+								<input type="text" className="footer__sub-input" placeholder="Ваш E-mail" />
+							</div>
+							<button className="footer__sub-input-button">Подписаться</button>
+						</div>
+					</div>
+				</div>
+				<div className="footer__link-lists">
+					<div className="footer__list-column">
+						<div className="footer__list-heading">Навигация</div>
+						<div className="footer__list">
+							<Link href={"/"}>
+								<div className="footer__list-item">О нас</div>
+							</Link>
+							<Link href={"/"}>
+								<div className="footer__list-item">Доставка и оплата</div>
+							</Link>
+							<Link href={"/"}>
+								<div className="footer__list-item">Гарантии</div>
+							</Link>
+							<Link href={"/"}>
+								<div className="footer__list-item">Каталог</div>
+							</Link>
+							<Link href={"/"}>
+								<div className="footer__list-item">Контакты</div>
+							</Link>
+						</div>
+					</div>
+
+					<div className="footer__list-column">
+						<div className="footer__list-heading">Каталог</div>
+						<div className="footer__list">
+							<Link href={"/"}>
+								<div className="footer__list-item">Матрицы</div>
+							</Link>
+							<Link href={"/"}>
+								<div className="footer__list-item">Аккумуляторы</div>
+							</Link>
+							<Link href={"/"}>
+								<div className="footer__list-item">Жесткие диски </div>
+							</Link>
+							<Link href={"/"}>
+								<div className="footer__list-item">Клавиатуры</div>
+							</Link>
+							<Link href={"/"}>
+								<div className="footer__list-item">Оперативная память</div>
+							</Link>
+							<Link href={"/"}>
+								<div className="footer__list-item">Блок питания</div>
+							</Link>
+						</div>
+					</div>
+
+					<div className="footer__list-column">
+						<div className="footer__list-heading">Контакты</div>
+						<div className="footer__list">
+							<Link href={"/"}>
+								<div className="footer__list-item">Aдрес: город, ул., д.</div>
+							</Link>
+							<Link href={"/"}>
+								<div className="footer__list-item">Телефон: (066) 388-88 95</div>
+							</Link>
+							<Link href={"/"}>
+								<div className="footer__list-item">Мы работаем <br /> Понедельник-Пятница:<br /> 10:00 - 19:00</div>
+							</Link>
+							<Link href={"/"}>
+								<div className="footer__list-item">E-mail: shop@email.com</div>
+							</Link>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div className="footer__underfooter">
+				<div className="footer__socials">
+					<Image src={facebookIcon} alt="facebookIcon" className="footer__social"></Image>
+					<Image src={instaIcon} alt="instaIcon" className="footer__social"></Image>
+				</div>
+				<div className="footer__cards">
+					<Image src={visaIcon} alt="visaIcon" className="footer__card-icon"></Image>
+					<Image src={mastercardIcon} alt="mastercardIcon" className="footer__card-icon"></Image>
+					<Image src={privatIcon} alt="privatIcon" className="footer__card-icon"></Image>
+				</div>
+				<div className="footer__copyright">Copyright © 2021 Noutparts</div>
+			</div>
+		</div>
+	);
+};
+
+export default Footer;
