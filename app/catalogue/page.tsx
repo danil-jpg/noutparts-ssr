@@ -2,7 +2,6 @@ import { Breadcrumb } from '../common/types/types';
 import Breadcrumbs from '../common/components/breadcrumbs/Breadcrumbs';
 import './catalogue.scss';
 import CatalogueItem from '../common/components/CatalogueItem/catalogueItem';
-import Loading from '../common/components/Loading/Loading';
 
 export default function Page() {
     const breadcrumbArr: Breadcrumb[] = [
@@ -29,7 +28,7 @@ export default function Page() {
                 <CatalogueItem image='/img/catalogue/hdd.png' query='hdds?fields[0]=brand' mobImage='/img/catalogue/hdd_mob.png' />
                 <CatalogueItem image='/img/catalogue/keyboard.png' query='keyboards?fields[0]=brand' mobImage='/img/catalogue/keyboard_mob.png' />
                 <CatalogueItem image='/img/catalogue/ram.png' query='rams?fields[0]=brand' mobImage='/img/catalogue/ram_mob.png' />
-                <CatalogueItem image='/img/catalogue/power_unit.png' query='power_unit?fields[0]=brand' mobImage='/img/catalogue/power_unit_mob.png' />
+                <CatalogueItem image='/img/catalogue/power_unit.png' query='power_units?fields[0]=brand' mobImage='/img/catalogue/power_unit_mob.png' />
             </div>
         </main>
     );

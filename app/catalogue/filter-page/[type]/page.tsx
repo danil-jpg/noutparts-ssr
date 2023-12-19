@@ -23,17 +23,17 @@ export default function Page({ params }: { params: { type: categories } }) {
             label: `${
                 params.type.toLowerCase() === 'matrices'
                     ? 'Матрицы'
-                    : params.type === 'batteries'
+                    : params.type.toLowerCase() === 'batteries'
                     ? 'Аккумуляторы'
-                    : params.type === 'hdds'
+                    : params.type.toLowerCase() === 'hdds'
                     ? 'Жесткие диски'
-                    : params.type === 'keyboards'
+                    : params.type.toLowerCase() === 'keyboards'
                     ? 'Клавиатуры'
-                    : params.type === 'rams'
+                    : params.type.toLowerCase() === 'rams'
                     ? 'Оперативная память'
-                    : params.type === 'power_unit'
+                    : params.type.toLowerCase() === 'power_unit'
                     ? 'Блок питания'
-                    : params.type
+                    : params.type.toLowerCase()
             }`,
             href: '/catalogue/filter-page',
             active: true,
@@ -45,7 +45,7 @@ export default function Page({ params }: { params: { type: categories } }) {
             <div>
                 <Breadcrumbs classname='filter-page__breadcrumbs' breadcrumbs={breadcrumbArr} />
                 <CategoriesRow />
-                <Filter type={params.type} />
+                <Filter type={params.type.toLowerCase()} />
             </div>
         </main>
     );
