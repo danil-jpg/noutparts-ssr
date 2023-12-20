@@ -9,6 +9,7 @@ import Breadcrumbs from "@/app/common/components/breadcrumbs/Breadcrumbs";
 import { Breadcrumb } from "@/app/common/types/types";
 import ProductPair from "./ProductPair/ProductPair";
 import ProductTechs from "./ProductsTechs";
+import ProductSwiper from "./ProductSwiper";
 
 import ProductAvailability from "../../ui/product-ui/ProductAvailability";
 import ProductInteractiveElems from "./ProductInteractiveElems";
@@ -96,6 +97,10 @@ export default async function Product({ category, id }: { category: string; id: 
 					name: "Тип",
 					value: product.type
 				};
+				techObj.color = {
+					name: "Колір",
+					value: product.color
+				};
 				break;
 			case "keyboard":
 				techObj.form_factor = {
@@ -110,19 +115,31 @@ export default async function Product({ category, id }: { category: string; id: 
 					name: "Підсвітка",
 					value: product.backlight
 				};
+				techObj.color = {
+					name: "Підсвітка",
+					value: product.color
+				};
 				break;
 			case "power_supply":
 				techObj.power = {
 					name: "Потужність",
 					value: product.power
 				};
-				techObj.matrix_type = {
+				techObj.voltage = {
 					name: "Вольтаж",
 					value: product.voltage
 				};
 				techObj.form_factor = {
 					name: "Форм-фактор",
 					value: product.form_factor
+				};
+				techObj.plug = {
+					name: "Порт",
+					value: product.plug
+				};
+				techObj.amperage = {
+					name: "Ампераж",
+					value: product.amperage
 				};
 				break;
 			case "ram":
@@ -138,6 +155,18 @@ export default async function Product({ category, id }: { category: string; id: 
 					name: "Вольтаж",
 					value: product.voltage
 				};
+				techObj.jedec = {
+					name: "Jedec",
+					value: product.jedec
+				};
+				techObj.pin_quantity = {
+					name: "К-сть пінів",
+					value: product.pin_quantity
+				};
+				techObj.memory_type = {
+					name: "ДДР",
+					value: product.memory_type
+				};
 				break;
 
 			default:
@@ -149,7 +178,6 @@ export default async function Product({ category, id }: { category: string; id: 
 
 	const product = await fetchProductInfo(category, id);
 	const techCharacteristics = getProductTechCharacteristics(category, product);
-	console.log("🚀 ~ file: Product.tsx:21 ~ product:", product);
 
 	const techItems = Object.keys(techCharacteristics).map((key, index) => {
 		if (index < 4) {
@@ -184,7 +212,7 @@ export default async function Product({ category, id }: { category: string; id: 
 			<div className="product-hero__wrapper">
 				<div className="product-hero">
 					<div className="product-hero__image-container">
-						<Image fill={true} className="product-hero__image" alt="product-hero__image" src={product.photo.data[0].attributes.url}></Image>
+						<ProductSwiper images={product.photo.data}></ProductSwiper>
 					</div>
 					<div className="product-hero__main-part">
 						<div className="product-hero__product-name">{product.name}</div>

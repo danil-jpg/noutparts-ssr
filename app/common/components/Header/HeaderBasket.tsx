@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect, useRef } from "react";
 import IconRenderer from "../../ui/Icons/IconRenderer";
 import "./HeaderBasket.scss";
 import Image from "next/image";
@@ -41,19 +41,40 @@ const HeaderBasket: FC = () => {
 
 	const totalPrice = calculateTotalPrice(products);
 
+	const popupRef = useRef<HTMLDivElement>(null);
+
+	// Function to close the popup when clicking outside of it
+	const handleClickOutside = (event: MouseEvent) => {
+		if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
+			setIsPopupOpen(false);
+		}
+	};
+
+	useEffect(() => {
+		// Attach the event listener on mount
+		document.addEventListener("mousedown", handleClickOutside);
+
+		// Detach the event listener on unmount
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, []);
+
 	return (
 		<div className="header-basket">
-			<div className="header-basket__icon" onClick={togglePopup}>
-				<IconRenderer id="header-basket-sign"></IconRenderer>
-				<div className="header-basket__quantity">{products.length}</div>
-			</div>
-			<div className="header-basket__texts">
-				<div className="header-basket__text">Корзина</div>
-				<div className="header-basket__text">{totalPrice} грн</div>
+			<div className="header-basket__main-button" onClick={togglePopup}>
+				<div className="header-basket__icon" >
+					<IconRenderer id="header-basket-sign"></IconRenderer>
+					<div className="header-basket__quantity">{products.length}</div>
+				</div>
+				<div className="header-basket__texts">
+					<div className="header-basket__text">Корзина</div>
+					<div className="header-basket__text">{totalPrice} грн</div>
+				</div>
 			</div>
 
 			{isPopupOpen && (
-				<div className="header-basket__popup">
+				<div className="header-basket__popup" ref={popupRef}>
 					<div className="header-basket__chosen-products">
 						{/* Display chosen products */}
 						{products.map((product, index) => (

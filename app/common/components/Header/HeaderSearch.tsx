@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, useState, useEffect, ChangeEvent } from "react";
+import React, { FC, useState, useEffect, ChangeEvent, useRef } from "react";
 import IconRenderer from "../../ui/Icons/IconRenderer";
 import "./HeaderSearch.scss";
 import axios from "axios";
@@ -186,6 +186,27 @@ const HeaderSearch = () => {
 		}
 		return null;
 	}
+
+
+
+	const popupRef = useRef<HTMLDivElement>(null);
+
+    // Function to close the popup when clicking outside of it
+    const handleClickOutside = (event: MouseEvent) => {
+        if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
+            setSearchInput("");
+        }
+    };
+
+    useEffect(() => {
+        // Attach the event listener on mount
+        document.addEventListener("mousedown", handleClickOutside);
+
+        // Detach the event listener on unmount
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 	return (
 		<div className="header-search">
 			<div className="header-search__input-container">
@@ -199,7 +220,7 @@ const HeaderSearch = () => {
 			</div>
 
 			{searchInput && (
-				<div className="header-search__search-field">
+				<div className="header-search__search-field" ref={popupRef}>
 					<div className="header-search__suggestions-box">
 						<div className="header-search__box-heading">Предложенные варианты</div>
 						{suggestions.length > 0 ? (

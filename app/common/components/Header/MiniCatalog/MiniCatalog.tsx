@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect, useRef } from "react";
 import { IPrimaryInput } from "@/types";
 
 import Image from "next/image";
@@ -85,6 +85,27 @@ const MiniCatalog: FC = () => {
 		}
 	];
 
+
+	
+	const popupRef = useRef<HTMLDivElement>(null);
+
+    // Function to close the popup when clicking outside of it
+    const handleClickOutside = (event: MouseEvent) => {
+        if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
+            setBigMenuActive(false);
+        }
+    };
+
+    useEffect(() => {
+        // Attach the event listener on mount
+        document.addEventListener("mousedown", handleClickOutside);
+
+        // Detach the event listener on unmount
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
 	return (
 		<div className="mini-catalog" onClick={closeDropdown}>
 			<div
@@ -103,7 +124,7 @@ const MiniCatalog: FC = () => {
 				</div>
 			</div>
 
-			<div className={`mini-catalog__big-menu ${bigMenuActive ? "active" : ""}`}>
+			<div className={`mini-catalog__big-menu ${bigMenuActive ? "active" : ""}`} ref={popupRef}>
 				{items.map((item, index) => (
 					<HeaderMiniCatalogItem key={index} item={item} isOpen={activeIndex === index} bigMenuActive={bigMenuActive} toggleItem={() => toggleItem(index)} activeProperty={activeProperty} setActiveProperty={setActiveProperty} />
 				))}
