@@ -1,12 +1,14 @@
-"use client";
+'use client';
 
-import { createSlice } from "@reduxjs/toolkit";
+import { categories } from '@/app/common/types/types';
+import { createSlice } from '@reduxjs/toolkit';
 
 export interface IFavsData {
-    products: Array<{
+    products: {
         id: number;
         name: string;
-    }>;
+        type?: categories;
+    }[];
 }
 
 const initialState: IFavsData = {
@@ -14,19 +16,20 @@ const initialState: IFavsData = {
 };
 
 const favsData = createSlice({
-    name: "favsData",
+    name: 'favsData',
     initialState,
     reducers: {
         addFavProduct: (state, action) => {
             const { name, id } = action.payload;
-            const existingIndex = state.products.findIndex(product => product.id === id);
+            const { type } = action.payload;
+            const existingIndex = state.products.findIndex((product) => product.id === id);
 
             if (existingIndex !== -1) {
                 // Remove the product if it already exists
                 state.products.splice(existingIndex, 1);
             } else {
                 // Add the product if it doesn't exist
-                state.products.push({ name, id });
+                state.products.push({ name, id, type });
             }
         },
         removeFavProduct: (state, action) => {
@@ -40,7 +43,6 @@ const favsData = createSlice({
     }
 });
 
-
-export const { addFavProduct,removeFavProduct } = favsData.actions;
+export const { addFavProduct, removeFavProduct } = favsData.actions;
 
 export default favsData.reducer;

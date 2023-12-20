@@ -48,6 +48,7 @@
         display: grid;
         grid-template-rows: 0fr;
         overflow: hidden;
+        z-index: 2;
         &.active {
             grid-template-rows: 1fr;
         }

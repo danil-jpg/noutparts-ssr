@@ -26,6 +26,7 @@
     "react-text-mask": "^5.5.0",
     "redux-persist": "^6.0.0",
     "sass": "^1.69.5",
+    "sharp": "^0.33.0",
     "svg-url-loader": "^8.0.0",
     "swiper": "^11.0.5",
     "uuid": "^9.0.1"

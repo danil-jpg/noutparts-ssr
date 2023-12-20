@@ -1,9 +1,11 @@
 'use client';
-import React, { useState } from 'react';
+import React, { Suspense, lazy, useState } from 'react';
 import Loading from '../Loading/Loading';
 import FilterBattery from './organisms/FilterBattery';
 import './Filter.scss';
-import FilterMatrix from './organisms/FilterMatrix';
+// import FilterMatrix from './organisms/FilterMatrix';
+
+const FilterMatrix = lazy(() => import('./organisms/FilterMatrix'));
 
 interface IFilter {
     type: string;
@@ -11,7 +13,7 @@ interface IFilter {
 
 export default function Filter({ type }: IFilter) {
     const RenderFilter = () => {
-        switch (type) {
+        switch (type.toLowerCase()) {
             case 'matrices':
                 return <FilterMatrix />;
             case 'batteries':
@@ -25,9 +27,13 @@ export default function Filter({ type }: IFilter) {
             case 'power_unit':
                 return <div>power_unit</div>;
             default:
-                return <FilterBattery />;
+                return <FilterMatrix />;
         }
     };
 
-    return <RenderFilter />;
+    return (
+        <Suspense fallback={<Loading />}>
+            <RenderFilter />
+        </Suspense>
+    );
 }
