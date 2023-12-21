@@ -4,6 +4,7 @@ import Breadcrumbs from '../common/components/breadcrumbs/Breadcrumbs';
 import { Breadcrumb } from '../common/types/types';
 import FilterCards from '../common/components/filter/organisms/FilterCards/FilterCards';
 import { useAppSelector } from '../Redux/store';
+import './favourite.scss';
 
 interface Props {}
 
@@ -23,6 +24,10 @@ const Page: NextPage<Props> = ({}) => {
         <div className='container favourite-page'>
             <Breadcrumbs classname='favourite__crumbs' breadcrumbs={breadcrumbArr} />
             <p className='favourite__title'>Список избранного</p>
+            <div className='favourite__cards-wr'>
+                {/* {favouriteData[0].type === 'matrices' } */}
+                <FilterCards type='matrices' />
+            </div>
         </div>
     );
 };

@@ -31,6 +31,8 @@ const FeaturesCard: React.FC<FeaturesCardProps> = ({ name, price, discount, phot
     const dispatch = useAppDispatch();
     const router = useRouter();
 
+    console.log(name, price, product);
+
     const truncatedName = name.length > 40 ? `${name.slice(0, 40)}...` : name;
 
     const addToBasket = (product: Product): void => {
@@ -40,7 +42,7 @@ const FeaturesCard: React.FC<FeaturesCardProps> = ({ name, price, discount, phot
         dispatch(addFavProduct(product));
     };
 
-    const hendleProductDetails = () => {
+    const handleProductDetails = () => {
         const url: string = `product/${product.category}/${product.id}`;
         router.push(url);
     };
@@ -86,7 +88,7 @@ const FeaturesCard: React.FC<FeaturesCardProps> = ({ name, price, discount, phot
                 <div
                     className='features-card__product-link'
                     onClick={() => {
-                        hendleProductDetails();
+                        handleProductDetails();
                     }}>
                     Подробнее о товаре
                 </div>
