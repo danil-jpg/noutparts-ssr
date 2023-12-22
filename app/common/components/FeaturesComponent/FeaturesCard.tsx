@@ -18,20 +18,16 @@ import noImageIcon from '/public/img/popup-close-icon.svg';
 import { IProduct as Product } from '../../types/types';
 
 interface FeaturesCardProps {
-    name: string;
-    price: number;
-    discount: number;
-    photo_url: string;
     product: Product;
     isBought: boolean;
     isFav: boolean;
 }
 
-const FeaturesCard: React.FC<FeaturesCardProps> = ({ name, price, discount, photo_url, product, isBought, isFav }) => {
+const FeaturesCard: React.FC<FeaturesCardProps> = ({ product, isBought, isFav }) => {
     const dispatch = useAppDispatch();
     const router = useRouter();
 
-    const truncatedName = name.length > 40 ? `${name.slice(0, 40)}...` : name;
+    const truncatedName = product.name.length > 40 ? `${product.name.slice(0, 40)}...` : product.name;
 
     const addToBasket = (product: Product): void => {
         dispatch(addProduct(product));
@@ -48,8 +44,8 @@ const FeaturesCard: React.FC<FeaturesCardProps> = ({ name, price, discount, phot
     return (
         <div className='features-card'>
             <div className='features-card__image-wrapper'>
-                {photo_url ? (
-                    <Image fill={true} src={photo_url} alt='photo_url' className='features-card__image' sizes='(max-width: 600px) 147px, 230px'></Image>
+                {product.photo_url ? (
+                    <Image fill={true} src={product.photo_url} alt='photo_url' className='features-card__image' sizes='(max-width: 600px) 147px, 230px'></Image>
                 ) : (
                     <Image fill={true} src={noImageIcon} alt='photo_url' className='features-card__image'></Image>
                 )}
@@ -57,12 +53,12 @@ const FeaturesCard: React.FC<FeaturesCardProps> = ({ name, price, discount, phot
 
             <div className='features-card__name'>{truncatedName}</div>
             <div className='features-card__price'>
-                {discount !== null && (
+                {product.discount !== null && (
                     <div className='features-card__discount'>
-                        <DiscountSticker amount={discount}></DiscountSticker>
+                        <DiscountSticker amount={product.discount}></DiscountSticker>
                     </div>
                 )}
-                <div className='features-card__price-text'>{price} грн</div>
+                <div className='features-card__price-text'>{product.price} грн</div>
             </div>
 
             <div className='features-card__hover-container'>
@@ -73,7 +69,7 @@ const FeaturesCard: React.FC<FeaturesCardProps> = ({ name, price, discount, phot
                     }}>
                     {isFav ? <IconRenderer id='header-heart-sign'></IconRenderer> : <IconRenderer id='features-fav-sign'></IconRenderer>}
                 </div>
-                <div className='features-card__second-price'>{price} грн</div>
+                <div className='features-card__second-price'>{product.price} грн</div>
                 <div
                     className='features-card__basket-button'
                     onClick={() => {

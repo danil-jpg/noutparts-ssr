@@ -105,7 +105,7 @@ const ProductInteractiveElems = ({ category, id, tag, price, discount, product }
 					>
 						{isBought ? 'Add more': 'Купить'}
 						
-						<IconRenderer id="basket"></IconRenderer>
+						<IconRenderer id="basket-icon"></IconRenderer>
 					</button>
 				</div>
 				<div className="product-interactive-elems__buy-now">

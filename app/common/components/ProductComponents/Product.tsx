@@ -10,6 +10,7 @@ import { Breadcrumb } from "@/app/common/types/types";
 import ProductPair from "./ProductPair/ProductPair";
 import ProductTechs from "./ProductsTechs";
 import ProductSwiper from "./ProductSwiper";
+import SimilarProducts from "./SimilarProducts/SimilarProducts";
 
 import ProductAvailability from "../../ui/product-ui/ProductAvailability";
 import ProductInteractiveElems from "./ProductInteractiveElems";
@@ -238,9 +239,11 @@ export default async function Product({ category, id }: { category: string; id: 
 				</div>
 			</div>
 
-			{product.pair_set.data && <ProductPair firstObj={product} secondObj={product.pair_set.data.attributes}></ProductPair>}
+			{product.pair_set && <ProductPair firstObj={product} secondObj={product.pair_set.data.attributes}></ProductPair>}
 
 			<ProductTechs techCharacteristics={techCharacteristics}></ProductTechs>
+
+			<SimilarProducts productType={ category }></SimilarProducts>
 		</>
 	);
 }

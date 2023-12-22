@@ -1,3 +1,4 @@
+
 "use client";
 import React, { FC, useState, useEffect, ChangeEvent, useRef } from "react";
 import IconRenderer from "../../ui/Icons/IconRenderer";
@@ -8,6 +9,8 @@ import { useAppDispatch } from "@/app/Redux/store";
 import { addProducts } from "@/app/Redux/slice/search/searchSlice";
 import { useAppSelector } from "@/app/Redux/store";
 import { removeProduct } from "@/app/Redux/slice/search/searchSlice";
+
+import { fetchProductNames } from "@/app/lib/data";
 
 type IProductNamesAttributes = {
     name: string;
@@ -55,27 +58,27 @@ const HeaderSearch = () => {
     const router = useRouter();
     const dispatch = useAppDispatch();
 
-    const fetchProductNames = async (productType: string) => {
-        try {
-            const response = await axios.get<ProductData>(
-                `http://127.0.0.1:1337/api/${
-                    productType === 'matrix'
-                        ? 'matrice'
-                        : productType === 'power_supply'
-                        ? 'power-supplie'
-                        : productType === 'battery'
-                        ? 'batterie'
-                        : productType
-                }s/?fields[0]=name`
-            );
-            const data: ProductData = response.data;
+    // const fetchProductNames = async (productType: string) => {
+    //     try {
+    //         const response = await axios.get<ProductData>(
+    //             `http://127.0.0.1:1337/api/${
+    //                 productType === 'matrix'
+    //                     ? 'matrice'
+    //                     : productType === 'power_supply'
+    //                     ? 'power-supplie'
+    //                     : productType === 'battery'
+    //                     ? 'batterie'
+    //                     : productType
+    //             }s/?fields[0]=name`
+    //         );
+    //         const data: ProductData = response.data;
 
-            return data.data || [];
-        } catch (error) {
-            console.error('Error fetching data:', error);
-            return [];
-        }
-    };
+    //         return data.data || [];
+    //     } catch (error) {
+    //         console.error('Error fetching data:', error);
+    //         return [];
+    //     }
+    // };
 
     const processFetchedData = (productType: string, data: ProductData['data']) => {
         if (data.length > 0) {
