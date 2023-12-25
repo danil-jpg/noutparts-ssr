@@ -7,7 +7,6 @@ import { useAppSelector } from "@/app/Redux/store";
 
 const HeaderFavs: FC = ({ }) => {
 	const products = useAppSelector((state) => state.favsReducer.products);
-	console.log("🚀 ~ file: HeaderFavs.tsx:10 ~ products:", products)
 	return (
 		<div className="header-favs">
 			<div className="header-favs__icon">

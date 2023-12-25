@@ -73,6 +73,7 @@ input {
 
 		max-height: 331px;
 		overflow-y: scroll;
+		overflow-x: hidden;
 	}
 
 	&__suggestions-box {
@@ -183,7 +184,7 @@ input {
 		flex-direction: row;
 		&__input-container {
 			background: #fff;
-			width: 251px;
+			width: 201px;
 			height: 40px;
 			flex-shrink: 0;
 			padding: 8px 0 0 12px;

@@ -38,8 +38,9 @@ const favsData = createSlice({
             if (indexToRemove !== -1) {
                 state.products.splice(indexToRemove, 1);
             }
-        },
-    },
+
+        }
+    }
 });
 
 export const { addFavProduct, removeFavProduct } = favsData.actions;

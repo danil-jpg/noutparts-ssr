@@ -1,0 +1,560 @@
+.discount-pair {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 1230px;
+	gap: 57px;
+	&__wrapper {
+		margin: 153px 0 0 0;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		border: 1px solid rgba($color: #f4f8ff, $alpha: 0.6);
+		background: #f3f5f9;
+		mix-blend-mode: darken;
+		height: 530px;
+	}
+
+	&__title {
+		margin: 55px 0 0 0;
+		color: #000;
+		font-family: Roboto;
+		font-size: 30px;
+		font-style: normal;
+		font-weight: 700;
+		line-height: 0%; /* 0px */
+	}
+
+	&__content {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	&__product-card {
+		border-radius: 10px;
+		background: #fff;
+		width: 278px;
+		height: 377px;
+		flex-shrink: 0;
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__img-container {
+		margin: 28px 39px 0 38px;
+		width: 100%;
+		height: 100%;
+		max-width: 201px;
+		max-height: 159px;
+	}
+
+	&__product-photo {
+		position: static !important;
+		top: 0;
+		left: 0;
+		max-width: 201px;
+		max-height: 159px;
+	}
+
+	&__line {
+		margin: 34px 0 0 28px;
+		width: 201.5px;
+		height: 1px;
+		border: 1px solid rgba($color: #000000, $alpha: 0.2);
+	}
+
+	&__name {
+		margin: 10px 30px 0 31px;
+		color: var(--Gray-100, #19191d);
+		font-family: Roboto;
+		font-size: 16px;
+		font-weight: 500;
+		line-height: 150%; /* 24px */
+		letter-spacing: 0.32px;
+	}
+
+	&__price {
+		margin: 10px 0 0 27px;
+		color: #36dd65;
+		font-family: Roboto;
+		font-size: 20px;
+		font-style: normal;
+		font-weight: 700;
+		line-height: 180%; /* 36px */
+	}
+
+	&__plus {
+	}
+
+	&__equals {
+	}
+
+	&__result-card {
+		border-radius: 10px;
+		border: 1px solid rgba(0, 0, 0, 0.2);
+		background: #fff;
+		width: 308px;
+		height: 377px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	&__green-background {
+		border-radius: 10px 10px 0 0;
+		background: #36dd65;
+		width: 308px;
+		height: 220px;
+		flex-shrink: 0;
+		display: flex;
+		flex-direction: column;
+		position: relative;
+	}
+
+	&__discount-sticker {
+		position: absolute;
+		top: 14px;
+		right: 27px;
+		width: 126.877px;
+		height: 95.692px;
+	}
+
+	&__price-crossed {
+		margin: 116px 0 0 73px;
+		color: #fff;
+		font-family: Roboto;
+		font-size: 20px;
+		font-style: normal;
+		font-weight: 500;
+		line-height: 180%; /* 36px */
+		text-decoration-line: line-through;
+	}
+
+	&__discounted-price {
+		margin: -17px 0 0 72px;
+		color: #fff;
+		font-family: Roboto;
+		font-size: 40px;
+		font-style: normal;
+		font-weight: 700;
+		line-height: 180%; /* 72px */
+	}
+
+	&__discount-in-percents {
+		margin: 7px 0 0 0px;
+		color: #000;
+		font-family: Roboto;
+		font-size: 20px;
+		font-style: normal;
+		font-weight: 700;
+		line-height: 180%; /* 36px */
+	}
+
+	&__discount-in-number {
+		margin: -7px 0 0 0px;
+		color: #36dd65;
+		font-family: Roboto;
+		font-size: 17px;
+		font-style: normal;
+		font-weight: 500;
+		line-height: 180%; /* 30.6px */
+	}
+
+	&__buy-buttom {
+		margin: 13px 0 0 0px;
+		border-radius: 33px;
+		background: #36dd65;
+		width: 245px;
+		height: 53px;
+		flex-shrink: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #fff;
+		font-family: Roboto;
+		font-size: 16px;
+		font-style: normal;
+		font-weight: 900;
+		line-height: 180%; /* 28.8px */
+		text-transform: uppercase;
+	}
+}
+
+@media (max-width: 1440px) {
+	.discount-pair {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		max-width: 1230px;
+		gap: 57px;
+		&__wrapper {
+			margin: 153px 0 0 0;
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			border: 1px solid rgba($color: #f4f8ff, $alpha: 0.6);
+			background: #f3f5f9;
+			mix-blend-mode: darken;
+			height: auto;
+			padding: 0 10px 40px 10px;
+		}
+
+		&__title {
+			margin: 55px 0 0 0;
+			color: #000;
+			font-family: Roboto;
+			font-size: 30px;
+			font-style: normal;
+			font-weight: 700;
+			line-height: 0%; /* 0px */
+		}
+
+		&__content {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+			flex-wrap: wrap;
+			gap: 20px;
+		}
+
+		&__product-card {
+			border-radius: 10px;
+			background: #fff;
+			width: 278px;
+			height: 377px;
+			flex-shrink: 0;
+			display: flex;
+			flex-direction: column;
+		}
+
+		&__img-container {
+			margin: 28px 39px 0 38px;
+			width: 100%;
+			height: 100%;
+			max-width: 201px;
+			max-height: 159px;
+		}
+
+		&__product-photo {
+			position: static !important;
+			top: 0;
+			left: 0;
+			max-width: 201px;
+			max-height: 159px;
+		}
+
+		&__line {
+			margin: 34px 0 0 28px;
+			width: 201.5px;
+			height: 1px;
+			border: 1px solid rgba($color: #000000, $alpha: 0.2);
+		}
+
+		&__name {
+			margin: 10px 30px 0 31px;
+			color: var(--Gray-100, #19191d);
+			font-family: Roboto;
+			font-size: 16px;
+			font-weight: 500;
+			line-height: 150%; /* 24px */
+			letter-spacing: 0.32px;
+		}
+
+		&__price {
+			margin: 10px 0 0 27px;
+			color: #36dd65;
+			font-family: Roboto;
+			font-size: 20px;
+			font-style: normal;
+			font-weight: 700;
+			line-height: 180%; /* 36px */
+		}
+
+		&__plus {
+		}
+
+		&__equals {
+		}
+
+		&__result-card {
+			border-radius: 10px;
+			border: 1px solid rgba(0, 0, 0, 0.2);
+			background: #fff;
+			width: 308px;
+			height: 377px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		&__green-background {
+			border-radius: 10px 10px 0 0;
+			background: #36dd65;
+			width: 308px;
+			height: 220px;
+			flex-shrink: 0;
+			display: flex;
+			flex-direction: column;
+			position: relative;
+		}
+
+		&__discount-sticker {
+			position: absolute;
+			top: 14px;
+			right: 27px;
+			width: 126.877px;
+			height: 95.692px;
+		}
+
+		&__price-crossed {
+			margin: 116px 0 0 73px;
+			color: #fff;
+			font-family: Roboto;
+			font-size: 20px;
+			font-style: normal;
+			font-weight: 500;
+			line-height: 180%; /* 36px */
+			text-decoration-line: line-through;
+		}
+
+		&__discounted-price {
+			margin: -17px 0 0 72px;
+			color: #fff;
+			font-family: Roboto;
+			font-size: 40px;
+			font-style: normal;
+			font-weight: 700;
+			line-height: 180%; /* 72px */
+		}
+
+		&__discount-in-percents {
+			margin: 7px 0 0 0px;
+			color: #000;
+			font-family: Roboto;
+			font-size: 20px;
+			font-style: normal;
+			font-weight: 700;
+			line-height: 180%; /* 36px */
+		}
+
+		&__discount-in-number {
+			margin: -7px 0 0 0px;
+			color: #36dd65;
+			font-family: Roboto;
+			font-size: 17px;
+			font-style: normal;
+			font-weight: 500;
+			line-height: 180%; /* 30.6px */
+		}
+
+		&__buy-buttom {
+			margin: 13px 0 0 0px;
+			border-radius: 33px;
+			background: #36dd65;
+			width: 245px;
+			height: 53px;
+			flex-shrink: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #fff;
+			font-family: Roboto;
+			font-size: 16px;
+			font-style: normal;
+			font-weight: 900;
+			line-height: 180%; /* 28.8px */
+			text-transform: uppercase;
+		}
+	}
+}
+
+@media (max-width: 600px) {
+	.discount-pair {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		max-width: 1230px;
+		gap: 40px;
+		padding: 0 14px 46px 14px;
+		&__wrapper {
+			margin: 33px 0 0 0;
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			border: 1px solid rgba($color: #f4f8ff, $alpha: 0.6);
+			background: #f3f5f9;
+			mix-blend-mode: darken;
+			height: auto;
+		}
+
+		&__title {
+			margin: 35px 0 0 0;
+			color: #000;
+			font-family: Roboto;
+			font-size: 18px;
+			font-style: normal;
+			font-weight: 700;
+			line-height: 0%; /* 0px */
+		}
+
+		&__content {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: space-between;
+			gap: 20px;
+		}
+
+		&__product-card {
+			border-radius: 10px;
+			background: #fff;
+			width: 250px;
+			height: 269px;
+			flex-shrink: 0;
+			display: flex;
+			flex-direction: column;
+		}
+
+		&__img-container {
+			margin: 23px 54px 0 54px;
+			width: 100%;
+			height: 100%;
+			max-width: 208px;
+			max-height: 115px;
+		}
+
+		&__product-photo {
+			position: static !important;
+			top: 0;
+			left: 0;
+			max-width: 146px;
+			max-height: 115px;
+		}
+
+		&__line {
+			margin: 26px 0 0 28px;
+			width: 201.5px;
+			height: 1px;
+			border: 1px solid rgba($color: #000000, $alpha: 0.2);
+		}
+
+		&__name {
+			margin: 13px 51px 0 24px;
+			color: var(--Gray-100, #19191d);
+			font-family: Roboto;
+			font-size: 14px;
+			font-weight: 500;
+			line-height: 150%; /* 24px */
+			letter-spacing: 0.32px;
+		}
+
+		&__price {
+			margin: 7px 0 0 24px;
+			color: #36dd65;
+			font-family: Roboto;
+			font-size: 20px;
+			font-style: normal;
+			font-weight: 700;
+			line-height: 180%; /* 36px */
+		}
+
+		&__plus {
+		}
+
+		&__equals {
+		}
+
+		&__result-card {
+			border-radius: 10px;
+			border: 1px solid rgba(0, 0, 0, 0.2);
+			background: #fff;
+			width: 254px;
+			height: 349px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		&__green-background {
+			border-radius: 10px 10px 0 0;
+			background: #36dd65;
+			width: 254px;
+			height: 168px;
+			flex-shrink: 0;
+			display: flex;
+			flex-direction: column;
+			position: relative;
+		}
+
+		&__discount-sticker {
+			position: absolute;
+			top: 17px;
+			right: 25px;
+			width: 93px;
+			height: 71px;
+		}
+
+		&__price-crossed {
+			margin: 67px 0 0 25px;
+			color: #fff;
+			font-family: Roboto;
+			font-size: 20px;
+			font-style: normal;
+			font-weight: 500;
+			line-height: 180%; /* 36px */
+			text-decoration-line: line-through;
+		}
+
+		&__discounted-price {
+			margin: -10px 0 0 24px;
+			color: #fff;
+			font-family: Roboto;
+			font-size: 30px;
+			font-style: normal;
+			font-weight: 700;
+			line-height: 180%; /* 72px */
+		}
+
+		&__discount-in-percents {
+			margin: 12px 0 0 0px;
+			color: #000;
+			font-family: Roboto;
+			font-size: 20px;
+			font-style: normal;
+			font-weight: 700;
+			line-height: 180%; /* 36px */
+		}
+
+		&__discount-in-number {
+			margin: -5px 0 0 0px;
+			color: #36dd65;
+			font-family: Roboto;
+			font-size: 17px;
+			font-style: normal;
+			font-weight: 500;
+			line-height: 180%; /* 30.6px */
+		}
+
+		&__buy-buttom {
+			margin: 19px 0 0 0px;
+			border-radius: 33px;
+			background: #36dd65;
+			width: 215px;
+			height: 51px;
+			flex-shrink: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #fff;
+			font-family: Roboto;
+			font-size: 14px;
+			font-style: normal;
+			font-weight: 900;
+			line-height: 180%; /* 28.8px */
+			text-transform: uppercase;
+		}
+	}
+}

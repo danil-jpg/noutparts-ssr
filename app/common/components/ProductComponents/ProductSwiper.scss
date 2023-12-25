@@ -1,0 +1,30 @@
+.images-slider {
+	width: 100%;
+	height: 100%;
+	margin-bottom: 10px;
+	&__thumb {
+		height: 85px;
+	}
+	&__slide {
+		width: 100%;
+		height: 100%;
+	}
+	&__slide-thumb {
+		border: 1px solid transparent;
+		transition: border 0.3s;
+
+		&.swiper-slide-thumb-active {
+			border: 1px solid #e7e7e7;
+		}
+	}
+
+	&__image,
+	&__image-thumb {
+		object-fit: contain;
+		width: 100%;
+		height: 100%;
+	}
+	&__image {
+		position: absolute;
+	}
+}

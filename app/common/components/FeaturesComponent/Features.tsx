@@ -104,10 +104,6 @@ const Features = ({}) => {
                             return (
                                 <FeaturesCard
                                     key={index}
-                                    name={product.name}
-                                    price={product.price}
-                                    discount={product.discount}
-                                    photo_url={product.photo_url}
                                     product={product}
                                     isBought={isBought}
                                     isFav={isFav}

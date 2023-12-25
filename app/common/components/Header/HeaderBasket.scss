@@ -1,12 +1,14 @@
 .header-basket {
-	margin: 26px 0 0 0;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 23px;
-	height: fit-content;
-
 	position: relative;
+	&__main-button {
+		margin: 26px 0 0 0;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 23px;
+		height: fit-content;
+		cursor:pointer;
+	}
 
 	&__icon {
 		display: flex;
@@ -225,11 +227,13 @@
 }
 @media (max-width: 1200px) {
 	.header-basket {
-		margin: 32px 10px 0 0;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		gap: 13px;
+		&__main-button {
+			margin: 32px 10px 0 0;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: 13px;
+		}
 		&__icon {
 			display: flex;
 			align-items: center;
@@ -292,12 +296,15 @@
 		height: 18px;
 	}
 	.header-basket {
-		margin: 18px 9px 0 0;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
+		&__main-button {
+			margin: 18px 9px 0 0;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
 
-		gap: 13px;
+			gap: 13px;
+		}
+
 		&__icon {
 			display: flex;
 			align-items: center;
