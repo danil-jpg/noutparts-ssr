@@ -101,5 +101,5 @@ export interface IProduct {
     discount: number;
     photo_url: string;
     id: number;
-    category: string;
+    category: categories;
 }

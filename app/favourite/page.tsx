@@ -24,10 +24,7 @@ const Page: NextPage<Props> = ({}) => {
         <div className='container favourite-page'>
             <Breadcrumbs classname='favourite__crumbs' breadcrumbs={breadcrumbArr} />
             <p className='favourite__title'>Список избранного</p>
-            <div className='favourite__cards-wr'>
-                {/* {favouriteData[0].type === 'matrices' } */}
-                <FilterCards type='matrices' />
-            </div>
+            <div className='favourite__cards-wr'>{/* {favouriteData[0].type === 'matrices' } */}</div>
         </div>
     );
 };

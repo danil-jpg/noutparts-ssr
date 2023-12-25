@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/dist/client/link';
 import axios from 'axios';
 import { useAppSelector } from '@/app/Redux/store';
-import { IProduct } from '../../types/types';
+import { IProduct, categories } from '../../types/types';
 import FeaturesCard from './FeaturesCard';
 import Spinner from '../Spinner/Spinner';
 import { fetchFeaturedProducts } from '@/app/lib/data';
@@ -14,7 +14,7 @@ import { fetchFeaturedProducts } from '@/app/lib/data';
 const Features = ({}) => {
     const [filterType, setFilterType] = useState<string>('new');
 
-    const productTypes: string[] = ['matrix', 'hdd', 'keyboard', 'ram', 'battery', 'power_supply'];
+    const productTypes: categories[] = ['matrices', 'batteries', 'hdds', 'keyboards', 'rams', 'power_unit'];
 
     // func to transform the data from request
 
@@ -35,9 +35,9 @@ const Features = ({}) => {
             try {
                 // Use Promise.all to execute all promises concurrently
                 const productDataArray = await Promise.all(promises);
-
                 // Flatten the array of arrays into a single array of products
                 const allProducts = productDataArray.flat();
+                console.log(allProducts);
 
                 // Set the products state with the fetched data
                 setProducts(allProducts);

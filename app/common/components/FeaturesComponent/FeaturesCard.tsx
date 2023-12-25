@@ -31,8 +31,6 @@ const FeaturesCard: React.FC<FeaturesCardProps> = ({ name, price, discount, phot
     const dispatch = useAppDispatch();
     const router = useRouter();
 
-    console.log(name, price, product);
-
     const truncatedName = name.length > 40 ? `${name.slice(0, 40)}...` : name;
 
     const addToBasket = (product: Product): void => {
