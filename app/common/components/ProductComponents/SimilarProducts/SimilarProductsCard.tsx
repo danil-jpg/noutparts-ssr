@@ -14,6 +14,7 @@ import DiscountSticker from "../../../ui/product-ui/DiscountSticker";
 
 import favIcon from "/public/img/fav-icon.svg";
 import noImageIcon from "/public/img/popup-close-icon.svg";
+import whiteHeart from "/public/img/white-heart.svg";
 
 import { IProduct as Product } from "../../../types/types";
 
@@ -44,12 +45,12 @@ const SimilarProductsCard: React.FC<FeaturesCardProps> = ({ product, isBought, i
 	return (
 		<div className="similar-products-card">
 			<div
-				className={`similar-products-card__fav-button ${isFav ? "active": ""}`}
+				className={`similar-products-card__fav-button ${isFav ? "active" : ""}`}
 				onClick={() => {
 					addToFavs(product);
 				}}
 			>
-				<IconRenderer id="features-fav-sign"></IconRenderer>
+				{isFav ? <Image src={whiteHeart} alt="whiteHeart" className="white-heart"></Image> : <IconRenderer id="features-fav-sign"></IconRenderer>}
 			</div>
 			<div className="similar-products-card__image-wrapper">{product.photo_url ? <Image fill={true} src={product.photo_url} alt="photo_url" className="similar-products-card__image" sizes="(max-width: 600px) 147px, 230px"></Image> : <Image fill={true} src={noImageIcon} alt="photo_url" className="similar-products-card__image"></Image>}</div>
 

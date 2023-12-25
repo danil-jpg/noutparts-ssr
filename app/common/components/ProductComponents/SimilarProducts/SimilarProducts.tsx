@@ -27,20 +27,20 @@ type PropsType = {
 };
 
 const sliderSettings = {
-    440: {
-      slidesPerView: 1,
-      spaceBetween: 30,
-    },
-    680: {
-      slidesPerView: 2,
-      spaceBetween: 30,
-    },
-    1024: {
-      slidesPerView: 3,
-      spaceBetween: 40,
-    },
+	5: {
+		slidesPerView: 'auto',
+		spaceBetween: 24
+	},
+	600: {
+		slidesPerView: 'auto',
+		spaceBetween: 30
+	},
+	1440: {
+		slidesPerView: 3,
+		spaceBetween: 40
+	}
 };
-  
+
 const SimilarProducts = ({ productType }: { productType: string }) => {
 	const [products, setProducts] = useState<IProduct[]>([]);
 
@@ -94,12 +94,12 @@ const SimilarProducts = ({ productType }: { productType: string }) => {
 						</button>
 					</div>
 				</div>
-                <div className="similar-products__content">
-                    <div className="similar-products__whitie"></div>
+				<div className="similar-products__content">
+					<div className="similar-products__whitie"></div>
 					<Swiper
-                        spaceBetween={40}
-                        slidesPerView={3}
-                        breakpoints={sliderSettings}
+						spaceBetween={40}
+						slidesPerView={3}
+						breakpoints={sliderSettings}
 						modules={[Navigation]}
 						onBeforeInit={(swiper) => {
 							swiperRef.current = swiper;

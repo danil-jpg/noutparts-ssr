@@ -4,22 +4,23 @@
 	border-radius: 4px;
 	border: 1px solid #ececec;
 	background: #fff;
-	width: 384px;
-	height: 474px;
+	width: 184px;
+	height: 322px;
 	flex-shrink: 0;
 
 	position: relative;
 
 	&__fav-button {
+		z-index: 5;
 		position: absolute;
-		top: 28px;
-		right: 37px;
+		top: 7px;
+		right: 8px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		align-self: flex-end;
-		width: 49.091px;
-		height: 48px;
+		width: 38px;
+		height: 38px;
 		flex-shrink: 0;
 		border-radius: 27px;
 		border: 2px solid #81e18a;
@@ -39,11 +40,11 @@
 	}
 
 	&__image-wrapper {
-		margin: 21px 0 0 49px;
+		margin: 23px 0 0 30px;
 		width: 100%;
 		height: 100%;
-		max-width: 244px;
-		max-height: 210px;
+		max-width: 114px;
+		max-height: 98px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -54,36 +55,36 @@
 		position: relative;
 		width: 100%;
 		height: 100%;
-		max-width: 244px;
-		max-height: 210px;
+		max-width: 114px;
+		max-height: 98px;
 		object-fit: contain;
 	}
 
 	&__name {
-		margin: 0 12px 0 34px;
+		margin: 5px 12px 0 10px;
 		color: var(--Gray-100, #19191d);
 		font-family: Roboto;
-		font-size: 18px;
+		font-size: 12px;
 		font-style: normal;
 		font-weight: 400;
 		line-height: 150%; /* 27px */
 		letter-spacing: 0.36px;
-		max-width: 304px;
+		max-width: 162px;
 	}
 
 	&__price {
-		margin: 16px 0 0 34px;
+		margin: 6px 0 0 10px;
 		display: flex;
 		flex-direction: row;
 		align-items: center;
-		gap: 15px;
+		gap: 6px;
 		width: fit-content;
 	}
 
 	&__price-text {
 		color: var(--Dark-Color, rgba(0, 0, 0, 0.87));
 		font-family: Roboto;
-		font-size: 24px;
+		font-size: 16px;
 		font-style: normal;
 		font-weight: 700;
 		line-height: 150%; /* 36px */
@@ -93,23 +94,24 @@
 	}
 
 	&__buttons {
-		margin: 16px 0 0 34px;
+		margin: 14px 0 0 0px;
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		align-items: center;
-		gap: 26px;
+		width: 100%;
+		gap: 17px;
 	}
 
 	&__basket-button {
 		border-radius: 30px;
 
-		width: 165px;
-		height: 52px;
+		width: 124px;
+		height: 39px;
 		flex-shrink: 0;
 		background: #36dd65;
 		color: #fff;
 		font-family: Roboto;
-		font-size: 16px;
+		font-size: 12px;
 		font-style: normal;
 		font-weight: 900;
 		line-height: 143%; /* 22.88px */
@@ -117,7 +119,7 @@
 		text-transform: uppercase;
 		display: flex;
 		flex-direction: row;
-		gap: 0px;
+		gap: 1px;
 		align-items: center;
 		justify-content: center;
 
@@ -125,13 +127,17 @@
 	}
 
 	&__buy-button {
+		width: 112px;
 		color: #000;
 		font-family: Roboto;
-		font-size: 16px;
+		font-size: 12px;
 		font-style: normal;
 		font-weight: 700;
 		line-height: 143%; /* 22.88px */
 		letter-spacing: 0.288px;
+
+		display: flex;
+		justify-content: center;
 
 		padding: 0 0 2px 0;
 		border-bottom: 1px dashed #36dd65;
@@ -143,4 +149,3 @@
 		}
 	}
 }
-
