@@ -11,6 +11,8 @@ import ProductPair from "./ProductPair/ProductPair";
 import ProductTechs from "./ProductsTechs";
 import ProductSwiper from "./ProductSwiper";
 import SimilarProducts from "./SimilarProducts/SimilarProducts";
+import HistoryProducts from "./HistoryProducts/HistoryProducts";
+import ProductHistoryAdd from "./ProductHistoryAdd";
 
 import ProductAvailability from "../../ui/product-ui/ProductAvailability";
 import ProductInteractiveElems from "./ProductInteractiveElems";
@@ -243,7 +245,11 @@ export default async function Product({ category, id }: { category: string; id: 
 
 			<ProductTechs techCharacteristics={techCharacteristics}></ProductTechs>
 
-			<SimilarProducts productType={ category }></SimilarProducts>
+			<SimilarProducts productType={category}></SimilarProducts>
+
+			<HistoryProducts></HistoryProducts>
+
+			<ProductHistoryAdd category={category} id={id}></ProductHistoryAdd>
 		</>
 	);
 }
