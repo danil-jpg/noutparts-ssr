@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
 import { onSelectItemChangeHandler, onStatusItemClickHandler } from '@/app/lib/service';
 import { IQuery, categories } from '@/app/common/types/types';
 import { setData } from '@/app/Redux/slice/query/query';
-import FilterCards from '../FilterCards/FilterCards';
+import FilterCards from '../../../card/FilterCards';
 import clsx from 'clsx';
 import { v1 } from 'uuid';
 

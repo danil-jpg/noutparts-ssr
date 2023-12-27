@@ -2,11 +2,11 @@
 import { setData } from '@/app/Redux/slice/query/query';
 import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
 import { getFilterItemData } from '@/app/lib/data';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import './FilterCards.scss';
+import './Cards.scss';
 import ProductTag from '@/app/common/ui/product-ui/ProductTag';
-import Loading from '../../../Loading/Loading';
+import Loading from '../Loading/Loading';
 import { categories } from '@/app/common/types/types';
 import PrimaryBtn from '@/app/common/ui/buttons/primary/PrimaryBtn';
 import IconRenderer from '@/app/common/ui/Icons/IconRenderer';
@@ -73,7 +73,7 @@ const FilterCards = ({ type }: { type: categories }) => {
         })();
     }, []);
 
-    const RenderProperFilter: Function = (): React.ReactElement[] => {
+    const RenderProperFilter = (): React.ReactElement[] => {
         switch (type) {
             case 'matrices':
                 return selector.map((el: IMatrixCard, index) => {

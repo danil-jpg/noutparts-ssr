@@ -103,3 +103,34 @@ export interface IProduct {
     id: number;
     category: categories;
 }
+
+export interface ICard {
+    data: {
+        id: number;
+        attributes: {
+            availability: string;
+            category: categories;
+            price: number;
+            name: string;
+            tag: string;
+            photo: {
+                data: [
+                    {
+                        attributes: {
+                            url: string;
+                        };
+                    }
+                ];
+            };
+        };
+    };
+}
+
+export interface IFavsData {
+    products: {
+        id: number;
+        name: string;
+        category?: categories;
+    }[];
+    data?: {};
+}

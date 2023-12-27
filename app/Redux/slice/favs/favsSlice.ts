@@ -2,17 +2,11 @@
 
 import { categories as Icategories } from '@/app/common/types/types';
 import { createSlice } from '@reduxjs/toolkit';
-
-export interface IFavsData {
-    products: {
-        id: number;
-        name: string;
-        category?: Icategories;
-    }[];
-}
+import { IFavsData } from '@/app/common/types/types';
 
 const initialState: IFavsData = {
     products: [],
+    data: [],
 };
 
 const favsData = createSlice({
@@ -22,9 +16,7 @@ const favsData = createSlice({
         addFavProduct: (state, action) => {
             const { name, id, category } = action.payload;
             const existingIndex = state.products.findIndex((product) => product.id === id);
-
-            console.log('test');
-
+            console.log(existingIndex);
             if (existingIndex !== -1) {
                 // Remove the product if it already exists
                 state.products.splice(existingIndex, 1);
@@ -33,16 +25,13 @@ const favsData = createSlice({
                 state.products.push({ name, id, category });
             }
         },
-        removeFavProduct: (state, action) => {
-            const indexToRemove = action.payload; // Assuming payload contains the index of the product to remove
 
-            if (indexToRemove !== -1) {
-                state.products.splice(indexToRemove, 1);
-            }
+        setData: (state, action) => {
+            state.data = action.payload;
         },
     },
 });
 
-export const { addFavProduct, removeFavProduct } = favsData.actions;
+export const { addFavProduct } = favsData.actions;
 
 export default favsData.reducer;
