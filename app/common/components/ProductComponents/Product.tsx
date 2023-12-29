@@ -241,6 +241,19 @@ export default async function Product({ category, id }: { category: string; id: 
 				</div>
 			</div>
 
+			<div className="product-about__wrapper">
+				<div className="product-about">
+					<div className="product-about__main">
+						<div className="product-about__title">Описание</div>
+						<div className="product-about__text">{product.about ? product.about : "Seller didn't provide an about section"}</div>
+					</div>
+					<div className="product-about__info">
+						<div className="product-about__info-item">*характеристики и комплектация товара могут отличаться, уточняйте у продавцов.</div>
+						<div className="product-about__info-item">*обратите внимание: изображение товара на сайте может отличаться от фактического изображения товара</div>
+					</div>
+				</div>
+			</div>
+
 			{product.pair_set && <ProductPair firstObj={product} secondObj={product.pair_set.data.attributes}></ProductPair>}
 
 			<ProductTechs techCharacteristics={techCharacteristics}></ProductTechs>

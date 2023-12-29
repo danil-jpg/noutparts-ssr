@@ -102,7 +102,7 @@ export const fetchFeaturedProducts = async (productType: string, filterType: str
 
 export const fetchProductNames = async (productType: string) => {
 	try {
-		const response = await axios.get<ProductData>(`http://127.0.0.1:1337/api/${productType === "matrix" ? "matrice" : productType === "power_supply" ? "power-supplie" : productType === "battery" ? "batterie" : productType}s/?fields[0]=name`);
+		const response = await axios.get<ProductData>(`http://127.0.0.1:1337/api/${productType}/?fields[0]=name`);
 		const data: ProductData = response.data;
 
 		return data.data || [];

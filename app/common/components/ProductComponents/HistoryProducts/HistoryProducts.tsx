@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, ChangeEvent, useRef } from "react";
 import IconRenderer from "../../../ui/Icons/IconRenderer";
-import "./HistoryProducts.scss";
+import "../SimilarProducts/SimilarProducts.scss";
 import Image from "next/image";
 import Link from "next/dist/client/link";
 import axios from "axios";
@@ -17,21 +17,6 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 
 import swiperArrow from "/public/img/swiper-nav-arrow.svg";
-
-const sliderSettings = {
-	5: {
-		slidesPerView: "auto",
-		spaceBetween: 24
-	},
-	600: {
-		slidesPerView: "auto",
-		spaceBetween: 30
-	},
-	1440: {
-		slidesPerView: 3,
-		spaceBetween: 40
-	}
-};
 
 const HistoryProducts = () => {
 	const productsInBasket = useAppSelector((state) => state.basketReducer.products);
@@ -51,6 +36,7 @@ const HistoryProducts = () => {
 						return productData as IProduct; // Assuming the fetched data matches IProduct interface
 					})
 				);
+				``;
 
 				// Flatten the array of arrays into a single array of products
 				const allProducts = fetchedProducts.flat();
@@ -83,10 +69,10 @@ const HistoryProducts = () => {
 	}, [swiperRef]);
 
 	return (
-		<div className="similar-products__wrapper">
+		<div className="similar-products__wrapper history">
 			<div className="similar-products">
 				<div className="similar-products__top">
-					<div className="similar-products__title">Вы просматривали</div>
+					<div className="similar-products__title history">Вы просматривали</div>
 					<div className="similar-products__nav">
 						<button onClick={() => swiperRef.current?.slidePrev()} className={`similar-products__nav-button ${isBeginning ? "disabled" : ""}`}>
 							<Image src={swiperArrow} alt="swiperArrow" className="similar-products__nav-icon prev"></Image>
@@ -96,17 +82,30 @@ const HistoryProducts = () => {
 						</button>
 					</div>
 				</div>
-				<div className="similar-products__content">
-					<div className="similar-products__whitie"></div>
+				<div className="similar-products__content history">
+					<div className="similar-products__whitie history"></div>
 					<Swiper
 						spaceBetween={40}
-						slidesPerView={3}
-						breakpoints={sliderSettings}
+						slidesPerView={4}
+						breakpoints={{
+							5: {
+								slidesPerView: "auto",
+								spaceBetween: 24
+							},
+							600: {
+								slidesPerView: "auto",
+								spaceBetween: 30
+							},
+							1440: {
+								slidesPerView: 4,
+								spaceBetween: 40
+							}
+						}}
 						modules={[Navigation]}
 						onBeforeInit={(swiper) => {
 							swiperRef.current = swiper;
 						}}
-						className="similar-products__slider"
+						className="similar-products__slider history"
 					>
 						{products.length > 0 ? (
 							products.map((product, index) => {
@@ -121,7 +120,7 @@ const HistoryProducts = () => {
 								const isFav = !!foundFav;
 
 								return (
-									<SwiperSlide className="similar-products__slide" key={product.id}>
+									<SwiperSlide className="similar-products__slide history" key={product.id}>
 										<FeaturesCard key={index} product={product} isBought={isBought} isFav={isFav} />
 									</SwiperSlide>
 								);

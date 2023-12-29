@@ -102,7 +102,7 @@ const HeaderSearch = () => {
 
     // Inside useEffect
     useEffect(() => {
-        const productTypes: string[] = ['matrix', 'hdd', 'keyboard', 'ram', 'battery', 'power_supply'];
+        const productTypes: string[] = ['matrices', 'hdds', 'keyboards', 'rams', 'batteries', 'power_supplies'];
 
         const promises = productTypes.map((type) => fetchProductsData(type));
 
