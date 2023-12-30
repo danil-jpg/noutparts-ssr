@@ -1,15 +1,15 @@
 "use client";
 import React, { useState, useEffect, ChangeEvent, useRef } from "react";
-import IconRenderer from "../../../ui/Icons/IconRenderer";
-import "../SimilarProducts/SimilarProducts.scss";
+import IconRenderer from "../../ui/Icons/IconRenderer";
+import "../ProductComponents/SimilarProducts/SimilarProducts.scss";
 import Image from "next/image";
 import Link from "next/dist/client/link";
 import axios from "axios";
 import { useAppSelector } from "@/app/Redux/store";
-import { IProduct } from "../../../types/types";
-import FeaturesCard from "../../FeaturesComponent/FeaturesCard";
-import Spinner from "../../Spinner/Spinner";
-import { fetchVisitedProducts } from "@/app/lib/data";
+import { IProduct } from "../../types/types";
+import FeaturesCard from "../FeaturesComponent/FeaturesCard";
+import Spinner from "../Spinner/Spinner";
+import { fetchVisitedProducts } from "@/app/lib/data"; 
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper";
@@ -36,7 +36,6 @@ const HistoryProducts = () => {
 						return productData as IProduct; // Assuming the fetched data matches IProduct interface
 					})
 				);
-				``;
 
 				// Flatten the array of arrays into a single array of products
 				const allProducts = fetchedProducts.flat();
@@ -84,31 +83,31 @@ const HistoryProducts = () => {
 				</div>
 				<div className="similar-products__content history">
 					<div className="similar-products__whitie history"></div>
-					<Swiper
-						spaceBetween={40}
-						slidesPerView={4}
-						breakpoints={{
-							5: {
-								slidesPerView: "auto",
-								spaceBetween: 24
-							},
-							600: {
-								slidesPerView: "auto",
-								spaceBetween: 30
-							},
-							1440: {
-								slidesPerView: 4,
-								spaceBetween: 40
-							}
-						}}
-						modules={[Navigation]}
-						onBeforeInit={(swiper) => {
-							swiperRef.current = swiper;
-						}}
-						className="similar-products__slider history"
-					>
-						{products.length > 0 ? (
-							products.map((product, index) => {
+					{products.length > 0 ? (
+						<Swiper
+							spaceBetween={40}
+							slidesPerView={4}
+							breakpoints={{
+								5: {
+									slidesPerView: "auto",
+									spaceBetween: 24
+								},
+								600: {
+									slidesPerView: "auto",
+									spaceBetween: 30
+								},
+								1440: {
+									slidesPerView: 4,
+									spaceBetween: 40
+								}
+							}}
+							modules={[Navigation]}
+							onBeforeInit={(swiper) => {
+								swiperRef.current = swiper;
+							}}
+							className="similar-products__slider history"
+						>
+							{products.map((product, index) => {
 								// Check if the product exists in productsInBasket
 								const foundProduct = productsInBasket.find((basketProduct) => basketProduct.name === product.name);
 								// Determine if the product is bought
@@ -124,11 +123,11 @@ const HistoryProducts = () => {
 										<FeaturesCard key={index} product={product} isBought={isBought} isFav={isFav} />
 									</SwiperSlide>
 								);
-							})
-						) : (
-							<Spinner classname="features__spinner" />
-						)}
-					</Swiper>
+							})}
+						</Swiper>
+					) : (
+						<Spinner classname="features__spinner" />
+					)}
 				</div>
 			</div>
 		</div>

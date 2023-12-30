@@ -26,7 +26,6 @@ type PropsType = {
 	images: ProductImages[];
 };
 
-
 const SimilarProducts = ({ productType }: { productType: string }) => {
 	const [products, setProducts] = useState<IProduct[]>([]);
 
@@ -81,32 +80,31 @@ const SimilarProducts = ({ productType }: { productType: string }) => {
 					</div>
 				</div>
 				<div className="similar-products__content">
-					<div className="similar-products__whitie"></div>
-					<Swiper
-						spaceBetween={40}
-						slidesPerView={3}
-						breakpoints={{
-							5: {
-								slidesPerView: 'auto',
-								spaceBetween: 24
-							},
-							600: {
-								slidesPerView: 'auto',
-								spaceBetween: 30
-							},
-							1440: {
-								slidesPerView: 3,
-								spaceBetween: 40
-							}
-						}}
-						modules={[Navigation]}
-						onBeforeInit={(swiper) => {
-							swiperRef.current = swiper;
-						}}
-						className="similar-products__slider"
-					>
-						{products.length > 0 ? (
-							products.map((product, index) => {
+					{products.length > 0 ? (
+						<Swiper
+							spaceBetween={40}
+							slidesPerView={3}
+							breakpoints={{
+								5: {
+									slidesPerView: "auto",
+									spaceBetween: 24
+								},
+								600: {
+									slidesPerView: "auto",
+									spaceBetween: 30
+								},
+								1440: {
+									slidesPerView: 3,
+									spaceBetween: 40
+								}
+							}}
+							modules={[Navigation]}
+							onBeforeInit={(swiper) => {
+								swiperRef.current = swiper;
+							}}
+							className="similar-products__slider"
+						>
+							{products.map((product, index) => {
 								// Check if the product exists in productsInBasket
 								const foundProduct = productsInBasket.find((basketProduct) => basketProduct.name === product.name);
 								// Determine if the product is bought
@@ -122,11 +120,12 @@ const SimilarProducts = ({ productType }: { productType: string }) => {
 										<SimilarProductCard key={index} product={product} isBought={isBought} isFav={isFav} />
 									</SwiperSlide>
 								);
-							})
-						) : (
-							<Spinner classname="similar-products__spinner" />
-						)}
-					</Swiper>
+							})}
+						</Swiper>
+					) : (
+						<Spinner classname="similar-products__spinner" />
+					)}
+					<div className="similar-products__whitie"></div>
 				</div>
 			</div>
 		</div>

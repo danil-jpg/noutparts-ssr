@@ -79,10 +79,9 @@ const transformSingleData = (productData: any, category: string): IProduct => {
 export const fetchFeaturedProducts = async (productType: string, filterType: string): Promise<IProduct[]> => {
 	"use server";
 	try {
-		const productUrl = productType === "matrix" ? "matrice" : productType === "power_supply" ? "power-supplie" : productType === "battery" ? "batterie" : productType;
 
 		const response = await fetch(
-			`http://127.0.0.1:1337/api/${productUrl}s/
+			`http://127.0.0.1:1337/api/${productType}/
 		?populate[0]=photo
 		&filters[tag][$in][0]=${filterType}
 		&fields[0]=name&fields[1]=price&fields[2]=discount&fields[3]=id`,
@@ -115,10 +114,8 @@ export const fetchProductNames = async (productType: string) => {
 export const fetchSimilarProducts = async (productType: string): Promise<IProduct[]> => {
 	"use server";
 	try {
-		const productUrl = productType === "matrix" ? "matrice" : productType === "power_supply" ? "power-supplie" : productType === "battery" ? "batterie" : productType;
-
 		const response = await fetch(
-			`http://127.0.0.1:1337/api/${productUrl}s/
+			`http://127.0.0.1:1337/api/${productType}/
 		?populate[0]=photo
 		&fields[0]=name&fields[1]=price&fields[2]=discount&fields[3]=id`,
 			{ cache: "no-store" }

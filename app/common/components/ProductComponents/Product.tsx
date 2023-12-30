@@ -11,7 +11,7 @@ import ProductPair from "./ProductPair/ProductPair";
 import ProductTechs from "./ProductsTechs";
 import ProductSwiper from "./ProductSwiper";
 import SimilarProducts from "./SimilarProducts/SimilarProducts";
-import HistoryProducts from "./HistoryProducts/HistoryProducts";
+import HistoryProducts from "../HistoryProducts/HistoryProducts";
 import ProductHistoryAdd from "./ProductHistoryAdd";
 
 import ProductAvailability from "../../ui/product-ui/ProductAvailability";
@@ -28,7 +28,7 @@ interface TechCharacteristics {
 export default async function Product({ category, id }: { category: string; id: string }) {
 	const fetchProductInfo = async (productType: string, productId: string) => {
 		try {
-			const response = await axios.get(`http://127.0.0.1:1337/api/${productType === "matrix" ? "matrice" : productType === "power_supply" ? "power-supplie" : productType === "battery" ? "batterie" : productType}s/${productId}?populate[0]=photo&populate[1]=pair_set&populate[2]=pair_set.photo&populate[3]=pair_set.photo.url`);
+			const response = await axios.get(`http://127.0.0.1:1337/api/${category}/${productId}?populate[0]=photo&populate[1]=pair_set&populate[2]=pair_set.photo&populate[3]=pair_set.photo.url`);
 			const data = response.data.data.attributes;
 
 			// Update the state with the fetched data
@@ -42,7 +42,7 @@ export default async function Product({ category, id }: { category: string; id: 
 		const techObj: TechCharacteristics = {};
 
 		switch (category) {
-			case "hdd":
+			case "hdds":
 				techObj.technology = {
 					name: "Технологія",
 					value: product.technology
@@ -57,7 +57,7 @@ export default async function Product({ category, id }: { category: string; id: 
 				};
 
 				break;
-			case "matrix":
+			case "matrices":
 				techObj.permission = {
 					name: "Роздільна здатність",
 					value: product.permission
@@ -87,7 +87,7 @@ export default async function Product({ category, id }: { category: string; id: 
 					value: product.backlight_type
 				};
 				break;
-			case "battery":
+			case "batteries":
 				techObj.voltage = {
 					name: "Вольтаж",
 					value: product.voltage
@@ -105,7 +105,7 @@ export default async function Product({ category, id }: { category: string; id: 
 					value: product.color
 				};
 				break;
-			case "keyboard":
+			case "keyboards":
 				techObj.form_factor = {
 					name: "Форм-фактор",
 					value: product.form_factor
@@ -123,7 +123,7 @@ export default async function Product({ category, id }: { category: string; id: 
 					value: product.color
 				};
 				break;
-			case "power_supply":
+			case "power_supplies":
 				techObj.power = {
 					name: "Потужність",
 					value: product.power
@@ -145,7 +145,7 @@ export default async function Product({ category, id }: { category: string; id: 
 					value: product.amperage
 				};
 				break;
-			case "ram":
+			case "rams":
 				techObj.memory_mb = {
 					name: "Обсяг памяті",
 					value: product.memory_mb
