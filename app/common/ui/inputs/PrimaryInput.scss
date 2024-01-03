@@ -153,9 +153,9 @@ input::-ms-clear {
 		&__error-popup {
 			position: absolute;
 			top: -90px;
-			left: auto;
+			left: -20px;
 			height: 68px;
-			width: 120px;
+			width: 170px;
 			display: flex;
 			align-items: center;
 			justify-content: center;

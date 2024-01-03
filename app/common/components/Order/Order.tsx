@@ -5,6 +5,7 @@ import IconRenderer from "../../ui/Icons/IconRenderer";
 import "./Order.scss";
 import Image from "next/image";
 import Link from "next/dist/client/link";
+import { useAppSelector } from "@/app/Redux/store";
 
 import Breadcrumbs from "@/app/common/components/breadcrumbs/Breadcrumbs";
 import { Breadcrumb } from "@/app/common/types/types";
@@ -15,6 +16,21 @@ import BasicRadio from "../../ui/form/radio/BasicRadio";
 import TownInput from "./TownInput";
 
 import radioArrow from "/public/img/check-icon.svg";
+
+interface OrderRequestBody {
+	data: {
+		first_name: string;
+		last_name: string;
+		tel: string;
+		delivery: string | null;
+		payment: string | null;
+		town: string | null;
+		filial: string | null;
+		chosen_product: string;
+		comment?: string; // Make comment optional
+		email?: string; // Make email optional
+	};
+}
 
 export default function Product() {
 	const breadcrumbArr: Breadcrumb[] = [
@@ -29,9 +45,7 @@ export default function Product() {
 			active: true
 		}
 	];
-
-	const [selectedTown, setSelectedTown] = useState<string>("");
-
+	const chosenProducts = useAppSelector((state) => state.basketReducer.products);
 	const towns: string[] = ["Town 1", "Town 2", "Town 3", "Town 4"];
 	const filials: string[] = ["Filial 1", "Filial 2", "Filial 3", "Filial 4"];
 
@@ -41,6 +55,7 @@ export default function Product() {
 	const [lastName, setLastName] = useState<string>("");
 	const [tel, setTel] = useState<string>("");
 	const [email, setEmail] = useState<string>("");
+	console.log("46 ~ Product ~ email:", email);
 	const [comment, setComment] = useState<string>("");
 
 	const [delivery, setDelivery] = useState<string | null>("");
@@ -48,6 +63,50 @@ export default function Product() {
 
 	const [town, setTown] = useState<string | null>("");
 	const [filial, setFilial] = useState<string | null>("");
+
+	const formattedProducts = chosenProducts.map((product) => ({
+		name: product.name,
+		price: product.price,
+		photo_url: product.photo_url
+	}));
+
+	const chosenProductsJSON = JSON.stringify(formattedProducts[0]);
+	console.log("🚀 ~ file: Order.tsx:53 ~ Product ~ chosenProductsJSON:", chosenProductsJSON);
+
+	const handleUpload = async () => {
+		try {
+			if (!chosenProductsJSON) {
+				alert("There are no chosen products in your basket");
+				return;
+			}
+
+			const requestBody: OrderRequestBody = {
+				data: {
+					first_name: firstName,
+					last_name: lastName,
+					tel: tel,
+					delivery: delivery,
+					payment: payment,
+					town: town,
+					filial: filial,
+					chosen_product: chosenProductsJSON
+				}
+			};
+
+			if (comment) {
+				requestBody.data.comment = comment;
+			}
+
+			if (email) {
+				requestBody.data.email = email;
+			}
+
+			const responseInfo = await axios.post("http://localhost:1337/api/orders", requestBody);
+			console.log("Response Info:", responseInfo);
+		} catch (error) {
+			console.log("info creation error: ", error);
+		}
+	};
 
 	return (
 		<>
@@ -104,7 +163,28 @@ export default function Product() {
 												Подтверждая заказ я принимаю <span>условия пользователя</span>
 											</div>
 										</div>
-										<button className="order__buy-button">Заказ подтверждаю</button>
+										<button
+											className="order__buy-button"
+											onClick={() => {
+												if (
+													firstName &&
+													lastName &&
+													tel &&
+													delivery &&
+													payment &&
+													town &&
+													filial &&
+													userAgr // Assuming userAgr must also be true
+												) {
+													handleUpload();
+												} else {
+													// Perform action for validation failure (e.g., show an error message)
+													alert("Please fill in all required fields.");
+												}
+											}}
+										>
+											Заказ подтверждаю
+										</button>
 									</div>
 								</div>
 							</div>

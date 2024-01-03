@@ -13,19 +13,25 @@ interface TownInputProps {
 const TownInput: FC<TownInputProps> = ({ data, type, setValue }) => {
 	const [inputValue, setInputValue] = useState<string>("");
 	const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
+	console.log("🚀 ~ file: TownInput.tsx:16 ~ showSuggestions:", showSuggestions);
 	const dropdownRef = useRef<HTMLUListElement>(null);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setValue(e.target.value);
 		setInputValue(e.target.value);
 		setShowSuggestions(true);
 	};
 
 	const selectItem = (item: string) => {
+		setValue(item);
 		setInputValue(item);
 		setShowSuggestions(false);
 	};
 
-	const filteredItems = data.filter((item) => item.toLowerCase().includes(inputValue.toLowerCase()));
+	const filteredItems =
+		inputValue === ""
+			? data // Return the whole data array if inputValue is empty
+			: data.filter((item) => item.toLowerCase().includes(inputValue.toLowerCase()));
 
 	const firstFiveItems = data.slice(0, 5);
 
@@ -50,13 +56,28 @@ const TownInput: FC<TownInputProps> = ({ data, type, setValue }) => {
 				{type === "towns" ? "Город" : "Отделение почты"}
 			</label>
 			<div className="town-input__input-box">
-				<input className="town-input__input" type="text" id={`${type}Input`} value={inputValue} onChange={handleInputChange} />
-				{type === "filials" && <Image src={mapIcon} alt="" className="town-input__map-icon" />}
+				<input className="town-input__input" type="text" id={`${type}Input`} value={inputValue} onChange={handleInputChange} placeholder={type === "towns" ? "Город доставки" : "Отделение почты"} />
+				{type === "filials" && (
+					<Image
+						src={mapIcon}
+						alt=""
+						className="town-input__map-icon"
+						onClick={() => {
+							setShowSuggestions(!showSuggestions);
+						}}
+					/>
+				)}
 			</div>
 			{type === "towns" && (
 				<div className="town-input__5-buttons">
 					{firstFiveItems.map((item, index) => (
-						<button className="town-input__5-buttons-item" key={index} onClick={() => setInputValue(item)}>
+						<button
+							className="town-input__5-buttons-item"
+							key={index}
+							onClick={() => {
+								selectItem(item);
+							}}
+						>
 							{item}
 						</button>
 					))}
