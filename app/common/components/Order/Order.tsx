@@ -1,6 +1,6 @@
 "use client";
 import axios from "axios";
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import IconRenderer from "../../ui/Icons/IconRenderer";
 import "./Order.scss";
 import Image from "next/image";
@@ -16,6 +16,7 @@ import BasicRadio from "../../ui/form/radio/BasicRadio";
 import TownInput from "./TownInput";
 
 import radioArrow from "/public/img/check-icon.svg";
+import checkIcon from "/public/img/check-icon.svg";
 
 interface OrderRequestBody {
 	data: {
@@ -49,13 +50,19 @@ export default function Product() {
 	const towns: string[] = ["Town 1", "Town 2", "Town 3", "Town 4"];
 	const filials: string[] = ["Filial 1", "Filial 2", "Filial 3", "Filial 4"];
 
+	const [orderTime, setOrderTime] = useState<string>("");
+
 	const [userAgr, setUserAgr] = useState<boolean>(false);
 
 	const [firstName, setFirstName] = useState<string>("");
 	const [lastName, setLastName] = useState<string>("");
 	const [tel, setTel] = useState<string>("");
+	const [formattedTel, setFormattedTel] = useState<string>("+380" + tel);
+	useEffect(() => {
+		// Update formattedTel whenever tel changes
+		setFormattedTel("+380" + tel);
+	}, [tel]);
 	const [email, setEmail] = useState<string>("");
-	console.log("46 ~ Product ~ email:", email);
 	const [comment, setComment] = useState<string>("");
 
 	const [delivery, setDelivery] = useState<string | null>("");
@@ -84,7 +91,7 @@ export default function Product() {
 				data: {
 					first_name: firstName,
 					last_name: lastName,
-					tel: tel,
+					tel: formattedTel,
 					delivery: delivery,
 					payment: payment,
 					town: town,
@@ -102,15 +109,88 @@ export default function Product() {
 			}
 
 			const responseInfo = await axios.post("http://localhost:1337/api/orders", requestBody);
+
+			const currentTime = new Date().toLocaleString("en-GB"); // Change the format according to your preference
+
+			setOrderTime(currentTime);
+
+			setShowPopup(true);
+
 			console.log("Response Info:", responseInfo);
 		} catch (error) {
 			console.log("info creation error: ", error);
 		}
 	};
 
+	const [showPopup, setShowPopup] = useState(false);
+
+	useEffect(() => {
+		const handleBodyOverflow = () => {
+		  if (showPopup && window.innerWidth < 600) {
+			document.body.style.overflow = 'hidden';
+		  } else {
+			document.body.style.overflow = 'auto';
+		  }
+		};
+	
+		// Set body overflow on mount and resize
+		handleBodyOverflow();
+	
+		window.addEventListener('resize', handleBodyOverflow);
+	
+		return () => {
+		  // Clean up event listener and reset body overflow when unmounting
+		  window.removeEventListener('resize', handleBodyOverflow);
+		  document.body.style.overflow = 'auto';
+		};
+	  }, [showPopup]);
+
 	return (
 		<>
 			<Breadcrumbs breadcrumbs={breadcrumbArr} classname="product__breadcrumbs"></Breadcrumbs>
+			{showPopup && (
+				<div className="order-popup__wrapper">
+					<div className="order-popup">
+						<div className="order-popup__top">
+							<div className="order-popup__check">
+								<div className="order-popup__check-inner">
+									<Image src={checkIcon} alt="checkIcon" className="order-popup__check-icon"></Image>
+								</div>
+							</div>
+							<div className="order-popup__titles">
+								<div className="order-popup__title">Спасибо!</div>
+								<div className="order-popup__undertitle">Ваш заказ принят, мы свяжемся с Вами в ближайшее время</div>
+							</div>
+						</div>
+						<div className="order-popup__time">Время заказа: {orderTime}</div>
+						<div className="order-popup__contents">
+							<div className="order-popup__col">
+								<div className="order-popup__col-heading">Детали заказа</div>
+								<div className="order-popup__col-rows">
+									<div className="order-popup__row">
+										{firstName} {lastName}
+									</div>
+									<div className="order-popup__row">{formattedTel}</div>
+									<div className="order-popup__row">{email ? email : "No email"}</div>
+								</div>
+							</div>
+							<div className="order-popup__col">
+								<div className="order-popup__col-heading">Адрес доставки</div>
+								<div className="order-popup__col-rows">
+									<div className="order-popup__row">{town}</div>
+									<div className="order-popup__row">
+										{delivery}, {filial}
+									</div>
+									<div className="order-popup__row">{payment}</div>
+								</div>
+							</div>
+							<Link href={"/"}>
+								<div className="order-popup__button">На главную</div>
+							</Link>
+						</div>
+					</div>
+				</div>
+			)}
 
 			<div className="order__wrapper">
 				<div className="order">
