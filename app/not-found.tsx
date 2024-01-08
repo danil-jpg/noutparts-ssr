@@ -7,18 +7,18 @@ import warningImg from '/public/img/warning.png';
 
 export default function NotFound() {
     return (
-        <div className='not-found'>
+        <div className='e404'>
             <div className='container'>
-                <div className='not-found__row'>
-                    <div className='not-found__body'>
-                        <h1 className='not-found__title'>Упс! Что-то пошло не так! </h1>
-                        <div className='not-found__text-wrap'>
-                            <h2 className='not-found__subtitle'>
+                <div className='e404__row'>
+                    <div className='e404__body'>
+                        <h1 className='e404__title'>Упс! Что-то пошло не так! </h1>
+                        <div className='e404__text-wrap'>
+                            <h2 className='e404__subtitle'>
                                 Страница которую вы запрашиваете не найдена. Возможно она была удалена или вы набрали неверный адрес.
                             </h2>
-                            {/* <p className='not-found__text'>{data.text}</p> */}
+                            {/* <p className='e404__text'>{data.text}</p> */}
                         </div>
-                        <div className='not-found__btn'>
+                        <div className='e404__btn'>
                             <PrimaryBtn
                                 text={
                                     <Link href={'/'} className=''>
@@ -28,37 +28,37 @@ export default function NotFound() {
                                 type='large'></PrimaryBtn>
                         </div>
 
-                        <ul className='not-found__list'>
-                            <li className='not-found__item'>
-                                <Link href={'/'} className='not-found__link'>
+                        <ul className='e404__list'>
+                            <li className='e404__item'>
+                                <Link href={'/'} className='e404__link'>
                                     Каталог
                                 </Link>
                             </li>
-                            <li className='not-found__item'>
-                                <Link href={'/'} className='not-found__link'>
+                            <li className='e404__item'>
+                                <Link href={'/'} className='e404__link'>
                                     Доставка и оплата
                                 </Link>
                             </li>
-                            <li className='not-found__item'>
-                                <Link href={'/'} className='not-found__link'>
+                            <li className='e404__item'>
+                                <Link href={'/'} className='e404__link'>
                                     Гарантии
                                 </Link>
                             </li>
-                            <li className='not-found__item'>
-                                <Link href={'/'} className='not-found__link'>
+                            <li className='e404__item'>
+                                <Link href={'/'} className='e404__link'>
                                     Контакты
                                 </Link>
                             </li>
                         </ul>
-                        <div className='not-found__support'>
-                            <Image src={warningImg} width={23} height={20} alt='icon' className='not-found__warn-icon' />
-                            <Link href={'/'} className='not-found__supp-link'>
+                        <div className='e404__support'>
+                            <Image src={warningImg} width={23} height={20} alt='icon' className='e404__warn-icon' />
+                            <Link href={'/'} className='e404__supp-link'>
                                 Служба поддержки
                             </Link>
                         </div>
                     </div>
-                    <div className='not-found__error-num'>
-                        <Image src={notFound} width={631} height={276} alt='404' className='not-found__error-num-icon' />
+                    <div className='e404__error-num'>
+                        <Image src={notFound} width={631} height={276} alt='e404' className='e404__error-num-icon' />
                     </div>
                 </div>
             </div>
