@@ -60,6 +60,11 @@ export default function Delivery() {
                                         <li>1. Оплата при получении</li>
                                         <li>2. Предоплата на карту</li>
                                     </ul>
+                                    <div className='delivery__special-info'>
+                                        <span>Доставка</span>
+                                        <Image className='delivery__item-special-info_image' src={ukrPoshta} width={109} height={30} alt='urkposhta' />
+                                        <span>осуществляется только по полной предоплате</span>
+                                    </div>
                                 </div>
                                 <p className='delivery__pay-text'>Принимаем оплату в :</p>
                                 <div className='delivery__pay-images'>
