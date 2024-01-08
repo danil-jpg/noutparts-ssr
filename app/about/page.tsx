@@ -1,10 +1,10 @@
 import Breadcrumbs from '../common/components/breadcrumbs/Breadcrumbs';
-import './About.scss';
+import './about.scss';
 import { Breadcrumb } from '../common/types/types';
 import IconRenderer from '../common/ui/Icons/IconRenderer';
 
-export default async function About() {
-    const breadcrumbs: Breadcrumb[] = [{ label: 'О нас', href: '/about' }];
+export default function About() {
+    const breadcrumbs: Breadcrumb[] = [{ label: 'О нас', href: '/about', active: true }];
 
     return (
         <div className='about'>
