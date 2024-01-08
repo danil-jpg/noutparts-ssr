@@ -1,5 +1,7 @@
+import { ReactNode } from 'react';
+
 export interface IPrimaryBtn {
-    text?: string;
+    text?: string | ReactNode;
     type: 'default' | 'buying' | 'basket' | 'middle' | 'large';
     icon?: JSX.Element;
 }

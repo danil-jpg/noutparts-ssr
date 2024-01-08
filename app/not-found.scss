@@ -40,19 +40,11 @@
         color: #2f2f2f;
     }
     &__btn {
-        display: block;
-        width: 100%;
-        max-width: 246px;
-        padding: 20px 10px;
-        font-weight: 900;
         text-transform: uppercase;
-        border-radius: 26px;
-        background: #36dd65;
         margin-bottom: 25px;
         color: #fff;
         text-align: center;
         &:hover {
-            background: rgba(54, 221, 101, 0.8);
         }
     }
 
@@ -62,6 +54,9 @@
     }
     &__item {
         margin: 0 8% 0 0;
+        &:hover {
+            text-decoration: underline;
+        }
         &:last-child {
             margin: 0;
         }
@@ -129,6 +124,9 @@
 }
 
 @media (max-width: 576px) {
+    .not-found {
+        min-height: auto;
+    }
     .not-found {
         &__error-num {
             max-width: 150px;

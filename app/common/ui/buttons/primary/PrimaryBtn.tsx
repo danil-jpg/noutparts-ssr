@@ -6,7 +6,7 @@ import './PrimaryBtn.scss';
 const PrimaryBtn: FC<IPrimaryBtn> = ({ text, type = 'default', icon }) => {
     return (
         <button className={`primaryBtn ${type}`}>
-            {text}
+            {text ? text : ''}
             {icon ? icon : ''}
         </button>
     );

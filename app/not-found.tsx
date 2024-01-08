@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import './not-found.scss';
-import { Primary } from './common/components/Spinner/Spinner.stories';
 import PrimaryBtn from './common/ui/buttons/primary/PrimaryBtn';
+import Image from 'next/image';
+import notFound from '/public/img/404.png';
+import warningImg from '/public/img/warning.png';
 
 export default function NotFound() {
     return (
@@ -16,45 +18,48 @@ export default function NotFound() {
                             </h2>
                             {/* <p className='not-found__text'>{data.text}</p> */}
                         </div>
-                        <PrimaryBtn type='large'>
-                            <Link href={'/'} className='not-found__btn'>
-                                Вернуться на главную
-                            </Link>
-                        </PrimaryBtn>
+                        <div className='not-found__btn'>
+                            <PrimaryBtn
+                                text={
+                                    <Link href={'/'} className=''>
+                                        Вернуться на главную
+                                    </Link>
+                                }
+                                type='large'></PrimaryBtn>
+                        </div>
 
                         <ul className='not-found__list'>
-                            <ul>
-                                <li className='not-found__item'>
-                                    <Link href={'/'} className='not-found__link'>
-                                        Каталог
-                                    </Link>
-                                </li>
-                                <li className='not-found__item'>
-                                    <Link href={'/'} className='not-found__link'>
-                                        Доставка и оплата
-                                    </Link>
-                                </li>
-                                <li className='not-found__item'>
-                                    <Link href={'/'} className='not-found__link'>
-                                        Гарантии
-                                    </Link>
-                                </li>
-                                <li className='not-found__item'>
-                                    <Link href={'/'} className='not-found__link'>
-                                        Контакты
-                                    </Link>
-                                </li>
-                            </ul>
+                            <li className='not-found__item'>
+                                <Link href={'/'} className='not-found__link'>
+                                    Каталог
+                                </Link>
+                            </li>
+                            <li className='not-found__item'>
+                                <Link href={'/'} className='not-found__link'>
+                                    Доставка и оплата
+                                </Link>
+                            </li>
+                            <li className='not-found__item'>
+                                <Link href={'/'} className='not-found__link'>
+                                    Гарантии
+                                </Link>
+                            </li>
+                            <li className='not-found__item'>
+                                <Link href={'/'} className='not-found__link'>
+                                    Контакты
+                                </Link>
+                            </li>
                         </ul>
-                        {/* <div className='not-found__support'>
-                            <Image src='/icons/warning.svg' width={23} height={20} alt='icon' className='not-found__warn-icon' />
-                            <button className='not-found__supp-link'>{data.support}</button>
-                            <Image src='/icons/quarnuts.png' width={89} height={23} alt='Quarnuts' className='not-found__quarn-icon' />
-                        </div> */}
+                        <div className='not-found__support'>
+                            <Image src={warningImg} width={23} height={20} alt='icon' className='not-found__warn-icon' />
+                            <Link href={'/'} className='not-found__supp-link'>
+                                Служба поддержки
+                            </Link>
+                        </div>
                     </div>
-                    {/* <div className='not-found__error-num'>
-                        <Image src='/icons/404.svg' width={631} height={276} alt='404' className='not-found__error-num-icon' />
-                    </div> */}
+                    <div className='not-found__error-num'>
+                        <Image src={notFound} width={631} height={276} alt='404' className='not-found__error-num-icon' />
+                    </div>
                 </div>
             </div>
         </div>
