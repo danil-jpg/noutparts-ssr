@@ -161,3 +161,23 @@ export const fetchVisitedProducts = async (productType: string, id: number): Pro
         };
     }
 };
+
+export const postAppeal = async (data): Promise<any> => {
+    'use server';
+    try {
+        const response = await fetch(`http://127.0.0.1:1337/api/appeals`, {
+            cache: 'no-store',
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const dataRow = await response.json();
+
+        console.log(dataRow);
+    } catch (error) {
+        console.error('Error posting data:', error);
+    }
+};

@@ -2,7 +2,7 @@ import Breadcrumbs from '../common/components/breadcrumbs/Breadcrumbs';
 import { Breadcrumb } from '../common/types/types';
 import IconRenderer from '../common/ui/Icons/IconRenderer';
 import './contacts.scss';
-import Image from 'next/image';
+import { ContactsForm } from '../common/components/ContactForms/ContactForms';
 
 export default function Contacts() {
     const breadcrumbs: Breadcrumb[] = [
@@ -15,11 +15,11 @@ export default function Contacts() {
 
     return (
         <>
-            <Breadcrumbs breadcrumbs={breadcrumbs} classname='contacts contacts__breadcrumbs' />
+            <Breadcrumbs breadcrumbs={breadcrumbs} classname='container  contacts__breadcrumbs' />
             <div className='contacts'>
                 <div className='container'>
                     <div className='contacts__row'>
-                        <h1>Контакты</h1>
+                        <p className='contacts__title'>Контакты</p>
                         <p className='contacts__text'>У вас остались вопросы? Пожалуйста оставьте свои данные и мы свяжемся с вами!</p>
                         <div className='contacts__body'>
                             <ul className='info-contacts'>
