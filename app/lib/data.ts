@@ -135,10 +135,8 @@ export const fetchSimilarProducts = async (productType: string): Promise<IProduc
 export const fetchVisitedProducts = async (productType: string, id: number): Promise<IProduct> => {
 	"use server";
 	try {
-		const productUrl = productType === "matrix" ? "matrice" : productType === "power_supply" ? "power-supplie" : productType === "battery" ? "batterie" : productType;
-
 		const response = await fetch(
-			`http://127.0.0.1:1337/api/${productUrl}s/${id}
+			`http://127.0.0.1:1337/api/${productType}/${id}
 		?populate[0]=photo
 		&fields[0]=name&fields[1]=price&fields[2]=discount&fields[3]=id`,
 			{ cache: "no-store" }

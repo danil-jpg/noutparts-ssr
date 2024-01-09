@@ -23,6 +23,7 @@ const HistoryProducts = () => {
 	const productsInFavs = useAppSelector((state) => state.favsReducer.products);
 
 	const productsToLoad = useAppSelector((state) => state.historyProductsReducer.products);
+	console.log("🚀 ~ HistoryProducts ~ productsToLoad:", productsToLoad)
 
 	const [products, setProducts] = useState<IProduct[]>([]);
 	console.log("🚀 ~ file: HistoryProducts.tsx:21 ~ HistoryProducts ~ products:", products);
