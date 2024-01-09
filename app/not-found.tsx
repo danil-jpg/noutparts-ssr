@@ -1,65 +1,45 @@
-import Link from 'next/link';
 import './not-found.scss';
-import PrimaryBtn from './common/ui/buttons/primary/PrimaryBtn';
 import Image from 'next/image';
-import notFound from '/public/img/404.png';
-import warningImg from '/public/img/warning.png';
+import Link from 'next/dist/client/link';
+
+import icon404 from '/public/img/404.png';
+import quarnutsIcon from '/public/img/quarnuts-icon.svg';
+import alertIcon from '/public/img/alert-icon.svg';
 
 export default function NotFound() {
     return (
-        <div className='e404'>
-            <div className='container'>
-                <div className='e404__row'>
-                    <div className='e404__body'>
-                        <h1 className='e404__title'>Упс! Что-то пошло не так! </h1>
-                        <div className='e404__text-wrap'>
-                            <h2 className='e404__subtitle'>
-                                Страница которую вы запрашиваете не найдена. Возможно она была удалена или вы набрали неверный адрес.
-                            </h2>
-                            {/* <p className='e404__text'>{data.text}</p> */}
-                        </div>
-                        <div className='e404__btn'>
-                            <PrimaryBtn
-                                text={
-                                    <Link href={'/'} className=''>
-                                        Вернуться на главную
-                                    </Link>
-                                }
-                                type='large'></PrimaryBtn>
-                        </div>
-
-                        <ul className='e404__list'>
-                            <li className='e404__item'>
-                                <Link href={'/'} className='e404__link'>
-                                    Каталог
-                                </Link>
-                            </li>
-                            <li className='e404__item'>
-                                <Link href={'/'} className='e404__link'>
-                                    Доставка и оплата
-                                </Link>
-                            </li>
-                            <li className='e404__item'>
-                                <Link href={'/'} className='e404__link'>
-                                    Гарантии
-                                </Link>
-                            </li>
-                            <li className='e404__item'>
-                                <Link href={'/'} className='e404__link'>
-                                    Контакты
-                                </Link>
-                            </li>
-                        </ul>
-                        <div className='e404__support'>
-                            <Image src={warningImg} width={23} height={20} alt='icon' className='e404__warn-icon' />
-                            <Link href={'/'} className='e404__supp-link'>
-                                Служба поддержки
-                            </Link>
-                        </div>
+        <div className='page-404__wrapper'>
+            <div className='page-404'>
+                <div className='page-404__content'>
+                    <div className='page-404__title'>Упс! Что-то пошло не так! </div>
+                    <div className='page-404__text'>
+                        Страница которую вы запрашиваете не найдена. <br /> <span>Возможно она была удалена или вы набрали неверный адрес.</span>
                     </div>
-                    <div className='e404__error-num'>
-                        <Image src={notFound} width={631} height={276} alt='e404' className='e404__error-num-icon' />
+                    <div className='page-404__back-button'>Вернуться на главную</div>
+                    <div className='page-404__nav'>
+                        <Link href={'/catalogue'}>
+                            <div className='page-404__nav-item'>Каталог</div>
+                        </Link>
+                        <Link href={'/delivery'}>
+                            <div className='page-404__nav-item'>Доставка и оплата</div>
+                        </Link>
+                        <Link href={'/guarantee'}>
+                            <div className='page-404__nav-item'>Гарантии</div>
+                        </Link>
+                        <Link href={'/contacts'}>
+                            <div className='page-404__nav-item'>Контакты</div>
+                        </Link>
                     </div>
+                    <div className='page-404__under-contents'>
+                        <div className='page-404__under-contents-item'>
+                            <Image src={alertIcon} alt='alertIcon' className='page-404__under-contents-item-icon'></Image>
+                            Служба поддержки
+                        </div>
+                        <Image src={quarnutsIcon} alt='quarnutsIcon' className='page-404__under-contents-quarnuts-icon'></Image>
+                    </div>
+                </div>
+                <div className='page-404__img-container'>
+                    <Image fill={true} src={icon404} alt='icon404' className='page-404__img'></Image>
                 </div>
             </div>
         </div>

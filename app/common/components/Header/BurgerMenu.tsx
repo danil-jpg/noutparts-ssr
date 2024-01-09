@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect, useRef } from "react";
 import "./BurgerMenu.scss";
 import Link from "next/dist/client/link";
 import Image from "next/image";
@@ -19,8 +19,28 @@ const BurgerMenu: FC = () => {
 		setIsActive(!isActive);
 	};
 
+
+	const popupRef = useRef<HTMLDivElement>(null);
+
+    // Function to close the popup when clicking outside of it
+    const handleClickOutside = (event: MouseEvent) => {
+        if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
+            setIsActive(false);
+        }
+    };
+
+    useEffect(() => {
+        // Attach the event listener on mount
+        document.addEventListener("mousedown", handleClickOutside);
+
+        // Detach the event listener on unmount
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
 	return (
-		<div className={`burger-menu ${isActive ? "active" : ""}`}>
+		<div className={`burger-menu ${isActive ? "active" : ""}`} ref={popupRef}>
 			<div className={`burger-menu__icon ${isActive ? "active" : ""}`} onClick={toggleMenu}>
 				<span></span>
 				<span></span>

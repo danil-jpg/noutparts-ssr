@@ -16,10 +16,6 @@ const Features = ({}) => {
 
     const productTypes: categories[] = ['matrices', 'batteries', 'hdds', 'keyboards', 'rams', 'power_unit'];
 
-    // func to transform the data from request
-
-    // func to get data with request
-
     const [products, setProducts] = useState<IProduct[]>([]); // Assuming Product is the interface for your products
 
     // console.log('🚀 ~ file: Features.tsx:60 ~ Features ~ products:', products);
@@ -100,18 +96,7 @@ const Features = ({}) => {
                             // Determine if the product is bought
                             const isFav = !!foundFav;
 
-                            return (
-                                <FeaturesCard
-                                    key={index}
-                                    name={product.name}
-                                    price={product.price}
-                                    discount={product.discount}
-                                    photo_url={product.photo_url}
-                                    product={product}
-                                    isBought={isBought}
-                                    isFav={isFav}
-                                />
-                            );
+                            return <FeaturesCard key={index} product={product} isBought={isBought} isFav={isFav} />;
                         })
                     ) : (
                         <Spinner classname='features__spinner' />

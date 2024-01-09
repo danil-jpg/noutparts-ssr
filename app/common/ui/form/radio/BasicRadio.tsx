@@ -3,15 +3,13 @@ import React, { FC, useState, useEffect, ChangeEvent } from "react";
 import { IBasicRadio } from "../../../types/types";
 import "./BasicRadio.scss";
 
-const BasicRadio: FC<IBasicRadio> = ({ texts, descriptions = [], type = "row", setChosenRadio, heading }) => {
+const BasicRadio: FC<IBasicRadio> = ({ texts= [], descriptions = [], type = "row", setChosenRadio, heading }) => {
 	const [selected, setSelected] = useState<number | null>(null);
 
 	const handleRadioClick = (index: number): void => {
 		if (selected !== index) {
 			setSelected(index);
-			if (texts) {
-				setChosenRadio(texts[index]);
-			}
+			setChosenRadio(texts[index]);
 			// Pass the selected text to the parent component
 		}
 	};

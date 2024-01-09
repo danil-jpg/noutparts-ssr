@@ -24,6 +24,10 @@ textarea{
 	display: flex;
 	flex-direction: column;
 	gap: 5px;
+
+	width: 100%;
+	max-width: 428px;
+
     &__label{
         color: #868e96;
 		font-family: Roboto;
@@ -36,7 +40,7 @@ textarea{
 
     &__container{
         width: 100%;
-        max-width: 438px;
+        max-width: 428px;
         display: flex;
 		flex-direction: row;
 		justify-content: space-between;

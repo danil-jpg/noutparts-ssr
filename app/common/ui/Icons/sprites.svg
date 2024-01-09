@@ -38,15 +38,8 @@
 				  stroke-width="2"
 				  stroke-linecap="round" />
 		</svg>
-		<svg xmlns="http://www.w3.org/2000/svg"
-			 class="available-sign"
-			 id="available-sign"
-			 viewBox="0 0 20 20">
-			<path d="M15 6L8.125 13L5 9.81818"
-				  stroke="white"
-				  stroke-width="2.5"
-				  stroke-linecap="round"
-				  stroke-linejoin="round" />
+		<svg xmlns="http://www.w3.org/2000/svg" class="available-sign" id="available-sign" viewBox="0 0 10 8" >
+			<path d="M3.58348 5.48039L1.64256 3.37582C1.26884 2.97059 0.654008 2.97059 0.280289 3.37582C-0.0934298 3.78105 -0.0934298 4.44771 0.280289 4.85294L2.90235 7.69608C3.27607 8.10131 3.8909 8.10131 4.26462 7.69608L9.71971 1.78105C10.0934 1.37582 10.0934 0.70915 9.71971 0.303922C9.34599 -0.101307 8.73116 -0.101307 8.35745 0.303922L3.58348 5.48039Z" fill="white"/>
 		</svg>
 		<svg xmlns="http://www.w3.org/2000/svg"
 			 class="ending-sign"

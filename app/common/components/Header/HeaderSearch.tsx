@@ -1,13 +1,16 @@
-'use client';
-import React, { FC, useState, useEffect, ChangeEvent } from 'react';
-import IconRenderer from '../../ui/Icons/IconRenderer';
-import './HeaderSearch.scss';
-import axios from 'axios';
-import { useRouter } from 'next/navigation';
-import { useAppDispatch } from '@/app/Redux/store';
-import { addProducts } from '@/app/Redux/slice/search/searchSlice';
-import { useAppSelector } from '@/app/Redux/store';
-import { removeProduct } from '@/app/Redux/slice/search/searchSlice';
+
+"use client";
+import React, { FC, useState, useEffect, ChangeEvent, useRef } from "react";
+import IconRenderer from "../../ui/Icons/IconRenderer";
+import "./HeaderSearch.scss";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useAppDispatch } from "@/app/Redux/store";
+import { addProducts } from "@/app/Redux/slice/search/searchSlice";
+import { useAppSelector } from "@/app/Redux/store";
+import { removeProduct } from "@/app/Redux/slice/search/searchSlice";
+
+import { fetchProductNames } from "@/app/lib/data";
 
 type IProductNamesAttributes = {
     name: string;
@@ -55,27 +58,27 @@ const HeaderSearch = () => {
     const router = useRouter();
     const dispatch = useAppDispatch();
 
-    const fetchProductNames = async (productType: string) => {
-        try {
-            const response = await axios.get<ProductData>(
-                `http://127.0.0.1:1337/api/${
-                    productType === 'matrix'
-                        ? 'matrice'
-                        : productType === 'power_supply'
-                        ? 'power-supplie'
-                        : productType === 'battery'
-                        ? 'batterie'
-                        : productType
-                }s/?fields[0]=name`
-            );
-            const data: ProductData = response.data;
+    // const fetchProductNames = async (productType: string) => {
+    //     try {
+    //         const response = await axios.get<ProductData>(
+    //             `http://127.0.0.1:1337/api/${
+    //                 productType === 'matrix'
+    //                     ? 'matrice'
+    //                     : productType === 'power_supply'
+    //                     ? 'power-supplie'
+    //                     : productType === 'battery'
+    //                     ? 'batterie'
+    //                     : productType
+    //             }s/?fields[0]=name`
+    //         );
+    //         const data: ProductData = response.data;
 
-            return data.data || [];
-        } catch (error) {
-            console.error('Error fetching data:', error);
-            return [];
-        }
-    };
+    //         return data.data || [];
+    //     } catch (error) {
+    //         console.error('Error fetching data:', error);
+    //         return [];
+    //     }
+    // };
 
     const processFetchedData = (productType: string, data: ProductData['data']) => {
         if (data.length > 0) {
@@ -94,33 +97,34 @@ const HeaderSearch = () => {
 
         processFetchedData(productType, fetchedData);
 
-        productsObject[productType] = fetchedData;
-        // console.log("🚀 ~ file: HeaderSearch.tsx:82 ~ fetchProductsData ~ productsAray:", productsObject);
-    };
+		productsObject[productType] = fetchedData;
+	};
 
     // Inside useEffect
     useEffect(() => {
-        const productTypes: string[] = ['matrix', 'hdd', 'keyboard', 'ram', 'battery', 'power_supply'];
+        const productTypes: string[] = ['matrices', 'hdds', 'keyboards', 'rams', 'batteries', 'power_supplies'];
 
         const promises = productTypes.map((type) => fetchProductsData(type));
 
-        const runPromises = async () => {
-            await Promise.all(promises);
-        };
-        // console.log("🚀 ~ file: HeaderSearch.tsx:42 ~ products:", products);
+		const runPromises = async () => {
+			await Promise.all(promises);
+		};
 
         runPromises();
     }, []);
 
-    const [searchInput, setSearchInput] = useState<string>('');
-    const [suggestions, setSuggestions] = useState<{ category: string; suggestions: string[] }[]>([]);
-    const historySuggestions = useAppSelector((state) => Object.entries(state.searchReducer).map(([category, suggestions]) => ({ category, suggestions })));
+	const [searchInput, setSearchInput] = useState<string>("");
+	const [suggestions, setSuggestions] = useState<{ category: string; suggestions: string[] }[]>([]);
+	const historySuggestions = useAppSelector((state) => Object.entries(state.searchReducer).map(([category, suggestions]) => ({ category, suggestions })));
+	
 
-    const clearHistory = () => {
-        Object.keys(initialHistorySuggestions).forEach((key) => {
-            dispatch(removeProduct(0));
-        });
-    };
+	const clearHistory = () => {
+		// Object.keys(initialHistorySuggestions).forEach((key) => {
+		
+
+		dispatch(removeProduct(0));
+		// });
+	};
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const input = e.target.value;
@@ -184,90 +188,116 @@ const HeaderSearch = () => {
         router.push(`/product/${category}/${findIdByNameInCategory(productsObject, category, clickedSuggestion)}`);
     };
 
-    function findIdByNameInCategory(products: ProductsWithId, category: string, name: string): number | null {
-        if (products.hasOwnProperty(category)) {
-            const productList = products[category];
-            for (let i = 0; i < productList.length; i++) {
-                if (productList[i].attributes.name === name) {
-                    return productList[i].id;
-                }
-            }
+	function findIdByNameInCategory(products: ProductsWithId, category: string, name: string): number | null {
+		if (products.hasOwnProperty(category)) {
+			const productList = products[category];
+			for (let i = 0; i < productList.length; i++) {
+				if (productList[i].attributes.name === name) {
+					return productList[i].id;
+				}
+			}
+		}
+		return null;
+	}
+
+
+
+	const popupRef = useRef<HTMLDivElement>(null);
+
+    // Function to close the popup when clicking outside of it
+    const handleClickOutside = (event: MouseEvent) => {
+        if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
+            setSearchInput("");
         }
-        return null;
-    }
-    return (
-        <div className='header-search'>
-            <div className='header-search__input-container'>
-                <div className='header-search__lupa-icon'>
-                    <IconRenderer id='header-search-sign' />
-                </div>
-                <input type='text' className='header-search__input' placeholder='Поиск по каталогу..' value={searchInput} onChange={handleInputChange} />
-            </div>
-            <div className='header-search__search-button'>
-                <IconRenderer id='header-search-sign' />
-            </div>
+    };
 
-            {searchInput && (
-                <div className='header-search__search-field'>
-                    <div className='header-search__suggestions-box'>
-                        <div className='header-search__box-heading'>Предложенные варианты</div>
-                        {suggestions.map((categorySuggestion, index) => (
-                            <div className='header-search__category' key={index}>
-                                <h4 className='header-search__category-heading'>{categorySuggestion.category}</h4>
-                                <ul className='header-search__suggestions'>
-                                    {categorySuggestion.suggestions.map((suggestion, idx) => {
-                                        const truncatedSuggestion = suggestion.length > 40 ? suggestion.slice(0, 50) + '...' : suggestion;
-                                        return (
-                                            <li
-                                                className='header-search__suggestion'
-                                                key={idx}
-                                                onClick={() => handleSuggestionClick(suggestion, categorySuggestion.category)}>
-                                                <IconRenderer id='header-search-sign' />
-                                                <div>{truncatedSuggestion}</div>
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                            </div>
-                        ))}
-                    </div>
+    useEffect(() => {
+        // Attach the event listener on mount
+        document.addEventListener("mousedown", handleClickOutside);
 
-                    {historySuggestions.length > 0 && (
-                        <div className='header-search__history-box'>
-                            <div className='header-search__box-heading'>
-                                История поиска
-                                <button className='header-search__clear-button' onClick={clearHistory}>
-                                    Очистить историю
-                                </button>
-                            </div>
-                            {historySuggestions.map(
-                                (historyCategorySuggestion, historyIndex) =>
-                                    // Only render if there are suggestions in the category
-                                    historyCategorySuggestion.suggestions.length > 0 && (
-                                        <div className='header-search__category' key={historyIndex}>
-                                            {historyCategorySuggestion.category.length > 0 && (
-                                                <h4 className='header-search__category-heading'>{historyCategorySuggestion.category}</h4>
-                                            )}
-                                            <ul className='header-search__suggestions'>
-                                                {historyCategorySuggestion.suggestions.map((suggestion, idx) => {
-                                                    const truncatedSuggestion = suggestion.length > 40 ? suggestion.slice(0, 50) + '...' : suggestion;
-                                                    return (
-                                                        <li className='header-search__suggestion' key={idx}>
-                                                            <IconRenderer id='header-history-sign' />
-                                                            <div>{truncatedSuggestion}</div>
-                                                        </li>
-                                                    );
-                                                })}
-                                            </ul>
-                                        </div>
-                                    )
-                            )}
-                        </div>
-                    )}
-                </div>
-            )}
-        </div>
-    );
+        // Detach the event listener on unmount
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+	return (
+		<div className="header-search">
+			<div className="header-search__input-container">
+				<div className="header-search__lupa-icon">
+					<IconRenderer id="header-search-sign" />
+				</div>
+				<input type="text" className="header-search__input" placeholder="Поиск по каталогу.." value={searchInput} onChange={handleInputChange} />
+			</div>
+			<div className="header-search__search-button">
+				<IconRenderer id="header-search-sign" />
+			</div>
+
+			{searchInput && (
+				<div className="header-search__search-field" ref={popupRef}>
+					<div className="header-search__suggestions-box">
+						<div className="header-search__box-heading">Предложенные варианты</div>
+						{suggestions.length > 0 ? (
+							suggestions.map((categorySuggestion, index) => (
+								<div className="header-search__category" key={index}>
+									<h4 className="header-search__category-heading">{categorySuggestion.category}</h4>
+									<ul className="header-search__suggestions">
+										{categorySuggestion.suggestions.length > 0 ? (
+											categorySuggestion.suggestions.map((suggestion, idx) => {
+												const truncatedSuggestion = suggestion.length > 40 ? suggestion.slice(0, 50) + "..." : suggestion;
+												return (
+													<li className="header-search__suggestion" key={idx} onClick={() => handleSuggestionClick(suggestion, categorySuggestion.category)}>
+														<IconRenderer id="header-search-sign" />
+														<div>{truncatedSuggestion}</div>
+													</li>
+												);
+											})
+										) : (
+											<li className="header-search__suggestion">No such products found</li>
+										)}
+									</ul>
+								</div>
+							))
+						) : (
+							<div className="header-search__category">
+								<h4 className="header-search__category-heading">No such category</h4>
+							</div>
+						)}
+					</div>
+
+					{historySuggestions.length > 0 && (
+						<div className="header-search__history-box">
+							<div className="header-search__box-heading">
+								История поиска
+								<button className="header-search__clear-button" onClick={() => { clearHistory() }}>
+									Очистить историю
+								</button>
+							</div>
+							{historySuggestions.map(
+								(historyCategorySuggestion, historyIndex) =>
+									// Only render if there are suggestions in the category
+									historyCategorySuggestion.suggestions.length > 0 && (
+										<div className="header-search__category" key={historyIndex}>
+											{historyCategorySuggestion.category.length > 0 && <h4 className="header-search__category-heading">{historyCategorySuggestion.category}</h4>}
+											<ul className="header-search__suggestions">
+												{historyCategorySuggestion.suggestions.map((suggestion, idx) => {
+													const truncatedSuggestion = suggestion.length > 40 ? suggestion.slice(0, 50) + "..." : suggestion;
+													return (
+														<li className="header-search__suggestion" key={idx}>
+															<IconRenderer id="header-history-sign" />
+															<div>{truncatedSuggestion}</div>
+														</li>
+													);
+												})}
+											</ul>
+										</div>
+									)
+							)}
+						</div>
+					)}
+				</div>
+			)}
+		</div>
+	);
 };
 
 export default HeaderSearch;
