@@ -16,31 +16,31 @@ const PrimaryInput: FC<IPrimaryInput> = ({ placeholder, label, type = "text", se
 
 	const handleInputChange = (value: string): void => {
 		setInputValue(value);
-		handleValidation(value);
-		setValue(inputValue);
+		const validationError = handleValidation(value);
+		if (!validationError) {
+			setValue(value); // Set the value only if validation passes
+		}
 	};
 
 	const handleValidation = (value: string) => {
+		let error = null;
 		if (type === "email") {
 			if (value.trim() !== "" && !value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
-				setError("Email введён некоректно");
-				return;
+				error = "Email введён некоректно";
 			}
 		} else {
 			if (value.trim() === "") {
-				setError("This field cannot be empty.");
+				error = "This field cannot be empty.";
 			} else if (type === "tel") {
 				if (value.length < 9) {
-					setError("Phone number should be at least 9 digits.");
+					error = "Phone number should be at least 9 digits.";
 				} else if (!value.match(/^[\d\s()+-]+$/)) {
-					setError("Please enter a valid phone number.");
-				} else {
-					setError(null); // Clear error if validation passes
+					error = "Please enter a valid phone number.";
 				}
-			} else {
-				setError(null); // Clear error if validation passes
 			}
 		}
+		setError(error); // Set the error state
+		return error; // Return the error message (or null if validation passes)
 	};
 
 	const handleFocus = (): void => {

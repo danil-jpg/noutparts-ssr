@@ -1,15 +1,15 @@
 "use client";
 import React, { useState, useEffect, ChangeEvent, useRef } from "react";
-import IconRenderer from "../../../ui/Icons/IconRenderer";
-import "./SimilarProducts.scss";
+import IconRenderer from "../../ui/Icons/IconRenderer";
+import "../ProductComponents/SimilarProducts/SimilarProducts.scss";
 import Image from "next/image";
 import Link from "next/dist/client/link";
 import axios from "axios";
 import { useAppSelector } from "@/app/Redux/store";
-import { IProduct } from "../../../types/types";
-import SimilarProductCard from "./SimilarProductsCard";
-import Spinner from "../../Spinner/Spinner";
-import { fetchSimilarProducts } from "@/app/lib/data";
+import { IProduct } from "../../types/types";
+import FeaturesCard from "../FeaturesComponent/FeaturesCard";
+import Spinner from "../Spinner/Spinner";
+import { fetchVisitedProducts } from "@/app/lib/data"; 
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper";
@@ -18,36 +18,38 @@ import "swiper/css";
 
 import swiperArrow from "/public/img/swiper-nav-arrow.svg";
 
-interface ProductImages {
-	id: number;
-	attributes: { url: string; width: number; height: number };
-}
-type PropsType = {
-	images: ProductImages[];
-};
-
-const SimilarProducts = ({ productType }: { productType: string }) => {
-	const [products, setProducts] = useState<IProduct[]>([]);
-
+const HistoryProducts = () => {
 	const productsInBasket = useAppSelector((state) => state.basketReducer.products);
 	const productsInFavs = useAppSelector((state) => state.favsReducer.products);
-	// Useeffect that runs all funcs and fills the products array with them
+
+	const productsToLoad = useAppSelector((state) => state.historyProductsReducer.products);
+
+	const [products, setProducts] = useState<IProduct[]>([]);
+	console.log("🚀 ~ file: HistoryProducts.tsx:21 ~ HistoryProducts ~ products:", products);
+
 	useEffect(() => {
-		const fetchAllSimilarProducts = async () => {
+		const fetchAllProducts = async () => {
 			try {
-				// Fetch products using fetchFeaturedProducts for the given product and filter type
-				const productData = await fetchSimilarProducts(productType);
+				const fetchedProducts = await Promise.all(
+					productsToLoad.map(async (product) => {
+						const productData = await fetchVisitedProducts(product.category, product.id);
+						return productData as IProduct; // Assuming the fetched data matches IProduct interface
+					})
+				);
+
+				// Flatten the array of arrays into a single array of products
+				const allProducts = fetchedProducts.flat();
 
 				// Set the products state with the fetched data
-				setProducts(productData);
+				setProducts(allProducts);
 			} catch (error) {
-				console.error("Error getting product data:", error);
+				console.error("Error getting all product data:", error);
 			}
 		};
 
-		// Call the function to fetch products when filterType or productType changes
-		fetchAllSimilarProducts();
-	}, [productType, fetchSimilarProducts, setProducts]);
+		// Call the function to fetch all products when productsToLoad changes or on initial load
+		fetchAllProducts();
+	}, [productsToLoad]);
 
 	const swiperRef = useRef<SwiperType>();
 
@@ -66,10 +68,10 @@ const SimilarProducts = ({ productType }: { productType: string }) => {
 	}, [swiperRef]);
 
 	return (
-		<div className="similar-products__wrapper">
+		<div className="similar-products__wrapper history">
 			<div className="similar-products">
 				<div className="similar-products__top">
-					<div className="similar-products__title">Похожие товары</div>
+					<div className="similar-products__title history">Вы просматривали</div>
 					<div className="similar-products__nav">
 						<button onClick={() => swiperRef.current?.slidePrev()} className={`similar-products__nav-button ${isBeginning ? "disabled" : ""}`}>
 							<Image src={swiperArrow} alt="swiperArrow" className="similar-products__nav-icon prev"></Image>
@@ -79,11 +81,12 @@ const SimilarProducts = ({ productType }: { productType: string }) => {
 						</button>
 					</div>
 				</div>
-				<div className="similar-products__content">
+				<div className="similar-products__content history">
+					<div className="similar-products__whitie history"></div>
 					{products.length > 0 ? (
 						<Swiper
 							spaceBetween={40}
-							slidesPerView={3}
+							slidesPerView={4}
 							breakpoints={{
 								5: {
 									slidesPerView: "auto",
@@ -94,7 +97,7 @@ const SimilarProducts = ({ productType }: { productType: string }) => {
 									spaceBetween: 30
 								},
 								1440: {
-									slidesPerView: 3,
+									slidesPerView: 4,
 									spaceBetween: 40
 								}
 							}}
@@ -102,7 +105,7 @@ const SimilarProducts = ({ productType }: { productType: string }) => {
 							onBeforeInit={(swiper) => {
 								swiperRef.current = swiper;
 							}}
-							className="similar-products__slider"
+							className="similar-products__slider history"
 						>
 							{products.map((product, index) => {
 								// Check if the product exists in productsInBasket
@@ -116,20 +119,19 @@ const SimilarProducts = ({ productType }: { productType: string }) => {
 								const isFav = !!foundFav;
 
 								return (
-									<SwiperSlide className="similar-products__slide" key={product.id}>
-										<SimilarProductCard key={index} product={product} isBought={isBought} isFav={isFav} />
+									<SwiperSlide className="similar-products__slide history" key={product.id}>
+										<FeaturesCard key={index} product={product} isBought={isBought} isFav={isFav} />
 									</SwiperSlide>
 								);
 							})}
 						</Swiper>
 					) : (
-						<Spinner classname="similar-products__spinner" />
+						<Spinner classname="features__spinner" />
 					)}
-					<div className="similar-products__whitie"></div>
 				</div>
 			</div>
 		</div>
 	);
 };
 
-export default SimilarProducts;
+export default HistoryProducts;

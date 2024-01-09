@@ -3,12 +3,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface IBasketData {
-    products: Array<{
+    products: {
         id: number;
         name: string;
         price: number;
         photo_url: string;
-    }>;
+    }[];
 }
 
 const initialState: IBasketData = {
