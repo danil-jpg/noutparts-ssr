@@ -19,15 +19,14 @@ const historyProductsData = createSlice({
     initialState,
     reducers: {
         addHistoryProduct: (state, action) => {
-            const { id, category} = action.payload;
+            const { id, category } = action.payload;
             const existingIndex = state.products.findIndex((product) => product.id === id);
-
-            if (existingIndex !== -1) {
-                return;
-            } else {
+        
+            if (existingIndex === -1) {
                 // Add the product if it doesn't exist
-                state.products.push({ id, category });
+                state.products.unshift({ id, category });
             }
+ 
 
             // state.products = [];
         },
