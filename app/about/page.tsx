@@ -1,6 +1,5 @@
 import './about.scss';
 import Image from 'next/image';
-import Link from 'next/dist/client/link';
 import Breadcrumbs from '@/app/common/components/breadcrumbs/Breadcrumbs';
 import { Breadcrumb } from '@/app/common/types/types';
 
