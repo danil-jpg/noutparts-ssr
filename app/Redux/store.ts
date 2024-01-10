@@ -1,7 +1,7 @@
 'use client';
 
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import counterReducer from './slice/couter/couter';
+
 import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
@@ -11,6 +11,7 @@ import basketReducer from './slice/basket/basketSlice';
 import searchReducer from './slice/search/searchSlice';
 import favsReducer from './slice/favs/favsSlice';
 import historyProductsReducer from './slice/historyProducts/historyProducts';
+import filtersNavReducer from './slice/filtersNavSlice/filtersNavSlice';
 
 const createNoopStorage = () => {
     return {
@@ -37,7 +38,8 @@ const rootReducer = combineReducers({
     basketReducer,
     searchReducer,
     favsReducer,
-    historyProductsReducer
+    historyProductsReducer,
+    filtersNavReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -3,6 +3,7 @@ import React, { Suspense, lazy, useState } from 'react';
 import Loading from '../Loading/Loading';
 import FilterBattery from './organisms/FilterBattery';
 import './Filter.scss';
+import FilterHdds from './organisms/FilterHdds';
 // import FilterMatrix from './organisms/FilterMatrix';
 
 const FilterMatrix = lazy(() => import('./organisms/FilterMatrix'));
@@ -19,7 +20,7 @@ export default function Filter({ type }: IFilter) {
             case 'batteries':
                 return <FilterBattery />;
             case 'hdds':
-                return <div>hdds</div>;
+                return <FilterHdds />;
             case 'keyboards':
                 return <div>keyboards</div>;
             case 'rams':
