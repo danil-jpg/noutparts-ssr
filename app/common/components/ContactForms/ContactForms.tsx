@@ -54,7 +54,7 @@ export function ContactsForm() {
     };
 
     return (
-        <form action={onSubmit} className='contacts-form'>
+        <form action={onSubmit} className='contacts-form' name='contact-form'>
             <div className='contacts-form__body'>
                 <PrimaryInput type='text' setValue={setName} placeholder='Имя' label='  Ваше имя ' />
                 <PrimaryInput type='email' setValue={setEmail} placeholder='Email' label=' Ваш email (необязательно) ' />

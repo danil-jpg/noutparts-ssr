@@ -12,51 +12,26 @@ import PrimaryBtn from '@/app/common/ui/buttons/primary/PrimaryBtn';
 import IconRenderer from '@/app/common/ui/Icons/IconRenderer';
 import ProductAvailability from '@/app/common/ui/product-ui/ProductAvailability';
 import { ICard } from '@/app/common/types/types';
-import { removeFavProduct } from '@/app/Redux/slice/favs/favsSlice';
 import { addFavProduct } from '@/app/Redux/slice/favs/favsSlice';
 import { IProduct } from '@/app/common/types/types';
 import emptyImg from '/public/img/empty-img.png';
 import emptyImgMob from '/public/img/empty-mob.png';
 
 const Cards = () => {
-    const [favData, setFavData] = useState<ICard[]>([]);
+    // const [favData, setFavData] = useState<ICard[]>([]);
 
-    const selectorRow = useAppSelector((state) => state.favsReducer.products);
+    const products = useAppSelector((state) => state.favsReducer.products);
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        (async function () {
-            if (!selectorRow || selectorRow.length < 1) {
-                return;
-            } else {
-                selectorRow.forEach(async (el) => {
-                    // if (isMounted) {
-                    const req = (await getFilterItemData(`${el.category}/${el.id}?populate=*`)) as ICard;
+    // useEffect(() => {
+    //     console.log(favData);
+    // }, [favData]);
 
-                    setFavData((prev) => [...prev, req]);
-                    // setFavData(['1']);
-                    // }
-                });
-            }
-        })();
-    }, [selectorRow]);
-
-    useEffect(() => {
-        console.log(favData);
-    }, [favData]);
-
-    const onDeleteClick = (product: IProduct) => {
-        const objToDel = { name: product.name, id: product.id, category: product.category };
-        dispatch(addFavProduct(objToDel));
-
-        setFavData((prev) => {
-            const existingIndex = prev.findIndex((product) => product.data.id === objToDel.id);
-            prev.splice(existingIndex, 1);
-            return prev;
-        });
+    const onDeleteClick = (product: { id: number }) => {
+        dispatch(addFavProduct(product));
     };
 
-    if (!favData.length) {
+    if (!products.length) {
         return (
             <div className='card-wr'>
                 <Image src={emptyImg} width={474} height={474} alt='empty-sign' className='card__empty' />
@@ -66,38 +41,31 @@ const Cards = () => {
     }
     return (
         <div className='card-wr'>
-            {favData.map((el, index) => {
+            {products.map((el, index) => {
                 return (
                     <div key={index} className='card'>
                         <div className='card__tag'>
-                            <ProductTag type={el.data.attributes.tag as 'discount' | 'new' | 'salesHit'}></ProductTag>
+                            <ProductTag type={el.discount as 'discount' | 'new' | 'salesHit'}></ProductTag>
                         </div>
-                        <Image alt='cardimg' src={el.data.attributes.photo.data[0].attributes.url} height={152} width={152} />
+                        <Image alt='cardimg' src={el.photo_url} height={152} width={152} />
                         <div className='card__data_center'>
-                            <p className='card__name'>{el.data.attributes.name}</p>
+                            <p className='card__name'>{el.name}</p>
                         </div>
                         <div className='card__availability'>
-                            <ProductAvailability type={el.data.attributes.availability as 'available' | 'ending' | 'outOfStock'}>
-                                {el.data.attributes.availability}
-                            </ProductAvailability>
+                            <ProductAvailability type={el.availability as 'available' | 'ending' | 'outOfStock'}></ProductAvailability>
                         </div>
                         <div
                             className='card__like-sign card__delete'
                             onClick={() => {
                                 onDeleteClick({
-                                    id: el.data.id,
-                                    name: el.data.attributes.name,
-                                    category: el.data.attributes.category,
-                                    price: el.data.attributes.price,
-                                    discount: 0,
-                                    photo_url: el.data.attributes.photo.data[0].attributes.url,
+                                    id: el.id,
                                 });
                             }}>
                             <p className='card__delete_text'>Удалить</p>
                         </div>
 
                         <div className='card__data_right'>
-                            <p className='card__price'>{el.data.attributes.price} грн</p>
+                            <p className='card__price'>{el.price} грн</p>
                             <PrimaryBtn text='В корзину' type='basket' icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
                         </div>
                     </div>

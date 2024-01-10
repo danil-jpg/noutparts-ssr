@@ -41,10 +41,10 @@ export const fetchDataFromServer = async (type: categories, query: string | numb
     }
 };
 
-const transformData = (productsData: any[], category: string): IProduct[] => {
+const transformData = (productsData: any[], category: string): any[] => {
     return productsData.map((productData: any) => {
         const id = productData.id;
-        const { name, price, discount, photo } = productData.attributes;
+        const { name, price, discount, photo, availability, tag } = productData.attributes;
 
         // Assuming photo.data is an array and taking the first element
         const photoUrl = photo?.data?.[0]?.attributes?.url || '';
@@ -53,15 +53,17 @@ const transformData = (productsData: any[], category: string): IProduct[] => {
             name,
             price,
             discount,
+            availability,
+            tag,
             photo_url: photoUrl,
             category,
         };
     });
 };
 
-const transformSingleData = (productData: any, category: string): IProduct => {
+const transformSingleData = (productData: any, category: categories): IProduct => {
     const id = productData.id;
-    const { name, price, discount, photo } = productData.attributes;
+    const { name, price, discount, photo, availability, tag } = productData.attributes;
 
     // Assuming photo.data is an array and taking the first element
     const photoUrl = photo?.data?.[0]?.attributes?.url || '';
@@ -73,23 +75,26 @@ const transformSingleData = (productData: any, category: string): IProduct => {
         discount,
         photo_url: photoUrl,
         category,
+        availability,
+        tag,
     };
 };
 
 export const fetchFeaturedProducts = async (productType: string, filterType: string): Promise<IProduct[]> => {
-    'use server';
+    'use client';
     try {
         const response = await fetch(
             `http://127.0.0.1:1337/api/${productType}/
 		?populate[0]=photo
 		&filters[tag][$in][0]=${filterType}
-		&fields[0]=name&fields[1]=price&fields[2]=discount&fields[3]=id`,
+		`,
             { cache: 'no-store' }
         );
 
         const dataRow = await response.json();
 
         const data = dataRow;
+        console.log(data);
 
         return transformData(data.data || [], productType);
     } catch (error) {

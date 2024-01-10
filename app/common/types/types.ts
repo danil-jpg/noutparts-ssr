@@ -108,6 +108,8 @@ export interface IProduct {
     photo_url: string;
     id: number;
     category: categories;
+    tag: string;
+    availability: string;
 }
 
 export interface ICard {
@@ -135,8 +137,11 @@ export interface ICard {
 export interface IFavsData {
     products: {
         id: number;
+        availability: string;
+        category: categories;
+        price: number;
         name: string;
-        category?: categories;
+        discount: string;
+        photo_url: string;
     }[];
-    data?: {};
 }

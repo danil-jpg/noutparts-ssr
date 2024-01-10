@@ -33,6 +33,7 @@ const Features = ({}) => {
                 const productDataArray = await Promise.all(promises);
                 // Flatten the array of arrays into a single array of products
                 const allProducts = productDataArray.flat();
+                console.log(allProducts);
 
                 // Set the products state with the fetched data
                 setProducts(allProducts);
