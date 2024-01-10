@@ -159,3 +159,16 @@ export const fetchVisitedProducts = async (productType: string, id: number): Pro
 		};
 	}
 };
+
+
+export const fetchProductInfo = async (productType: string, productId: number) => {
+	try {
+		const response = await axios.get(`http://127.0.0.1:1337/api/${productType}/${productId}?populate[0]=photo`);
+		const data = response.data.data.attributes;
+
+		// Update the state with the fetched data
+		return data;
+	} catch (error) {
+		console.error("Error fetching data:", error);
+	}
+};

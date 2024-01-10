@@ -23,13 +23,16 @@ const historyProductsData = createSlice({
             const existingIndex = state.products.findIndex((product) => product.id === id);
         
             if (existingIndex === -1) {
+                // Check if products exceed length of 10
+                if (state.products.length >= 10) {
+                    // Remove the last element if the limit is reached
+                    state.products.pop();
+                }
                 // Add the product if it doesn't exist
                 state.products.unshift({ id, category });
             }
- 
-
-            // state.products = [];
         },
+        
         removeHistoryProduct: (state, action) => {
             const indexToRemove = action.payload; // Assuming payload contains the index of the product to remove
 
