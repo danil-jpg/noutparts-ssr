@@ -101,7 +101,7 @@ const TopFilter = ({
     const RenderChoosen = (): React.JSX.Element => {
         return (
             <div className='choosen-wr'>
-                {choosenFilterParametrs.length > 2 ? (
+                {/* {choosenFilterParametrs.length > 2 ? (
                     <div
                         className='choosen'
                         onClick={() => {
@@ -112,7 +112,7 @@ const TopFilter = ({
                     </div>
                 ) : (
                     ''
-                )}
+                )} */}
                 {queriesArr.map((el: IQuery) => {
                     return el.searchParamKeys.map((el) => {
                         return (

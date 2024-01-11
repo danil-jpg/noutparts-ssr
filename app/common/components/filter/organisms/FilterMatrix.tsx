@@ -182,6 +182,7 @@ export default function FilterMatrix() {
                                                 (async function () {
                                                     await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'diagonale');
                                                 })();
+
                                                 if (choosenFilterParametrs.includes(el.attributes.diagonale)) {
                                                     const index = choosenFilterParametrs.indexOf(el.attributes.diagonale);
 
