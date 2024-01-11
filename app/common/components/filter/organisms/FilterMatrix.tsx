@@ -109,6 +109,14 @@ export default function FilterMatrix() {
             dispatch(setDefaultDataAndQueryArr());
         }
         fetchData();
+
+        const resetQueryArrOnReload = () => dispatch(setDefaultDataAndQueryArr());
+
+        window.addEventListener('beforeunload', resetQueryArrOnReload);
+
+        return () => {
+            window.removeEventListener('beforeunload', resetQueryArrOnReload);
+        };
     }, []);
 
     useEffect(() => {
