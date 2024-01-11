@@ -68,6 +68,36 @@ export default function FilterMatrix() {
             makeUniqueAndLoopFunc(hashrate, 'hashrate');
 
             setIsLoaded(true);
+
+            if (queriesArr.length > 0) {
+                const result: { searchParam: string; searchParamKey: string[] }[] = [];
+
+                queriesArr.forEach((el) => {
+                    if (el.searchParam === 'permission') {
+                        result.push({ searchParam: 'permission', searchParamKey: el.searchParamKeys });
+                    } else if (el.searchParam === 'fastening') {
+                        result.push({ searchParam: 'fastening', searchParamKey: el.searchParamKeys });
+                    }
+                });
+
+                permission.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
+                    if (el.attributes.permission === result[0].searchParamKey[0]) {
+                        setChoosenFilterParametrs((prev) => {
+                            prev.push(el.attributes.permission);
+                            return prev;
+                        });
+                    }
+                });
+
+                fastening.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
+                    if (el.attributes.fastening === result[1].searchParamKey[0]) {
+                        setChoosenFilterParametrs((prev) => {
+                            prev.push(el.attributes.fastening);
+                            return prev;
+                        });
+                    }
+                });
+            }
         };
 
         if (!prevType) {
@@ -78,7 +108,6 @@ export default function FilterMatrix() {
             dispatch(setType('matrices'));
             dispatch(setDefaultDataAndQueryArr());
         }
-
         fetchData();
     }, []);
 
@@ -188,7 +217,10 @@ export default function FilterMatrix() {
                                     {permission.data.map((el: any) => (
                                         <li
                                             key={el.id}
-                                            className={clsx({ active: choosenFilterParametrs.includes(el.attributes.permission), filter_item__value: true })}
+                                            className={clsx({
+                                                active: choosenFilterParametrs.includes(el.attributes.permission) || el.attributes.active,
+                                                filter_item__value: true,
+                                            })}
                                             onClick={(e) => {
                                                 (async function () {
                                                     await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'permission');

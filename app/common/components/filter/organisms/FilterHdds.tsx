@@ -1,5 +1,5 @@
 'use client';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, memo, useEffect, useState } from 'react';
 import { getFilterItemData } from '@/app/lib/data';
 import { v1 } from 'uuid';
 import Loading from '../../Loading/Loading';
@@ -9,6 +9,10 @@ import { createFilterNavHdd } from '@/app/Redux/slice/filtersNavSlice/filtersNav
 import { IQuery } from '@/app/common/types/types';
 import { setData, setDefaultDataAndQueryArr, setType } from '@/app/Redux/slice/query/query';
 import { setQueryArr as setQueriesArrRed } from '@/app/Redux/slice/query/query';
+
+interface IMemoryMb {
+    data: [];
+}
 
 let [memory, connector, technology]: any = '';
 
@@ -24,28 +28,28 @@ export default function FilterHdds() {
     const filterNavHdd = useAppSelector((state) => state.filtersNavReducer.hdds);
     const dispatch = useAppDispatch();
 
-    let memoryCopy: any = [];
+    const [memoryCopy, setMemoryCopy] = useState<IMemoryMb>();
 
     useEffect(() => {
         const fetchData = async () => {
-            if (!filterNavHdd.brand?.length) {
-                const memoryRow: any = getFilterItemData('hdds?fields[0]=memory_mb');
-                const connectorRow: any = getFilterItemData('hdds?fields[0]=connector');
-                const technologyTypeRow: any = getFilterItemData('hdds?fields[0]=technology');
+            // if (!filterNavHdd.memory_mb.data?.length) {
+            // console.log(filterNavHdd.memory_mb.data.length);
+            const memoryRow: any = getFilterItemData('hdds?fields[0]=memory_mb');
+            const connectorRow: any = getFilterItemData('hdds?fields[0]=connector');
+            const technologyTypeRow: any = getFilterItemData('hdds?fields[0]=technology');
 
-                [memory, connector, technology] = await Promise.all([memoryRow, connectorRow, technologyTypeRow]);
+            [memory, connector, technology] = await Promise.all([memoryRow, connectorRow, technologyTypeRow]);
 
-                memory as {
-                    data: { id: number; attributes: { memory_mb: number; active: boolean; numOfOccurance: number } }[];
-                };
+            memory as {
+                data: { id: number; attributes: { memory_mb: number; active: boolean; numOfOccurance: number } }[];
+            };
 
-                makeUniqueAndLoopFunc(memory, 'memory_mb');
-                dispatch(createFilterNavHdd({ memory_mb: memory }));
-
-                memoryCopy = structuredClone(filterNavHdd.memory_mb);
-            } else {
-                memoryCopy = structuredClone(filterNavHdd.memory_mb);
-            }
+            makeUniqueAndLoopFunc(memory, 'memory_mb');
+            dispatch(createFilterNavHdd({ memory_mb: memory }));
+            setMemoryCopy(memory);
+            // } else {
+            // setMemoryCopy(structuredClone(filterNavHdd.memory_mb));
+            // }
 
             // console.log({ memory: memory });
 
@@ -54,7 +58,6 @@ export default function FilterHdds() {
             // makeUniqueAndLoopFunc(batteryType, 'battery_type');
 
             // makeUniqueAndLoopFunc(color, 'battery_color');
-            console.log(memory);
 
             setIsLoaded(true);
         };
@@ -77,10 +80,16 @@ export default function FilterHdds() {
 
             dispatch(setData(res));
             dispatch(setQueriesArrRed(queriesArr));
+            // dispatch()
+            dispatch(createFilterNavHdd({ memory_mb: memoryCopy }));
         })();
     }, [queriesArr]);
 
-    if (!isLoaded && !memoryCopy?.data?.length) {
+    useEffect(() => {
+        console.log(memoryCopy);
+    }, [memoryCopy]);
+
+    if (!isLoaded || !memoryCopy?.data.length) {
         return <Loading></Loading>;
     }
     return (
@@ -100,8 +109,22 @@ export default function FilterHdds() {
                                         await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'memory_mb');
                                     })();
 
-                                    el.attributes.active = !el.attributes.active;
-                                    dispatch(createFilterNavHdd({ memory_mb: memoryCopy }));
+                                    setMemoryCopy((state) => {
+                                        const currObj = structuredClone(el);
+                                        currObj.attributes.active = !currObj.attributes.active;
+                                        state.data[id] = currObj;
+                                        return state;
+                                    });
+
+                                    // const memoryCopy: {
+                                    //     memory_mb: { data: { id: number; attributes: { memory_mb: number; active: boolean; numOfOccurance: number } }[] };
+                                    // } = structuredClone(filterNavHdd);
+
+                                    // setMemoryCopy((state) => {
+                                    //     return [state];
+                                    // });
+                                    // memoryCopy
+                                    // el.attributes.active = !el.attributes.active;
 
                                     // if (memoryCopy.data[id].attributes.active) {
                                     //     memoryCopy.data[id].attributes.active = !memoryCopy.data[id].attributes.active;
