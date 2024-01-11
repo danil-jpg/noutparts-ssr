@@ -7,7 +7,7 @@ import { getFilterItemData } from '@/app/lib/data';
 import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
 import { onSelectItemChangeHandler, onStatusItemClickHandler } from '@/app/lib/service';
 import { IQuery, categories } from '@/app/common/types/types';
-import { setData } from '@/app/Redux/slice/query/query';
+import { setData, setDefaultDataAndQueryArr } from '@/app/Redux/slice/query/query';
 import FilterCards from '../../../card/FilterCards';
 import clsx from 'clsx';
 import { v1 } from 'uuid';
@@ -55,6 +55,10 @@ const TopFilter = ({
 
     const dataInRedux = useAppSelector((state) => state.queryReducer.data.data as IPrice[]);
 
+    const selector = useAppSelector((state) => state.queryReducer.queryArr);
+
+    // const prevType = useAppSelector((state) => state.queryReducer.type);
+
     useEffect(() => {
         const getData = async () => {
             const res = (await getFilterItemData(`${type}?fields[0]=brand&fields[1]`)) as IBrand;
@@ -97,6 +101,18 @@ const TopFilter = ({
     const RenderChoosen = (): React.JSX.Element => {
         return (
             <div className='choosen-wr'>
+                {choosenFilterParametrs.length > 2 ? (
+                    <div
+                        className='choosen'
+                        onClick={() => {
+                            setQueriesArr([]);
+                            setChoosenFilterParametrs([]);
+                        }}>
+                        Очистить все
+                    </div>
+                ) : (
+                    ''
+                )}
                 {queriesArr.map((el: IQuery) => {
                     return el.searchParamKeys.map((el) => {
                         return (
