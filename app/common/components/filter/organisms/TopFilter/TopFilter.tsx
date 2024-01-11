@@ -5,9 +5,9 @@ import './TopFilter.scss';
 import IconRenderer from '@/app/common/ui/Icons/IconRenderer';
 import { getFilterItemData } from '@/app/lib/data';
 import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
-import { onSelectItemChangeHandler, onStatusItemClickHandler } from '@/app/lib/service';
+import { onFilterItemClickHandler, onSelectItemChangeHandler, onStatusItemClickHandler } from '@/app/lib/service';
 import { IQuery, categories } from '@/app/common/types/types';
-import { setData, setDefaultDataAndQueryArr } from '@/app/Redux/slice/query/query';
+import { setData, setDefaultDataAndQueryArr, setType } from '@/app/Redux/slice/query/query';
 import FilterCards from '../../../card/FilterCards';
 import clsx from 'clsx';
 import { v1 } from 'uuid';
@@ -101,7 +101,7 @@ const TopFilter = ({
     const RenderChoosen = (): React.JSX.Element => {
         return (
             <div className='choosen-wr'>
-                {choosenFilterParametrs.length > 2 ? (
+                {/* {choosenFilterParametrs.length > 2 ? (
                     <div
                         className='choosen'
                         onClick={() => {
@@ -112,7 +112,7 @@ const TopFilter = ({
                     </div>
                 ) : (
                     ''
-                )}
+                )} */}
                 {queriesArr.map((el: IQuery) => {
                     return el.searchParamKeys.map((el) => {
                         return (

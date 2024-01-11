@@ -34,7 +34,9 @@ export const filterItemOnclickHandler = async (dataToGet: IQuery[], type: catego
 
         return res;
     } else {
-        return [];
+        const res = await fetchDataFromServer(type, '');
+
+        return res;
     }
 };
 

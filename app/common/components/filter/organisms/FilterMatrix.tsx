@@ -21,7 +21,7 @@ export default function FilterMatrix() {
 
     const prevType = useAppSelector((state) => state.queryReducer.type);
 
-    const [queriesArr, setQueriesArr] = useState<IQuery[]>(prevType === 'matrices' ? selector : []);
+    const [queriesArr, setQueriesArr] = useState<IQuery[]>([]);
 
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
@@ -108,6 +108,7 @@ export default function FilterMatrix() {
             dispatch(setType('matrices'));
             dispatch(setDefaultDataAndQueryArr());
         }
+
         fetchData();
 
         const resetQueryArrOnReload = () => dispatch(setDefaultDataAndQueryArr());
@@ -181,6 +182,7 @@ export default function FilterMatrix() {
                                                 (async function () {
                                                     await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'diagonale');
                                                 })();
+
                                                 if (choosenFilterParametrs.includes(el.attributes.diagonale)) {
                                                     const index = choosenFilterParametrs.indexOf(el.attributes.diagonale);
 
