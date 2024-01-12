@@ -101,9 +101,9 @@ const TopFilter = ({
     const RenderChoosen = (): React.JSX.Element => {
         return (
             <div className='choosen-wr'>
-                {/* {choosenFilterParametrs.length > 2 ? (
+                {choosenFilterParametrs.length > 2 ? (
                     <div
-                        className='choosen'
+                        className='choosen choosen__cleanup'
                         onClick={() => {
                             setQueriesArr([]);
                             setChoosenFilterParametrs([]);
@@ -112,7 +112,7 @@ const TopFilter = ({
                     </div>
                 ) : (
                     ''
-                )} */}
+                )}
                 {queriesArr.map((el: IQuery) => {
                     return el.searchParamKeys.map((el) => {
                         return (
@@ -130,9 +130,14 @@ const TopFilter = ({
                                                         copy[i].searchParamKeys.splice(index, 1);
                                                         return copy;
                                                     });
+
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.splice(index, 1);
-                                                        return prev;
+                                                        const newList = prev.filter((el, i) => i !== index);
+                                                        // prev.splice(index, 1);
+                                                        return newList;
+
+                                                        // prev.splice(index, 1);
+                                                        // return prev;
                                                     });
                                                 }
                                             }

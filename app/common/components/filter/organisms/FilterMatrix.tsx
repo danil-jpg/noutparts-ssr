@@ -15,6 +15,7 @@ import TopFilter from './TopFilter/TopFilter';
 let [diagonale, permission, fastening, fiberOpticTechnology, connector, backlightType, hashrate]: any = '';
 
 export default function FilterMatrix() {
+    const [test, setTest] = useState<number[]>([]);
     const [choosenFilterParametrs, setChoosenFilterParametrs] = useState<(string | number)[]>([]);
 
     const selector = useAppSelector((state) => state.queryReducer.queryArr);
@@ -177,7 +178,8 @@ export default function FilterMatrix() {
                                     {diagonale.data.map((el: { id: number; attributes: { [key: string]: string } }) => (
                                         <li
                                             key={el.id}
-                                            className={clsx({ active: choosenFilterParametrs.includes(el.attributes.diagonale), filter_item__value: true })}
+                                            className={`${choosenFilterParametrs.includes(el.attributes.diagonale) ? 'active' : ''} filter_item__value`}
+                                            // className={clsx({ active: choosenFilterParametrs.includes(el.attributes.diagonale), filter_item__value: true })}
                                             onClick={(e) => {
                                                 (async function () {
                                                     await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'diagonale');
@@ -187,15 +189,16 @@ export default function FilterMatrix() {
                                                     const index = choosenFilterParametrs.indexOf(el.attributes.diagonale);
 
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.splice(index, 1);
-                                                        return prev;
+                                                        const newList = prev.filter((el, i) => i !== index);
+                                                        return newList;
                                                     });
                                                 } else {
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.push(el.attributes.diagonale);
-                                                        return prev;
+                                                        return [...prev, el.attributes.diagonale];
                                                     });
                                                 }
+
+                                                setTest((prev) => [...prev, el.id]);
 
                                                 e.stopPropagation();
                                             }}>
@@ -239,13 +242,12 @@ export default function FilterMatrix() {
                                                 if (choosenFilterParametrs.includes(el.attributes.permission)) {
                                                     const index = choosenFilterParametrs.indexOf(el.attributes.permission);
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.splice(index, 1);
-                                                        return prev;
+                                                        const newList = prev.filter((el, i) => i !== index);
+                                                        return newList;
                                                     });
                                                 } else {
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.push(el.attributes.permission);
-                                                        return prev;
+                                                        return [...prev, el.attributes.permission];
                                                     });
                                                 }
 
@@ -287,13 +289,12 @@ export default function FilterMatrix() {
                                                 if (choosenFilterParametrs.includes(el.attributes.fastening)) {
                                                     const index = choosenFilterParametrs.indexOf(el.attributes.fastening);
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.splice(index, 1);
-                                                        return prev;
+                                                        const newList = prev.filter((el, i) => i !== index);
+                                                        return newList;
                                                     });
                                                 } else {
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.push(el.attributes.fastening);
-                                                        return prev;
+                                                        return [...prev, el.attributes.fastening];
                                                     });
                                                 }
 
@@ -338,13 +339,12 @@ export default function FilterMatrix() {
                                                 if (choosenFilterParametrs.includes(el.attributes.fiber_optic_technology)) {
                                                     const index = choosenFilterParametrs.indexOf(el.attributes.fiber_optic_technology);
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.splice(index, 1);
-                                                        return prev;
+                                                        const newList = prev.filter((el, i) => i !== index);
+                                                        return newList;
                                                     });
                                                 } else {
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.push(el.attributes.fiber_optic_technology);
-                                                        return prev;
+                                                        return [...prev, el.attributes.fiber_optic_technology];
                                                     });
                                                 }
 
@@ -389,13 +389,12 @@ export default function FilterMatrix() {
                                                 if (choosenFilterParametrs.includes(el.attributes.backlight_type)) {
                                                     const index = choosenFilterParametrs.indexOf(el.attributes.backlight_type);
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.splice(index, 1);
-                                                        return prev;
+                                                        const newList = prev.filter((el, i) => i !== index);
+                                                        return newList;
                                                     });
                                                 } else {
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.push(el.attributes.backlight_type);
-                                                        return prev;
+                                                        return [...prev, el.attributes.backlight_type];
                                                     });
                                                 }
 
@@ -437,13 +436,12 @@ export default function FilterMatrix() {
                                                 if (choosenFilterParametrs.includes(el.attributes.hashrate)) {
                                                     const index = choosenFilterParametrs.indexOf(el.attributes.hashrate);
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.splice(index, 1);
-                                                        return prev;
+                                                        const newList = prev.filter((el, i) => i !== index);
+                                                        return newList;
                                                     });
                                                 } else {
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.push(el.attributes.hashrate);
-                                                        return prev;
+                                                        return [...prev, el.attributes.hashrate];
                                                     });
                                                 }
 
