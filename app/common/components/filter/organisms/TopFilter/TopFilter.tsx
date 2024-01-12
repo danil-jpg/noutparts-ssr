@@ -125,10 +125,14 @@ const TopFilter = ({
                                             for (let i = 0; i < queriesArr.length; i++) {
                                                 if (queriesArr[i].searchParamKeys.includes(el)) {
                                                     const index = queriesArr[i].searchParamKeys.indexOf(el);
+
                                                     setQueriesArr((prev) => {
                                                         const copy = structuredClone(prev);
                                                         copy[i].searchParamKeys.splice(index, 1);
                                                         return copy;
+
+                                                        // const newList = prev.filter((el, i) => i !== index);
+                                                        // return newList;
                                                     });
 
                                                     setChoosenFilterParametrs((prev) => {

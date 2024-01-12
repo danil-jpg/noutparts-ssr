@@ -51,6 +51,37 @@ export default function FilterBattery() {
             makeUniqueAndLoopFunc(color, 'color');
 
             setIsLoaded(true);
+
+            if (queriesArr.length > 0) {
+                console.log('here');
+                const result: { searchParam: string; searchParamKey: string[] }[] = [];
+
+                queriesArr.forEach((el) => {
+                    if (el.searchParam === 'permission') {
+                        result.push({ searchParam: 'permission', searchParamKey: el.searchParamKeys });
+                    } else if (el.searchParam === 'fastening') {
+                        result.push({ searchParam: 'fastening', searchParamKey: el.searchParamKeys });
+                    }
+                });
+
+                capacity.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
+                    if (el.attributes.permission === result[0].searchParamKey[0]) {
+                        setChoosenFilterParametrs((prev) => {
+                            return [...prev, el.attributes.permission];
+                        });
+                    }
+                });
+
+                voltage.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
+                    if (el.attributes.fastening === result[1].searchParamKey[0]) {
+                        setChoosenFilterParametrs((prev) => {
+                            return [...prev, el.attributes.fastening];
+                        });
+                    }
+                });
+            } else {
+                console.log(queriesArr.length);
+            }
         };
 
         if (!prevType) {
@@ -63,6 +94,14 @@ export default function FilterBattery() {
         }
 
         fetchData();
+
+        const resetQueryArrOnReload = () => dispatch(setDefaultDataAndQueryArr());
+
+        window.addEventListener('beforeunload', resetQueryArrOnReload);
+
+        return () => {
+            window.removeEventListener('beforeunload', resetQueryArrOnReload);
+        };
     }, []);
 
     useEffect(() => {
@@ -131,13 +170,12 @@ export default function FilterBattery() {
                                                     const index = choosenFilterParametrs.indexOf(el.attributes.capacity);
 
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.splice(index, 1);
-                                                        return prev;
+                                                        const newList = prev.filter((el, i) => i !== index);
+                                                        return newList;
                                                     });
                                                 } else {
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.push(el.attributes.capacity);
-                                                        return prev;
+                                                        return [...prev, el.attributes.capacity];
                                                     });
                                                 }
 
@@ -180,13 +218,12 @@ export default function FilterBattery() {
                                                 if (choosenFilterParametrs.includes(el.attributes.voltage)) {
                                                     const index = choosenFilterParametrs.indexOf(el.attributes.voltage);
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.splice(index, 1);
-                                                        return prev;
+                                                        const newList = prev.filter((el, i) => i !== index);
+                                                        return newList;
                                                     });
                                                 } else {
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.push(el.attributes.voltage);
-                                                        return prev;
+                                                        return [...prev, el.attributes.voltage];
                                                     });
                                                 }
 
@@ -227,13 +264,12 @@ export default function FilterBattery() {
                                                 if (choosenFilterParametrs.includes(el.attributes.type)) {
                                                     const index = choosenFilterParametrs.indexOf(el.attributes.type);
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.splice(index, 1);
-                                                        return prev;
+                                                        const newList = prev.filter((el, i) => i !== index);
+                                                        return newList;
                                                     });
                                                 } else {
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.push(el.attributes.type);
-                                                        return prev;
+                                                        return [...prev, el.attributes.type];
                                                     });
                                                 }
 
@@ -276,13 +312,12 @@ export default function FilterBattery() {
                                                 if (choosenFilterParametrs.includes(el.attributes.color)) {
                                                     const index = choosenFilterParametrs.indexOf(el.attributes.color);
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.splice(index, 1);
-                                                        return prev;
+                                                        const newList = prev.filter((el, i) => i !== index);
+                                                        return newList;
                                                     });
                                                 } else {
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.push(el.attributes.color);
-                                                        return prev;
+                                                        return [...prev, el.attributes.color];
                                                     });
                                                 }
 

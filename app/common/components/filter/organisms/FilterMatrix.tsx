@@ -15,7 +15,6 @@ import TopFilter from './TopFilter/TopFilter';
 let [diagonale, permission, fastening, fiberOpticTechnology, connector, backlightType, hashrate]: any = '';
 
 export default function FilterMatrix() {
-    const [test, setTest] = useState<number[]>([]);
     const [choosenFilterParametrs, setChoosenFilterParametrs] = useState<(string | number)[]>([]);
 
     const selector = useAppSelector((state) => state.queryReducer.queryArr);
@@ -198,8 +197,6 @@ export default function FilterMatrix() {
                                                         return [...prev, el.attributes.diagonale];
                                                     });
                                                 }
-
-                                                setTest((prev) => [...prev, el.id]);
 
                                                 e.stopPropagation();
                                             }}>

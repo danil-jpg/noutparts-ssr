@@ -10,10 +10,6 @@ import { IQuery } from '@/app/common/types/types';
 import { setData, setDefaultDataAndQueryArr, setType } from '@/app/Redux/slice/query/query';
 import { setQueryArr as setQueriesArrRed } from '@/app/Redux/slice/query/query';
 
-interface IMemoryMb {
-    data: [];
-}
-
 let [memory, connector, technology]: any = '';
 
 export default function FilterHdds() {
