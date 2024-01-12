@@ -22,7 +22,7 @@ export default function FilterMatrix() {
 
     const prevType = useAppSelector((state) => state.queryReducer.type);
 
-    const [queriesArr, setQueriesArr] = useState<IQuery[]>([]);
+    const [queriesArr, setQueriesArr] = useState<IQuery[]>(prevType === 'matrices' ? selector : []);
 
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
@@ -71,6 +71,7 @@ export default function FilterMatrix() {
             setIsLoaded(true);
 
             if (queriesArr.length > 0) {
+                console.log('here');
                 const result: { searchParam: string; searchParamKey: string[] }[] = [];
 
                 queriesArr.forEach((el) => {
@@ -96,6 +97,8 @@ export default function FilterMatrix() {
                         });
                     }
                 });
+            } else {
+                console.log(queriesArr.length);
             }
         };
 
