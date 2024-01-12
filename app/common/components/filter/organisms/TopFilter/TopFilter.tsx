@@ -113,8 +113,8 @@ const TopFilter = ({
                 ) : (
                     ''
                 )}
-                {queriesArr.map((el: IQuery) => {
-                    return el.searchParamKeys.map((el) => {
+                {queriesArr.map((el: IQuery, indexTop) => {
+                    return el.searchParamKeys.map((el, index) => {
                         return (
                             <div key={v1()}>
                                 <div className='choosen'>
@@ -122,29 +122,30 @@ const TopFilter = ({
                                     <IconRenderer
                                         id='cross-icon'
                                         onClick={() => {
-                                            for (let i = 0; i < queriesArr.length; i++) {
-                                                if (queriesArr[i].searchParamKeys.includes(el)) {
-                                                    const index = queriesArr[i].searchParamKeys.indexOf(el);
+                                            if (choosenFilterParametrs.includes(el)) {
+                                                const choosenParIndex = choosenFilterParametrs.indexOf(el);
 
-                                                    setQueriesArr((prev) => {
-                                                        const copy = structuredClone(prev);
-                                                        copy[i].searchParamKeys.splice(index, 1);
-                                                        return copy;
+                                                setChoosenFilterParametrs((prev) => {
+                                                    const newList = prev.filter((el, i) => i !== choosenParIndex);
 
-                                                        // const newList = prev.filter((el, i) => i !== index);
-                                                        // return newList;
-                                                    });
-
-                                                    setChoosenFilterParametrs((prev) => {
-                                                        const newList = prev.filter((el, i) => i !== index);
-                                                        // prev.splice(index, 1);
-                                                        return newList;
-
-                                                        // prev.splice(index, 1);
-                                                        // return prev;
-                                                    });
-                                                }
+                                                    return newList;
+                                                });
                                             }
+
+                                            setQueriesArr((prev) => {
+                                                const copy = structuredClone(prev);
+                                                for (let i = 0; i < queriesArr.length; i++) {
+                                                    if (prev[i].searchParamKeys.includes(el)) {
+                                                        const index = queriesArr[i].searchParamKeys.indexOf(el);
+
+                                                        copy[indexTop].searchParamKeys.splice(index, 1);
+                                                    }
+                                                }
+                                                return copy;
+
+                                                // const newList = prev.filter((el, i) => i !== index);
+                                                // return newList;
+                                            });
                                         }}
                                     />
                                 </div>
