@@ -84,8 +84,7 @@ export default function FilterMatrix() {
                 permission.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
                     if (el.attributes.permission === result[0].searchParamKey[0]) {
                         setChoosenFilterParametrs((prev) => {
-                            prev.push(el.attributes.permission);
-                            return prev;
+                            return [...prev, el.attributes.permission];
                         });
                     }
                 });
@@ -93,8 +92,7 @@ export default function FilterMatrix() {
                 fastening.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
                     if (el.attributes.fastening === result[1].searchParamKey[0]) {
                         setChoosenFilterParametrs((prev) => {
-                            prev.push(el.attributes.fastening);
-                            return prev;
+                            return [...prev, el.attributes.fastening];
                         });
                     }
                 });
@@ -231,7 +229,7 @@ export default function FilterMatrix() {
                                         <li
                                             key={el.id}
                                             className={clsx({
-                                                active: choosenFilterParametrs.includes(el.attributes.permission) || el.attributes.active,
+                                                active: choosenFilterParametrs.includes(el.attributes.permission),
                                                 filter_item__value: true,
                                             })}
                                             onClick={(e) => {
