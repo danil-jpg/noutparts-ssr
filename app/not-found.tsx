@@ -15,7 +15,9 @@ export default function NotFound() {
 					<div className="page-404__text">
 						Страница которую вы запрашиваете не найдена. <br /> <span>Возможно она была удалена или вы набрали неверный адрес.</span>
 					</div>
-					<div className="page-404__back-button">Вернуться на главную</div>
+					<Link href={"/"}>
+						<div className="page-404__back-button">Вернуться на главную</div>
+					</Link>
 					<div className="page-404__nav">
 						<Link href={"/catalogue"}>
 							<div className="page-404__nav-item">Каталог</div>

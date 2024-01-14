@@ -59,7 +59,7 @@ const PrimaryInput: FC<IPrimaryInput> = ({ placeholder, label, type = "text", se
 				{type !== "email" && <span>*</span>}
 				{label}
 			</label>
-			<div className={`primary-input__container ${isActive ? "active" : ""} ${error ? "error" : ""} ${type === "email" ? "email" : type === "tel" ? "tel" : type === "text" ? "text" : ""}`}>
+			<div className={`primary-input__container ${isActive ? "active" : ""} ${error&&isActive ? "error" : ""} ${type === "email" ? "email" : type === "tel" ? "tel" : type === "text" ? "text" : ""}`}>
 				{type === "tel" ? (
 					<PatternFormat
 						type="tel"

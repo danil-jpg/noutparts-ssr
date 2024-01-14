@@ -147,7 +147,11 @@ export default function Product() {
 
 	return (
 		<>
-			<Breadcrumbs breadcrumbs={breadcrumbArr} classname="product__breadcrumbs"></Breadcrumbs>
+			<div className="breadcrumb-all-page__wrapper">
+				<div className="breadcrumb-all-page">
+					<Breadcrumbs breadcrumbs={breadcrumbArr} classname="product__breadcrumbs"></Breadcrumbs>
+				</div>
+			</div>
 			{showPopup && (
 				<div className="order-popup__wrapper">
 					<div className="order-popup">

@@ -168,6 +168,10 @@
 		line-height: 140%; /* 19.6px */
 		max-width: 265px;
 	}
+
+	&__to-top{
+		display: none;
+	}
 }
 
 @media (max-width: 920px) {
@@ -346,6 +350,10 @@
 			line-height: 140%; /* 19.6px */
 			max-width: 265px;
 		}
+
+		&__to-top{
+			display: none;
+		}
 	}
 }
 
@@ -468,6 +476,8 @@
 		align-items: center;
 		gap: 22px;
 		padding: 20px 0 56px 0;
+
+		position: relative;
 		&__wrapper {
 			margin: 117px 0 -20px 0;
 			width: 100%;
@@ -529,6 +539,17 @@
 			font-weight: 400;
 			line-height: 140%; /* 19.6px */
 			max-width: 265px;
+		}
+
+		&__to-top{
+			position: absolute;
+			right: 22px;
+			bottom: 15px;
+			display: flex;
+		}
+
+		&__to-top-icon{
+
 		}
 	}
 }

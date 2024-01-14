@@ -12,6 +12,7 @@ import destinationBubbleIcon from "/public/img/destination-bubble-icon.svg";
 import clientBubbleIcon from "/public/img/client-bubble-icon.svg";
 import likeBubbleIcon from "/public/img/like-bubble-icon.svg";
 import discountBubbleIcon from "/public/img/discount-bubble-icon.svg";
+import toTopIcon from "/public/img/to-top-button.svg";
 
 export default function AboutPage() {
 	const breadcrumbArr: Breadcrumb[] = [
@@ -23,9 +24,13 @@ export default function AboutPage() {
 	];
 	return (
 		<>
-			<Breadcrumbs breadcrumbs={breadcrumbArr} classname="product__breadcrumbs"></Breadcrumbs>
+			<div className="breadcrumb-all-page__wrapper">
+				<div className="breadcrumb-all-page">
+					<Breadcrumbs breadcrumbs={breadcrumbArr} classname="product__breadcrumbs"></Breadcrumbs>
+				</div>
+			</div>
 
-			<div className="about-hero__wrapper">
+			<div className="about-hero__wrapper" id="about-for-anchor">
 				<Image src={netLeft} alt="netLeft" className="about-hero__net left"></Image>
 				<div className="about-hero">
 					<div className="about-hero__title">
@@ -59,7 +64,9 @@ export default function AboutPage() {
 
 			<div className="about-privilegies__wrapper">
 				<div className="about-privilegies">
-					<div className="about-privilegies__title">Работая с нами, <span> Вы получаете:</span> </div>
+					<div className="about-privilegies__title">
+						Работая с нами, <span> Вы получаете:</span>{" "}
+					</div>
 					<div className="about-privilegies__blocks">
 						<div className="about-privilegies__block">
 							<Image src={clientBubbleIcon} alt="clientBubbleIcon" className="about-privilegies__block-icon"></Image>
@@ -77,6 +84,10 @@ export default function AboutPage() {
 							<div className="about-privilegies__text">У нас разнообразный товар и разный уровень цен, мы часто делаем скидки для наших клиентов</div>
 						</div>
 					</div>
+
+					<a className="about-privilegies__to-top" href="#about-for-anchor">
+						<Image src={toTopIcon} alt="toTopIcon" className="about-privilegies__to-top-icon"></Image>
+					</a>
 				</div>
 			</div>
 		</>

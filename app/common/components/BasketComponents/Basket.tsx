@@ -2,7 +2,7 @@
 import axios from "axios";
 import React, { FC, useEffect, useState } from "react";
 import IconRenderer from "../../ui/Icons/IconRenderer";
-import "./basket.scss";
+import "./Basket.scss";
 import Image from "next/image";
 import Link from "next/dist/client/link";
 
@@ -14,6 +14,7 @@ import { removeProduct } from "@/app/Redux/slice/basket/basketSlice";
 import { fetchProductInfo } from "@/app/lib/data";
 
 import BasketRow from "./BasketRow";
+import Spinner from "../Spinner/Spinner";
 
 import deleteIcon from "/public/img/delete-icon.svg";
 
@@ -115,56 +116,69 @@ export default function BasketComponent() {
 
 	return (
 		<>
-			<div className="basket">
-				<div className="basket__title">Корзина</div>
-				<div className="basket__content">
-					<div className="basket__content-table">
-						<div className="basket__table-top">
-							<div className="basket__table-heading one">Товар</div>
-							<div className="basket__table-heading two">Кол-во</div>
-							<div className="basket__table-heading three">Цена</div>
-						</div>
-						<div className="basket__table-contents">
-							{Object.values(groupedProducts).map((groupedProduct: GroupedProduct, index: number) => (
-								<BasketRow
-									key={index}
-									product={groupedProduct.product}
-									quantity={groupedProduct.quantity}
-									updateQuantity={updateQuantity} // Pass down the function
-								/>
-							))}
-						</div>
+			<div className="basket__wrapper">
+				<div className="basket">
+					<div className="basket__title">Корзина</div>
+					<div className="basket__content">
+						<div className="basket__content-table">
+							<div className="basket__table-top">
+								<div className="basket__table-heading one">Товар</div>
+								<div className="basket__table-heading two">Кол-во</div>
+								<div className="basket__table-heading three">Цена</div>
+							</div>
+							<div className="basket__table-contents">
+								{groupedProducts && Object.values(groupedProducts).length > 0 ? (
+									(Object.values(groupedProducts) as GroupedProduct[]).map((groupedProduct: GroupedProduct, index: number) => (
+										<BasketRow
+											key={index}
+											product={groupedProduct.product}
+											quantity={groupedProduct.quantity}
+											updateQuantity={updateQuantity} 
+										/>
+									))
+									
+								) : Object.values(products).length > 0 ? (
+									<Spinner classname="check this"></Spinner>
+								) : "No products are added to your basket"}
+								
+								{/* to change */}
+							</div>
 
-						<div className="basket__continue-button">Продолжить покупки</div>
-					</div>
-					<div className="basket__order">
-						<div className="basket__order-title">Оформление заказа</div>
-						<div className="basket__order-heading">Итого</div>
-
-						<div className="basket__order-products">
-							{products.map((product, index) => (
-								<div key={index} className="basket__order-product">
-									<div className="basket__order-product-number">{index + 1}. </div>
-									<div className="basket__order-product-name">{product.name.length > 30 ? `${product.name.slice(0, 30)}...` : product.name}</div>
-									<div className="basket__order-product-line"></div>
-									<div className="basket__order-product-price">{product.price} грн</div>
-								</div>
-							))}
+							<div className="basket__continue-button">
+								<Link href={"/catalogue"}>Продолжить покупки</Link>
+							</div>
 						</div>
+						<div className="basket__order">
+							<div className="basket__order-title">Оформление заказа</div>
+							<div className="basket__order-heading">Итого</div>
 
-						<div className="basket__order-metrics">
-							<div className="basket__order-metrics-word">Выгода со скидкой</div>
-							<div className="basket__order-metrics-line"></div>
-							<div className="basket__order-metrics-word">-{totalDiscount} грн</div>
+							<div className="basket__order-products">
+								{products.map((product, index) => (
+									<div key={index} className="basket__order-product">
+										<div className="basket__order-product-number">{index + 1}. </div>
+										<div className="basket__order-product-name">{product.name.length > 20 ? `${product.name.slice(0, 20)}...` : product.name}</div>
+										<div className="basket__order-product-line"></div>
+										<div className="basket__order-product-price">{product.price} грн</div>
+									</div>
+								))}
+							</div>
+
+							<div className="basket__order-metrics">
+								<div className="basket__order-metrics-word">Выгода со скидкой</div>
+								<div className="basket__order-metrics-line"></div>
+								<div className="basket__order-metrics-word">-{totalDiscount} грн</div>
+							</div>
+
+							<div className="basket__order-metrics big">
+								<div className="basket__order-metrics-word big">Итоговая цена</div>
+								<div className="basket__order-metrics-line"></div>
+								<div className="basket__order-metrics-word big mobile">{totalPrice} грн</div>
+							</div>
+
+							<Link href={"/order"}>
+								<div className="basket__order-button">Оформить заказ</div>
+							</Link>
 						</div>
-
-						<div className="basket__order-metrics big">
-							<div className="basket__order-metrics-word big">Итоговая цена</div>
-							<div className="basket__order-metrics-line"></div>
-							<div className="basket__order-metrics-word big">{totalPrice} грн</div>
-						</div>
-
-						<div className="basket__order-button">Оформить заказ</div>
 					</div>
 				</div>
 			</div>
