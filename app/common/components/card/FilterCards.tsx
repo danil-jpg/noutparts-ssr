@@ -11,6 +11,8 @@ import { categories } from '@/app/common/types/types';
 import PrimaryBtn from '@/app/common/ui/buttons/primary/PrimaryBtn';
 import IconRenderer from '@/app/common/ui/Icons/IconRenderer';
 import ProductAvailability from '@/app/common/ui/product-ui/ProductAvailability';
+import { addProduct } from '@/app/Redux/slice/basket/basketSlice';
+import { IProduct } from '@/app/common/types/types';
 
 interface IMatrixCard {
     id: number;
@@ -73,6 +75,10 @@ const FilterCards = ({ type }: { type: categories }) => {
         })();
     }, []);
 
+    const onLikeClickHandler = (product: IProduct): void => {
+        dispatch(addProduct(product));
+    };
+
     const RenderProperFilter = (): React.ReactElement[] => {
         switch (type) {
             case 'matrices':
@@ -102,11 +108,19 @@ const FilterCards = ({ type }: { type: categories }) => {
                                 </div>
                             </div>
                             <div className='card__availability'>
-                                <ProductAvailability type={el.attributes.availability as 'available' | 'ending' | 'outOfStock'}>
-                                    {el.attributes.availability}
-                                </ProductAvailability>
+                                <ProductAvailability type={el.attributes.availability as 'available' | 'ending' | 'outOfStock'}></ProductAvailability>
                             </div>
-                            <div className='card__like-sign'>
+                            <div
+                                className='card__like-sign'
+                                onClick={() => {
+                                    onLikeClickHandler({
+                                        ...el.attributes,
+                                        photo_url: el.attributes.photo.data[0].attributes.url,
+                                        discount: 0,
+                                        category: 'matrices',
+                                        id: el.id,
+                                    });
+                                }}>
                                 <IconRenderer id='heart-icon' className='heart-icon' />
                             </div>
                             <div className='card__data_right'>
@@ -143,9 +157,7 @@ const FilterCards = ({ type }: { type: categories }) => {
                                 </div>
                             </div>
                             <div className='card__availability'>
-                                <ProductAvailability type={el.attributes.availability as 'available' | 'ending' | 'outOfStock'}>
-                                    {el.attributes.availability}
-                                </ProductAvailability>
+                                <ProductAvailability type={el.attributes.availability as 'available' | 'ending' | 'outOfStock'}></ProductAvailability>
                             </div>
                             <div className='card__like-sign'>
                                 <IconRenderer id='heart-icon' className='heart-icon' />

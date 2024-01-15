@@ -81,21 +81,23 @@ export default function FilterMatrix() {
                     }
                 });
 
-                permission.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
-                    if (el.attributes.permission === result[0].searchParamKey[0]) {
-                        setChoosenFilterParametrs((prev) => {
-                            return [...prev, el.attributes.permission];
-                        });
-                    }
-                });
+                if (result.length > 1) {
+                    permission.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
+                        if (el.attributes.permission === result[0].searchParamKey[0]) {
+                            setChoosenFilterParametrs((prev) => {
+                                return [...prev, el.attributes.permission];
+                            });
+                        }
+                    });
 
-                fastening.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
-                    if (el.attributes.fastening === result[1].searchParamKey[0]) {
-                        setChoosenFilterParametrs((prev) => {
-                            return [...prev, el.attributes.fastening];
-                        });
-                    }
-                });
+                    fastening.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
+                        if (el.attributes.fastening === result[1].searchParamKey[0]) {
+                            setChoosenFilterParametrs((prev) => {
+                                return [...prev, el.attributes.fastening];
+                            });
+                        }
+                    });
+                }
             } else {
                 console.log(queriesArr.length);
             }
