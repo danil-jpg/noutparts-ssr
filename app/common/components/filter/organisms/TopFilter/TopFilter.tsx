@@ -5,7 +5,7 @@ import './TopFilter.scss';
 import IconRenderer from '@/app/common/ui/Icons/IconRenderer';
 import { getFilterItemData } from '@/app/lib/data';
 import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
-import { onFilterItemClickHandler, onSelectItemChangeHandler, onStatusItemClickHandler } from '@/app/lib/service';
+import { onSelectItemChangeHandler, onStatusItemClickHandler } from '@/app/lib/service';
 import { IQuery, categories } from '@/app/common/types/types';
 import { setData, setDefaultDataAndQueryArr, setType } from '@/app/Redux/slice/query/query';
 import FilterCards from '../../../card/FilterCards';
@@ -55,10 +55,6 @@ const TopFilter = ({
 
     const dataInRedux = useAppSelector((state) => state.queryReducer.data.data as IPrice[]);
 
-    const selector = useAppSelector((state) => state.queryReducer.queryArr);
-
-    // const prevType = useAppSelector((state) => state.queryReducer.type);
-
     useEffect(() => {
         const getData = async () => {
             const res = (await getFilterItemData(`${type}?fields[0]=brand&fields[1]`)) as IBrand;
@@ -101,7 +97,6 @@ const TopFilter = ({
     const RenderChoosen = (): React.JSX.Element => {
         return (
             <div className='choosen-wr'>
-                {/* {choosenFilterParametrs.length > 2 ? ( */}
                 <div
                     className='choosen choosen__cleanup'
                     onClick={() => {
@@ -110,9 +105,6 @@ const TopFilter = ({
                     }}>
                     Очистить все
                 </div>
-                {/* ) : (
-                    ''
-                )} */}
                 {queriesArr.map((el: IQuery, indexTop) => {
                     return el.searchParamKeys.map((el) => {
                         return (

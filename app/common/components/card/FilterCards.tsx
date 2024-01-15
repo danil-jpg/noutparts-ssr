@@ -105,6 +105,28 @@ interface IKeyboard {
     };
 }
 
+interface IRam {
+    id: number;
+    attributes: {
+        availability: string;
+        pin_quantity: string;
+        voltage: string;
+        memory_mb: string;
+        price: number;
+        name: string;
+        tag: string;
+        photo: {
+            data: [
+                {
+                    attributes: {
+                        url: string;
+                    };
+                }
+            ];
+        };
+    };
+}
+
 const FilterCards = ({ type }: { type: categories }) => {
     const selector = useAppSelector((state) => state.queryReducer.data.data);
     const dispatch = useAppDispatch();
@@ -254,7 +276,7 @@ const FilterCards = ({ type }: { type: categories }) => {
                     );
                 });
             case 'keyboards':
-                return selector.map((el: IKeyboard, index) => {
+                return selector.map((el: IRam, index) => {
                     return (
                         <div key={index} className='card'>
                             <div className='card__tag'>
@@ -265,17 +287,56 @@ const FilterCards = ({ type }: { type: categories }) => {
                                 <p className='card__name'>{el.attributes.name}</p>
                                 <div className='card__etc-params'>
                                     <p>
-                                        Форм фактор: <span>{el.attributes.form_factor}</span>
+                                        Количество контактов: <span>{el.attributes.pin_quantity}</span>
                                     </p>
                                 </div>
                                 <div className='card__etc-params'>
                                     <p>
-                                        Раскладка: <span>{el.attributes.layout}</span>
+                                        Объем памяти: <span>{el.attributes.memory_mb}</span>
                                     </p>
                                 </div>
                                 <div className='card__etc-params'>
                                     <p>
-                                        Подсветка: <span>{el.attributes.color}</span>
+                                        Напряжение: <span>{el.attributes.voltage}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div className='card__availability'>
+                                <ProductAvailability type={el.attributes.availability as 'available' | 'ending' | 'outOfStock'}></ProductAvailability>
+                            </div>
+                            <div className='card__like-sign'>
+                                <IconRenderer id='heart-icon' className='heart-icon' />
+                            </div>
+                            <div className='card__data_right'>
+                                <p className='card__price'>{el.attributes.price} грн</p>
+                                <PrimaryBtn text='Купить' type='basket' icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                            </div>
+                        </div>
+                    );
+                });
+            case 'rams':
+                return selector.map((el: IRam, index) => {
+                    return (
+                        <div key={index} className='card'>
+                            <div className='card__tag'>
+                                <ProductTag type={el.attributes.tag as 'discount' | 'new' | 'salesHit'}></ProductTag>
+                            </div>
+                            <Image alt='cardimg' src={el.attributes.photo.data[0].attributes.url} height={152} width={152} />
+                            <div className='card__data_center'>
+                                <p className='card__name'>{el.attributes.name}</p>
+                                <div className='card__etc-params'>
+                                    <p>
+                                        Озу: <span>{el.attributes.memory_mb}</span>
+                                    </p>
+                                </div>
+                                <div className='card__etc-params'>
+                                    <p>
+                                        Кол-во контактов: <span>{el.attributes.pin_quantity}</span>
+                                    </p>
+                                </div>
+                                <div className='card__etc-params'>
+                                    <p>
+                                        Напряжение: <span>{el.attributes.voltage}</span>
                                     </p>
                                 </div>
                             </div>
