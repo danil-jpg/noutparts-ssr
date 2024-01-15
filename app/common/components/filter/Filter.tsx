@@ -4,6 +4,7 @@ import Loading from '../Loading/Loading';
 import FilterBattery from './organisms/FilterBattery';
 import './Filter.scss';
 import FilterHdds from './organisms/FilterHdds';
+import FilterKeyboard from './organisms/FilterKeyboard';
 // import FilterMatrix from './organisms/FilterMatrix';
 
 const FilterMatrix = lazy(() => import('./organisms/FilterMatrix'));
@@ -22,7 +23,7 @@ export default function Filter({ type }: IFilter) {
             case 'hdds':
                 return <FilterHdds />;
             case 'keyboards':
-                return <div>keyboards</div>;
+                return <FilterKeyboard />;
             case 'rams':
                 return <div>rams</div>;
             case 'power_unit':
