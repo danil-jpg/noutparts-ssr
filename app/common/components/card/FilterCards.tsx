@@ -353,6 +353,47 @@ const FilterCards = ({ type }: { type: categories }) => {
                         </div>
                     );
                 });
+            case 'power-Supplies':
+                return selector.map((el: IRam, index) => {
+                    return (
+                        <div key={index} className='card'>
+                            <h1>Elkfj;djsfs;klj</h1>
+
+                            <div className='card__tag'>
+                                <ProductTag type={el.attributes.tag as 'discount' | 'new' | 'salesHit'}></ProductTag>
+                            </div>
+                            <Image alt='cardimg' src={el.attributes.photo.data[0].attributes.url} height={152} width={152} />
+                            <div className='card__data_center'>
+                                <p className='card__name'>{el.attributes.name}</p>
+                                <div className='card__etc-params'>
+                                    <p>
+                                        Озу: <span>{el.attributes.memory_mb}</span>
+                                    </p>
+                                </div>
+                                <div className='card__etc-params'>
+                                    <p>
+                                        Кол-во контактов: <span>{el.attributes.pin_quantity}</span>
+                                    </p>
+                                </div>
+                                <div className='card__etc-params'>
+                                    <p>
+                                        Напряжение: <span>{el.attributes.voltage}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div className='card__availability'>
+                                <ProductAvailability type={el.attributes.availability as 'available' | 'ending' | 'outOfStock'}></ProductAvailability>
+                            </div>
+                            <div className='card__like-sign'>
+                                <IconRenderer id='heart-icon' className='heart-icon' />
+                            </div>
+                            <div className='card__data_right'>
+                                <p className='card__price'>{el.attributes.price} грн</p>
+                                <PrimaryBtn text='Купить' type='basket' icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                            </div>
+                        </div>
+                    );
+                });
             default:
                 return [];
         }

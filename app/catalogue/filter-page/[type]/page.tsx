@@ -4,7 +4,6 @@ import { Breadcrumb, categories } from '@/app/common/types/types';
 import Filter from '@/app/common/components/filter/Filter';
 import './filter-page.scss';
 import { useEffect } from 'react';
-import FilterCards from '@/app/common/components/filter/organisms/FilterCards/FilterCards';
 import CategoriesRow from '@/app/common/components/Categories/CategoriesRow';
 // import TopFilter from '@/app/common/components/filter/organisms/TopFilter/TopFilter';
 
@@ -31,7 +30,7 @@ export default function Page({ params }: { params: { type: categories } }) {
                     ? 'Клавиатуры'
                     : params.type.toLowerCase() === 'rams'
                     ? 'Оперативная память'
-                    : params.type.toLowerCase() === 'power_unit'
+                    : params.type.toLowerCase() === 'power-supplies'
                     ? 'Блок питания'
                     : params.type.toLowerCase()
             }`,
