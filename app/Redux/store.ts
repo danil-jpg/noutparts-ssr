@@ -11,7 +11,6 @@ import basketReducer from './slice/basket/basketSlice';
 import searchReducer from './slice/search/searchSlice';
 import favsReducer from './slice/favs/favsSlice';
 import historyProductsReducer from './slice/historyProducts/historyProducts';
-import filtersNavReducer from './slice/filtersNavSlice/filtersNavSlice';
 
 const createNoopStorage = () => {
     return {
@@ -39,7 +38,6 @@ const rootReducer = combineReducers({
     searchReducer,
     favsReducer,
     historyProductsReducer,
-    filtersNavReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

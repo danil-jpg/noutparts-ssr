@@ -181,7 +181,6 @@ export default function FilterMatrix() {
                                         <li
                                             key={el.id}
                                             className={`${choosenFilterParametrs.includes(el.attributes.diagonale) ? 'active' : ''} filter_item__value`}
-                                            // className={clsx({ active: choosenFilterParametrs.includes(el.attributes.diagonale), filter_item__value: true })}
                                             onClick={(e) => {
                                                 (async function () {
                                                     await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'diagonale');
@@ -203,7 +202,7 @@ export default function FilterMatrix() {
                                                 e.stopPropagation();
                                             }}>
                                             <>
-                                                {el.attributes.diagonale} D<p>({el.attributes.numOfOccurance})</p>
+                                                {el.attributes.diagonale} <p>({el.attributes.numOfOccurance})</p>
                                             </>
                                         </li>
                                     ))}
@@ -253,7 +252,7 @@ export default function FilterMatrix() {
 
                                                 e.stopPropagation();
                                             }}>
-                                            {el.attributes.permission} px
+                                            {el.attributes.permission}
                                             <p>({el.attributes.numOfOccurance})</p>
                                         </li>
                                     ))}

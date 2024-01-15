@@ -60,6 +60,28 @@ interface IBatteryCard {
     };
 }
 
+interface IHddCard {
+    id: number;
+    attributes: {
+        availability: string;
+        technology: string;
+        connector: string;
+        memory: number;
+        price: number;
+        name: string;
+        tag: string;
+        photo: {
+            data: [
+                {
+                    attributes: {
+                        url: string;
+                    };
+                }
+            ];
+        };
+    };
+}
+
 const FilterCards = ({ type }: { type: categories }) => {
     const selector = useAppSelector((state) => state.queryReducer.data.data);
     const dispatch = useAppDispatch();
@@ -153,6 +175,45 @@ const FilterCards = ({ type }: { type: categories }) => {
                                 <div className='card__etc-params'>
                                     <p>
                                         Тип: <span>{el.attributes.type}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div className='card__availability'>
+                                <ProductAvailability type={el.attributes.availability as 'available' | 'ending' | 'outOfStock'}></ProductAvailability>
+                            </div>
+                            <div className='card__like-sign'>
+                                <IconRenderer id='heart-icon' className='heart-icon' />
+                            </div>
+                            <div className='card__data_right'>
+                                <p className='card__price'>{el.attributes.price} грн</p>
+                                <PrimaryBtn text='Купить' type='basket' icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                            </div>
+                        </div>
+                    );
+                });
+            case 'hdds':
+                return selector.map((el: IHddCard, index) => {
+                    return (
+                        <div key={index} className='card'>
+                            <div className='card__tag'>
+                                <ProductTag type={el.attributes.tag as 'discount' | 'new' | 'salesHit'}></ProductTag>
+                            </div>
+                            <Image alt='cardimg' src={el.attributes.photo.data[0].attributes.url} height={152} width={152} />
+                            <div className='card__data_center'>
+                                <p className='card__name'>{el.attributes.name}</p>
+                                <div className='card__etc-params'>
+                                    <p>
+                                        Объем памяти: <span>{el.attributes.memory}</span>
+                                    </p>
+                                </div>
+                                <div className='card__etc-params'>
+                                    <p>
+                                        Разьем подключения: <span>{el.attributes.connector}</span>
+                                    </p>
+                                </div>
+                                <div className='card__etc-params'>
+                                    <p>
+                                        Технология: <span>{el.attributes.technology}</span>
                                     </p>
                                 </div>
                             </div>

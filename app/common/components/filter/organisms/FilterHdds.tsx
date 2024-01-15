@@ -1,18 +1,21 @@
 'use client';
-import React, { FC, memo, useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { getFilterItemData } from '@/app/lib/data';
 import { v1 } from 'uuid';
 import Loading from '../../Loading/Loading';
 import { filterItemOnclickHandler, makeUniqueAndLoopFunc, onFilterItemClickHandler } from '@/app/lib/service';
 import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
-import { createFilterNavHdd } from '@/app/Redux/slice/filtersNavSlice/filtersNavSlice';
 import { IQuery } from '@/app/common/types/types';
 import { setData, setDefaultDataAndQueryArr, setType } from '@/app/Redux/slice/query/query';
 import { setQueryArr as setQueriesArrRed } from '@/app/Redux/slice/query/query';
+import TopFilter from './TopFilter/TopFilter';
+import clsx from 'clsx';
 
 let [memory, connector, technology]: any = '';
 
 export default function FilterHdds() {
+    const [choosenFilterParametrs, setChoosenFilterParametrs] = useState<(string | number)[]>([]);
+
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
     const selector = useAppSelector((state) => state.queryReducer.queryArr);
@@ -21,15 +24,16 @@ export default function FilterHdds() {
 
     const [queriesArr, setQueriesArr] = useState<IQuery[]>(prevType === 'hdds' ? selector : []);
 
-    const filterNavHdd = useAppSelector((state) => state.filtersNavReducer.hdds);
-    const dispatch = useAppDispatch();
+    const [isActive, setIsActive] = useState<boolean>(false);
 
-    const [memoryCopy, setMemoryCopy] = useState<IMemoryMb>();
+    const rootRef = useRef<HTMLDivElement | null>(null);
+
+    const substrateRef = useRef<HTMLDivElement | null>(null);
+
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         const fetchData = async () => {
-            // if (!filterNavHdd.memory_mb.data?.length) {
-            // console.log(filterNavHdd.memory_mb.data.length);
             const memoryRow: any = getFilterItemData('hdds?fields[0]=memory_mb');
             const connectorRow: any = getFilterItemData('hdds?fields[0]=connector');
             const technologyTypeRow: any = getFilterItemData('hdds?fields[0]=technology');
@@ -41,21 +45,45 @@ export default function FilterHdds() {
             };
 
             makeUniqueAndLoopFunc(memory, 'memory_mb');
-            dispatch(createFilterNavHdd({ memory_mb: memory }));
-            setMemoryCopy(memory);
-            // } else {
-            // setMemoryCopy(structuredClone(filterNavHdd.memory_mb));
-            // }
 
-            // console.log({ memory: memory });
+            makeUniqueAndLoopFunc(connector, 'connector');
 
-            // makeUniqueAndLoopFunc(voltage, 'battery_voltage');
-
-            // makeUniqueAndLoopFunc(batteryType, 'battery_type');
-
-            // makeUniqueAndLoopFunc(color, 'battery_color');
+            makeUniqueAndLoopFunc(technology, 'technology');
 
             setIsLoaded(true);
+
+            // нужно проверить!
+            if (queriesArr.length > 0) {
+                console.log('here');
+                const result: { searchParam: string; searchParamKey: string[] }[] = [];
+
+                queriesArr.forEach((el) => {
+                    if (el.searchParam === 'permission') {
+                        result.push({ searchParam: 'permission', searchParamKey: el.searchParamKeys });
+                    } else if (el.searchParam === 'fastening') {
+                        result.push({ searchParam: 'fastening', searchParamKey: el.searchParamKeys });
+                    }
+                });
+                if (result.length > 1) {
+                    memory.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
+                        if (el.attributes.memory === result[0].searchParamKey[0]) {
+                            setChoosenFilterParametrs((prev) => {
+                                return [...prev, el.attributes.permission];
+                            });
+                        }
+                    });
+
+                    connector.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
+                        if (el.attributes.connector === result[1].searchParamKey[0]) {
+                            setChoosenFilterParametrs((prev) => {
+                                return [...prev, el.attributes.fastening];
+                            });
+                        }
+                    });
+                }
+            } else {
+                console.log(queriesArr.length);
+            }
         };
 
         if (!prevType) {
@@ -68,7 +96,26 @@ export default function FilterHdds() {
         }
 
         fetchData();
+
+        const resetQueryArrOnReload = () => dispatch(setDefaultDataAndQueryArr());
+
+        window.addEventListener('beforeunload', resetQueryArrOnReload);
+
+        return () => {
+            window.removeEventListener('beforeunload', resetQueryArrOnReload);
+        };
     }, []);
+
+    useEffect(() => {
+        if (isActive) {
+            document.body.style.overflow = 'hidden';
+            substrateRef.current?.classList.add('active');
+        } else {
+            substrateRef.current?.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            substrateRef.current?.classList.remove('active');
+        }
+    }, [isActive]);
 
     useEffect(() => {
         (async function () {
@@ -76,68 +123,180 @@ export default function FilterHdds() {
 
             dispatch(setData(res));
             dispatch(setQueriesArrRed(queriesArr));
-            // dispatch()
-            dispatch(createFilterNavHdd({ memory_mb: memoryCopy }));
         })();
     }, [queriesArr]);
 
-    useEffect(() => {
-        console.log(memoryCopy);
-    }, [memoryCopy]);
-
-    if (!isLoaded || !memoryCopy?.data.length) {
+    if (!isLoaded) {
         return <Loading></Loading>;
     }
     return (
-        <div className='filter'>
-            <p className='filter_title'>Фильтр</p>
-            <div className='filter_items'>
-                <div className='filter_item'>
-                    <p className='filter_item__title'>Емкость</p>
-                    <p className='filter_item__descr'>Емкость аккамулятора</p>
-                    <ul className='filter_item__values'>
-                        {memoryCopy.data.map((el: { id: number; attributes: { memory_mb: number; active: boolean; numOfOccurance: number } }, id: number) => (
-                            <li
-                                key={el.id}
-                                className={`${el.attributes.active ? 'active' : ''} filter_item__value`}
+        <>
+            <div
+                className='substrate'
+                ref={substrateRef}
+                onClick={() => {
+                    setIsActive(false);
+                }}></div>
+            <div className='filter-wr'>
+                <div className={clsx('filter', { active: isActive })} ref={rootRef}>
+                    <p className='filter_title'>Фильтр</p>
+                    <div className='filter_items'>
+                        <div
+                            className='filter_item'
+                            onClick={(e) => {
+                                e.currentTarget.classList.toggle('active');
+                            }}>
+                            <div
                                 onClick={(e) => {
-                                    (async function () {
-                                        await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'memory_mb');
-                                    })();
-
-                                    setMemoryCopy((state) => {
-                                        const currObj = structuredClone(el);
-                                        currObj.attributes.active = !currObj.attributes.active;
-                                        state.data[id] = currObj;
-                                        return state;
-                                    });
-
-                                    // const memoryCopy: {
-                                    //     memory_mb: { data: { id: number; attributes: { memory_mb: number; active: boolean; numOfOccurance: number } }[] };
-                                    // } = structuredClone(filterNavHdd);
-
-                                    // setMemoryCopy((state) => {
-                                    //     return [state];
-                                    // });
-                                    // memoryCopy
-                                    // el.attributes.active = !el.attributes.active;
-
-                                    // if (memoryCopy.data[id].attributes.active) {
-                                    //     memoryCopy.data[id].attributes.active = !memoryCopy.data[id].attributes.active;
-                                    //     dispatch(createFilterNavHdd({ memory_mb: memoryCopy }));
-                                    // } else {
-                                    //     memoryCopy.data[id].attributes.active = !memoryCopy.data[id].attributes.active;
-                                    //     dispatch(createFilterNavHdd({ memory_mb: memoryCopy }));
-                                    // }
-                                    e.stopPropagation();
+                                    if (e.currentTarget.nextElementSibling) {
+                                        const sibling = e.currentTarget.nextSibling as HTMLElement;
+                                        sibling.classList.toggle('active');
+                                    }
                                 }}>
-                                {el.attributes.memory_mb} mAh
-                                <p>({el.attributes.numOfOccurance})</p>
-                            </li>
-                        ))}
-                    </ul>
+                                <p className='filter_item__title'>Ёмкость</p>
+                                <p className='filter_item__descr'>Ёмкость аккумулятора</p>
+                            </div>
+
+                            <div className='filter_item__values'>
+                                <ul>
+                                    {memory.data.map(
+                                        (el: { id: number; attributes: { memory_mb: number; active: boolean; numOfOccurance: number } }, id: number) => (
+                                            <li
+                                                key={el.id}
+                                                className={`${choosenFilterParametrs.includes(el.attributes.memory_mb) ? 'active' : ''} filter_item__value`}
+                                                onClick={(e) => {
+                                                    (async function () {
+                                                        await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'memory_mb');
+                                                    })();
+
+                                                    if (choosenFilterParametrs.includes(el.attributes.memory_mb)) {
+                                                        const index = choosenFilterParametrs.indexOf(el.attributes.memory_mb);
+
+                                                        setChoosenFilterParametrs((prev) => {
+                                                            const newList = prev.filter((el, i) => i !== index);
+                                                            return newList;
+                                                        });
+                                                    } else {
+                                                        setChoosenFilterParametrs((prev) => {
+                                                            return [...prev, el.attributes.memory_mb];
+                                                        });
+                                                    }
+
+                                                    e.stopPropagation();
+                                                }}>
+                                                {el.attributes.memory_mb}
+                                                <p>({el.attributes.numOfOccurance})</p>
+                                            </li>
+                                        )
+                                    )}
+                                </ul>
+                            </div>
+                        </div>
+                        <div
+                            className='filter_item'
+                            onClick={(e) => {
+                                e.currentTarget.classList.toggle('active');
+                            }}>
+                            <div
+                                onClick={(e) => {
+                                    if (e.currentTarget.nextElementSibling) {
+                                        const sibling = e.currentTarget.nextSibling as HTMLElement;
+                                        sibling.classList.toggle('active');
+                                    }
+                                }}>
+                                <p className='filter_item__title'>Разьем подключения</p>
+                                <p className='filter_item__descr'>Разьем подключения</p>
+                            </div>
+                            <div className='filter_item__values'>
+                                <ul>
+                                    {connector.data.map((el: any) => (
+                                        <li
+                                            key={el.id}
+                                            className={`${choosenFilterParametrs.includes(el.attributes.connector) ? 'active' : ''} filter_item__value`}
+                                            onClick={(e) => {
+                                                (async function () {
+                                                    await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'connector');
+                                                })();
+
+                                                if (choosenFilterParametrs.includes(el.attributes.connector)) {
+                                                    const index = choosenFilterParametrs.indexOf(el.attributes.connector);
+                                                    setChoosenFilterParametrs((prev) => {
+                                                        const newList = prev.filter((el, i) => i !== index);
+                                                        return newList;
+                                                    });
+                                                } else {
+                                                    setChoosenFilterParametrs((prev) => {
+                                                        return [...prev, el.attributes.connector];
+                                                    });
+                                                }
+
+                                                e.stopPropagation();
+                                            }}>
+                                            {el.attributes.connector}
+                                            <p>({el.attributes.numOfOccurance})</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                        <div
+                            className='filter_item'
+                            onClick={(e) => {
+                                e.currentTarget.classList.toggle('active');
+                            }}>
+                            <div
+                                onClick={(e) => {
+                                    if (e.currentTarget.nextElementSibling) {
+                                        const sibling = e.currentTarget.nextSibling as HTMLElement;
+                                        sibling.classList.toggle('active');
+                                    }
+                                }}>
+                                <p className='filter_item__title'>Tип</p>
+                                <p className='filter_item__descr'>Tип аккумулятора</p>
+                            </div>
+                            <div className='filter_item__values'>
+                                <ul>
+                                    {technology.data.map((el: any) => (
+                                        <li
+                                            key={el.id}
+                                            className={clsx({ active: choosenFilterParametrs.includes(el.attributes.technology), filter_item__value: true })}
+                                            onClick={(e) => {
+                                                (async function () {
+                                                    await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'technology');
+                                                })();
+
+                                                if (choosenFilterParametrs.includes(el.attributes.technology)) {
+                                                    const index = choosenFilterParametrs.indexOf(el.attributes.technology);
+                                                    setChoosenFilterParametrs((prev) => {
+                                                        const newList = prev.filter((el, i) => i !== index);
+                                                        return newList;
+                                                    });
+                                                } else {
+                                                    setChoosenFilterParametrs((prev) => {
+                                                        return [...prev, el.attributes.technology];
+                                                    });
+                                                }
+                                            }}>
+                                            {el.attributes.technology}
+                                            <p>({el.attributes.numOfOccurance})</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <TopFilter
+                    queriesArr={queriesArr}
+                    setQueriesArr={setQueriesArr}
+                    isActive={isActive}
+                    setIsActive={setIsActive}
+                    substrateRef={substrateRef}
+                    choosenFilterParametrs={choosenFilterParametrs}
+                    setChoosenFilterParametrs={setChoosenFilterParametrs}
+                    type='hdds'
+                />
             </div>
-        </div>
+        </>
     );
 }

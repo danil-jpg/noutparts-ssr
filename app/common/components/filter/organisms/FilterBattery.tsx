@@ -63,22 +63,23 @@ export default function FilterBattery() {
                         result.push({ searchParam: 'fastening', searchParamKey: el.searchParamKeys });
                     }
                 });
+                if (result.length > 1) {
+                    capacity.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
+                        if (el.attributes.permission === result[0].searchParamKey[0]) {
+                            setChoosenFilterParametrs((prev) => {
+                                return [...prev, el.attributes.permission];
+                            });
+                        }
+                    });
 
-                capacity.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
-                    if (el.attributes.permission === result[0].searchParamKey[0]) {
-                        setChoosenFilterParametrs((prev) => {
-                            return [...prev, el.attributes.permission];
-                        });
-                    }
-                });
-
-                voltage.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
-                    if (el.attributes.fastening === result[1].searchParamKey[0]) {
-                        setChoosenFilterParametrs((prev) => {
-                            return [...prev, el.attributes.fastening];
-                        });
-                    }
-                });
+                    voltage.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
+                        if (el.attributes.fastening === result[1].searchParamKey[0]) {
+                            setChoosenFilterParametrs((prev) => {
+                                return [...prev, el.attributes.fastening];
+                            });
+                        }
+                    });
+                }
             } else {
                 console.log(queriesArr.length);
             }

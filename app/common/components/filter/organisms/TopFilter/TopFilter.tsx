@@ -101,20 +101,20 @@ const TopFilter = ({
     const RenderChoosen = (): React.JSX.Element => {
         return (
             <div className='choosen-wr'>
-                {choosenFilterParametrs.length > 2 ? (
-                    <div
-                        className='choosen choosen__cleanup'
-                        onClick={() => {
-                            setQueriesArr([]);
-                            setChoosenFilterParametrs([]);
-                        }}>
-                        Очистить все
-                    </div>
-                ) : (
+                {/* {choosenFilterParametrs.length > 2 ? ( */}
+                <div
+                    className='choosen choosen__cleanup'
+                    onClick={() => {
+                        setQueriesArr([]);
+                        setChoosenFilterParametrs([]);
+                    }}>
+                    Очистить все
+                </div>
+                {/* ) : (
                     ''
-                )}
+                )} */}
                 {queriesArr.map((el: IQuery, indexTop) => {
-                    return el.searchParamKeys.map((el, index) => {
+                    return el.searchParamKeys.map((el) => {
                         return (
                             <div key={v1()}>
                                 <div className='choosen'>
@@ -142,9 +142,6 @@ const TopFilter = ({
                                                     }
                                                 }
                                                 return copy;
-
-                                                // const newList = prev.filter((el, i) => i !== index);
-                                                // return newList;
                                             });
                                         }}
                                     />
