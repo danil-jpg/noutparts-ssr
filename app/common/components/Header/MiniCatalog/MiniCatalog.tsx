@@ -41,8 +41,8 @@ const MiniCatalog: FC = () => {
         {
             product_group_name: 'Matrices',
             product_group_types: {
-                '1366x768': ['rail'],
-                '1920x1080': ['rail', 'SLIM'],
+                '1366x768 px': ['rail'],
+                '1920x1080 px': ['rail', 'SLIM'],
             },
         },
         {

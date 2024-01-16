@@ -1,11 +1,12 @@
-'use client';
-import React, { Suspense, lazy, useState } from 'react';
+import React, { Suspense } from 'react';
 import Loading from '../Loading/Loading';
 import FilterBattery from './organisms/FilterBattery';
 import './Filter.scss';
-// import FilterMatrix from './organisms/FilterMatrix';
-
-const FilterMatrix = lazy(() => import('./organisms/FilterMatrix'));
+import FilterHdd from './organisms/FilterHdd';
+import FilterKeyboard from './organisms/FilterKeyboard';
+import FilterRam from './organisms/FilterRam';
+import FilterPower from './organisms/FilterPowerSupply';
+import FilterMatrix from './organisms/FilterMatrix';
 
 interface IFilter {
     type: string;
@@ -19,13 +20,13 @@ export default function Filter({ type }: IFilter) {
             case 'batteries':
                 return <FilterBattery />;
             case 'hdds':
-                return <div>hdds</div>;
+                return <FilterHdd />;
             case 'keyboards':
-                return <div>keyboards</div>;
+                return <FilterKeyboard />;
             case 'rams':
-                return <div>rams</div>;
-            case 'power_unit':
-                return <div>power_unit</div>;
+                return <FilterRam />;
+            case 'power-Supplies':
+                return <FilterPower />;
             default:
                 return <FilterMatrix />;
         }

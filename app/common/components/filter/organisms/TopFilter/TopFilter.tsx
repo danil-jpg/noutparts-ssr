@@ -7,8 +7,8 @@ import { getFilterItemData } from '@/app/lib/data';
 import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
 import { onSelectItemChangeHandler, onStatusItemClickHandler } from '@/app/lib/service';
 import { IQuery, categories } from '@/app/common/types/types';
-import { setData } from '@/app/Redux/slice/query/query';
-import FilterCards from '../FilterCards/FilterCards';
+import { setData, setDefaultDataAndQueryArr, setType } from '@/app/Redux/slice/query/query';
+import FilterCards from '../../../card/FilterCards';
 import clsx from 'clsx';
 import { v1 } from 'uuid';
 
@@ -97,7 +97,15 @@ const TopFilter = ({
     const RenderChoosen = (): React.JSX.Element => {
         return (
             <div className='choosen-wr'>
-                {queriesArr.map((el: IQuery) => {
+                <div
+                    className='choosen choosen__cleanup'
+                    onClick={() => {
+                        setQueriesArr([]);
+                        setChoosenFilterParametrs([]);
+                    }}>
+                    Очистить все
+                </div>
+                {queriesArr.map((el: IQuery, indexTop) => {
                     return el.searchParamKeys.map((el) => {
                         return (
                             <div key={v1()}>
@@ -106,20 +114,27 @@ const TopFilter = ({
                                     <IconRenderer
                                         id='cross-icon'
                                         onClick={() => {
-                                            for (let i = 0; i < queriesArr.length; i++) {
-                                                if (queriesArr[i].searchParamKeys.includes(el)) {
-                                                    const index = queriesArr[i].searchParamKeys.indexOf(el);
-                                                    setQueriesArr((prev) => {
-                                                        const copy = structuredClone(prev);
-                                                        copy[i].searchParamKeys.splice(index, 1);
-                                                        return copy;
-                                                    });
-                                                    setChoosenFilterParametrs((prev) => {
-                                                        prev.splice(index, 1);
-                                                        return prev;
-                                                    });
-                                                }
+                                            if (choosenFilterParametrs.includes(el)) {
+                                                const choosenParIndex = choosenFilterParametrs.indexOf(el);
+
+                                                setChoosenFilterParametrs((prev) => {
+                                                    const newList = prev.filter((el, i) => i !== choosenParIndex);
+
+                                                    return newList;
+                                                });
                                             }
+
+                                            setQueriesArr((prev) => {
+                                                const copy = structuredClone(prev);
+                                                for (let i = 0; i < queriesArr.length; i++) {
+                                                    if (prev[i].searchParamKeys.includes(el)) {
+                                                        const index = queriesArr[i].searchParamKeys.indexOf(el);
+
+                                                        copy[indexTop].searchParamKeys.splice(index, 1);
+                                                    }
+                                                }
+                                                return copy;
+                                            });
                                         }}
                                     />
                                 </div>

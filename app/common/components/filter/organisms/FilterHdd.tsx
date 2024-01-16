@@ -3,27 +3,26 @@ import React, { useEffect, useRef, useState } from 'react';
 import { getFilterItemData } from '@/app/lib/data';
 import { v1 } from 'uuid';
 import Loading from '../../Loading/Loading';
-import { filterItemOnclickHandler, makeUniqueAndLoopFunc } from '@/app/lib/service';
-import clsx from 'clsx';
+import { filterItemOnclickHandler, makeUniqueAndLoopFunc, onFilterItemClickHandler } from '@/app/lib/service';
 import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
 import { IQuery } from '@/app/common/types/types';
-import { onFilterItemClickHandler } from '@/app/lib/service';
 import { setData, setDefaultDataAndQueryArr, setType } from '@/app/Redux/slice/query/query';
 import { setQueryArr as setQueriesArrRed } from '@/app/Redux/slice/query/query';
 import TopFilter from './TopFilter/TopFilter';
+import clsx from 'clsx';
 
-let [capacity, voltage, type, color]: any = '';
+let [memory, connector, technology]: any = '';
 
-export default function FilterBattery() {
+export default function FilterHdds() {
     const [choosenFilterParametrs, setChoosenFilterParametrs] = useState<(string | number)[]>([]);
 
-    const prevType = useAppSelector((state) => state.queryReducer.type);
+    const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
     const selector = useAppSelector((state) => state.queryReducer.queryArr);
 
-    const [queriesArr, setQueriesArr] = useState<IQuery[]>(prevType === 'batteries' ? selector : []);
+    const prevType = useAppSelector((state) => state.queryReducer.type);
 
-    const [isLoaded, setIsLoaded] = useState<boolean>(false);
+    const [queriesArr, setQueriesArr] = useState<IQuery[]>(prevType === 'hdds' ? selector : []);
 
     const [isActive, setIsActive] = useState<boolean>(false);
 
@@ -35,23 +34,25 @@ export default function FilterBattery() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const capacityRow: any = getFilterItemData('batteries?fields[0]=capacity&sort[0]=capacity:asc');
-            const voltageRow: any = getFilterItemData('batteries?fields[0]=voltage&sort[0]=voltage:asc');
-            const typeRow: any = getFilterItemData('batteries?fields[0]=type&sort[0]=type:asc');
-            const colorRow: any = getFilterItemData('batteries?fields[0]=color&sort[0]=color:asc');
+            const memoryRow: any = getFilterItemData('hdds?fields[0]=memory_mb');
+            const connectorRow: any = getFilterItemData('hdds?fields[0]=connector');
+            const technologyTypeRow: any = getFilterItemData('hdds?fields[0]=technology');
 
-            [capacity, voltage, type, color] = await Promise.all([capacityRow, voltageRow, typeRow, colorRow]);
+            [memory, connector, technology] = await Promise.all([memoryRow, connectorRow, technologyTypeRow]);
 
-            makeUniqueAndLoopFunc(capacity, 'capacity');
+            memory as {
+                data: { id: number; attributes: { memory_mb: number; active: boolean; numOfOccurance: number } }[];
+            };
 
-            makeUniqueAndLoopFunc(voltage, 'voltage');
+            makeUniqueAndLoopFunc(memory, 'memory_mb');
 
-            makeUniqueAndLoopFunc(type, 'type');
+            makeUniqueAndLoopFunc(connector, 'connector');
 
-            makeUniqueAndLoopFunc(color, 'color');
+            makeUniqueAndLoopFunc(technology, 'technology');
 
             setIsLoaded(true);
 
+            // нужно проверить!
             if (queriesArr.length > 0) {
                 console.log('here');
                 const result: { searchParam: string; searchParamKey: string[] }[] = [];
@@ -64,16 +65,16 @@ export default function FilterBattery() {
                     }
                 });
                 if (result.length > 1) {
-                    capacity.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
-                        if (el.attributes.permission === result[0].searchParamKey[0]) {
+                    memory.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
+                        if (el.attributes.memory === result[0].searchParamKey[0]) {
                             setChoosenFilterParametrs((prev) => {
                                 return [...prev, el.attributes.permission];
                             });
                         }
                     });
 
-                    voltage.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
-                        if (el.attributes.fastening === result[1].searchParamKey[0]) {
+                    connector.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
+                        if (el.attributes.connector === result[1].searchParamKey[0]) {
                             setChoosenFilterParametrs((prev) => {
                                 return [...prev, el.attributes.fastening];
                             });
@@ -86,11 +87,11 @@ export default function FilterBattery() {
         };
 
         if (!prevType) {
-            dispatch(setType('batteries'));
-        } else if (prevType === 'batteries') {
+            dispatch(setType('hdds'));
+        } else if (prevType === 'hdds') {
             setQueriesArr(selector);
         } else {
-            dispatch(setType('batteries'));
+            dispatch(setType('hdds'));
             dispatch(setDefaultDataAndQueryArr());
         }
 
@@ -118,7 +119,7 @@ export default function FilterBattery() {
 
     useEffect(() => {
         (async function () {
-            const res = await filterItemOnclickHandler(queriesArr, 'batteries');
+            const res = await filterItemOnclickHandler(queriesArr, 'hdds');
 
             dispatch(setData(res));
             dispatch(setQueriesArrRed(queriesArr));
@@ -128,7 +129,6 @@ export default function FilterBattery() {
     if (!isLoaded) {
         return <Loading></Loading>;
     }
-
     return (
         <>
             <div
@@ -159,34 +159,36 @@ export default function FilterBattery() {
 
                             <div className='filter_item__values'>
                                 <ul>
-                                    {capacity.data.map((el: { id: number; attributes: { [key: string]: string } }) => (
-                                        <li
-                                            key={el.id}
-                                            className={clsx({ active: choosenFilterParametrs.includes(el.attributes.capacity), filter_item__value: true })}
-                                            onClick={(e) => {
-                                                (async function () {
-                                                    await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'capacity');
-                                                })();
-                                                if (choosenFilterParametrs.includes(el.attributes.capacity)) {
-                                                    const index = choosenFilterParametrs.indexOf(el.attributes.capacity);
+                                    {memory.data.map(
+                                        (el: { id: number; attributes: { memory_mb: number; active: boolean; numOfOccurance: number } }, id: number) => (
+                                            <li
+                                                key={el.id}
+                                                className={`${choosenFilterParametrs.includes(el.attributes.memory_mb) ? 'active' : ''} filter_item__value`}
+                                                onClick={(e) => {
+                                                    (async function () {
+                                                        await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'memory_mb');
+                                                    })();
 
-                                                    setChoosenFilterParametrs((prev) => {
-                                                        const newList = prev.filter((el, i) => i !== index);
-                                                        return newList;
-                                                    });
-                                                } else {
-                                                    setChoosenFilterParametrs((prev) => {
-                                                        return [...prev, el.attributes.capacity];
-                                                    });
-                                                }
+                                                    if (choosenFilterParametrs.includes(el.attributes.memory_mb)) {
+                                                        const index = choosenFilterParametrs.indexOf(el.attributes.memory_mb);
 
-                                                e.stopPropagation();
-                                            }}>
-                                            <>
-                                                {el.attributes.capacity} А-ч<p>({el.attributes.numOfOccurance})</p>
-                                            </>
-                                        </li>
-                                    ))}
+                                                        setChoosenFilterParametrs((prev) => {
+                                                            const newList = prev.filter((el, i) => i !== index);
+                                                            return newList;
+                                                        });
+                                                    } else {
+                                                        setChoosenFilterParametrs((prev) => {
+                                                            return [...prev, el.attributes.memory_mb];
+                                                        });
+                                                    }
+
+                                                    e.stopPropagation();
+                                                }}>
+                                                {el.attributes.memory_mb}
+                                                <p>({el.attributes.numOfOccurance})</p>
+                                            </li>
+                                        )
+                                    )}
                                 </ul>
                             </div>
                         </div>
@@ -202,35 +204,36 @@ export default function FilterBattery() {
                                         sibling.classList.toggle('active');
                                     }
                                 }}>
-                                <p className='filter_item__title'>Напряжение</p>
-                                <p className='filter_item__descr'>Напряжение аккумулятора</p>
+                                <p className='filter_item__title'>Разьем подключения</p>
+                                <p className='filter_item__descr'>Разьем подключения</p>
                             </div>
                             <div className='filter_item__values'>
                                 <ul>
-                                    {voltage.data.map((el: any) => (
+                                    {connector.data.map((el: any) => (
                                         <li
                                             key={el.id}
-                                            className={clsx({ active: choosenFilterParametrs.includes(el.attributes.voltage), filter_item__value: true })}
+                                            className={`${choosenFilterParametrs.includes(el.attributes.connector) ? 'active' : ''} filter_item__value`}
                                             onClick={(e) => {
                                                 (async function () {
-                                                    await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'voltage');
+                                                    await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'connector');
                                                 })();
 
-                                                if (choosenFilterParametrs.includes(el.attributes.voltage)) {
-                                                    const index = choosenFilterParametrs.indexOf(el.attributes.voltage);
+                                                if (choosenFilterParametrs.includes(el.attributes.connector)) {
+                                                    const index = choosenFilterParametrs.indexOf(el.attributes.connector);
                                                     setChoosenFilterParametrs((prev) => {
                                                         const newList = prev.filter((el, i) => i !== index);
                                                         return newList;
                                                     });
                                                 } else {
                                                     setChoosenFilterParametrs((prev) => {
-                                                        return [...prev, el.attributes.voltage];
+                                                        return [...prev, el.attributes.connector];
                                                     });
                                                 }
 
                                                 e.stopPropagation();
                                             }}>
-                                            {el.attributes.voltage} v<p>({el.attributes.numOfOccurance})</p>
+                                            {el.attributes.connector}
+                                            <p>({el.attributes.numOfOccurance})</p>
                                         </li>
                                     ))}
                                 </ul>
@@ -253,78 +256,28 @@ export default function FilterBattery() {
                             </div>
                             <div className='filter_item__values'>
                                 <ul>
-                                    {type.data.map((el: any) => (
+                                    {technology.data.map((el: any) => (
                                         <li
                                             key={el.id}
-                                            className={clsx({ active: choosenFilterParametrs.includes(el.attributes.type), filter_item__value: true })}
+                                            className={clsx({ active: choosenFilterParametrs.includes(el.attributes.technology), filter_item__value: true })}
                                             onClick={(e) => {
                                                 (async function () {
-                                                    await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'type');
+                                                    await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'technology');
                                                 })();
 
-                                                if (choosenFilterParametrs.includes(el.attributes.type)) {
-                                                    const index = choosenFilterParametrs.indexOf(el.attributes.type);
+                                                if (choosenFilterParametrs.includes(el.attributes.technology)) {
+                                                    const index = choosenFilterParametrs.indexOf(el.attributes.technology);
                                                     setChoosenFilterParametrs((prev) => {
                                                         const newList = prev.filter((el, i) => i !== index);
                                                         return newList;
                                                     });
                                                 } else {
                                                     setChoosenFilterParametrs((prev) => {
-                                                        return [...prev, el.attributes.type];
+                                                        return [...prev, el.attributes.technology];
                                                     });
                                                 }
-
-                                                e.stopPropagation();
                                             }}>
-                                            {el.attributes.type}
-                                            <p>({el.attributes.numOfOccurance})</p>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div
-                            className='filter_item'
-                            onClick={(e) => {
-                                e.currentTarget.classList.toggle('active');
-                            }}>
-                            <div
-                                onClick={(e) => {
-                                    if (e.currentTarget.nextElementSibling) {
-                                        const sibling = e.currentTarget.nextSibling as HTMLElement;
-                                        sibling.classList.toggle('active');
-                                    }
-                                }}>
-                                <p className='filter_item__title'>Цвет</p>
-                                <p className='filter_item__descr'>Цвет аккумулятора</p>
-                            </div>
-                            <div className='filter_item__values'>
-                                <ul>
-                                    {color.data.map((el: any) => (
-                                        <li
-                                            key={v1()}
-                                            className={clsx({ active: choosenFilterParametrs.includes(el.attributes.color), filter_item__value: true })}
-                                            onClick={(e) => {
-                                                (async function () {
-                                                    await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'color');
-                                                })();
-
-                                                if (choosenFilterParametrs.includes(el.attributes.color)) {
-                                                    const index = choosenFilterParametrs.indexOf(el.attributes.color);
-                                                    setChoosenFilterParametrs((prev) => {
-                                                        const newList = prev.filter((el, i) => i !== index);
-                                                        return newList;
-                                                    });
-                                                } else {
-                                                    setChoosenFilterParametrs((prev) => {
-                                                        return [...prev, el.attributes.color];
-                                                    });
-                                                }
-
-                                                e.stopPropagation();
-                                            }}>
-                                            {el.attributes.color}
+                                            {el.attributes.technology}
                                             <p>({el.attributes.numOfOccurance})</p>
                                         </li>
                                     ))}
@@ -341,7 +294,7 @@ export default function FilterBattery() {
                     substrateRef={substrateRef}
                     choosenFilterParametrs={choosenFilterParametrs}
                     setChoosenFilterParametrs={setChoosenFilterParametrs}
-                    type='batteries'
+                    type='hdds'
                 />
             </div>
         </>

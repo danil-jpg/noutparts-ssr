@@ -68,6 +68,39 @@ export default function FilterMatrix() {
             makeUniqueAndLoopFunc(hashrate, 'hashrate');
 
             setIsLoaded(true);
+
+            if (queriesArr.length > 0) {
+                console.log('here');
+                const result: { searchParam: string; searchParamKey: string[] }[] = [];
+
+                queriesArr.forEach((el) => {
+                    if (el.searchParam === 'permission') {
+                        result.push({ searchParam: 'permission', searchParamKey: el.searchParamKeys });
+                    } else if (el.searchParam === 'fastening') {
+                        result.push({ searchParam: 'fastening', searchParamKey: el.searchParamKeys });
+                    }
+                });
+
+                if (result.length > 1) {
+                    permission.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
+                        if (el.attributes.permission === result[0].searchParamKey[0]) {
+                            setChoosenFilterParametrs((prev) => {
+                                return [...prev, el.attributes.permission];
+                            });
+                        }
+                    });
+
+                    fastening.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
+                        if (el.attributes.fastening === result[1].searchParamKey[0]) {
+                            setChoosenFilterParametrs((prev) => {
+                                return [...prev, el.attributes.fastening];
+                            });
+                        }
+                    });
+                }
+            } else {
+                console.log(queriesArr.length);
+            }
         };
 
         if (!prevType) {
@@ -80,6 +113,14 @@ export default function FilterMatrix() {
         }
 
         fetchData();
+
+        const resetQueryArrOnReload = () => dispatch(setDefaultDataAndQueryArr());
+
+        window.addEventListener('beforeunload', resetQueryArrOnReload);
+
+        return () => {
+            window.removeEventListener('beforeunload', resetQueryArrOnReload);
+        };
     }, []);
 
     useEffect(() => {
@@ -139,29 +180,29 @@ export default function FilterMatrix() {
                                     {diagonale.data.map((el: { id: number; attributes: { [key: string]: string } }) => (
                                         <li
                                             key={el.id}
-                                            className={clsx({ active: choosenFilterParametrs.includes(el.attributes.diagonale), filter_item__value: true })}
+                                            className={`${choosenFilterParametrs.includes(el.attributes.diagonale) ? 'active' : ''} filter_item__value`}
                                             onClick={(e) => {
                                                 (async function () {
                                                     await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'diagonale');
                                                 })();
+
                                                 if (choosenFilterParametrs.includes(el.attributes.diagonale)) {
                                                     const index = choosenFilterParametrs.indexOf(el.attributes.diagonale);
 
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.splice(index, 1);
-                                                        return prev;
+                                                        const newList = prev.filter((el, i) => i !== index);
+                                                        return newList;
                                                     });
                                                 } else {
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.push(el.attributes.diagonale);
-                                                        return prev;
+                                                        return [...prev, el.attributes.diagonale];
                                                     });
                                                 }
 
                                                 e.stopPropagation();
                                             }}>
                                             <>
-                                                {el.attributes.diagonale} D<p>({el.attributes.numOfOccurance})</p>
+                                                {el.attributes.diagonale} <p>({el.attributes.numOfOccurance})</p>
                                             </>
                                         </li>
                                     ))}
@@ -188,7 +229,10 @@ export default function FilterMatrix() {
                                     {permission.data.map((el: any) => (
                                         <li
                                             key={el.id}
-                                            className={clsx({ active: choosenFilterParametrs.includes(el.attributes.permission), filter_item__value: true })}
+                                            className={clsx({
+                                                active: choosenFilterParametrs.includes(el.attributes.permission),
+                                                filter_item__value: true,
+                                            })}
                                             onClick={(e) => {
                                                 (async function () {
                                                     await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'permission');
@@ -197,19 +241,18 @@ export default function FilterMatrix() {
                                                 if (choosenFilterParametrs.includes(el.attributes.permission)) {
                                                     const index = choosenFilterParametrs.indexOf(el.attributes.permission);
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.splice(index, 1);
-                                                        return prev;
+                                                        const newList = prev.filter((el, i) => i !== index);
+                                                        return newList;
                                                     });
                                                 } else {
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.push(el.attributes.permission);
-                                                        return prev;
+                                                        return [...prev, el.attributes.permission];
                                                     });
                                                 }
 
                                                 e.stopPropagation();
                                             }}>
-                                            {el.attributes.permission} px
+                                            {el.attributes.permission}
                                             <p>({el.attributes.numOfOccurance})</p>
                                         </li>
                                     ))}
@@ -245,13 +288,12 @@ export default function FilterMatrix() {
                                                 if (choosenFilterParametrs.includes(el.attributes.fastening)) {
                                                     const index = choosenFilterParametrs.indexOf(el.attributes.fastening);
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.splice(index, 1);
-                                                        return prev;
+                                                        const newList = prev.filter((el, i) => i !== index);
+                                                        return newList;
                                                     });
                                                 } else {
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.push(el.attributes.fastening);
-                                                        return prev;
+                                                        return [...prev, el.attributes.fastening];
                                                     });
                                                 }
 
@@ -296,13 +338,12 @@ export default function FilterMatrix() {
                                                 if (choosenFilterParametrs.includes(el.attributes.fiber_optic_technology)) {
                                                     const index = choosenFilterParametrs.indexOf(el.attributes.fiber_optic_technology);
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.splice(index, 1);
-                                                        return prev;
+                                                        const newList = prev.filter((el, i) => i !== index);
+                                                        return newList;
                                                     });
                                                 } else {
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.push(el.attributes.fiber_optic_technology);
-                                                        return prev;
+                                                        return [...prev, el.attributes.fiber_optic_technology];
                                                     });
                                                 }
 
@@ -347,13 +388,12 @@ export default function FilterMatrix() {
                                                 if (choosenFilterParametrs.includes(el.attributes.backlight_type)) {
                                                     const index = choosenFilterParametrs.indexOf(el.attributes.backlight_type);
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.splice(index, 1);
-                                                        return prev;
+                                                        const newList = prev.filter((el, i) => i !== index);
+                                                        return newList;
                                                     });
                                                 } else {
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.push(el.attributes.backlight_type);
-                                                        return prev;
+                                                        return [...prev, el.attributes.backlight_type];
                                                     });
                                                 }
 
@@ -395,13 +435,12 @@ export default function FilterMatrix() {
                                                 if (choosenFilterParametrs.includes(el.attributes.hashrate)) {
                                                     const index = choosenFilterParametrs.indexOf(el.attributes.hashrate);
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.splice(index, 1);
-                                                        return prev;
+                                                        const newList = prev.filter((el, i) => i !== index);
+                                                        return newList;
                                                     });
                                                 } else {
                                                     setChoosenFilterParametrs((prev) => {
-                                                        prev.push(el.attributes.hashrate);
-                                                        return prev;
+                                                        return [...prev, el.attributes.hashrate];
                                                     });
                                                 }
 
