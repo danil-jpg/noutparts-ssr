@@ -127,6 +127,28 @@ interface IRam {
     };
 }
 
+interface IPowerSupply {
+    id: number;
+    attributes: {
+        availability: string;
+        voltage: string;
+        amperage: string;
+        power: string;
+        price: number;
+        name: string;
+        tag: string;
+        photo: {
+            data: [
+                {
+                    attributes: {
+                        url: string;
+                    };
+                }
+            ];
+        };
+    };
+}
+
 const FilterCards = ({ type }: { type: categories }) => {
     const selector = useAppSelector((state) => state.queryReducer.data.data);
     const dispatch = useAppDispatch();
@@ -354,11 +376,9 @@ const FilterCards = ({ type }: { type: categories }) => {
                     );
                 });
             case 'power-Supplies':
-                return selector.map((el: IRam, index) => {
+                return selector.map((el: IPowerSupply, index) => {
                     return (
                         <div key={index} className='card'>
-                            <h1>Elkfj;djsfs;klj</h1>
-
                             <div className='card__tag'>
                                 <ProductTag type={el.attributes.tag as 'discount' | 'new' | 'salesHit'}></ProductTag>
                             </div>
@@ -367,12 +387,12 @@ const FilterCards = ({ type }: { type: categories }) => {
                                 <p className='card__name'>{el.attributes.name}</p>
                                 <div className='card__etc-params'>
                                     <p>
-                                        Озу: <span>{el.attributes.memory_mb}</span>
+                                        Напряжение: <span>{el.attributes.amperage}</span>
                                     </p>
                                 </div>
                                 <div className='card__etc-params'>
                                     <p>
-                                        Кол-во контактов: <span>{el.attributes.pin_quantity}</span>
+                                        Ёмкость: <span>{el.attributes.power}</span>
                                     </p>
                                 </div>
                                 <div className='card__etc-params'>
