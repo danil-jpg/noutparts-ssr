@@ -164,3 +164,29 @@ h6 {
 //         max-width: 288px;
 //     }
 // }
+
+
+.breadcrumb-all-page{
+    width: 100%;
+    max-width: 1230px;
+    margin: 20px 0 0px 0;
+    &__wrapper{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media(max-width: 1230px){
+    .breadcrumb-all-page{
+        width: 100%;
+        max-width: 1230px;
+        margin: 20px 0 0px 0;
+        padding: 0 16px;
+        &__wrapper{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+    }
+}
