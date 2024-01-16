@@ -65,6 +65,7 @@ export interface IHeaderMiniCatalogItem {
     toggleItem: () => void;
     activeProperty: string | null;
     setActiveProperty: React.Dispatch<React.SetStateAction<string | null>>;
+    setBigMenuActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface IHeaderMiniCatalogPropertyItem {
@@ -72,6 +73,7 @@ export interface IHeaderMiniCatalogPropertyItem {
     subProperties: string[];
     setActiveSubProperty: (property: string | null) => void;
     catalogItemName: string;
+    setBigMenuActive: React.Dispatch<React.SetStateAction<boolean>>;
     // onSelectionChange: (selectedOptions: string[]) => void;
 }
 

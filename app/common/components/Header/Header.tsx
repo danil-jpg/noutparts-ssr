@@ -26,7 +26,7 @@ const Header: FC = ({}) => {
                     <Link href='/delivery'>
                         <div className='header__nav-item'>Доставка и оплата</div>
                     </Link>
-                    <Link href='/guarantees'>
+                    <Link href='/warranty'>
                         <div className='header__nav-item'>Гарантии</div>
                     </Link>
                     <Link href='/contacts'>

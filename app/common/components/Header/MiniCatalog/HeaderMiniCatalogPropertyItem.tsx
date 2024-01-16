@@ -7,7 +7,7 @@ import { useAppDispatch } from '@/app/Redux/store';
 import { setQueryArr, setType } from '@/app/Redux/slice/query/query';
 import { useRouter } from 'next/navigation';
 
-const HeaderMiniCatalogPropertyItem: FC<IHeaderMiniCatalogPropertyItem> = ({ catalogItemName, property, subProperties }) => {
+const HeaderMiniCatalogPropertyItem: FC<IHeaderMiniCatalogPropertyItem> = ({ catalogItemName, property, subProperties , setBigMenuActive}) => {
     const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
     const dispatch = useAppDispatch();
@@ -74,6 +74,13 @@ const HeaderMiniCatalogPropertyItem: FC<IHeaderMiniCatalogPropertyItem> = ({ cat
                     dispatch(setType('batteries'));
                     break;
             }
+
+
+            if (selectedOptions[2]) {
+                // Assuming 'batteries' is the last column that links to the catalog
+                setBigMenuActive(false);  // Close the big menu
+            }
+
             // if (selectedOptions[0] === 'Matrices') {
             //     if (window.location.href.match(/\bmatrices\b/gi)) {
             //         router.refresh();
@@ -96,6 +103,8 @@ const HeaderMiniCatalogPropertyItem: FC<IHeaderMiniCatalogPropertyItem> = ({ cat
             // }
 
             // createPageURL();
+
+            
         } else {
             console.log(selectedOptions);
         }

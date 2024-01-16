@@ -41,19 +41,19 @@ const Footer = ({}) => {
 					<div className="footer__list-column">
 						<div className="footer__list-heading">Навигация</div>
 						<div className="footer__list">
-							<Link href={"/"}>
+							<Link href={"/about"}>
 								<div className="footer__list-item">О нас</div>
 							</Link>
-							<Link href={"/"}>
+							<Link href={"/delivery"}>
 								<div className="footer__list-item">Доставка и оплата</div>
 							</Link>
-							<Link href={"/"}>
+							<Link href={"/warranty"}>
 								<div className="footer__list-item">Гарантии</div>
 							</Link>
-							<Link href={"/"}>
+							<Link href={"/catalogue"}>
 								<div className="footer__list-item">Каталог</div>
 							</Link>
-							<Link href={"/"}>
+							<Link href={"/contacts"}>
 								<div className="footer__list-item">Контакты</div>
 							</Link>
 						</div>
@@ -62,22 +62,22 @@ const Footer = ({}) => {
 					<div className="footer__list-column">
 						<div className="footer__list-heading">Каталог</div>
 						<div className="footer__list">
-							<Link href={"/"}>
+							<Link href={"/catalogue/filter-page/Matrices"}>
 								<div className="footer__list-item">Матрицы</div>
 							</Link>
-							<Link href={"/"}>
+							<Link href={"/catalogue/filter-page/Batteries"}>
 								<div className="footer__list-item">Аккумуляторы</div>
 							</Link>
-							<Link href={"/"}>
+							<Link href={"/catalogue/filter-page/Hdds"}>
 								<div className="footer__list-item">Жесткие диски </div>
 							</Link>
-							<Link href={"/"}>
+							<Link href={"/catalogue/filter-page/Keyboards"}>
 								<div className="footer__list-item">Клавиатуры</div>
 							</Link>
-							<Link href={"/"}>
+							<Link href={"/catalogue/filter-page/Rams"}>
 								<div className="footer__list-item">Оперативная память</div>
 							</Link>
-							<Link href={"/"}>
+							<Link href={"/catalogue/filter-page/Power_Supplies"}>
 								<div className="footer__list-item">Блок питания</div>
 							</Link>
 						</div>
