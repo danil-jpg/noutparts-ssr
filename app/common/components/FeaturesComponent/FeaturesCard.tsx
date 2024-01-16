@@ -36,7 +36,7 @@ const FeaturesCard: React.FC<FeaturesCardProps> = ({ product, isBought, isFav })
         dispatch(addFavProduct(product));
     };
 
-    const hendleProductDetails = () => {
+    const handleProductDetails = () => {
         const url: string = `product/${product.category}/${product.id}`;
         router.push(url);
     };
@@ -82,7 +82,7 @@ const FeaturesCard: React.FC<FeaturesCardProps> = ({ product, isBought, isFav })
                 <div
                     className='features-card__product-link'
                     onClick={() => {
-                        hendleProductDetails();
+                        handleProductDetails();
                     }}>
                     Подробнее о товаре
                 </div>

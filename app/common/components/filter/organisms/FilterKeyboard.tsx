@@ -12,16 +12,16 @@ import { setData, setDefaultDataAndQueryArr, setType } from '@/app/Redux/slice/q
 import { setQueryArr as setQueriesArrRed } from '@/app/Redux/slice/query/query';
 import TopFilter from './TopFilter/TopFilter';
 
-let [capacity, voltage, type, color]: any = '';
+let [form_factor, layout, color, backlight]: any = '';
 
-export default function FilterBattery() {
+export default function FilterKeyboard() {
     const [choosenFilterParametrs, setChoosenFilterParametrs] = useState<(string | number)[]>([]);
-
-    const prevType = useAppSelector((state) => state.queryReducer.type);
 
     const selector = useAppSelector((state) => state.queryReducer.queryArr);
 
-    const [queriesArr, setQueriesArr] = useState<IQuery[]>(prevType === 'batteries' ? selector : []);
+    const prevType = useAppSelector((state) => state.queryReducer.type);
+
+    const [queriesArr, setQueriesArr] = useState<IQuery[]>(prevType === 'keyboards' ? selector : []);
 
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
@@ -35,20 +35,20 @@ export default function FilterBattery() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const capacityRow: any = getFilterItemData('batteries?fields[0]=capacity&sort[0]=capacity:asc');
-            const voltageRow: any = getFilterItemData('batteries?fields[0]=voltage&sort[0]=voltage:asc');
-            const typeRow: any = getFilterItemData('batteries?fields[0]=type&sort[0]=type:asc');
-            const colorRow: any = getFilterItemData('batteries?fields[0]=color&sort[0]=color:asc');
+            const form_factorRow: any = getFilterItemData('keyboards?fields[0]=form_factor&sort[0]=form_factor:asc');
+            const layoutRow: any = getFilterItemData('keyboards?fields[0]=layout&sort[0]=layout:asc');
+            const colorRow: any = getFilterItemData('keyboards?fields[0]=color&sort[0]=color:asc');
+            const backlightRow: any = getFilterItemData('keyboards?fields[0]=backlight&sort[0]=backlight:asc');
 
-            [capacity, voltage, type, color] = await Promise.all([capacityRow, voltageRow, typeRow, colorRow]);
+            [form_factor, layout, color, backlight] = await Promise.all([form_factorRow, layoutRow, colorRow, backlightRow]);
 
-            makeUniqueAndLoopFunc(capacity, 'capacity');
+            makeUniqueAndLoopFunc(form_factor, 'diagonale');
 
-            makeUniqueAndLoopFunc(voltage, 'voltage');
-
-            makeUniqueAndLoopFunc(type, 'type');
+            makeUniqueAndLoopFunc(layout, 'layout');
 
             makeUniqueAndLoopFunc(color, 'color');
+
+            makeUniqueAndLoopFunc(backlight, 'connector');
 
             setIsLoaded(true);
 
@@ -57,28 +57,28 @@ export default function FilterBattery() {
                 const result: { searchParam: string; searchParamKey: string[] }[] = [];
 
                 queriesArr.forEach((el) => {
-                    if (el.searchParam === 'permission') {
-                        result.push({ searchParam: 'permission', searchParamKey: el.searchParamKeys });
-                    } else if (el.searchParam === 'fastening') {
-                        result.push({ searchParam: 'fastening', searchParamKey: el.searchParamKeys });
+                    if (el.searchParam === 'layout') {
+                        result.push({ searchParam: 'layout', searchParamKey: el.searchParamKeys });
+                    } else if (el.searchParam === 'color') {
+                        result.push({ searchParam: 'color', searchParamKey: el.searchParamKeys });
                     }
                 });
-                if (result.length > 1) {
-                    capacity.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
-                        if (el.attributes.permission === result[0].searchParamKey[0]) {
-                            setChoosenFilterParametrs((prev) => {
-                                return [...prev, el.attributes.permission];
-                            });
-                        }
-                    });
 
-                    voltage.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
-                        if (el.attributes.fastening === result[1].searchParamKey[0]) {
-                            setChoosenFilterParametrs((prev) => {
-                                return [...prev, el.attributes.fastening];
-                            });
-                        }
-                    });
+                if (result.length > 1) {
+                    // layout.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
+                    //     if (el.attributes.layout === result[0].searchParamKey[0]) {
+                    //         setChoosenFilterParametrs((prev) => {
+                    //             return [...prev, el.attributes.layout];
+                    //         });
+                    //     }
+                    // });
+                    // color.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
+                    //     if (el.attributes.color === result[1].searchParamKey[0]) {
+                    //         setChoosenFilterParametrs((prev) => {
+                    //             return [...prev, el.attributes.color];
+                    //         });
+                    //     }
+                    // });
                 }
             } else {
                 console.log(queriesArr.length);
@@ -86,11 +86,11 @@ export default function FilterBattery() {
         };
 
         if (!prevType) {
-            dispatch(setType('batteries'));
-        } else if (prevType === 'batteries') {
+            dispatch(setType('keyboards'));
+        } else if (prevType === 'keyboards') {
             setQueriesArr(selector);
         } else {
-            dispatch(setType('batteries'));
+            dispatch(setType('keyboards'));
             dispatch(setDefaultDataAndQueryArr());
         }
 
@@ -118,7 +118,7 @@ export default function FilterBattery() {
 
     useEffect(() => {
         (async function () {
-            const res = await filterItemOnclickHandler(queriesArr, 'batteries');
+            const res = await filterItemOnclickHandler(queriesArr, 'keyboards');
 
             dispatch(setData(res));
             dispatch(setQueriesArrRed(queriesArr));
@@ -153,22 +153,23 @@ export default function FilterBattery() {
                                         sibling.classList.toggle('active');
                                     }
                                 }}>
-                                <p className='filter_item__title'>Ёмкость</p>
-                                <p className='filter_item__descr'>Ёмкость аккумулятора</p>
+                                <p className='filter_item__title'>Форм фактор</p>
+                                <p className='filter_item__descr'>Форм фактор клавиатуры</p>
                             </div>
 
                             <div className='filter_item__values'>
                                 <ul>
-                                    {capacity.data.map((el: { id: number; attributes: { [key: string]: string } }) => (
+                                    {form_factor.data.map((el: { id: number; attributes: { [key: string]: string } }) => (
                                         <li
                                             key={el.id}
-                                            className={clsx({ active: choosenFilterParametrs.includes(el.attributes.capacity), filter_item__value: true })}
+                                            className={`${choosenFilterParametrs.includes(el.attributes.form_factor) ? 'active' : ''} filter_item__value`}
                                             onClick={(e) => {
                                                 (async function () {
-                                                    await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'capacity');
+                                                    await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'form_factor');
                                                 })();
-                                                if (choosenFilterParametrs.includes(el.attributes.capacity)) {
-                                                    const index = choosenFilterParametrs.indexOf(el.attributes.capacity);
+
+                                                if (choosenFilterParametrs.includes(el.attributes.form_factor)) {
+                                                    const index = choosenFilterParametrs.indexOf(el.attributes.form_factor);
 
                                                     setChoosenFilterParametrs((prev) => {
                                                         const newList = prev.filter((el, i) => i !== index);
@@ -176,14 +177,14 @@ export default function FilterBattery() {
                                                     });
                                                 } else {
                                                     setChoosenFilterParametrs((prev) => {
-                                                        return [...prev, el.attributes.capacity];
+                                                        return [...prev, el.attributes.form_factor];
                                                     });
                                                 }
 
                                                 e.stopPropagation();
                                             }}>
                                             <>
-                                                {el.attributes.capacity} А-ч<p>({el.attributes.numOfOccurance})</p>
+                                                {el.attributes.form_factor} <p>({el.attributes.numOfOccurance})</p>
                                             </>
                                         </li>
                                     ))}
@@ -202,88 +203,44 @@ export default function FilterBattery() {
                                         sibling.classList.toggle('active');
                                     }
                                 }}>
-                                <p className='filter_item__title'>Напряжение</p>
-                                <p className='filter_item__descr'>Напряжение аккумулятора</p>
+                                <p className='filter_item__title'>Раскладка</p>
+                                <p className='filter_item__descr'>Раскладка клавиатуры</p>
                             </div>
                             <div className='filter_item__values'>
                                 <ul>
-                                    {voltage.data.map((el: any) => (
+                                    {layout.data.map((el: any) => (
                                         <li
                                             key={el.id}
-                                            className={clsx({ active: choosenFilterParametrs.includes(el.attributes.voltage), filter_item__value: true })}
+                                            className={clsx({
+                                                active: choosenFilterParametrs.includes(el.attributes.layout),
+                                                filter_item__value: true,
+                                            })}
                                             onClick={(e) => {
                                                 (async function () {
-                                                    await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'voltage');
+                                                    await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'layout');
                                                 })();
 
-                                                if (choosenFilterParametrs.includes(el.attributes.voltage)) {
-                                                    const index = choosenFilterParametrs.indexOf(el.attributes.voltage);
+                                                if (choosenFilterParametrs.includes(el.attributes.layout)) {
+                                                    const index = choosenFilterParametrs.indexOf(el.attributes.layout);
                                                     setChoosenFilterParametrs((prev) => {
                                                         const newList = prev.filter((el, i) => i !== index);
                                                         return newList;
                                                     });
                                                 } else {
                                                     setChoosenFilterParametrs((prev) => {
-                                                        return [...prev, el.attributes.voltage];
+                                                        return [...prev, el.attributes.layout];
                                                     });
                                                 }
 
                                                 e.stopPropagation();
                                             }}>
-                                            {el.attributes.voltage} v<p>({el.attributes.numOfOccurance})</p>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
-                        <div
-                            className='filter_item'
-                            onClick={(e) => {
-                                e.currentTarget.classList.toggle('active');
-                            }}>
-                            <div
-                                onClick={(e) => {
-                                    if (e.currentTarget.nextElementSibling) {
-                                        const sibling = e.currentTarget.nextSibling as HTMLElement;
-                                        sibling.classList.toggle('active');
-                                    }
-                                }}>
-                                <p className='filter_item__title'>Tип</p>
-                                <p className='filter_item__descr'>Tип аккумулятора</p>
-                            </div>
-                            <div className='filter_item__values'>
-                                <ul>
-                                    {type.data.map((el: any) => (
-                                        <li
-                                            key={el.id}
-                                            className={clsx({ active: choosenFilterParametrs.includes(el.attributes.type), filter_item__value: true })}
-                                            onClick={(e) => {
-                                                (async function () {
-                                                    await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'type');
-                                                })();
-
-                                                if (choosenFilterParametrs.includes(el.attributes.type)) {
-                                                    const index = choosenFilterParametrs.indexOf(el.attributes.type);
-                                                    setChoosenFilterParametrs((prev) => {
-                                                        const newList = prev.filter((el, i) => i !== index);
-                                                        return newList;
-                                                    });
-                                                } else {
-                                                    setChoosenFilterParametrs((prev) => {
-                                                        return [...prev, el.attributes.type];
-                                                    });
-                                                }
-
-                                                e.stopPropagation();
-                                            }}>
-                                            {el.attributes.type}
+                                            {el.attributes.layout}
                                             <p>({el.attributes.numOfOccurance})</p>
                                         </li>
                                     ))}
                                 </ul>
                             </div>
                         </div>
-
                         <div
                             className='filter_item'
                             onClick={(e) => {
@@ -297,13 +254,13 @@ export default function FilterBattery() {
                                     }
                                 }}>
                                 <p className='filter_item__title'>Цвет</p>
-                                <p className='filter_item__descr'>Цвет аккумулятора</p>
+                                <p className='filter_item__descr'>Цвет клавиатуры</p>
                             </div>
                             <div className='filter_item__values'>
                                 <ul>
                                     {color.data.map((el: any) => (
                                         <li
-                                            key={v1()}
+                                            key={el.id}
                                             className={clsx({ active: choosenFilterParametrs.includes(el.attributes.color), filter_item__value: true })}
                                             onClick={(e) => {
                                                 (async function () {
@@ -331,6 +288,56 @@ export default function FilterBattery() {
                                 </ul>
                             </div>
                         </div>
+                        <div
+                            className='filter_item'
+                            onClick={(e) => {
+                                e.currentTarget.classList.toggle('active');
+                            }}>
+                            <div
+                                onClick={(e) => {
+                                    if (e.currentTarget.nextElementSibling) {
+                                        const sibling = e.currentTarget.nextSibling as HTMLElement;
+                                        sibling.classList.toggle('active');
+                                    }
+                                }}>
+                                <p className='filter_item__title'>Подсветка</p>
+                                <p className='filter_item__descr'>Подсветка клавиатуры</p>
+                            </div>
+                            <div className='filter_item__values'>
+                                <ul>
+                                    {backlight.data.map((el: any) => (
+                                        <li
+                                            key={v1()}
+                                            className={clsx({
+                                                active: choosenFilterParametrs.includes(el.attributes.backlight),
+                                                filter_item__value: true,
+                                            })}
+                                            onClick={(e) => {
+                                                (async function () {
+                                                    await onFilterItemClickHandler(queriesArr, setQueriesArr, el, 'backlight');
+                                                })();
+
+                                                if (choosenFilterParametrs.includes(el.attributes.backlight)) {
+                                                    const index = choosenFilterParametrs.indexOf(el.attributes.backlight);
+                                                    setChoosenFilterParametrs((prev) => {
+                                                        const newList = prev.filter((el, i) => i !== index);
+                                                        return newList;
+                                                    });
+                                                } else {
+                                                    setChoosenFilterParametrs((prev) => {
+                                                        return [...prev, el.attributes.backlight];
+                                                    });
+                                                }
+
+                                                e.stopPropagation();
+                                            }}>
+                                            {el.attributes.backlight}
+                                            <p>({el.attributes.numOfOccurance})</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <TopFilter
@@ -341,7 +348,7 @@ export default function FilterBattery() {
                     substrateRef={substrateRef}
                     choosenFilterParametrs={choosenFilterParametrs}
                     setChoosenFilterParametrs={setChoosenFilterParametrs}
-                    type='batteries'
+                    type='keyboards'
                 />
             </div>
         </>

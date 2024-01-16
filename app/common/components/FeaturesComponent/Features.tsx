@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/dist/client/link';
 import axios from 'axios';
 import { useAppSelector } from '@/app/Redux/store';
-import { IProduct } from '../../types/types';
+import { IProduct, categories } from '../../types/types';
 import FeaturesCard from './FeaturesCard';
 import Spinner from '../Spinner/Spinner';
 import { fetchFeaturedProducts } from '@/app/lib/data';
@@ -14,7 +14,7 @@ import { fetchFeaturedProducts } from '@/app/lib/data';
 const Features = ({}) => {
     const [filterType, setFilterType] = useState<string>('new');
 
-    const productTypes: string[] = ['matrices', 'hdds', 'keyboards', 'rams', 'batteries', 'power_supplies'];
+    const productTypes: categories[] = ['matrices', 'batteries', 'hdds', 'keyboards', 'rams', 'power_unit'];
 
     const [products, setProducts] = useState<IProduct[]>([]); // Assuming Product is the interface for your products
 
@@ -31,9 +31,9 @@ const Features = ({}) => {
             try {
                 // Use Promise.all to execute all promises concurrently
                 const productDataArray = await Promise.all(promises);
-
                 // Flatten the array of arrays into a single array of products
                 const allProducts = productDataArray.flat();
+                console.log(allProducts);
 
                 // Set the products state with the fetched data
                 setProducts(allProducts);
@@ -97,14 +97,7 @@ const Features = ({}) => {
                             // Determine if the product is bought
                             const isFav = !!foundFav;
 
-                            return (
-                                <FeaturesCard
-                                    key={index}
-                                    product={product}
-                                    isBought={isBought}
-                                    isFav={isFav}
-                                />
-                            );
+                            return <FeaturesCard key={index} product={product} isBought={isBought} isFav={isFav} />;
                         })
                     ) : (
                         <Spinner classname='features__spinner' />

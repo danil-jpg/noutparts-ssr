@@ -1,7 +1,11 @@
+import { ReactNode } from 'react';
+
 export interface IPrimaryBtn {
-    text?: string;
+    text?: string | ReactNode;
     type: 'default' | 'buying' | 'basket' | 'middle' | 'large';
     icon?: JSX.Element;
+    htmlType?: 'button' | 'submit' | 'reset' | undefined;
+    className?: string;
 }
 
 export interface IPrimaryInput {
@@ -9,10 +13,12 @@ export interface IPrimaryInput {
     label?: string;
     type: 'text' | 'email' | 'tel';
     setValue: React.Dispatch<React.SetStateAction<string>>;
+    name?: string;
 }
 export interface ITextAreaInput {
     label?: string;
     setValue: React.Dispatch<React.SetStateAction<string>>;
+    classname?: string;
 }
 
 export interface IIConRenderer {
@@ -78,7 +84,7 @@ export interface ICatalogueItemRes {
     }[];
 }
 
-export type categories = 'matrices' | 'batteries' | 'hdds' | 'keyboards' | 'rams' | 'power_unit';
+export type categories = 'matrices' | 'batteries' | 'hdds' | 'keyboards' | 'rams' | 'power-Supplies';
 
 export interface IQuery {
     searchParam: string;
@@ -101,5 +107,41 @@ export interface IProduct {
     discount: number;
     photo_url: string;
     id: number;
-    category: string;
+    category: categories;
+    tag: string;
+    availability: string;
+}
+
+export interface ICard {
+    data: {
+        id: number;
+        attributes: {
+            availability: string;
+            category: categories;
+            price: number;
+            name: string;
+            tag: string;
+            photo: {
+                data: [
+                    {
+                        attributes: {
+                            url: string;
+                        };
+                    }
+                ];
+            };
+        };
+    };
+}
+
+export interface IFavsData {
+    products: {
+        id: number;
+        availability: string;
+        category: categories;
+        price: number;
+        name: string;
+        discount: string;
+        photo_url: string;
+    }[];
 }
