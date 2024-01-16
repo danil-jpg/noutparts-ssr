@@ -13,7 +13,6 @@ interface TownInputProps {
 const TownInput: FC<TownInputProps> = ({ data, type, setValue }) => {
 	const [inputValue, setInputValue] = useState<string>("");
 	const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
-	console.log("🚀 ~ file: TownInput.tsx:16 ~ showSuggestions:", showSuggestions);
 	const dropdownRef = useRef<HTMLUListElement>(null);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -9,6 +9,7 @@ import { useAppSelector } from "@/app/Redux/store";
 
 import Breadcrumbs from "@/app/common/components/breadcrumbs/Breadcrumbs";
 import { Breadcrumb } from "@/app/common/types/types";
+import Spinner from "../Spinner/Spinner";
 
 import PrimaryInput from "../../ui/inputs/PrimaryInput";
 import TextAreaInput from "../../ui/inputs/TextAreaInput";
@@ -33,7 +34,7 @@ interface OrderRequestBody {
 	};
 }
 
-export default function Product() {
+export default function Order() {
 	const breadcrumbArr: Breadcrumb[] = [
 		{
 			label: `Корзина`,
@@ -46,6 +47,8 @@ export default function Product() {
 			active: true
 		}
 	];
+	const [isProcessingOrder, setIsProcessingOrder] = useState(false);
+
 	const chosenProducts = useAppSelector((state) => state.basketReducer.products);
 	const towns: string[] = ["Town 1", "Town 2", "Town 3", "Town 4"];
 	const filials: string[] = ["Filial 1", "Filial 2", "Filial 3", "Filial 4"];
@@ -78,10 +81,11 @@ export default function Product() {
 	}));
 
 	const chosenProductsJSON = JSON.stringify(formattedProducts[0]);
-	console.log("🚀 ~ file: Order.tsx:53 ~ Product ~ chosenProductsJSON:", chosenProductsJSON);
 
 	const handleUpload = async () => {
 		try {
+			console.log("processing");
+			setIsProcessingOrder(true); // Set processing state to true
 			if (!chosenProductsJSON) {
 				alert("There are no chosen products in your basket");
 				return;
@@ -119,6 +123,8 @@ export default function Product() {
 			console.log("Response Info:", responseInfo);
 		} catch (error) {
 			console.log("info creation error: ", error);
+		} finally {
+			setIsProcessingOrder(false); // Reset processing state when done
 		}
 	};
 
@@ -126,27 +132,34 @@ export default function Product() {
 
 	useEffect(() => {
 		const handleBodyOverflow = () => {
-		  if (showPopup && window.innerWidth < 600) {
-			document.body.style.overflow = 'hidden';
-		  } else {
-			document.body.style.overflow = 'auto';
-		  }
+			if (showPopup) {
+				document.body.style.overflow = "hidden";
+			} else {
+				document.body.style.overflow = "auto";
+			}
 		};
-	
+
 		// Set body overflow on mount and resize
 		handleBodyOverflow();
-	
-		window.addEventListener('resize', handleBodyOverflow);
-	
+
+		window.addEventListener("resize", handleBodyOverflow);
+
 		return () => {
-		  // Clean up event listener and reset body overflow when unmounting
-		  window.removeEventListener('resize', handleBodyOverflow);
-		  document.body.style.overflow = 'auto';
+			// Clean up event listener and reset body overflow when unmounting
+			window.removeEventListener("resize", handleBodyOverflow);
+			document.body.style.overflow = "auto";
 		};
-	  }, [showPopup]);
+	}, [showPopup]);
+
+	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
 	return (
 		<>
+			{isProcessingOrder && (
+				<div className="order-processing__background">
+					<Spinner classname="order-processing__spinner" />
+				</div>
+			)}
 			<div className="breadcrumb-all-page__wrapper">
 				<div className="breadcrumb-all-page">
 					<Breadcrumbs breadcrumbs={breadcrumbArr} classname="product__breadcrumbs"></Breadcrumbs>
@@ -262,13 +275,15 @@ export default function Product() {
 												) {
 													handleUpload();
 												} else {
-													// Perform action for validation failure (e.g., show an error message)
-													alert("Please fill in all required fields.");
+													// Set the error message
+													setErrorMessage("Please fill in all required fields.");
 												}
 											}}
 										>
 											Заказ подтверждаю
 										</button>
+
+										{errorMessage && <div className="order__error-message">{errorMessage}</div>}
 									</div>
 								</div>
 							</div>
