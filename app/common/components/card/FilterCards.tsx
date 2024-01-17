@@ -153,6 +153,7 @@ interface IPowerSupply {
 const FilterCards = ({ type }: { type: categories }) => {
     const selector = useAppSelector((state) => state.queryReducer.data.data);
     const favData = useAppSelector((state) => state.favsReducer.products);
+    const basketData = useAppSelector((state) => state.basketReducer.products);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -165,10 +166,6 @@ const FilterCards = ({ type }: { type: categories }) => {
             }
         })();
     }, []);
-
-    const onLikeClickHandler = (product: IProduct): void => {
-        dispatch(addFavProduct(product));
-    };
 
     const RenderProperFilter = (): React.ReactElement[] => {
         switch (type) {
@@ -224,7 +221,39 @@ const FilterCards = ({ type }: { type: categories }) => {
                             </div>
                             <div className='card__data_right'>
                                 <p className='card__price'>{el.attributes.price} грн</p>
-                                <PrimaryBtn text='Купить' type='basket' icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                {basketData.find((innerEl) => innerEl.id === el.id && innerEl.name === el.attributes.name) ? (
+                                    <PrimaryBtn
+                                        onClick={() => {
+                                            dispatch(
+                                                addProduct({
+                                                    photo_url: el.attributes.photo.data[0].attributes.url,
+                                                    price: el.attributes.price,
+                                                    name: el.attributes.name,
+                                                    id: el.id,
+                                                    category: 'matrices',
+                                                })
+                                            );
+                                        }}
+                                        text='В корзине'
+                                        type='basket'
+                                        icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                ) : (
+                                    <PrimaryBtn
+                                        onClick={() => {
+                                            dispatch(
+                                                addProduct({
+                                                    photo_url: el.attributes.photo.data[0].attributes.url,
+                                                    price: el.attributes.price,
+                                                    name: el.attributes.name,
+                                                    id: el.id,
+                                                    category: 'matrices',
+                                                })
+                                            );
+                                        }}
+                                        text='Купить'
+                                        type='basket'
+                                        icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                )}
                             </div>
                         </div>
                     );
@@ -281,7 +310,39 @@ const FilterCards = ({ type }: { type: categories }) => {
                             </div>
                             <div className='card__data_right'>
                                 <p className='card__price'>{el.attributes.price} грн</p>
-                                <PrimaryBtn text='Купить' type='basket' icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                {basketData.find((innerEl) => innerEl.id === el.id && innerEl.name === el.attributes.name) ? (
+                                    <PrimaryBtn
+                                        onClick={() => {
+                                            dispatch(
+                                                addProduct({
+                                                    photo_url: el.attributes.photo.data[0].attributes.url,
+                                                    price: el.attributes.price,
+                                                    name: el.attributes.name,
+                                                    id: el.id,
+                                                    category: 'batteries',
+                                                })
+                                            );
+                                        }}
+                                        text='В корзине'
+                                        type='basket'
+                                        icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                ) : (
+                                    <PrimaryBtn
+                                        onClick={() => {
+                                            dispatch(
+                                                addProduct({
+                                                    photo_url: el.attributes.photo.data[0].attributes.url,
+                                                    price: el.attributes.price,
+                                                    name: el.attributes.name,
+                                                    id: el.id,
+                                                    category: 'batteries',
+                                                })
+                                            );
+                                        }}
+                                        text='Купить'
+                                        type='basket'
+                                        icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                )}
                             </div>
                         </div>
                     );
@@ -338,7 +399,39 @@ const FilterCards = ({ type }: { type: categories }) => {
                             </div>
                             <div className='card__data_right'>
                                 <p className='card__price'>{el.attributes.price} грн</p>
-                                <PrimaryBtn text='Купить' type='basket' icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                {basketData.find((innerEl) => innerEl.id === el.id && innerEl.name === el.attributes.name) ? (
+                                    <PrimaryBtn
+                                        onClick={() => {
+                                            dispatch(
+                                                addProduct({
+                                                    photo_url: el.attributes.photo.data[0].attributes.url,
+                                                    price: el.attributes.price,
+                                                    name: el.attributes.name,
+                                                    id: el.id,
+                                                    category: 'hdds',
+                                                })
+                                            );
+                                        }}
+                                        text='В корзине'
+                                        type='basket'
+                                        icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                ) : (
+                                    <PrimaryBtn
+                                        onClick={() => {
+                                            dispatch(
+                                                addProduct({
+                                                    photo_url: el.attributes.photo.data[0].attributes.url,
+                                                    price: el.attributes.price,
+                                                    name: el.attributes.name,
+                                                    id: el.id,
+                                                    category: 'hdds',
+                                                })
+                                            );
+                                        }}
+                                        text='Купить'
+                                        type='basket'
+                                        icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                )}
                             </div>
                         </div>
                     );
@@ -395,7 +488,39 @@ const FilterCards = ({ type }: { type: categories }) => {
                             </div>
                             <div className='card__data_right'>
                                 <p className='card__price'>{el.attributes.price} грн</p>
-                                <PrimaryBtn text='Купить' type='basket' icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                {basketData.find((innerEl) => innerEl.id === el.id && innerEl.name === el.attributes.name) ? (
+                                    <PrimaryBtn
+                                        onClick={() => {
+                                            dispatch(
+                                                addProduct({
+                                                    photo_url: el.attributes.photo.data[0].attributes.url,
+                                                    price: el.attributes.price,
+                                                    name: el.attributes.name,
+                                                    id: el.id,
+                                                    category: 'keyboards',
+                                                })
+                                            );
+                                        }}
+                                        text='В корзине'
+                                        type='basket'
+                                        icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                ) : (
+                                    <PrimaryBtn
+                                        onClick={() => {
+                                            dispatch(
+                                                addProduct({
+                                                    photo_url: el.attributes.photo.data[0].attributes.url,
+                                                    price: el.attributes.price,
+                                                    name: el.attributes.name,
+                                                    id: el.id,
+                                                    category: 'keyboards',
+                                                })
+                                            );
+                                        }}
+                                        text='Купить'
+                                        type='basket'
+                                        icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                )}
                             </div>
                         </div>
                     );
@@ -452,7 +577,39 @@ const FilterCards = ({ type }: { type: categories }) => {
                             </div>
                             <div className='card__data_right'>
                                 <p className='card__price'>{el.attributes.price} грн</p>
-                                <PrimaryBtn text='Купить' type='basket' icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                {basketData.find((innerEl) => innerEl.id === el.id && innerEl.name === el.attributes.name) ? (
+                                    <PrimaryBtn
+                                        onClick={() => {
+                                            dispatch(
+                                                addProduct({
+                                                    photo_url: el.attributes.photo.data[0].attributes.url,
+                                                    price: el.attributes.price,
+                                                    name: el.attributes.name,
+                                                    id: el.id,
+                                                    category: 'rams',
+                                                })
+                                            );
+                                        }}
+                                        text='В корзине'
+                                        type='basket'
+                                        icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                ) : (
+                                    <PrimaryBtn
+                                        onClick={() => {
+                                            dispatch(
+                                                addProduct({
+                                                    photo_url: el.attributes.photo.data[0].attributes.url,
+                                                    price: el.attributes.price,
+                                                    name: el.attributes.name,
+                                                    id: el.id,
+                                                    category: 'rams',
+                                                })
+                                            );
+                                        }}
+                                        text='Купить'
+                                        type='basket'
+                                        icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                )}
                             </div>
                         </div>
                     );
@@ -509,7 +666,39 @@ const FilterCards = ({ type }: { type: categories }) => {
                             </div>
                             <div className='card__data_right'>
                                 <p className='card__price'>{el.attributes.price} грн</p>
-                                <PrimaryBtn text='Купить' type='basket' icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                {basketData.find((innerEl) => innerEl.id === el.id && innerEl.name === el.attributes.name) ? (
+                                    <PrimaryBtn
+                                        onClick={() => {
+                                            dispatch(
+                                                addProduct({
+                                                    photo_url: el.attributes.photo.data[0].attributes.url,
+                                                    price: el.attributes.price,
+                                                    name: el.attributes.name,
+                                                    id: el.id,
+                                                    category: 'power-Supplies',
+                                                })
+                                            );
+                                        }}
+                                        text='В корзине'
+                                        type='basket'
+                                        icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                ) : (
+                                    <PrimaryBtn
+                                        onClick={() => {
+                                            dispatch(
+                                                addProduct({
+                                                    photo_url: el.attributes.photo.data[0].attributes.url,
+                                                    price: el.attributes.price,
+                                                    name: el.attributes.name,
+                                                    id: el.id,
+                                                    category: 'power-Supplies',
+                                                })
+                                            );
+                                        }}
+                                        text='Купить'
+                                        type='basket'
+                                        icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                )}
                             </div>
                         </div>
                     );

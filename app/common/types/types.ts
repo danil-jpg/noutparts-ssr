@@ -6,6 +6,8 @@ export interface IPrimaryBtn {
     icon?: JSX.Element;
     htmlType?: 'button' | 'submit' | 'reset' | undefined;
     className?: string;
+    props?: React.ButtonHTMLAttributes<HTMLButtonElement>;
+    onClick?: any;
 }
 
 export interface IPrimaryInput {
