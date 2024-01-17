@@ -14,8 +14,8 @@
 }
 
 .available-sign {
-	width: 10px;
-height: 8px;
+    width: 10px;
+    height: 8px;
 }
 
 .ending-sign {
@@ -159,7 +159,6 @@ height: 8px;
     width: 20.789px;
     height: 18.48px;
     fill: #0acf83;
-    
 }
 
 .cross-icon {
@@ -174,6 +173,9 @@ height: 8px;
     flex-shrink: 0;
     fill: #0acf83;
     transition: 0.3s;
+    &.active {
+        fill: red;
+    }
 }
 
 .command,

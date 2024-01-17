@@ -152,6 +152,7 @@ interface IPowerSupply {
 
 const FilterCards = ({ type }: { type: categories }) => {
     const selector = useAppSelector((state) => state.queryReducer.data.data);
+    const favData = useAppSelector((state) => state.favsReducer.products);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -207,20 +208,19 @@ const FilterCards = ({ type }: { type: categories }) => {
                                         addFavProduct({
                                             ...el.attributes,
                                             photo_url: el.attributes.photo.data[0].attributes.url,
+                                            tag: el.attributes.tag,
                                             discount: 0,
                                             category: 'matrices',
                                             id: el.id,
                                         })
                                     );
-                                    // onLikeClickHandler({
-                                    //     ...el.attributes,
-                                    //     photo_url: el.attributes.photo.data[0].attributes.url,
-                                    //     discount: 0,
-                                    //     category: 'matrices',
-                                    //     id: el.id,
-                                    // });
                                 }}>
-                                <IconRenderer id='heart-icon' className='heart-icon' />
+                                <IconRenderer
+                                    id='heart-icon'
+                                    className={`heart-icon ${
+                                        favData.find((innerEl) => innerEl.id === el.id && innerEl.name === el.attributes.name) ? 'active' : ''
+                                    }`}
+                                />
                             </div>
                             <div className='card__data_right'>
                                 <p className='card__price'>{el.attributes.price} грн</p>
@@ -258,8 +258,26 @@ const FilterCards = ({ type }: { type: categories }) => {
                             <div className='card__availability'>
                                 <ProductAvailability type={el.attributes.availability as 'available' | 'ending' | 'outOfStock'}></ProductAvailability>
                             </div>
-                            <div className='card__like-sign'>
-                                <IconRenderer id='heart-icon' className='heart-icon' />
+                            <div
+                                className='card__like-sign'
+                                onClick={() => {
+                                    dispatch(
+                                        addFavProduct({
+                                            ...el.attributes,
+                                            photo_url: el.attributes.photo.data[0].attributes.url,
+                                            tag: el.attributes.tag,
+                                            discount: 0,
+                                            category: 'batteries',
+                                            id: el.id,
+                                        })
+                                    );
+                                }}>
+                                <IconRenderer
+                                    id='heart-icon'
+                                    className={`heart-icon ${
+                                        favData.find((innerEl) => innerEl.id === el.id && innerEl.name === el.attributes.name) ? 'active' : ''
+                                    }`}
+                                />
                             </div>
                             <div className='card__data_right'>
                                 <p className='card__price'>{el.attributes.price} грн</p>
@@ -297,8 +315,26 @@ const FilterCards = ({ type }: { type: categories }) => {
                             <div className='card__availability'>
                                 <ProductAvailability type={el.attributes.availability as 'available' | 'ending' | 'outOfStock'}></ProductAvailability>
                             </div>
-                            <div className='card__like-sign'>
-                                <IconRenderer id='heart-icon' className='heart-icon' />
+                            <div
+                                className='card__like-sign'
+                                onClick={() => {
+                                    dispatch(
+                                        addFavProduct({
+                                            ...el.attributes,
+                                            photo_url: el.attributes.photo.data[0].attributes.url,
+                                            tag: el.attributes.tag,
+                                            discount: 0,
+                                            category: 'matrices',
+                                            id: el.id,
+                                        })
+                                    );
+                                }}>
+                                <IconRenderer
+                                    id='heart-icon'
+                                    className={`heart-icon ${
+                                        favData.find((innerEl) => innerEl.id === el.id && innerEl.name === el.attributes.name) ? 'active' : ''
+                                    }`}
+                                />
                             </div>
                             <div className='card__data_right'>
                                 <p className='card__price'>{el.attributes.price} грн</p>
@@ -308,7 +344,7 @@ const FilterCards = ({ type }: { type: categories }) => {
                     );
                 });
             case 'keyboards':
-                return selector.map((el: IRam, index) => {
+                return selector.map((el: IKeyboard, index) => {
                     return (
                         <div key={index} className='card'>
                             <div className='card__tag'>
@@ -319,25 +355,43 @@ const FilterCards = ({ type }: { type: categories }) => {
                                 <p className='card__name'>{el.attributes.name}</p>
                                 <div className='card__etc-params'>
                                     <p>
-                                        Количество контактов: <span>{el.attributes.pin_quantity}</span>
+                                        Форм-фактор: <span>{el.attributes.form_factor}</span>
                                     </p>
                                 </div>
                                 <div className='card__etc-params'>
                                     <p>
-                                        Объем памяти: <span>{el.attributes.memory_mb}</span>
+                                        Раскладка: <span>{el.attributes.layout}</span>
                                     </p>
                                 </div>
                                 <div className='card__etc-params'>
                                     <p>
-                                        Напряжение: <span>{el.attributes.voltage}</span>
+                                        Подсветка: <span>{el.attributes.backlight}</span>
                                     </p>
                                 </div>
                             </div>
                             <div className='card__availability'>
                                 <ProductAvailability type={el.attributes.availability as 'available' | 'ending' | 'outOfStock'}></ProductAvailability>
                             </div>
-                            <div className='card__like-sign'>
-                                <IconRenderer id='heart-icon' className='heart-icon' />
+                            <div
+                                className='card__like-sign'
+                                onClick={() => {
+                                    dispatch(
+                                        addFavProduct({
+                                            ...el.attributes,
+                                            photo_url: el.attributes.photo.data[0].attributes.url,
+                                            tag: el.attributes.tag,
+                                            discount: 0,
+                                            category: 'keyboards',
+                                            id: el.id,
+                                        })
+                                    );
+                                }}>
+                                <IconRenderer
+                                    id='heart-icon'
+                                    className={`heart-icon ${
+                                        favData.find((innerEl) => innerEl.id === el.id && innerEl.name === el.attributes.name) ? 'active' : ''
+                                    }`}
+                                />
                             </div>
                             <div className='card__data_right'>
                                 <p className='card__price'>{el.attributes.price} грн</p>
@@ -375,8 +429,26 @@ const FilterCards = ({ type }: { type: categories }) => {
                             <div className='card__availability'>
                                 <ProductAvailability type={el.attributes.availability as 'available' | 'ending' | 'outOfStock'}></ProductAvailability>
                             </div>
-                            <div className='card__like-sign'>
-                                <IconRenderer id='heart-icon' className='heart-icon' />
+                            <div
+                                className='card__like-sign'
+                                onClick={() => {
+                                    dispatch(
+                                        addFavProduct({
+                                            ...el.attributes,
+                                            photo_url: el.attributes.photo.data[0].attributes.url,
+                                            tag: el.attributes.tag,
+                                            discount: 0,
+                                            category: 'rams',
+                                            id: el.id,
+                                        })
+                                    );
+                                }}>
+                                <IconRenderer
+                                    id='heart-icon'
+                                    className={`heart-icon ${
+                                        favData.find((innerEl) => innerEl.id === el.id && innerEl.name === el.attributes.name) ? 'active' : ''
+                                    }`}
+                                />
                             </div>
                             <div className='card__data_right'>
                                 <p className='card__price'>{el.attributes.price} грн</p>
@@ -414,8 +486,26 @@ const FilterCards = ({ type }: { type: categories }) => {
                             <div className='card__availability'>
                                 <ProductAvailability type={el.attributes.availability as 'available' | 'ending' | 'outOfStock'}></ProductAvailability>
                             </div>
-                            <div className='card__like-sign'>
-                                <IconRenderer id='heart-icon' className='heart-icon' />
+                            <div
+                                className='card__like-sign'
+                                onClick={() => {
+                                    dispatch(
+                                        addFavProduct({
+                                            ...el.attributes,
+                                            photo_url: el.attributes.photo.data[0].attributes.url,
+                                            tag: el.attributes.tag,
+                                            discount: 0,
+                                            category: 'power-Supplies',
+                                            id: el.id,
+                                        })
+                                    );
+                                }}>
+                                <IconRenderer
+                                    id='heart-icon'
+                                    className={`heart-icon ${
+                                        favData.find((innerEl) => innerEl.id === el.id && innerEl.name === el.attributes.name) ? 'active' : ''
+                                    }`}
+                                />
                             </div>
                             <div className='card__data_right'>
                                 <p className='card__price'>{el.attributes.price} грн</p>
