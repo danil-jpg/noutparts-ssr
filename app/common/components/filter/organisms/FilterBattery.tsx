@@ -183,7 +183,7 @@ export default function FilterBattery() {
                                                 e.stopPropagation();
                                             }}>
                                             <>
-                                                {el.attributes.capacity} А-ч<p>({el.attributes.numOfOccurance})</p>
+                                                {el.attributes.capacity} <p>({el.attributes.numOfOccurance})</p>
                                             </>
                                         </li>
                                     ))}

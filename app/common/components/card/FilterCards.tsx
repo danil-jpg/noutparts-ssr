@@ -14,6 +14,7 @@ import ProductAvailability from '@/app/common/ui/product-ui/ProductAvailability'
 import { addProduct } from '@/app/Redux/slice/basket/basketSlice';
 import { IProduct } from '@/app/common/types/types';
 import { addFavProduct } from '@/app/Redux/slice/favs/favsSlice';
+import { useRouter } from 'next/navigation';
 
 interface IMatrixCard {
     id: number;
@@ -151,6 +152,8 @@ interface IPowerSupply {
 }
 
 const FilterCards = ({ type }: { type: categories }) => {
+    const router = useRouter();
+
     const selector = useAppSelector((state) => state.queryReducer.data.data);
     const favData = useAppSelector((state) => state.favsReducer.products);
     const basketData = useAppSelector((state) => state.basketReducer.products);
@@ -267,7 +270,13 @@ const FilterCards = ({ type }: { type: categories }) => {
                             </div>
                             <Image alt='cardimg' src={el.attributes.photo.data[0].attributes.url} height={152} width={152} />
                             <div className='card__data_center'>
-                                <p className='card__name'>{el.attributes.name}</p>
+                                <p
+                                    onClick={() => {
+                                        router.push(`/product/batteries/${el.id}`);
+                                    }}
+                                    className='card__name'>
+                                    {el.attributes.name}
+                                </p>
                                 <div className='card__etc-params'>
                                     <p>
                                         Ёмкость: <span>{el.attributes.capacity}</span>
@@ -356,7 +365,13 @@ const FilterCards = ({ type }: { type: categories }) => {
                             </div>
                             <Image alt='cardimg' src={el.attributes.photo.data[0].attributes.url} height={152} width={152} />
                             <div className='card__data_center'>
-                                <p className='card__name'>{el.attributes.name}</p>
+                                <p
+                                    onClick={() => {
+                                        router.push(`/product/hdds/${el.id}`);
+                                    }}
+                                    className='card__name'>
+                                    {el.attributes.name}
+                                </p>
                                 <div className='card__etc-params'>
                                     <p>
                                         Объем памяти: <span>{el.attributes.memory}</span>
@@ -445,7 +460,13 @@ const FilterCards = ({ type }: { type: categories }) => {
                             </div>
                             <Image alt='cardimg' src={el.attributes.photo.data[0].attributes.url} height={152} width={152} />
                             <div className='card__data_center'>
-                                <p className='card__name'>{el.attributes.name}</p>
+                                <p
+                                    onClick={() => {
+                                        router.push(`/product/keyboards/${el.id}`);
+                                    }}
+                                    className='card__name'>
+                                    {el.attributes.name}
+                                </p>
                                 <div className='card__etc-params'>
                                     <p>
                                         Форм-фактор: <span>{el.attributes.form_factor}</span>
@@ -534,7 +555,13 @@ const FilterCards = ({ type }: { type: categories }) => {
                             </div>
                             <Image alt='cardimg' src={el.attributes.photo.data[0].attributes.url} height={152} width={152} />
                             <div className='card__data_center'>
-                                <p className='card__name'>{el.attributes.name}</p>
+                                <p
+                                    onClick={() => {
+                                        router.push(`/product/rams/${el.id}`);
+                                    }}
+                                    className='card__name'>
+                                    {el.attributes.name}
+                                </p>
                                 <div className='card__etc-params'>
                                     <p>
                                         Озу: <span>{el.attributes.memory_mb}</span>
@@ -623,7 +650,13 @@ const FilterCards = ({ type }: { type: categories }) => {
                             </div>
                             <Image alt='cardimg' src={el.attributes.photo.data[0].attributes.url} height={152} width={152} />
                             <div className='card__data_center'>
-                                <p className='card__name'>{el.attributes.name}</p>
+                                <p
+                                    onClick={() => {
+                                        router.push(`/product/power-Supplies/${el.id}`);
+                                    }}
+                                    className='card__name'>
+                                    {el.attributes.name}
+                                </p>
                                 <div className='card__etc-params'>
                                     <p>
                                         Напряжение: <span>{el.attributes.amperage}</span>
