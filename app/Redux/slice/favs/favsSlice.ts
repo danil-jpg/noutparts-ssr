@@ -33,14 +33,14 @@ const favsData = createSlice({
 
 			// state.products = [];
 		},
-		removeFavProduct: (state, action) => {
-			const { id, category } = action.payload; // Assuming payload contains the id and type of the product to remove
-			const indexToRemove = state.products.findIndex((product) => product.id === id && product.category === category);
+		// removeFavProduct: (state, action) => {
+		// 	const { id, category } = action.payload; // Assuming payload contains the id and type of the product to remove
+		// 	const indexToRemove = state.products.findIndex((product) => product.id === id && product.category === category);
 
-			if (indexToRemove !== -1) {
-				state.products.splice(indexToRemove, 1);
-			}
-		}
+		// 	if (indexToRemove !== -1) {
+		// 		state.products.splice(indexToRemove, 1);
+		// 	}
+		// }
 	}
 });
 

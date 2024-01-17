@@ -16,6 +16,46 @@ import mastercardIcon from "/public/img/footer-mastercard-icon.svg";
 import privatIcon from "/public/img/footer-privat-icon.svg";
 
 const Footer = ({}) => {
+	const [email, setEmail] = useState<string>("");
+	const [message, setMessage] = useState<string | null>(null);
+	console.log("🚀 ~ Footer ~ message:", message);
+
+	const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+		setEmail(e.target.value);
+		if (!validateEmail()) {
+			setMessage("Fill the email input correctly");
+			return;
+		} else {
+			setMessage("");
+		}
+	};
+
+	const validateEmail = () => {
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		return emailRegex.test(email);
+	};
+
+	const handleUpload = async () => {
+		try {
+			if (!validateEmail()) {
+				setMessage("Fill the email input correctly");
+				return;
+			}
+			setMessage("Sending your email...");
+
+			const responseInfo = await axios.post("http://localhost:1337/api/emails", {
+				data: {
+					email: email
+				}
+			});
+
+			setMessage("Your email is saved");
+
+			console.log("Response Info:", responseInfo);
+		} catch (error) {
+			console.log("info creation error: ", error);
+		}
+	};
 	return (
 		<div className="footer__wrapper">
 			<div className="footer">
@@ -31,10 +71,17 @@ const Footer = ({}) => {
 						<div className="footer__sub-undertitle">Узнавайте первыми о интересных предложениях</div>
 						<div className="footer__sub-input-block">
 							<div className="footer__sub-input-box">
-								<input type="text" className="footer__sub-input" placeholder="Ваш E-mail" />
+								<input type="text" className="footer__sub-input" placeholder="Ваш E-mail" value={email} onChange={handleEmailChange} />
 							</div>
-							<button className="footer__sub-input-button">Подписаться</button>
+							<button className="footer__sub-input-button" onClick={handleUpload}>
+								Подписаться
+							</button>
 						</div>
+						{message && (
+							<div  className={`footer__sub-message ${message === "Fill the email input correctly" && "error"}`}>
+								{message}
+							</div>
+						)}
 					</div>
 				</div>
 				<div className="footer__link-lists">
@@ -93,7 +140,10 @@ const Footer = ({}) => {
 								<div className="footer__list-item">Телефон: (066) 388-88 95</div>
 							</Link>
 							<Link href={"/"}>
-								<div className="footer__list-item">Мы работаем <br /> Понедельник-Пятница:<br /> 10:00 - 19:00</div>
+								<div className="footer__list-item">
+									Мы работаем <br /> Понедельник-Пятница:
+									<br /> 10:00 - 19:00
+								</div>
 							</Link>
 							<Link href={"/"}>
 								<div className="footer__list-item">E-mail: shop@email.com</div>

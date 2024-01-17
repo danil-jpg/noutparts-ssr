@@ -64,6 +64,9 @@ body {
         border: 4px solid $bgBase;
         border-radius: 5px;
     }
+
+    // display: grid;
+    // grid-template-rows: auto 1fr auto;
 }
 button {
     display: block;

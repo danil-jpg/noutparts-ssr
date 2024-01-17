@@ -38,7 +38,7 @@ const FeaturesCard: React.FC<FeaturesCardProps> = ({ product, isBought, isFav })
 
 	const handleProductDetails = () => {
 		const url = `/product/${product.category}/${product.id}`;
-		window.location.href = url;
+		router.replace(url);
 	};
 
 	return (
