@@ -66,33 +66,32 @@ export default function FilterRam() {
             setIsLoaded(true);
 
             if (queriesArr.length > 0) {
-                console.log('here');
                 const result: { searchParam: string; searchParamKey: string[] }[] = [];
 
-                // queriesArr.forEach((el) => {
-                //     if (el.searchParam === 'permission') {
-                //         result.push({ searchParam: 'permission', searchParamKey: el.searchParamKeys });
-                //     } else if (el.searchParam === 'fastening') {
-                //         result.push({ searchParam: 'fastening', searchParamKey: el.searchParamKeys });
-                //     }
-                // });
-                // if (result.length > 1) {
-                //     pin_quantity.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
-                //         if (el.attributes.permission === result[0].searchParamKey[0]) {
-                //             setChoosenFilterParametrs((prev) => {
-                //                 return [...prev, el.attributes.permission];
-                //             });
-                //         }
-                //     });
+                queriesArr.forEach((el) => {
+                    if (el.searchParam === 'voltage') {
+                        result.push({ searchParam: 'voltage', searchParamKey: el.searchParamKeys });
+                    } else if (el.searchParam === 'jedec') {
+                        result.push({ searchParam: 'jedec', searchParamKey: el.searchParamKeys });
+                    }
+                });
+                if (result.length > 1) {
+                    voltage.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
+                        if (el.attributes.voltage === result[0].searchParamKey[0]) {
+                            setChoosenFilterParametrs((prev) => {
+                                return [...prev, el.attributes.voltage];
+                            });
+                        }
+                    });
 
-                //     voltage.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
-                //         if (el.attributes.fastening === result[1].searchParamKey[0]) {
-                //             setChoosenFilterParametrs((prev) => {
-                //                 return [...prev, el.attributes.fastening];
-                //             });
-                //         }
-                //     });
-                // }
+                    jedec.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
+                        if (el.attributes.jedec === result[1].searchParamKey[0]) {
+                            setChoosenFilterParametrs((prev) => {
+                                return [...prev, el.attributes.jedec];
+                            });
+                        }
+                    });
+                }
             } else {
                 console.log(queriesArr.length);
             }
@@ -243,7 +242,7 @@ export default function FilterRam() {
 
                                                 e.stopPropagation();
                                             }}>
-                                            {el.attributes.voltage} v<p>({el.attributes.numOfOccurance})</p>
+                                            {el.attributes.voltage} <p>({el.attributes.numOfOccurance})</p>
                                         </li>
                                     ))}
                                 </ul>

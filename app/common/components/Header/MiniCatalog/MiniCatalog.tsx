@@ -48,40 +48,37 @@ const MiniCatalog: FC = () => {
         {
             product_group_name: 'Batteries',
             product_group_types: {
-                '2600 А-ч': ['14.4 v'],
-                '3560 А-ч': ['3,560 v'],
-                '4345 А-ч': ['14.8 v'],
-                '5200 А-ч': ['11.1 v'],
+                '2600 А-ч': ['14.40 v'],
+                '3560 А-ч': ['15.00 v'],
+                '4345 А-ч': ['14.80 v'],
+                '5200 А-ч': ['11.10 v'],
             },
         },
         {
-            product_group_name: 'Hard disks',
+            product_group_name: 'hdds',
             product_group_types: {
-                '3.5 inch Sata': ['8000000 mb', '4000000 mb', '1000000 mb', '500000 mb'],
-                '2.5 inch Sata': ['1000000 mb', '500000 mb'],
+                hdd: ['2000000 mAh', '1000000 mAh', '4000000 mAh'],
+                ssd: ['240000 mAh', '1000000 mAh'],
             },
         },
         {
             product_group_name: 'Keyboards',
             product_group_types: {
-                'Full-size': ['black', 'white'],
-                TKL: ['black', 'white'],
+                'full-size': ['qwerty', 'Workman', 'Dvorak', 'Colemak'],
             },
         },
         {
-            product_group_name: 'RAM',
+            product_group_name: 'Rams',
             product_group_types: {
-                '5600 mhz': ['96 gb', '32 gb'],
-                '3200 mhz': ['96 gb', '32 gb', '16 gb'],
-                '2400 mhz': ['96 gb', '32 gb', '16 gb', '8 gb'],
+                '1.2 v': ['CL22'],
+                '1.35 v': ['CL16-20-20', 'CL16-18-18'],
+                '1.45 v': ['CL34-44-44-96'],
             },
         },
         {
-            product_group_name: 'Power unit',
+            product_group_name: 'Power-Supplies',
             product_group_types: {
-                '850 w': ['12 A', '10 A'],
-                '600 w': ['12 A', '10 A', '9.8 A'],
-                '500 w': ['9.8 A', '9 A'],
+                '240 v': ['140 x 150 x 87', '150 x 140 x 86', '150 x 140 x 86', '160 x 150 x 86', '170 x 150 x 86'],
             },
         },
     ];

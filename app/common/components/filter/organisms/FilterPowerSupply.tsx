@@ -154,7 +154,7 @@ export default function FilterPower() {
                                     }
                                 }}>
                                 <p className='filter_item__title'>Ёмкость</p>
-                                <p className='filter_item__descr'>Ёмкость аккумулятора</p>
+                                <p className='filter_item__descr'>Ёмкость блока питания</p>
                             </div>
 
                             <div className='filter_item__values'>
@@ -203,7 +203,7 @@ export default function FilterPower() {
                                     }
                                 }}>
                                 <p className='filter_item__title'>Напряжение</p>
-                                <p className='filter_item__descr'>Напряжение аккумулятора</p>
+                                <p className='filter_item__descr'>Напряжение блока питания</p>
                             </div>
                             <div className='filter_item__values'>
                                 <ul>
@@ -230,7 +230,7 @@ export default function FilterPower() {
 
                                                 e.stopPropagation();
                                             }}>
-                                            {el.attributes.voltage} v<p>({el.attributes.numOfOccurance})</p>
+                                            {el.attributes.voltage} <p>({el.attributes.numOfOccurance})</p>
                                         </li>
                                     ))}
                                 </ul>
@@ -249,7 +249,7 @@ export default function FilterPower() {
                                     }
                                 }}>
                                 <p className='filter_item__title'>Tип</p>
-                                <p className='filter_item__descr'>Tип аккумулятора</p>
+                                <p className='filter_item__descr'>Tип блока питания</p>
                             </div>
                             <div className='filter_item__values'>
                                 <ul>
@@ -296,8 +296,8 @@ export default function FilterPower() {
                                         sibling.classList.toggle('active');
                                     }
                                 }}>
-                                <p className='filter_item__title'>Цвет</p>
-                                <p className='filter_item__descr'>Цвет аккумулятора</p>
+                                <p className='filter_item__title'>Форм фактор</p>
+                                <p className='filter_item__descr'>Цвет блока питания</p>
                             </div>
                             <div className='filter_item__values'>
                                 <ul>
