@@ -25,7 +25,7 @@ const HeaderCallBack = ({ white }: { white?: boolean }) => {
 
 	const handleUpload = async () => {
 		try {
-			if (!nameState || !telState) {
+			if (nameState === "" || telState === "") {
 				// If either name or tel is empty, return and do not proceed
 				return;
 			}
