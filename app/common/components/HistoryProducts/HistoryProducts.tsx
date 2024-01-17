@@ -22,10 +22,9 @@ const HistoryProducts = () => {
     const productsInBasket = useAppSelector((state) => state.basketReducer.products);
     const productsInFavs = useAppSelector((state) => state.favsReducer.products);
 
-    const productsToLoad = useAppSelector((state) => state.historyProductsReducer.products);
+	const productsToLoad = useAppSelector((state) => state.historyProductsReducer.products);
 
-    const [products, setProducts] = useState<IProduct[]>([]);
-    console.log('🚀 ~ file: HistoryProducts.tsx:21 ~ HistoryProducts ~ products:', products);
+	const [products, setProducts] = useState<IProduct[]>([]);
 
     useEffect(() => {
         const fetchAllProducts = async () => {

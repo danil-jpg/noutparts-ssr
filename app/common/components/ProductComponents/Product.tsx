@@ -210,7 +210,11 @@ export default async function Product({ category, id }: { category: string; id: 
 
 	return (
 		<>
-			<Breadcrumbs breadcrumbs={breadcrumbArr} classname="product__breadcrumbs"></Breadcrumbs>
+			<div className="breadcrumb-all-page__wrapper">
+				<div className="breadcrumb-all-page">
+					<Breadcrumbs breadcrumbs={breadcrumbArr} classname="product__breadcrumbs"></Breadcrumbs>
+				</div>
+			</div>
 
 			<div className="product-hero__wrapper">
 				<div className="product-hero">
