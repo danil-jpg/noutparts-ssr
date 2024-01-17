@@ -13,6 +13,7 @@ import IconRenderer from '@/app/common/ui/Icons/IconRenderer';
 import ProductAvailability from '@/app/common/ui/product-ui/ProductAvailability';
 import { addProduct } from '@/app/Redux/slice/basket/basketSlice';
 import { IProduct } from '@/app/common/types/types';
+import { addFavProduct } from '@/app/Redux/slice/favs/favsSlice';
 
 interface IMatrixCard {
     id: number;
@@ -165,7 +166,7 @@ const FilterCards = ({ type }: { type: categories }) => {
     }, []);
 
     const onLikeClickHandler = (product: IProduct): void => {
-        dispatch(addProduct(product));
+        dispatch(addFavProduct(product));
     };
 
     const RenderProperFilter = (): React.ReactElement[] => {
@@ -202,13 +203,22 @@ const FilterCards = ({ type }: { type: categories }) => {
                             <div
                                 className='card__like-sign'
                                 onClick={() => {
-                                    onLikeClickHandler({
-                                        ...el.attributes,
-                                        photo_url: el.attributes.photo.data[0].attributes.url,
-                                        discount: 0,
-                                        category: 'matrices',
-                                        id: el.id,
-                                    });
+                                    dispatch(
+                                        addFavProduct({
+                                            ...el.attributes,
+                                            photo_url: el.attributes.photo.data[0].attributes.url,
+                                            discount: 0,
+                                            category: 'matrices',
+                                            id: el.id,
+                                        })
+                                    );
+                                    // onLikeClickHandler({
+                                    //     ...el.attributes,
+                                    //     photo_url: el.attributes.photo.data[0].attributes.url,
+                                    //     discount: 0,
+                                    //     category: 'matrices',
+                                    //     id: el.id,
+                                    // });
                                 }}>
                                 <IconRenderer id='heart-icon' className='heart-icon' />
                             </div>
