@@ -169,9 +169,10 @@
 		align-items: center;
 		justify-items: center;
 		width: 100%;
-		max-width: 729px;
-		height: 133px;
+		max-width: 929px;
+		height: 183px;
 		grid-row-gap: 10px;
+		grid-column-gap: 30px;
 
 		a {
 			width: fit-content;

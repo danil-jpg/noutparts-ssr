@@ -6,7 +6,7 @@ import IconRenderer from "../../../ui/Icons/IconRenderer";
 
 import HeaderMiniCatalogPropertyItem from "./HeaderMiniCatalogPropertyItem";
 
-const HeaderMiniCatalogItem: FC<IHeaderMiniCatalogItem> = ({ item, isOpen, bigMenuActive, toggleItem, activeProperty, setActiveProperty }) => {
+const HeaderMiniCatalogItem: FC<IHeaderMiniCatalogItem> = ({ item, isOpen, bigMenuActive, toggleItem, activeProperty, setActiveProperty, setBigMenuActive }) => {
 	const [activeSubProperty, setActiveSubProperty] = useState<string | null>(null);
 
 	const toggleProperty = (property: string) => {
@@ -21,7 +21,7 @@ const HeaderMiniCatalogItem: FC<IHeaderMiniCatalogItem> = ({ item, isOpen, bigMe
 				{property}
 				{activeProperty === property && (
 					<div className="mini-catalog__sub-properties" onClick={(e) => e.stopPropagation()}>
-						<HeaderMiniCatalogPropertyItem catalogItemName={item.product_group_name} property={property} subProperties={Array.isArray(subProperties) ? subProperties : [subProperties]} setActiveSubProperty={setActiveSubProperty} />
+						<HeaderMiniCatalogPropertyItem catalogItemName={item.product_group_name} property={property} subProperties={Array.isArray(subProperties) ? subProperties : [subProperties]} setActiveSubProperty={setActiveSubProperty} setBigMenuActive={setBigMenuActive} />
 					</div>
 				)}
 			</div>

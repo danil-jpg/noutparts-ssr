@@ -3,15 +3,14 @@ import React, { FC, useState, useEffect, ChangeEvent } from "react";
 import IconRenderer from "../../ui/Icons/IconRenderer";
 import "./HeaderCallBack.scss";
 import Image from "next/image";
+import axios from "axios";
 
 import callingIcon from "/public/img/calling-icon.svg";
 
 import PrimaryInput from "../../ui/inputs/PrimaryInput";
 import TextAreaInput from "../../ui/inputs/TextAreaInput";
 
-
-
-const HeaderCallBack = ({ white } : {white?: boolean}) => {
+const HeaderCallBack = ({ white }: { white?: boolean }) => {
 	const [callTrace, setCallTrace] = useState<number>(0);
 
 	const [nameState, setNameState] = useState<string>("");
@@ -24,6 +23,50 @@ const HeaderCallBack = ({ white } : {white?: boolean}) => {
 		}
 	};
 
+	const handleUpload = async () => {
+		try {
+			if (!nameState || !telState) {
+				// If either name or tel is empty, return and do not proceed
+				return;
+			}
+
+			const responseInfo = await axios.post("http://localhost:1337/api/callbacks", {
+				data: {
+					name: nameState,
+					tel: telState,
+					comment: commentState
+				}
+			});
+
+			setCallTrace(2);
+
+			console.log("Response Info:", responseInfo);
+		} catch (error) {
+			console.log("info creation error: ", error);
+		}
+	};
+
+	useEffect(() => {
+		const handleBodyOverflow = () => {
+			if (callTrace > 0) {
+				document.body.style.overflow = "hidden";
+			} else {
+				document.body.style.overflow = "auto";
+			}
+		};
+
+		// Set body overflow on mount and resize
+		handleBodyOverflow();
+
+		window.addEventListener("resize", handleBodyOverflow);
+
+		return () => {
+			// Clean up event listener and reset body overflow when unmounting
+			window.removeEventListener("resize", handleBodyOverflow);
+			document.body.style.overflow = "auto";
+		};
+	}, [callTrace]);
+
 	return (
 		<>
 			<div
@@ -35,7 +78,7 @@ const HeaderCallBack = ({ white } : {white?: boolean}) => {
 				<div className="header-tel__icon">
 					<IconRenderer id="tel-sign"></IconRenderer>
 				</div>
-				<div className={`header-tel__box ${white && 'white'}`}>
+				<div className={`header-tel__box ${white && "white"}`}>
 					<div className="header-tel__number">(066) 388-88 95</div>
 					<div className="header-tel__button">Обратный звонок</div>
 				</div>
@@ -72,7 +115,7 @@ const HeaderCallBack = ({ white } : {white?: boolean}) => {
 						<div
 							className="header-tel__confirm-button big"
 							onClick={() => {
-								handleNextStep();
+								handleUpload();
 							}}
 						>
 							Заказать звонок
