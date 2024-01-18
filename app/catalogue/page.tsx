@@ -22,12 +22,27 @@ export default function Page() {
             </div>
             <div className='catalogue__items-wr'>
                 {/* @ts-expect-error Server Component */}
-                <CatalogueItem image='/img/catalogue/matrix.png' query='matrices?fields[0]=brand' mobImage='/img/catalogue/matrix_mob.png' />
-                <CatalogueItem image='/img/catalogue/battery.png' query='batteries?fields[0]=brand' mobImage='/img/catalogue/battery_mob.png' />
-                <CatalogueItem image='/img/catalogue/hdd.png' query='hdds?fields[0]=brand' mobImage='/img/catalogue/hdd_mob.png' />
-                <CatalogueItem image='/img/catalogue/keyboard.png' query='keyboards?fields[0]=brand' mobImage='/img/catalogue/keyboard_mob.png' />
-                <CatalogueItem image='/img/catalogue/ram.png' query='rams?fields[0]=brand' mobImage='/img/catalogue/ram_mob.png' />
-                <CatalogueItem image='/img/catalogue/power_unit.png' query='power-Supplies?fields[0]=brand' mobImage='/img/catalogue/power_unit.png' />
+                <CatalogueItem text='Матрицы' image='/img/catalogue/matrix.png' query='matrices?fields[0]=brand' mobImage='/img/catalogue/matrix_mob.png' />
+                <CatalogueItem
+                    text='Аккумуляторы'
+                    image='/img/catalogue/battery.png'
+                    query='batteries?fields[0]=brand'
+                    mobImage='/img/catalogue/battery_mob.png'
+                />
+                <CatalogueItem text='Жесткие диски' image='/img/catalogue/hdd.png' query='hdds?fields[0]=brand' mobImage='/img/catalogue/hdd_mob.png' />
+                <CatalogueItem
+                    text='Клавиатуры'
+                    image='/img/catalogue/keyboard.png'
+                    query='keyboards?fields[0]=brand'
+                    mobImage='/img/catalogue/keyboard_mob.png'
+                />
+                <CatalogueItem text='Оперативная память' image='/img/catalogue/ram.png' query='rams?fields[0]=brand' mobImage='/img/catalogue/ram_mob.png' />
+                <CatalogueItem
+                    text='Блок питания'
+                    image='/img/catalogue/power.png'
+                    query='power-Supplies?fields[0]=brand'
+                    mobImage='/img/catalogue/power.png'
+                />
             </div>
         </main>
     );

@@ -13,9 +13,10 @@ interface ICatalogueItem {
     image: string;
     mobImage: string;
     query: string;
+    text: string;
 }
 
-export default function CatalogueItem({ image, query, mobImage }: ICatalogueItem) {
+export default function CatalogueItem({ image, query, mobImage, text }: ICatalogueItem) {
     const [res, setRes] = useState<ICatalogueItemRes>();
     const dispatch = useAppDispatch();
 
@@ -37,8 +38,10 @@ export default function CatalogueItem({ image, query, mobImage }: ICatalogueItem
             <div className='catalogue-item__top'>
                 {/*  @ts-ignore: Object is possibly 'null'. */}
                 <Link href={`catalogue/filter-page/${query.match(/^([^\s?]+)(?=\?)/)[0]}`}>
-                    <Image className='catalogue-item__top_img' fill={true} src={image} sizes='(max-width: 768px) 200px,200px' alt='catalogue-item' />
-                    <Image className='catalogue-item__top_img catalogue-item__top_img_mob' fill={true} src={mobImage} alt='catalogue-item' />
+                    <p className='catalogue-item__text'>{text}</p>
+                    <div className='catalogue-item__img-wr'>
+                        <Image className='catalogue-item__top_img' layout='fill' src={image} alt='catalogue-item' />
+                    </div>
                 </Link>
             </div>
             <div className='catalogue-item__main'>
