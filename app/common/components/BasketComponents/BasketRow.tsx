@@ -105,20 +105,19 @@ const BasketRow: React.FC<IBasketRowProps> = ({ product, quantity, updateQuantit
 
 	const [timer, setTimer] = useState(5);
 
-    const startDeletionTimer = () => {
-        setTimer(5); // Reset timer to 5 seconds
-        setConfirmDelete(true);
+	const startDeletionTimer = () => {
+		setTimer(5); // Reset timer to 5 seconds
+		setConfirmDelete(true);
 
-        const intervalId = setInterval(() => {
-            setTimer((prevTimer) => (prevTimer > 0 ? prevTimer - 1 : prevTimer));
-        }, 1000);
+		const intervalId = setInterval(() => {
+			setTimer((prevTimer) => (prevTimer > 0 ? prevTimer - 1 : prevTimer));
+		}, 1000);
 
-        setTimeout(() => {
-            setConfirmDelete(false);
-            clearInterval(intervalId);
-        }, 5000); // Auto-delete after 5 seconds
-    };
-
+		setTimeout(() => {
+			setConfirmDelete(false);
+			clearInterval(intervalId);
+		}, 5000); // Auto-delete after 5 seconds
+	};
 
 	return (
 		<>
@@ -153,7 +152,7 @@ const BasketRow: React.FC<IBasketRowProps> = ({ product, quantity, updateQuantit
 								setDropdownActive(!dropdownActive);
 							}}
 						>
-							Показать данные о товаре <Image src={dropDownIcon} alt="dropDownIcon" className={`basket-row__drop-arrow ${dropdownActive ? "" : "active"}`}></Image>
+							{dropdownActive ? "Скрыть данные о товаре " : "Показать данные о товаре"} <Image src={dropDownIcon} alt="dropDownIcon" className={`basket-row__drop-arrow ${dropdownActive ? "" : "active"}`}></Image>
 						</div>
 						{dropdownActive && (
 							<div className="basket-row__dropdown">
@@ -161,7 +160,7 @@ const BasketRow: React.FC<IBasketRowProps> = ({ product, quantity, updateQuantit
 									.filter(([key]) => !excludedFields.includes(key)) // Filter out excluded fields
 									.map(([key, value]) => (
 										<div className="basket-row__dropdown-field" key={key}>
-											<span className="basket-row__dropdown-field-name">{key}:</span> {typeof value === "object" ? JSON.stringify(value) : String(value)}
+											<div className="basket-row__dropdown-field-name">{key}:</div> {typeof value === "object" ? JSON.stringify(value) : String(value)}
 										</div>
 									))}
 							</div>
@@ -214,11 +213,11 @@ const BasketRow: React.FC<IBasketRowProps> = ({ product, quantity, updateQuantit
 						<div className="basket-row__price">
 							{product.discount ? (
 								<div className="basket-row__discounted-price">
-									{product.price - product.discount}
-									<div className="basket-row__old-price">{product.price}</div>
+									{product.price - product.discount} грн
+									<div className="basket-row__old-price">{product.price} грн</div>
 								</div>
 							) : (
-								product.price
+								product.price + " грн"
 							)}
 						</div>
 						{isMobile ? (
@@ -226,7 +225,9 @@ const BasketRow: React.FC<IBasketRowProps> = ({ product, quantity, updateQuantit
 								Удалить
 							</div>
 						) : (
-							<Image className="basket-row__delete-icon" alt="deleteIcon" src={deleteIcon} onClick={deleteProduct} />
+							<div className="basket-row__delete-icon-container">
+								<Image className="basket-row__delete-icon" alt="deleteIcon" src={deleteIcon} onClick={deleteProduct} />
+							</div>
 						)}
 					</div>
 				</div>
