@@ -52,31 +52,30 @@ export default function FilterHdds() {
 
             setIsLoaded(true);
 
-            // нужно проверить!
             if (queriesArr.length > 0) {
                 console.log('here');
                 const result: { searchParam: string; searchParamKey: string[] }[] = [];
 
                 queriesArr.forEach((el) => {
-                    if (el.searchParam === 'permission') {
-                        result.push({ searchParam: 'permission', searchParamKey: el.searchParamKeys });
-                    } else if (el.searchParam === 'fastening') {
-                        result.push({ searchParam: 'fastening', searchParamKey: el.searchParamKeys });
+                    if (el.searchParam === 'technology') {
+                        result.push({ searchParam: 'technology', searchParamKey: el.searchParamKeys });
+                    } else if (el.searchParam === 'memory_mb') {
+                        result.push({ searchParam: 'memory_mb', searchParamKey: el.searchParamKeys });
                     }
                 });
                 if (result.length > 1) {
-                    memory.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
-                        if (el.attributes.memory === result[0].searchParamKey[0]) {
+                    technology.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
+                        if (el.attributes.technology === result[0].searchParamKey[0]) {
                             setChoosenFilterParametrs((prev) => {
-                                return [...prev, el.attributes.permission];
+                                return [...prev, el.attributes.technology];
                             });
                         }
                     });
 
-                    connector.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
-                        if (el.attributes.connector === result[1].searchParamKey[0]) {
+                    memory.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
+                        if (el.attributes.memory_mb === result[1].searchParamKey[0]) {
                             setChoosenFilterParametrs((prev) => {
-                                return [...prev, el.attributes.fastening];
+                                return [...prev, el.attributes.memory_mb];
                             });
                         }
                     });

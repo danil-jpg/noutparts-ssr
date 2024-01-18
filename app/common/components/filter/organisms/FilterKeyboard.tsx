@@ -57,28 +57,28 @@ export default function FilterKeyboard() {
                 const result: { searchParam: string; searchParamKey: string[] }[] = [];
 
                 queriesArr.forEach((el) => {
-                    if (el.searchParam === 'layout') {
+                    if (el.searchParam === 'form_factor') {
+                        result.push({ searchParam: 'form_factor', searchParamKey: el.searchParamKeys });
+                    } else if (el.searchParam === 'layout') {
                         result.push({ searchParam: 'layout', searchParamKey: el.searchParamKeys });
-                    } else if (el.searchParam === 'color') {
-                        result.push({ searchParam: 'color', searchParamKey: el.searchParamKeys });
                     }
                 });
 
                 if (result.length > 1) {
-                    // layout.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
-                    //     if (el.attributes.layout === result[0].searchParamKey[0]) {
-                    //         setChoosenFilterParametrs((prev) => {
-                    //             return [...prev, el.attributes.layout];
-                    //         });
-                    //     }
-                    // });
-                    // color.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
-                    //     if (el.attributes.color === result[1].searchParamKey[0]) {
-                    //         setChoosenFilterParametrs((prev) => {
-                    //             return [...prev, el.attributes.color];
-                    //         });
-                    //     }
-                    // });
+                    form_factor.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
+                        if (el.attributes.form_factor === result[0].searchParamKey[0]) {
+                            setChoosenFilterParametrs((prev) => {
+                                return [...prev, el.attributes.form_factor];
+                            });
+                        }
+                    });
+                    layout.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
+                        if (el.attributes.layout === result[1].searchParamKey[0]) {
+                            setChoosenFilterParametrs((prev) => {
+                                return [...prev, el.attributes.layout];
+                            });
+                        }
+                    });
                 }
             } else {
                 console.log(queriesArr.length);

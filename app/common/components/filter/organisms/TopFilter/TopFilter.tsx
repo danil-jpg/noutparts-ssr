@@ -159,7 +159,7 @@ const TopFilter = ({
                     ? 'Клавиатуры'
                     : type === 'rams'
                     ? 'Оперативная память'
-                    : type === 'power_unit'
+                    : type === 'power-Supplies'
                     ? 'Блок питания'
                     : type}
             </p>

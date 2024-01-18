@@ -13,6 +13,8 @@ import IconRenderer from '@/app/common/ui/Icons/IconRenderer';
 import ProductAvailability from '@/app/common/ui/product-ui/ProductAvailability';
 import { addProduct } from '@/app/Redux/slice/basket/basketSlice';
 import { IProduct } from '@/app/common/types/types';
+import { addFavProduct } from '@/app/Redux/slice/favs/favsSlice';
+import { useRouter } from 'next/navigation';
 
 interface IMatrixCard {
     id: number;
@@ -127,8 +129,34 @@ interface IRam {
     };
 }
 
+interface IPowerSupply {
+    id: number;
+    attributes: {
+        availability: string;
+        voltage: string;
+        amperage: string;
+        power: string;
+        price: number;
+        name: string;
+        tag: string;
+        photo: {
+            data: [
+                {
+                    attributes: {
+                        url: string;
+                    };
+                }
+            ];
+        };
+    };
+}
+
 const FilterCards = ({ type }: { type: categories }) => {
+    const router = useRouter();
+
     const selector = useAppSelector((state) => state.queryReducer.data.data);
+    const favData = useAppSelector((state) => state.favsReducer.products);
+    const basketData = useAppSelector((state) => state.basketReducer.products);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -141,10 +169,6 @@ const FilterCards = ({ type }: { type: categories }) => {
             }
         })();
     }, []);
-
-    const onLikeClickHandler = (product: IProduct): void => {
-        dispatch(addProduct(product));
-    };
 
     const RenderProperFilter = (): React.ReactElement[] => {
         switch (type) {
@@ -180,19 +204,59 @@ const FilterCards = ({ type }: { type: categories }) => {
                             <div
                                 className='card__like-sign'
                                 onClick={() => {
-                                    onLikeClickHandler({
-                                        ...el.attributes,
-                                        photo_url: el.attributes.photo.data[0].attributes.url,
-                                        discount: 0,
-                                        category: 'matrices',
-                                        id: el.id,
-                                    });
+                                    dispatch(
+                                        addFavProduct({
+                                            ...el.attributes,
+                                            photo_url: el.attributes.photo.data[0].attributes.url,
+                                            tag: el.attributes.tag,
+                                            discount: 0,
+                                            category: 'matrices',
+                                            id: el.id,
+                                        })
+                                    );
                                 }}>
-                                <IconRenderer id='heart-icon' className='heart-icon' />
+                                <IconRenderer
+                                    id='heart-icon'
+                                    className={`heart-icon ${
+                                        favData.find((innerEl) => innerEl.id === el.id && innerEl.name === el.attributes.name) ? 'active' : ''
+                                    }`}
+                                />
                             </div>
                             <div className='card__data_right'>
                                 <p className='card__price'>{el.attributes.price} грн</p>
-                                <PrimaryBtn text='Купить' type='basket' icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                {basketData.find((innerEl) => innerEl.id === el.id && innerEl.name === el.attributes.name) ? (
+                                    <PrimaryBtn
+                                        onClick={() => {
+                                            dispatch(
+                                                addProduct({
+                                                    photo_url: el.attributes.photo.data[0].attributes.url,
+                                                    price: el.attributes.price,
+                                                    name: el.attributes.name,
+                                                    id: el.id,
+                                                    category: 'matrices',
+                                                })
+                                            );
+                                        }}
+                                        text='В корзине'
+                                        type='basket'
+                                        icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                ) : (
+                                    <PrimaryBtn
+                                        onClick={() => {
+                                            dispatch(
+                                                addProduct({
+                                                    photo_url: el.attributes.photo.data[0].attributes.url,
+                                                    price: el.attributes.price,
+                                                    name: el.attributes.name,
+                                                    id: el.id,
+                                                    category: 'matrices',
+                                                })
+                                            );
+                                        }}
+                                        text='Купить'
+                                        type='basket'
+                                        icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                )}
                             </div>
                         </div>
                     );
@@ -206,7 +270,13 @@ const FilterCards = ({ type }: { type: categories }) => {
                             </div>
                             <Image alt='cardimg' src={el.attributes.photo.data[0].attributes.url} height={152} width={152} />
                             <div className='card__data_center'>
-                                <p className='card__name'>{el.attributes.name}</p>
+                                <p
+                                    onClick={() => {
+                                        router.push(`/product/batteries/${el.id}`);
+                                    }}
+                                    className='card__name'>
+                                    {el.attributes.name}
+                                </p>
                                 <div className='card__etc-params'>
                                     <p>
                                         Ёмкость: <span>{el.attributes.capacity}</span>
@@ -226,12 +296,62 @@ const FilterCards = ({ type }: { type: categories }) => {
                             <div className='card__availability'>
                                 <ProductAvailability type={el.attributes.availability as 'available' | 'ending' | 'outOfStock'}></ProductAvailability>
                             </div>
-                            <div className='card__like-sign'>
-                                <IconRenderer id='heart-icon' className='heart-icon' />
+                            <div
+                                className='card__like-sign'
+                                onClick={() => {
+                                    dispatch(
+                                        addFavProduct({
+                                            ...el.attributes,
+                                            photo_url: el.attributes.photo.data[0].attributes.url,
+                                            tag: el.attributes.tag,
+                                            discount: 0,
+                                            category: 'batteries',
+                                            id: el.id,
+                                        })
+                                    );
+                                }}>
+                                <IconRenderer
+                                    id='heart-icon'
+                                    className={`heart-icon ${
+                                        favData.find((innerEl) => innerEl.id === el.id && innerEl.name === el.attributes.name) ? 'active' : ''
+                                    }`}
+                                />
                             </div>
                             <div className='card__data_right'>
                                 <p className='card__price'>{el.attributes.price} грн</p>
-                                <PrimaryBtn text='Купить' type='basket' icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                {basketData.find((innerEl) => innerEl.id === el.id && innerEl.name === el.attributes.name) ? (
+                                    <PrimaryBtn
+                                        onClick={() => {
+                                            dispatch(
+                                                addProduct({
+                                                    photo_url: el.attributes.photo.data[0].attributes.url,
+                                                    price: el.attributes.price,
+                                                    name: el.attributes.name,
+                                                    id: el.id,
+                                                    category: 'batteries',
+                                                })
+                                            );
+                                        }}
+                                        text='В корзине'
+                                        type='basket'
+                                        icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                ) : (
+                                    <PrimaryBtn
+                                        onClick={() => {
+                                            dispatch(
+                                                addProduct({
+                                                    photo_url: el.attributes.photo.data[0].attributes.url,
+                                                    price: el.attributes.price,
+                                                    name: el.attributes.name,
+                                                    id: el.id,
+                                                    category: 'batteries',
+                                                })
+                                            );
+                                        }}
+                                        text='Купить'
+                                        type='basket'
+                                        icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                )}
                             </div>
                         </div>
                     );
@@ -245,7 +365,13 @@ const FilterCards = ({ type }: { type: categories }) => {
                             </div>
                             <Image alt='cardimg' src={el.attributes.photo.data[0].attributes.url} height={152} width={152} />
                             <div className='card__data_center'>
-                                <p className='card__name'>{el.attributes.name}</p>
+                                <p
+                                    onClick={() => {
+                                        router.push(`/product/hdds/${el.id}`);
+                                    }}
+                                    className='card__name'>
+                                    {el.attributes.name}
+                                </p>
                                 <div className='card__etc-params'>
                                     <p>
                                         Объем памяти: <span>{el.attributes.memory}</span>
@@ -265,18 +391,68 @@ const FilterCards = ({ type }: { type: categories }) => {
                             <div className='card__availability'>
                                 <ProductAvailability type={el.attributes.availability as 'available' | 'ending' | 'outOfStock'}></ProductAvailability>
                             </div>
-                            <div className='card__like-sign'>
-                                <IconRenderer id='heart-icon' className='heart-icon' />
+                            <div
+                                className='card__like-sign'
+                                onClick={() => {
+                                    dispatch(
+                                        addFavProduct({
+                                            ...el.attributes,
+                                            photo_url: el.attributes.photo.data[0].attributes.url,
+                                            tag: el.attributes.tag,
+                                            discount: 0,
+                                            category: 'matrices',
+                                            id: el.id,
+                                        })
+                                    );
+                                }}>
+                                <IconRenderer
+                                    id='heart-icon'
+                                    className={`heart-icon ${
+                                        favData.find((innerEl) => innerEl.id === el.id && innerEl.name === el.attributes.name) ? 'active' : ''
+                                    }`}
+                                />
                             </div>
                             <div className='card__data_right'>
                                 <p className='card__price'>{el.attributes.price} грн</p>
-                                <PrimaryBtn text='Купить' type='basket' icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                {basketData.find((innerEl) => innerEl.id === el.id && innerEl.name === el.attributes.name) ? (
+                                    <PrimaryBtn
+                                        onClick={() => {
+                                            dispatch(
+                                                addProduct({
+                                                    photo_url: el.attributes.photo.data[0].attributes.url,
+                                                    price: el.attributes.price,
+                                                    name: el.attributes.name,
+                                                    id: el.id,
+                                                    category: 'hdds',
+                                                })
+                                            );
+                                        }}
+                                        text='В корзине'
+                                        type='basket'
+                                        icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                ) : (
+                                    <PrimaryBtn
+                                        onClick={() => {
+                                            dispatch(
+                                                addProduct({
+                                                    photo_url: el.attributes.photo.data[0].attributes.url,
+                                                    price: el.attributes.price,
+                                                    name: el.attributes.name,
+                                                    id: el.id,
+                                                    category: 'hdds',
+                                                })
+                                            );
+                                        }}
+                                        text='Купить'
+                                        type='basket'
+                                        icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                )}
                             </div>
                         </div>
                     );
                 });
             case 'keyboards':
-                return selector.map((el: IRam, index) => {
+                return selector.map((el: IKeyboard, index) => {
                     return (
                         <div key={index} className='card'>
                             <div className='card__tag'>
@@ -284,32 +460,88 @@ const FilterCards = ({ type }: { type: categories }) => {
                             </div>
                             <Image alt='cardimg' src={el.attributes.photo.data[0].attributes.url} height={152} width={152} />
                             <div className='card__data_center'>
-                                <p className='card__name'>{el.attributes.name}</p>
+                                <p
+                                    onClick={() => {
+                                        router.push(`/product/keyboards/${el.id}`);
+                                    }}
+                                    className='card__name'>
+                                    {el.attributes.name}
+                                </p>
                                 <div className='card__etc-params'>
                                     <p>
-                                        Количество контактов: <span>{el.attributes.pin_quantity}</span>
+                                        Форм-фактор: <span>{el.attributes.form_factor}</span>
                                     </p>
                                 </div>
                                 <div className='card__etc-params'>
                                     <p>
-                                        Объем памяти: <span>{el.attributes.memory_mb}</span>
+                                        Раскладка: <span>{el.attributes.layout}</span>
                                     </p>
                                 </div>
                                 <div className='card__etc-params'>
                                     <p>
-                                        Напряжение: <span>{el.attributes.voltage}</span>
+                                        Подсветка: <span>{el.attributes.backlight}</span>
                                     </p>
                                 </div>
                             </div>
                             <div className='card__availability'>
                                 <ProductAvailability type={el.attributes.availability as 'available' | 'ending' | 'outOfStock'}></ProductAvailability>
                             </div>
-                            <div className='card__like-sign'>
-                                <IconRenderer id='heart-icon' className='heart-icon' />
+                            <div
+                                className='card__like-sign'
+                                onClick={() => {
+                                    dispatch(
+                                        addFavProduct({
+                                            ...el.attributes,
+                                            photo_url: el.attributes.photo.data[0].attributes.url,
+                                            tag: el.attributes.tag,
+                                            discount: 0,
+                                            category: 'keyboards',
+                                            id: el.id,
+                                        })
+                                    );
+                                }}>
+                                <IconRenderer
+                                    id='heart-icon'
+                                    className={`heart-icon ${
+                                        favData.find((innerEl) => innerEl.id === el.id && innerEl.name === el.attributes.name) ? 'active' : ''
+                                    }`}
+                                />
                             </div>
                             <div className='card__data_right'>
                                 <p className='card__price'>{el.attributes.price} грн</p>
-                                <PrimaryBtn text='Купить' type='basket' icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                {basketData.find((innerEl) => innerEl.id === el.id && innerEl.name === el.attributes.name) ? (
+                                    <PrimaryBtn
+                                        onClick={() => {
+                                            dispatch(
+                                                addProduct({
+                                                    photo_url: el.attributes.photo.data[0].attributes.url,
+                                                    price: el.attributes.price,
+                                                    name: el.attributes.name,
+                                                    id: el.id,
+                                                    category: 'keyboards',
+                                                })
+                                            );
+                                        }}
+                                        text='В корзине'
+                                        type='basket'
+                                        icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                ) : (
+                                    <PrimaryBtn
+                                        onClick={() => {
+                                            dispatch(
+                                                addProduct({
+                                                    photo_url: el.attributes.photo.data[0].attributes.url,
+                                                    price: el.attributes.price,
+                                                    name: el.attributes.name,
+                                                    id: el.id,
+                                                    category: 'keyboards',
+                                                })
+                                            );
+                                        }}
+                                        text='Купить'
+                                        type='basket'
+                                        icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                )}
                             </div>
                         </div>
                     );
@@ -323,7 +555,13 @@ const FilterCards = ({ type }: { type: categories }) => {
                             </div>
                             <Image alt='cardimg' src={el.attributes.photo.data[0].attributes.url} height={152} width={152} />
                             <div className='card__data_center'>
-                                <p className='card__name'>{el.attributes.name}</p>
+                                <p
+                                    onClick={() => {
+                                        router.push(`/product/rams/${el.id}`);
+                                    }}
+                                    className='card__name'>
+                                    {el.attributes.name}
+                                </p>
                                 <div className='card__etc-params'>
                                     <p>
                                         Озу: <span>{el.attributes.memory_mb}</span>
@@ -343,36 +581,90 @@ const FilterCards = ({ type }: { type: categories }) => {
                             <div className='card__availability'>
                                 <ProductAvailability type={el.attributes.availability as 'available' | 'ending' | 'outOfStock'}></ProductAvailability>
                             </div>
-                            <div className='card__like-sign'>
-                                <IconRenderer id='heart-icon' className='heart-icon' />
+                            <div
+                                className='card__like-sign'
+                                onClick={() => {
+                                    dispatch(
+                                        addFavProduct({
+                                            ...el.attributes,
+                                            photo_url: el.attributes.photo.data[0].attributes.url,
+                                            tag: el.attributes.tag,
+                                            discount: 0,
+                                            category: 'rams',
+                                            id: el.id,
+                                        })
+                                    );
+                                }}>
+                                <IconRenderer
+                                    id='heart-icon'
+                                    className={`heart-icon ${
+                                        favData.find((innerEl) => innerEl.id === el.id && innerEl.name === el.attributes.name) ? 'active' : ''
+                                    }`}
+                                />
                             </div>
                             <div className='card__data_right'>
                                 <p className='card__price'>{el.attributes.price} грн</p>
-                                <PrimaryBtn text='Купить' type='basket' icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                {basketData.find((innerEl) => innerEl.id === el.id && innerEl.name === el.attributes.name) ? (
+                                    <PrimaryBtn
+                                        onClick={() => {
+                                            dispatch(
+                                                addProduct({
+                                                    photo_url: el.attributes.photo.data[0].attributes.url,
+                                                    price: el.attributes.price,
+                                                    name: el.attributes.name,
+                                                    id: el.id,
+                                                    category: 'rams',
+                                                })
+                                            );
+                                        }}
+                                        text='В корзине'
+                                        type='basket'
+                                        icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                ) : (
+                                    <PrimaryBtn
+                                        onClick={() => {
+                                            dispatch(
+                                                addProduct({
+                                                    photo_url: el.attributes.photo.data[0].attributes.url,
+                                                    price: el.attributes.price,
+                                                    name: el.attributes.name,
+                                                    id: el.id,
+                                                    category: 'rams',
+                                                })
+                                            );
+                                        }}
+                                        text='Купить'
+                                        type='basket'
+                                        icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                )}
                             </div>
                         </div>
                     );
                 });
             case 'power-Supplies':
-                return selector.map((el: IRam, index) => {
+                return selector.map((el: IPowerSupply, index) => {
                     return (
                         <div key={index} className='card'>
-                            <h1>Elkfj;djsfs;klj</h1>
-
                             <div className='card__tag'>
                                 <ProductTag type={el.attributes.tag as 'discount' | 'new' | 'salesHit'}></ProductTag>
                             </div>
                             <Image alt='cardimg' src={el.attributes.photo.data[0].attributes.url} height={152} width={152} />
                             <div className='card__data_center'>
-                                <p className='card__name'>{el.attributes.name}</p>
+                                <p
+                                    onClick={() => {
+                                        router.push(`/product/power-Supplies/${el.id}`);
+                                    }}
+                                    className='card__name'>
+                                    {el.attributes.name}
+                                </p>
                                 <div className='card__etc-params'>
                                     <p>
-                                        Озу: <span>{el.attributes.memory_mb}</span>
+                                        Напряжение: <span>{el.attributes.amperage}</span>
                                     </p>
                                 </div>
                                 <div className='card__etc-params'>
                                     <p>
-                                        Кол-во контактов: <span>{el.attributes.pin_quantity}</span>
+                                        Ёмкость: <span>{el.attributes.power}</span>
                                     </p>
                                 </div>
                                 <div className='card__etc-params'>
@@ -384,12 +676,62 @@ const FilterCards = ({ type }: { type: categories }) => {
                             <div className='card__availability'>
                                 <ProductAvailability type={el.attributes.availability as 'available' | 'ending' | 'outOfStock'}></ProductAvailability>
                             </div>
-                            <div className='card__like-sign'>
-                                <IconRenderer id='heart-icon' className='heart-icon' />
+                            <div
+                                className='card__like-sign'
+                                onClick={() => {
+                                    dispatch(
+                                        addFavProduct({
+                                            ...el.attributes,
+                                            photo_url: el.attributes.photo.data[0].attributes.url,
+                                            tag: el.attributes.tag,
+                                            discount: 0,
+                                            category: 'power-Supplies',
+                                            id: el.id,
+                                        })
+                                    );
+                                }}>
+                                <IconRenderer
+                                    id='heart-icon'
+                                    className={`heart-icon ${
+                                        favData.find((innerEl) => innerEl.id === el.id && innerEl.name === el.attributes.name) ? 'active' : ''
+                                    }`}
+                                />
                             </div>
                             <div className='card__data_right'>
                                 <p className='card__price'>{el.attributes.price} грн</p>
-                                <PrimaryBtn text='Купить' type='basket' icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                {basketData.find((innerEl) => innerEl.id === el.id && innerEl.name === el.attributes.name) ? (
+                                    <PrimaryBtn
+                                        onClick={() => {
+                                            dispatch(
+                                                addProduct({
+                                                    photo_url: el.attributes.photo.data[0].attributes.url,
+                                                    price: el.attributes.price,
+                                                    name: el.attributes.name,
+                                                    id: el.id,
+                                                    category: 'power-Supplies',
+                                                })
+                                            );
+                                        }}
+                                        text='В корзине'
+                                        type='basket'
+                                        icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                ) : (
+                                    <PrimaryBtn
+                                        onClick={() => {
+                                            dispatch(
+                                                addProduct({
+                                                    photo_url: el.attributes.photo.data[0].attributes.url,
+                                                    price: el.attributes.price,
+                                                    name: el.attributes.name,
+                                                    id: el.id,
+                                                    category: 'power-Supplies',
+                                                })
+                                            );
+                                        }}
+                                        text='Купить'
+                                        type='basket'
+                                        icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                                )}
                             </div>
                         </div>
                     );
