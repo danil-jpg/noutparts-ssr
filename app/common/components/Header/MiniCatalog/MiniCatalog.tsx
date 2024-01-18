@@ -76,7 +76,7 @@ const MiniCatalog: FC = () => {
             },
         },
         {
-            product_group_name: 'Power-Supplies',
+            product_group_name: 'Power-supplies',
             product_group_types: {
                 '240 v': ['140 x 150 x 87', '150 x 140 x 86', '150 x 140 x 86', '160 x 150 x 86', '170 x 150 x 86'],
             },

@@ -134,9 +134,8 @@ const HeaderMiniCatalogPropertyItem: FC<IHeaderMiniCatalogPropertyItem> = ({ cat
                     );
                     dispatch(setType('rams'));
                     break;
-                case 'Power-Supplies':
-                    alert('here');
-                    if (window.location.href.match(/\bpower-Supplies\b/gi)) {
+                case 'power-supplies':
+                    if (window.location.href.match(/\bpower-supplies\b/gi)) {
                         router.refresh();
                     } else {
                         router.push('/catalogue/filter-page/' + selectedOptions[0]);
@@ -171,7 +170,6 @@ const HeaderMiniCatalogPropertyItem: FC<IHeaderMiniCatalogPropertyItem> = ({ cat
 
         let params = new URLSearchParams();
 
-        console.log('selectedOptions', selectedOptions);
         params.set('catalogItemName', selectedOptions[0]);
         params.set('property', selectedOptions[1]);
         params.set('subProperty', selectedOptions[2]);

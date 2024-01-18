@@ -52,37 +52,36 @@ export default function FilterPower() {
 
             setIsLoaded(true);
 
-            // if (queriesArr.length > 0) {
-            //     console.log('here');
-            //     const result: { searchParam: string; searchParamKey: string[] }[] = [];
+            if (queriesArr.length > 0) {
+                const result: { searchParam: string; searchParamKey: string[] }[] = [];
 
-            //     queriesArr.forEach((el) => {
-            //         if (el.searchParam === 'permission') {
-            //             result.push({ searchParam: 'permission', searchParamKey: el.searchParamKeys });
-            //         } else if (el.searchParam === 'fastening') {
-            //             result.push({ searchParam: 'fastening', searchParamKey: el.searchParamKeys });
-            //         }
-            //     });
-            //     if (result.length > 1) {
-            //         power.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
-            //             if (el.attributes.permission === result[0].searchParamKey[0]) {
-            //                 setChoosenFilterParametrs((prev) => {
-            //                     return [...prev, el.attributes.permission];
-            //                 });
-            //             }
-            //         });
+                queriesArr.forEach((el) => {
+                    if (el.searchParam === 'voltage') {
+                        result.push({ searchParam: 'voltage', searchParamKey: el.searchParamKeys });
+                    } else if (el.searchParam === 'form_factor') {
+                        result.push({ searchParam: 'form_factor', searchParamKey: el.searchParamKeys });
+                    }
+                });
+                if (result.length > 1) {
+                    voltage.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
+                        if (el.attributes.voltage === result[0].searchParamKey[0]) {
+                            setChoosenFilterParametrs((prev) => {
+                                return [...prev, el.attributes.voltage];
+                            });
+                        }
+                    });
 
-            //         voltage.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
-            //             if (el.attributes.fastening === result[1].searchParamKey[0]) {
-            //                 setChoosenFilterParametrs((prev) => {
-            //                     return [...prev, el.attributes.fastening];
-            //                 });
-            //             }
-            //         });
-            //     }
-            // } else {
-            //     console.log(queriesArr.length);
-            // }
+                    form_factor.data.forEach((el: { id: number; attributes: { [key: string]: string } }) => {
+                        if (el.attributes.form_factor === result[1].searchParamKey[0]) {
+                            setChoosenFilterParametrs((prev) => {
+                                return [...prev, el.attributes.form_factor];
+                            });
+                        }
+                    });
+                }
+            } else {
+                console.log(queriesArr.length);
+            }
         };
 
         if (!prevType) {
