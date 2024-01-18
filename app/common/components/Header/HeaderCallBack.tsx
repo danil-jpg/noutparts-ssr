@@ -17,12 +17,6 @@ const HeaderCallBack = ({ white }: { white?: boolean }) => {
 	const [telState, setTelState] = useState<string>("");
 	const [commentState, setCommentState] = useState<string>("");
 
-	const handleNextStep = () => {
-		if (nameState != "" && telState != "") {
-			setCallTrace(2);
-		}
-	};
-
 	const handleUpload = async () => {
 		try {
 			if (nameState === "" || telState === "") {

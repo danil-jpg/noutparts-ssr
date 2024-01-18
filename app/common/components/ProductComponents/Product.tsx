@@ -195,9 +195,22 @@ export default async function Product({ category, id }: { category: string; id: 
 		}
 	});
 
+	const translateCategory = (category: string): string => {
+		const translationMap: { [key: string]: string } = {
+			hdds: "Жорсткі диски",
+			matrices: "Матриці",
+			batteries: "Акумулятори",
+			keyboards: "Клавіатури",
+			power_supplies: "Блоки живлення",
+			rams: "Оперативна пам'ять"
+		};
+
+		return translationMap[category] || category;
+	};
+
 	const breadcrumbArr: Breadcrumb[] = [
 		{
-			label: `${category}`,
+			label: translateCategory(category),
 			href: "/catalogue",
 			active: false
 		},
@@ -249,7 +262,7 @@ export default async function Product({ category, id }: { category: string; id: 
 				<div className="product-about">
 					<div className="product-about__main">
 						<div className="product-about__title">Описание</div>
-						<div className="product-about__text">{product.about ? product.about : "Seller didn't provide an about section"}</div>
+						<div className="product-about__text">{product.about ? product.about : "Продавець не надав загальної інформації про товар"}</div>
 					</div>
 					<div className="product-about__info">
 						<div className="product-about__info-item">*характеристики и комплектация товара могут отличаться, уточняйте у продавцов.</div>
