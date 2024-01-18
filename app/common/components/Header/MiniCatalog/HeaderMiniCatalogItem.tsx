@@ -14,7 +14,6 @@ const HeaderMiniCatalogItem: FC<IHeaderMiniCatalogItem> = ({ item, isOpen, bigMe
         setActiveSubProperty(null);
     };
     const properties = Object.keys(item.product_group_types).map((property) => {
-        console.log(item.product_group_name);
         const subProperties = item.product_group_types[property];
 
         return (
