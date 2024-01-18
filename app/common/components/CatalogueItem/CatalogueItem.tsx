@@ -30,9 +30,6 @@ export default function CatalogueItem({ image, query, mobImage, text }: ICatalog
         getData();
     }, [query]);
 
-    if (!res) {
-        return <Loading />;
-    }
     return (
         <div className='catalogue-item'>
             <div className='catalogue-item__top'>
