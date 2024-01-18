@@ -7,7 +7,7 @@ import { useAppDispatch } from '@/app/Redux/store';
 import { setQueryArr, setType } from '@/app/Redux/slice/query/query';
 import { useRouter } from 'next/navigation';
 
-const HeaderMiniCatalogPropertyItem: FC<IHeaderMiniCatalogPropertyItem> = ({ catalogItemName, property, subProperties }) => {
+const HeaderMiniCatalogPropertyItem: FC<IHeaderMiniCatalogPropertyItem> = ({ catalogItemName, property, subProperties, setBigMenuActive }) => {
     const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
     const dispatch = useAppDispatch();

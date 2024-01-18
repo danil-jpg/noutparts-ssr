@@ -123,7 +123,7 @@ export default function BasketComponent() {
             <div className='basket__wrapper'>
                 <div className='basket'>
                     <div className='basket__title'>Корзина</div>
-                    {Object.values(products).length > 0 ? (
+                    {Object.values(productsToFetch).length > 0 ? (
                         <div className='basket__content'>
                             <div className='basket__content-table'>
                                 <div className='basket__table-top'>

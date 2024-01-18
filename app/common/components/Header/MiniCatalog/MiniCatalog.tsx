@@ -1,5 +1,5 @@
 'use client';
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { IPrimaryInput } from '@/types';
 
 import Image from 'next/image';
@@ -36,6 +36,25 @@ const MiniCatalog: FC = () => {
         setActiveIndex(null);
         setActiveProperty(null);
     };
+
+    const handleDocumentClick = (event: MouseEvent): void => {
+        const target = event.target as HTMLElement;
+
+        // Check if the click occurred outside the mini catalog
+        if (!target.closest('.mini-catalog')) {
+            closeDropdown();
+        }
+    };
+
+    useEffect(() => {
+        // Attach the event listener when the component mounts
+        document.addEventListener('click', handleDocumentClick);
+
+        // Detach the event listener when the component unmounts
+        return () => {
+            document.removeEventListener('click', handleDocumentClick);
+        };
+    }, []);
 
     const items = [
         {
@@ -110,6 +129,7 @@ const MiniCatalog: FC = () => {
                         toggleItem={() => toggleItem(index)}
                         activeProperty={activeProperty}
                         setActiveProperty={setActiveProperty}
+                        setBigMenuActive={setBigMenuActive}
                     />
                 ))}
 
