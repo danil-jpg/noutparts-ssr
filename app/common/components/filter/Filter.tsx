@@ -7,6 +7,7 @@ import FilterKeyboard from './organisms/FilterKeyboard';
 import FilterRam from './organisms/FilterRam';
 import FilterPower from './organisms/FilterPowerSupply';
 import FilterMatrix from './organisms/FilterMatrix';
+import HistoryProducts from '../HistoryProducts/HistoryProducts';
 
 interface IFilter {
     type: string;
@@ -35,6 +36,7 @@ export default function Filter({ type }: IFilter) {
     return (
         <Suspense fallback={<Loading />}>
             <RenderFilter />
+            <HistoryProducts />
         </Suspense>
     );
 }
