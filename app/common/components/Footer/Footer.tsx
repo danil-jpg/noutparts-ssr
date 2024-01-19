@@ -18,7 +18,6 @@ import privatIcon from "/public/img/footer-privat-icon.svg";
 const Footer = ({}) => {
 	const [email, setEmail] = useState<string>("");
 	const [message, setMessage] = useState<string | null>(null);
-	console.log("🚀 ~ Footer ~ message:", message);
 
 	const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setEmail(e.target.value);
