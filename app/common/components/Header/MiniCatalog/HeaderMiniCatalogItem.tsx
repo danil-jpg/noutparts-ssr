@@ -33,6 +33,26 @@ const HeaderMiniCatalogItem: FC<IHeaderMiniCatalogItem> = ({ item, isOpen, bigMe
         );
     });
 
+
+	function translateGroupName(groupName:string) {
+		switch (groupName) {
+			case 'Matrices':
+				return 'Матриці';
+			case 'Batteries':
+				return 'Батареї';
+			case 'Hard disks':
+				return 'Жорсткі диски';
+			case 'Keyboards':
+				return 'Клавіатури';
+			case 'RAM':
+				return "Оперативна пам'ять";
+			case 'Power unit':
+				return 'Блок живлення';
+			default:
+				return groupName; // return the original name if no translation is available
+		}
+	}
+
     return (
         <>
             {bigMenuActive && (
@@ -43,7 +63,7 @@ const HeaderMiniCatalogItem: FC<IHeaderMiniCatalogItem> = ({ item, isOpen, bigMe
                             e.stopPropagation();
                             toggleItem();
                         }}>
-                        {item.product_group_name}
+                        {translateGroupName(item.product_group_name)}
 
                         <div className={`mini-catalog__dropdown-arrow ${isOpen && 'active'}`}>
                             <IconRenderer id='dropdown-arrow-right'></IconRenderer>

@@ -3,15 +3,16 @@
 	max-width: 1230px;
 	display: flex;
 	flex-direction: column;
-	gap: 31px;
+	gap: 39px;
 	&__wrapper {
-		margin: 25px 0 0 0;
+		margin: 22px 0 0 0;
 		display: flex;
 		width: 100%;
 		justify-content: center;
 	}
 
 	&__title {
+		margin: 0 0 0 2px;
 		color: #000;
 		font-family: Roboto;
 		font-size: 24px;
@@ -36,9 +37,9 @@
 	&__table-top {
 		display: flex;
 		flex-direction: row;
-		justify-content: center;
+		justify-content: flex-start;
 		width: 100%;
-		padding: 0 0 12px 0;
+		padding: 0 0 12px 5px;
 		border-bottom: 1px solid #cacdd8;
 	}
 
@@ -51,12 +52,13 @@
 		font-weight: 600;
 		line-height: normal;
 		&.one {
-			max-width: 453px;
+			max-width: 455px;
 		}
 		&.two {
 			max-width: 180px;
 		}
 		&.three {
+			max-width: 100px;
 		}
 	}
 
@@ -86,16 +88,18 @@
 	}
 
 	&__order {
+		margin: -6px 0 0 0;
 		border-radius: 6px;
 		background: #f3ffee;
-		padding: 22px 24px 44px 23px;
+		padding: 22px 20px 44px 20px;
 		display: flex;
 		flex-direction: column;
 		width: 100%;
-		max-width: 356px;
+		max-width: 360px;
 	}
 
 	&__order-title {
+		margin: -2px 0 0 0px;
 		color: #000;
 		font-family: Roboto;
 		font-size: 24px;
@@ -105,7 +109,7 @@
 	}
 
 	&__order-heading {
-		margin: 20px 0 10px 0;
+		margin: 22px 0 14px 3px;
 		color: var(--Color---7, #000);
 		font-family: Roboto;
 		font-size: 13px;
@@ -116,7 +120,7 @@
 	&__order-products {
 		display: flex;
 		flex-direction: column;
-		gap: 8px;
+		gap: 20px;
 	}
 
 	&__order-product {
@@ -175,6 +179,7 @@
 		font-weight: 600;
 		&.big {
 			font-size: 16px;
+			font-weight: 700;
 		}
 	}
 
@@ -692,7 +697,7 @@
 			font-weight: 500;
 			line-height: normal;
 		}
-	
+
 		&__button {
 			border-radius: 4px;
 			background: #36dd65;
@@ -710,7 +715,7 @@
 			text-transform: uppercase;
 			cursor: pointer;
 		}
-	
+
 		&__img {
 			width: 222px;
 			height: 222px;

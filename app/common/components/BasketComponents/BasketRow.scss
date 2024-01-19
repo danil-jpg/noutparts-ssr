@@ -1,7 +1,7 @@
 .basket-row {
 	display: flex;
 	flex-direction: row;
-	padding: 26px 0 22px 0;
+	padding: 0px 0 22px 0;
 	border-bottom: 1px solid #cacdd8;
 	&__image-price-container {
 		position: relative;
@@ -39,7 +39,7 @@
 	}
 
 	&__model {
-		margin: 10px 0 0 0;
+		margin: 12px 0 -8px 0;
 		color: #000;
 		font-family: Roboto;
 		font-size: 14px;
@@ -53,7 +53,7 @@
 	}
 
 	&__dropdown-label {
-		margin: 16px 0 0 0;
+		margin: 20px 0 0 0;
 		color: #33b457;
 		font-family: Roboto;
 		font-size: 16px;
@@ -79,7 +79,7 @@
 		margin: 17px 0 0 0;
 		display: flex;
 		flex-direction: column;
-		gap: 16px;
+		gap: 18px;
 	}
 
 	&__dropdown-field {
@@ -89,6 +89,13 @@
 		font-style: normal;
 		font-weight: 500;
 		line-height: normal;
+
+		width: 100%;
+		max-width: 250px;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		white-space: nowrap;
 	}
 
 	&__dropdown-field-name {
@@ -102,14 +109,18 @@
 		line-height: normal;
 	}
 	&__clickables {
-		width: 40%;
+		width: 100%;
+		max-width: 460px;
 		display: flex;
 		flex-direction: row;
 	}
 
 	&__counter-container {
+		margin: 0 19px 0 0;
 		width: 100%;
-		max-width: 111px;
+		max-width: 241px;
+		display: flex;
+		justify-content: center;
 	}
 
 	&__counter {
@@ -122,7 +133,7 @@
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
-		padding: 0 17px;
+		padding: 0 22px;
 		color: #414141;
 		font-family: Roboto;
 		font-size: 20px;
@@ -163,16 +174,16 @@
 		}
 	}
 	&__price {
+		margin: 12px 0 0 0;
 		width: 100%;
-		max-width: 142px;
+		max-width: 102px;
 		color: #000;
-		font-family: Poppins;
+		font-family: Roboto;
 		font-size: 18px;
 		font-style: normal;
 		font-weight: 600;
 		line-height: normal;
-		display: flex;
-		justify-content: center;
+		
 
 		&.mobile {
 			display: none;
@@ -180,12 +191,14 @@
 	}
 
 	&__discounted-price {
+		width: 100%;
+		max-width: 102px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 3px;
+		gap: 5px;
 		color: #36be5c;
-		font-family: Poppins;
+		font-family: Roboto;
 		font-size: 18px;
 		font-style: normal;
 		font-weight: 600;
@@ -195,7 +208,7 @@
 	&__old-price {
 		color: #000;
 		text-align: center;
-		font-family: Poppins;
+		font-family: Roboto;
 		font-size: 14px;
 		font-style: normal;
 		font-weight: 600;
@@ -203,8 +216,20 @@
 		text-decoration: line-through; /* Use line-through instead of text-decoration-line */
 	}
 
+	&__delete-icon-container{
+		width: 100%;
+		max-width: 100px;
+		display: flex;
+		justify-content: flex-end;
+	}
+
 	&__delete-icon {
 		cursor: pointer;
+
+		width: 27px;
+		height: 27px;
+
+		
 	}
 
 	&__restore-message {
