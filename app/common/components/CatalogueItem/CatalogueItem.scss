@@ -2,20 +2,31 @@
     max-width: 380px;
     position: relative;
     cursor: pointer;
+    &__text {
+        position: relative;
+        z-index: 2;
+        margin: 0px 0 0 25px;
+        color: #1d1f22;
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 140%; /* 30.8px */
+    }
     &__top {
         background: #f5fcf3;
         height: 210px;
         position: relative;
         width: 100%;
+        padding-top: 25px;
 
         &_img {
-            // position: absolute;
-            // bottom: 12px;
-            // right: 0;
-            &_mob {
-                display: none;
-            }
         }
+    }
+    &__img-wr {
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        right: 0;
+        bottom: 0px;
     }
 
     &__main {
@@ -56,13 +67,19 @@
         &__main {
             display: none;
         }
+        &__img-wr {
+            width: 130px;
+            height: 110px;
+            position: absolute;
+            bottom: 0px;
+        }
     }
 
     .catalogue-item__top_img {
-        display: none;
+        // display: none;
     }
 
     .catalogue-item__top_img_mob {
-        display: block;
+        // display: block;
     }
 }

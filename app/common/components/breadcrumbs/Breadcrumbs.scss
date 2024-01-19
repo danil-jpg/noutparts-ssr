@@ -1,5 +1,8 @@
 .breadcrumbs {
+    overflow-x: auto;
+
     &__ul {
+        width: max-content;
         display: flex;
     }
 
