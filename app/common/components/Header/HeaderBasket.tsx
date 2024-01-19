@@ -1,11 +1,13 @@
 "use client";
 import React, { FC, useState, useEffect, useRef } from "react";
 import IconRenderer from "../../ui/Icons/IconRenderer";
+import Link from "next/dist/client/link";
 import "./HeaderBasket.scss";
 import Image from "next/image";
 import { useAppSelector } from "@/app/Redux/store";
 import { useAppDispatch } from "@/app/Redux/store";
 import { removeProduct } from "@/app/Redux/slice/basket/basketSlice";
+
 import deleteIcon from "/public/img/delete-icon.svg";
 
 interface Product {
@@ -61,9 +63,9 @@ const HeaderBasket: FC = () => {
 	}, []);
 
 	return (
-		<div className="header-basket">
+		<div className="header-basket" ref={popupRef}>
 			<div className="header-basket__main-button" onClick={togglePopup}>
-				<div className="header-basket__icon" >
+				<div className="header-basket__icon">
 					<IconRenderer id="header-basket-sign"></IconRenderer>
 					<div className="header-basket__quantity">{products.length}</div>
 				</div>
@@ -74,7 +76,7 @@ const HeaderBasket: FC = () => {
 			</div>
 
 			{isPopupOpen && (
-				<div className="header-basket__popup" ref={popupRef}>
+				<div className="header-basket__popup">
 					<div className="header-basket__chosen-products">
 						{/* Display chosen products */}
 						{products.map((product, index) => (
@@ -101,8 +103,12 @@ const HeaderBasket: FC = () => {
 							<span>{totalPrice} грн</span>
 						</div>
 						<div className="header-basket__buttons">
-							<div className="header-basket__basket-link">В корзину</div>
-							<div className="header-basket__order-button">Оформить</div>
+							<Link href={"/basket"}>
+								<div className="header-basket__basket-link">В корзину</div>
+							</Link>
+							<Link href={"/order"}>
+								<div className="header-basket__order-button">Оформить</div>
+							</Link>
 						</div>
 					</div>
 				</div>
