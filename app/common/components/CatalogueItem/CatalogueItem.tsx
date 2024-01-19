@@ -18,6 +18,7 @@ interface ICatalogueItem {
 
 export default function CatalogueItem({ image, query, mobImage, text }: ICatalogueItem) {
     const [res, setRes] = useState<ICatalogueItemRes>();
+    const [loaded, setLoaded] = useState(false);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -25,11 +26,15 @@ export default function CatalogueItem({ image, query, mobImage, text }: ICatalog
             const res = await getCatalogueItemData(query);
 
             setRes(res);
+            setLoaded(true);
         };
 
         getData();
     }, [query]);
 
+    if (!loaded) {
+        return <Loading />;
+    }
     return (
         <div className='catalogue-item'>
             <div className='catalogue-item__top'>

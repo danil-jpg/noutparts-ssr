@@ -15,8 +15,8 @@
     width: 120px;
     position: relative;
     &_white {
-        &::before {
-            background: white;
+        &::after {
+            background: white !important;
         }
     }
 }

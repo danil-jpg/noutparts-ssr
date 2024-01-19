@@ -5,7 +5,7 @@ import './Loading.scss';
 const Loading: FC = () => {
     return (
         <div className='loading'>
-            <Spinner classname='loading__item' white={true} />
+            <Spinner classname='loading__item' white={false} />
         </div>
     );
 };

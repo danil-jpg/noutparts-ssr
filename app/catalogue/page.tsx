@@ -2,7 +2,6 @@ import { Breadcrumb } from '../common/types/types';
 import Breadcrumbs from '../common/components/breadcrumbs/Breadcrumbs';
 import './catalogue.scss';
 import CatalogueItem from '../common/components/CatalogueItem/catalogueItem';
-import { useEffect } from 'react';
 
 export default function Page() {
     const breadcrumbArr: Breadcrumb[] = [
