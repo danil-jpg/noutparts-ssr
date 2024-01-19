@@ -13,36 +13,30 @@ import { fetchFeaturedProducts } from "@/app/lib/data";
 
 const Features = ({}) => {
 	const [filterType, setFilterType] = useState<string>("new");
+	const [loading, setLoading] = useState<boolean>(false); // New loading state
 
-    const productTypes: categories[] = ['matrices', 'batteries', 'hdds', 'keyboards', 'rams', 'power-Supplies'];
+	const productTypes: categories[] = ["matrices", "batteries", "hdds", "keyboards", "rams", "power-Supplies"];
 
-	const [products, setProducts] = useState<IProduct[]>([]); // Assuming Product is the interface for your products
-
-	// console.log('🚀 ~ file: Features.tsx:60 ~ Features ~ products:', products);
-
+	const [products, setProducts] = useState<IProduct[]>([]);
 	const productsInBasket = useAppSelector((state) => state.basketReducer.products);
 	const productsInFavs = useAppSelector((state) => state.favsReducer.products);
-	// Useeffect that runs all funcs and fills the products array with them
+
 	useEffect(() => {
-		// Create an array of promises using fetchFeaturedProducts for each product type
 		const promises = productTypes.map((type) => fetchFeaturedProducts(type, filterType));
 
 		const fetchAllFeaturedProducts = async () => {
 			try {
-				// Use Promise.all to execute all promises concurrently
+				setLoading(true); // Set loading to true when starting the fetch
 				const productDataArray = await Promise.all(promises);
-				// Flatten the array of arrays into a single array of products
 				const allProducts = productDataArray.flat();
-				console.log(allProducts);
-
-				// Set the products state with the fetched data
 				setProducts(allProducts);
 			} catch (error) {
 				console.error("Error getting all product data:", error);
+			} finally {
+				setLoading(false); // Set loading to false when fetch is completed (either success or error)
 			}
 		};
 
-		// Call the function to fetch all products
 		fetchAllFeaturedProducts();
 	}, [filterType]);
 
@@ -88,22 +82,22 @@ const Features = ({}) => {
 				</div>
 
 				<div className={`features__content ${showState ? "show" : ""}`}>
-					{products.length > 0 ? (
+					{loading ? (
+						<div className="spinner-container">
+							<Spinner classname="features__spinner" />
+						</div>
+					) : products.length > 0 ? (
 						products.map((product, index) => {
-							// Check if the product exists in productsInBasket
 							const foundProduct = productsInBasket.find((basketProduct) => basketProduct.name === product.name);
-							// Determine if the product is bought
 							const isBought = !!foundProduct;
 
-							// Check if the product exists in productsInBasket
 							const foundFav = productsInFavs.find((favProduct) => favProduct.name === product.name);
-							// Determine if the product is bought
 							const isFav = !!foundFav;
 
 							return <FeaturesCard key={index} product={product} isBought={isBought} isFav={isFav} />;
 						})
 					) : (
-						<Spinner classname="features__spinner" />
+						<p>No products found</p>
 					)}
 					<div className={`features__show-hide-block ${showState ? "show" : ""}`}>
 						<div

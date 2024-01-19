@@ -127,7 +127,9 @@ const HistoryProducts = () => {
 									})}
 								</Swiper>
 							) : (
-								<Spinner classname="features__spinner" />
+								<div className="spinner-container">
+									<Spinner classname="features__spinner" />
+								</div>
 							)}
 						</div>
 					</div>
