@@ -25,7 +25,7 @@ export default function Filter({ type }: IFilter) {
                 return <FilterKeyboard />;
             case 'rams':
                 return <FilterRam />;
-            case 'power-Supplies':
+            case 'power-supplies':
                 return <FilterPower />;
             default:
                 return <FilterMatrix />;

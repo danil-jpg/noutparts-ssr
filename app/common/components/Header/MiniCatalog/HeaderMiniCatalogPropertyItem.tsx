@@ -7,7 +7,7 @@ import { useAppDispatch } from '@/app/Redux/store';
 import { setQueryArr, setType } from '@/app/Redux/slice/query/query';
 import { useRouter } from 'next/navigation';
 
-const HeaderMiniCatalogPropertyItem: FC<IHeaderMiniCatalogPropertyItem> = ({ catalogItemName, property, subProperties , setBigMenuActive}) => {
+const HeaderMiniCatalogPropertyItem: FC<IHeaderMiniCatalogPropertyItem> = ({ catalogItemName, property, subProperties, setBigMenuActive }) => {
     const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
     const dispatch = useAppDispatch();
@@ -15,7 +15,6 @@ const HeaderMiniCatalogPropertyItem: FC<IHeaderMiniCatalogPropertyItem> = ({ cat
     const router = useRouter();
 
     const handleClick = (subProperty: string) => {
-        console.log('Options' + [catalogItemName, property, subProperty]);
         let updatedOptions: string[] = [];
 
         if (selectedOptions.includes(subProperty)) {
@@ -23,9 +22,7 @@ const HeaderMiniCatalogPropertyItem: FC<IHeaderMiniCatalogPropertyItem> = ({ cat
         } else {
             updatedOptions = [catalogItemName, property, subProperty];
         }
-        console.log('updatedOptions' + updatedOptions);
         setSelectedOptions(updatedOptions);
-        console.log('🚀 ~ file: HeaderMiniCatalogPropertyItem.tsx:22 ~ handleClick ~ setSelectedOptions(updatedOptions);:', setSelectedOptions(updatedOptions));
     };
 
     useEffect(() => {
@@ -73,38 +70,92 @@ const HeaderMiniCatalogPropertyItem: FC<IHeaderMiniCatalogPropertyItem> = ({ cat
                     );
                     dispatch(setType('batteries'));
                     break;
+
+                case 'hdds':
+                    if (window.location.href.match(/\hdds\b/gi)) {
+                        router.refresh();
+                    } else {
+                        router.push('/catalogue/filter-page/' + selectedOptions[0]);
+                    }
+
+                    dispatch(
+                        setQueryArr([
+                            {
+                                searchParam: 'technology',
+                                searchParamKeys: [selectedOptions[1]],
+                            },
+                            {
+                                searchParam: 'memory_mb',
+                                searchParamKeys: [selectedOptions[2]],
+                            },
+                        ])
+                    );
+                    dispatch(setType('hdds'));
+                    break;
+                case 'keyboards':
+                    if (window.location.href.match(/\keyboards\b/gi)) {
+                        router.refresh();
+                    } else {
+                        router.push('/catalogue/filter-page/' + selectedOptions[0]);
+                    }
+
+                    dispatch(
+                        setQueryArr([
+                            {
+                                searchParam: 'form_factor',
+                                searchParamKeys: [selectedOptions[1]],
+                            },
+                            {
+                                searchParam: 'layout',
+                                searchParamKeys: [selectedOptions[2]],
+                            },
+                        ])
+                    );
+                    dispatch(setType('keyboards'));
+                    break;
+                case 'rams':
+                    if (window.location.href.match(/rams\b/gi)) {
+                        router.refresh();
+                    } else {
+                        router.push('/catalogue/filter-page/' + selectedOptions[0]);
+                    }
+
+                    dispatch(
+                        setQueryArr([
+                            {
+                                searchParam: 'voltage',
+                                searchParamKeys: [selectedOptions[1]],
+                            },
+                            {
+                                searchParam: 'jedec',
+                                searchParamKeys: [selectedOptions[2]],
+                            },
+                        ])
+                    );
+                    dispatch(setType('rams'));
+                    break;
+                case 'power-supplies':
+                    if (window.location.href.match(/\bpower-supplies\b/gi)) {
+                        router.refresh();
+                    } else {
+                        router.push('/catalogue/filter-page/' + selectedOptions[0]);
+                    }
+
+                    dispatch(
+                        setQueryArr([
+                            {
+                                searchParam: 'voltage',
+                                searchParamKeys: [selectedOptions[1]],
+                            },
+                            {
+                                searchParam: 'form_factor',
+                                searchParamKeys: [selectedOptions[2]],
+                            },
+                        ])
+                    );
+                    dispatch(setType('power-Supplies'));
+                    break;
             }
-
-
-            if (selectedOptions[2]) {
-                // Assuming 'batteries' is the last column that links to the catalog
-                setBigMenuActive(false);  // Close the big menu
-            }
-
-            // if (selectedOptions[0] === 'Matrices') {
-            //     if (window.location.href.match(/\bmatrices\b/gi)) {
-            //         router.refresh();
-            //     } else {
-            //         router.push('/catalogue/filter-page/' + selectedOptions[0]);
-            //     }
-
-            //     dispatch(
-            //         setQueryArr([
-            //             {
-            //                 searchParam: 'permission',
-            //                 searchParamKeys: [selectedOptions[1]],
-            //             },
-            //             {
-            //                 searchParam: 'fastening',
-            //                 searchParamKeys: [selectedOptions[2]],
-            //             },
-            //         ])
-            //     );
-            // }
-
-            // createPageURL();
-
-            
         } else {
             console.log(selectedOptions);
         }
@@ -119,7 +170,6 @@ const HeaderMiniCatalogPropertyItem: FC<IHeaderMiniCatalogPropertyItem> = ({ cat
 
         let params = new URLSearchParams();
 
-        console.log('selectedOptions', selectedOptions);
         params.set('catalogItemName', selectedOptions[0]);
         params.set('property', selectedOptions[1]);
         params.set('subProperty', selectedOptions[2]);

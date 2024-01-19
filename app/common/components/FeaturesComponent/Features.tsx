@@ -14,7 +14,7 @@ import { fetchFeaturedProducts } from "@/app/lib/data";
 const Features = ({}) => {
 	const [filterType, setFilterType] = useState<string>("new");
 
-	const productTypes: categories[] = ["matrices", "batteries", "hdds", "keyboards", "rams", "power_unit"];
+    const productTypes: categories[] = ['matrices', 'batteries', 'hdds', 'keyboards', 'rams', 'power-Supplies'];
 
 	const [products, setProducts] = useState<IProduct[]>([]); // Assuming Product is the interface for your products
 

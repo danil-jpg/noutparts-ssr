@@ -18,16 +18,10 @@ import emptyImg from '/public/img/empty-img.png';
 import emptyImgMob from '/public/img/empty-mob.png';
 
 const Cards = () => {
-    // const [favData, setFavData] = useState<ICard[]>([]);
-
     const products = useAppSelector((state) => state.favsReducer.products);
     const dispatch = useAppDispatch();
 
-    // useEffect(() => {
-    //     console.log(favData);
-    // }, [favData]);
-
-    const onDeleteClick = (product: { id: number }) => {
+    const onDeleteClick = (product: { id: number; category: categories }) => {
         dispatch(addFavProduct(product));
     };
 
@@ -45,7 +39,7 @@ const Cards = () => {
                 return (
                     <div key={index} className='card'>
                         <div className='card__tag'>
-                            <ProductTag type={el.discount as 'discount' | 'new' | 'salesHit'}></ProductTag>
+                            <ProductTag type={el.tag as 'discount' | 'new' | 'salesHit'}></ProductTag>
                         </div>
                         <Image alt='cardimg' src={el.photo_url} height={152} width={152} />
                         <div className='card__data_center'>
@@ -59,6 +53,7 @@ const Cards = () => {
                             onClick={() => {
                                 onDeleteClick({
                                     id: el.id,
+                                    category: el.category,
                                 });
                             }}>
                             <p className='card__delete_text'>Удалить</p>

@@ -16,7 +16,7 @@ interface ICatalogueItem {
 }
 
 export default function CatalogueItem({ image, query, mobImage }: ICatalogueItem) {
-    const [res, setRes] = useState<ICatalogueItemRes | null>(null);
+    const [res, setRes] = useState<ICatalogueItemRes>();
     const dispatch = useAppDispatch();
 
     useEffect(() => {

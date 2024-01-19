@@ -1,47 +1,40 @@
-"use client";
+'use client';
 
-import { categories } from "@/app/common/types/types";
-import { createSlice } from "@reduxjs/toolkit";
+import { categories } from '@/app/common/types/types';
+import { createSlice } from '@reduxjs/toolkit';
 
 export interface IFavsData {
-	products: {
-		id: number;
-		name: string;
-		category?: categories;
-	}[];
+    products: {
+        id: number;
+        name: string;
+        category: categories;
+        availability: string;
+        tag: string;
+        price: number;
+        discount: number;
+        photo_url: string;
+    }[];
 }
 
 const initialState: IFavsData = {
-	products: []
+    products: [],
 };
 
 const favsData = createSlice({
-	name: "favsData",
-	initialState,
-	reducers: {
-		addFavProduct: (state, action) => {
-			const { name, id, category } = action.payload;
-			const existingIndex = state.products.findIndex((product) => product.id === id && product.category === category);
+    name: 'favsData',
+    initialState,
+    reducers: {
+        addFavProduct: (state, action) => {
+            const { id, availability, category, price, name, discount, tag, photo_url } = action.payload;
+            const existingIndex = state.products.findIndex((product) => product.id === id && product.category === category);
 
-			if (existingIndex !== -1) {
-				// Remove the product if it already exists
-				state.products.splice(existingIndex, 1);
-			} else {
-				// Add the product if it doesn't exist
-				state.products.push({ name, id, category });
-			}
-
-			// state.products = [];
-		},
-		// removeFavProduct: (state, action) => {
-		// 	const { id, category } = action.payload; // Assuming payload contains the id and type of the product to remove
-		// 	const indexToRemove = state.products.findIndex((product) => product.id === id && product.category === category);
-
-		// 	if (indexToRemove !== -1) {
-		// 		state.products.splice(indexToRemove, 1);
-		// 	}
-		// }
-	}
+            if (existingIndex !== -1) {
+                state.products.splice(existingIndex, 1);
+            } else {
+                state.products.push({ name, id, availability, category, price, discount, tag, photo_url });
+            }
+        },
+    },
 });
 
 export const { addFavProduct } = favsData.actions;
