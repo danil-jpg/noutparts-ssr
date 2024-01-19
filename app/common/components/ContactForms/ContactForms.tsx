@@ -27,6 +27,7 @@ export function ContactsForm() {
     const [appeal, setAppeal] = useState<string>('');
 
     const [loading, setloading] = useState(false);
+    const [isSend, setIsSend] = useState(false);
 
     const onSubmit = () => {
         if (name && tel) {
@@ -49,7 +50,12 @@ export function ContactsForm() {
                 setEmail('');
                 setTel('');
                 setAppeal('');
+                setIsSend(true);
+                alert('Ваше сообщение успешно отправлено');
             }, 1000);
+        }
+        if (isSend) {
+            alert('Сообщение уже отправлено');
         }
     };
 
