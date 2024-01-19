@@ -1,6 +1,4 @@
 'use client';
-import { FieldValues, useForm } from 'react-hook-form';
-// import { SubmitHandler, useForm } from 'react-hook-form';
 import './contactsForms.scss';
 import PrimaryInput from '../../ui/inputs/PrimaryInput';
 import { useState } from 'react';
@@ -8,17 +6,6 @@ import TextAreaInput from '../../ui/inputs/TextAreaInput';
 import { postAppeal } from '@/app/lib/data';
 import PrimaryBtn from '../../ui/buttons/primary/PrimaryBtn';
 import Loading from '../Loading/Loading';
-// import PrimaryInput from '@/app/common/ui/inputs/PrimaryInput';
-// import PrimaryInput from '@/app/common/ui/PrimaryInputs/PrimaryPrimaryInput';
-// import PrimaryTextArea
-// import { Textarea } from '../../../ui/forms/Textarea/Textarea'
-
-interface IAppeal {
-    name: string;
-    email: string;
-    tel: number;
-    comment: string;
-}
 
 export function ContactsForm() {
     const [name, setName] = useState<string>('');

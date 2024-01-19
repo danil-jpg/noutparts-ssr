@@ -88,7 +88,7 @@ export interface ICatalogueItemRes {
     }[];
 }
 
-export type categories = 'matrices' | 'batteries' | 'hdds' | 'keyboards' | 'rams' | 'power-Supplies';
+export type categories = 'matrices' | 'batteries' | 'hdds' | 'keyboards' | 'rams' | 'power-Supplies' | '';
 
 export interface IQuery {
     searchParam: string;
@@ -148,4 +148,13 @@ export interface IFavsData {
         discount: string;
         photo_url: string;
     }[];
+}
+
+export interface IAppeal {
+    data: {
+        name: string;
+        email: string;
+        tel: string;
+        appeal: string;
+    };
 }
