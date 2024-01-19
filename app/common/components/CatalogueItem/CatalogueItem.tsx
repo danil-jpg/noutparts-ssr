@@ -51,8 +51,10 @@ export default function CatalogueItem({ image, query, mobImage, text }: ICatalog
                     {res?.data
                         ? res.data.map((el) => (
                               // тут поймал багу компилятора
+
                               <Link
                                   key={el.id}
+                                  /*  @ts-ignore: Object is possibly 'null'. */
                                   href={`catalogue/filter-page/${query.match(/^([^\s?]+)(?=\?)/)[0]}`}
                                   onClick={() => {
                                       dispatch(setQueryArr([{ searchParam: 'brand', searchParamKeys: [el.attributes.brand] }]));

@@ -1,7 +1,7 @@
 import { Breadcrumb } from '../common/types/types';
 import Breadcrumbs from '../common/components/breadcrumbs/Breadcrumbs';
 import './catalogue.scss';
-import CatalogueItem from '../common/components/CatalogueItem/catalogueItem';
+import CatalogueItem from '../common/components/CatalogueItem/CatalogueItem';
 
 export default function Page() {
     const breadcrumbArr: Breadcrumb[] = [
@@ -20,7 +20,6 @@ export default function Page() {
                 <div className='catalogue__title_descr'>Выберите комплектующее, которое вам нужно</div>
             </div>
             <div className='catalogue__items-wr'>
-                {/* @ts-expect-error Server Component */}
                 <CatalogueItem text='Матрицы' image='/img/catalogue/matrix.png' query='matrices?fields[0]=brand' mobImage='/img/catalogue/matrix_mob.png' />
                 <CatalogueItem
                     text='Аккумуляторы'
