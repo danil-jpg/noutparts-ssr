@@ -22,41 +22,66 @@ const BrandsGallery: FC = ({}) => {
 		<div className="brands-gallery__wrapper">
 			<div className="brands-gallery__brands">
 				<Link href="/catalog?brand=asus">
-					<Image src={brandIcon1} alt="brandIcon1" className="brands-gallery__brand-icon"></Image>
+					<div className="brands-gallery__brand-box">
+						<Image fill={true} src={brandIcon1} alt="brandIcon1" className="brands-gallery__brand-icon"></Image>
+					</div>
 				</Link>
+
 				<Link href="/catalog?brand=apple">
-					<Image src={brandIcon2} alt="brandIcon2" className="brands-gallery__brand-icon"></Image>
+					<div className="brands-gallery__brand-box">
+						<Image fill={true} src={brandIcon2} alt="brandIcon2" className="brands-gallery__brand-icon"></Image>
+					</div>
 				</Link>
 				<Link href="/catalog?brand=hp">
-					<Image src={brandIcon3} alt="brandIcon3" className="brands-gallery__brand-icon"></Image>
+					<div className="brands-gallery__brand-box">
+						<Image fill={true} src={brandIcon3} alt="brandIcon3" className="brands-gallery__brand-icon"></Image>
+					</div>
 				</Link>
 				<Link href="/catalog?brand=dell">
-					<Image src={brandIcon4} alt="brandIcon4" className="brands-gallery__brand-icon"></Image>
+					<div className="brands-gallery__brand-box">
+						<Image fill={true} src={brandIcon4} alt="brandIcon4" className="brands-gallery__brand-icon"></Image>
+					</div>
 				</Link>
 				<Link href="/catalog?brand=gigabyte">
-					<Image src={brandIcon5} alt="brandIcon5" className="brands-gallery__brand-icon"></Image>
+					<div className="brands-gallery__brand-box">
+						<Image fill={true} src={brandIcon5} alt="brandIcon5" className="brands-gallery__brand-icon"></Image>
+					</div>
 				</Link>
 				<Link href="/catalog?brand=lenovo">
-					<Image src={brandIcon6} alt="brandIcon10" className="brands-gallery__brand-icon"></Image>
+					<div className="brands-gallery__brand-box">
+						<Image fill={true} src={brandIcon6} alt="brandIcon10" className="brands-gallery__brand-icon"></Image>
+					</div>
 				</Link>
 				<Link href="/catalog?brand=sony">
-					<Image src={brandIcon7} alt="brandIcon6" className="brands-gallery__brand-icon"></Image>
+					<div className="brands-gallery__brand-box">
+						<Image fill={true} src={brandIcon7} alt="brandIcon6" className="brands-gallery__brand-icon"></Image>
+					</div>
 				</Link>
 				<Link href="/catalog?brand=acer">
-					<Image src={brandIcon8} alt="brandIcon7" className="brands-gallery__brand-icon"></Image>
+					<div className="brands-gallery__brand-box">
+						<Image fill={true} src={brandIcon8} alt="brandIcon7" className="brands-gallery__brand-icon"></Image>
+					</div>
 				</Link>
 				<Link href="/catalog?brand=bell">
-					<Image src={brandIcon9} alt="brandIcon8" className="brands-gallery__brand-icon"></Image>
+					<div className="brands-gallery__brand-box">
+						<Image fill={true} src={brandIcon9} alt="brandIcon8" className="brands-gallery__brand-icon"></Image>
+					</div>
 				</Link>
 				<Link href="/catalog?brand=fujitsu">
-					<Image src={brandIcon10} alt="brandIcon9" className="brands-gallery__brand-icon"></Image>
+					<div className="brands-gallery__brand-box">
+						<Image fill={true} src={brandIcon10} alt="brandIcon9" className="brands-gallery__brand-icon"></Image>
+					</div>
 				</Link>
-				
+
 				<Link href="/catalog?brand=samsung">
-					<Image src={brandIcon11} alt="brandIcon11" className="brands-gallery__brand-icon"></Image>
+					<div className="brands-gallery__brand-box">
+						<Image fill={true} src={brandIcon11} alt="brandIcon11" className="brands-gallery__brand-icon"></Image>
+					</div>
 				</Link>
 				<Link href="/catalog?brand=kingston">
-					<Image src={brandIcon12} alt="brandIcon12" className="brands-gallery__brand-icon"></Image>
+					<div className="brands-gallery__brand-box">
+						<Image fill={true} src={brandIcon12} alt="brandIcon12" className="brands-gallery__brand-icon"></Image>
+					</div>
 				</Link>
 			</div>
 		</div>

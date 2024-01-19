@@ -81,14 +81,10 @@ const transformSingleData = (productData: any, category: categories): IProduct =
 };
 
 export const fetchFeaturedProducts = async (productType: string, filterType: string): Promise<IProduct[]> => {
-	"use client";
+	"use server";
 	try {
 		const response = await fetch(
-			`http://127.0.0.1:1337/api/${productType}/
-		?populate[0]=photo
-		&filters[tag][$in][0]=${filterType}
-        &pagination[start]=0&pagination[limit]=5
-		`,
+			`http://127.0.0.1:1337/api/${productType}/?populate[0]=photo&filters[tag][$in][0]=${filterType}&pagination[start]=0&pagination[limit]=2`,
 			{ cache: "no-store" }
 		);
 
