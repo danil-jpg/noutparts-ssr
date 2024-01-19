@@ -2,8 +2,6 @@
 import { NextPage } from 'next';
 import Breadcrumbs from '../common/components/breadcrumbs/Breadcrumbs';
 import { Breadcrumb } from '../common/types/types';
-import FilterCards from '../common/components/card/FilterCards';
-import { useAppSelector } from '../Redux/store';
 import './favourite.scss';
 import Cards from '../common/components/card/Card';
 
@@ -17,9 +15,6 @@ const Page: NextPage<Props> = ({}) => {
             active: true,
         },
     ];
-
-    // const favouriteData = useAppSelector((state) => state.favsReducer.data);
-    // console.log(favouriteData);
 
     return (
         <div className='container favourite-page'>

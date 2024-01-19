@@ -1,25 +1,22 @@
 'use client';
-import { setData } from '@/app/Redux/slice/query/query';
 import { useAppDispatch, useAppSelector } from '@/app/Redux/store';
-import { fetchDataFromServer, getFilterItemData } from '@/app/lib/data';
-import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import './Cards.scss';
 import ProductTag from '@/app/common/ui/product-ui/ProductTag';
-import Loading from '../Loading/Loading';
-import { IFavsData, categories } from '@/app/common/types/types';
+import { categories } from '@/app/common/types/types';
 import PrimaryBtn from '@/app/common/ui/buttons/primary/PrimaryBtn';
 import IconRenderer from '@/app/common/ui/Icons/IconRenderer';
 import ProductAvailability from '@/app/common/ui/product-ui/ProductAvailability';
-import { ICard } from '@/app/common/types/types';
 import { addFavProduct } from '@/app/Redux/slice/favs/favsSlice';
-import { IProduct } from '@/app/common/types/types';
 import emptyImg from '/public/img/empty-img.png';
 import emptyImgMob from '/public/img/empty-mob.png';
+import { addProduct } from '@/app/Redux/slice/basket/basketSlice';
 
 const Cards = () => {
     const products = useAppSelector((state) => state.favsReducer.products);
     const dispatch = useAppDispatch();
+
+    const basketData = useAppSelector((state) => state.basketReducer.products);
 
     const onDeleteClick = (product: { id: number; category: categories }) => {
         dispatch(addFavProduct(product));
@@ -61,7 +58,40 @@ const Cards = () => {
 
                         <div className='card__data_right'>
                             <p className='card__price'>{el.price} грн</p>
-                            <PrimaryBtn text='В корзину' type='basket' icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                            {basketData.find((innerEl) => innerEl.id === el.id && innerEl.name === el.name) ? (
+                                <PrimaryBtn
+                                    onClick={() => {
+                                        dispatch(
+                                            addProduct({
+                                                photo_url: el.photo_url,
+                                                price: el.price,
+                                                name: el.name,
+                                                id: el.id,
+                                                category: el.category,
+                                            })
+                                        );
+                                    }}
+                                    className='inBasket'
+                                    text='В корзине'
+                                    type='basket'
+                                    icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                            ) : (
+                                <PrimaryBtn
+                                    onClick={() => {
+                                        dispatch(
+                                            addProduct({
+                                                photo_url: el.photo_url,
+                                                price: el.price,
+                                                name: el.name,
+                                                id: el.id,
+                                                category: el.category,
+                                            })
+                                        );
+                                    }}
+                                    text='В корзину'
+                                    type='basket'
+                                    icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
+                            )}
                         </div>
                     </div>
                 );
