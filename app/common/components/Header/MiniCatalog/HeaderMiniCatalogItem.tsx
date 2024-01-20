@@ -41,13 +41,13 @@ const HeaderMiniCatalogItem: FC<IHeaderMiniCatalogItem> = ({ item, isOpen, bigMe
 				return 'Матриці';
 			case 'Batteries':
 				return 'Батареї';
-			case 'Hard disks':
+			case 'Hdds':
 				return 'Жорсткі диски';
 			case 'Keyboards':
 				return 'Клавіатури';
-			case 'RAM':
+			case 'Rams':
 				return "Оперативна пам'ять";
-			case 'Power unit':
+			case 'Power-supplies':
 				return 'Блок живлення';
 			default:
 				return groupName; // return the original name if no translation is available

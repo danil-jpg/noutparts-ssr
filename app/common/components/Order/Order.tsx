@@ -112,7 +112,7 @@ export default function Order() {
 				requestBody.data.email = email;
 			}
 
-			const responseInfo = await axios.post("http://localhost:1337/api/orders", requestBody);
+			const responseInfo = await axios.post("https://noutparts-strapi.onrender.com/api/orders", requestBody);
 
 			const currentTime = new Date().toLocaleString("en-GB"); // Change the format according to your preference
 
