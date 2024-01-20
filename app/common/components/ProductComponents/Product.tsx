@@ -28,7 +28,7 @@ interface TechCharacteristics {
 export default async function Product({ category, id }: { category: string; id: string }) {
 	const fetchProductInfo = async (productType: string, productId: string) => {
 		try {
-			const response = await axios.get(`http://127.0.0.1:1337/api/${category}/${productId}?populate[0]=photo&populate[1]=pair_set&populate[2]=pair_set.photo&populate[3]=pair_set.photo.url`);
+			const response = await axios.get(`https://noutparts-strapi.onrender.com/api/${category}/${productId}?populate[0]=photo&populate[1]=pair_set&populate[2]=pair_set.photo&populate[3]=pair_set.photo.url`);
 			const data = response.data.data.attributes;
 
 			// Update the state with the fetched data
