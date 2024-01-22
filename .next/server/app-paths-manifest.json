@@ -1,16 +1,1 @@
-{
-  "/_not-found": "app/_not-found.js",
-  "/basket/page": "app/basket/page.js",
-  "/catalogue/filter-page/page": "app/catalogue/filter-page/page.js",
-  "/about/page": "app/about/page.js",
-  "/catalogue/filter-page/[type]/page": "app/catalogue/filter-page/[type]/page.js",
-  "/contacts/page": "app/contacts/page.js",
-  "/catalogue/page": "app/catalogue/page.js",
-  "/delivery/page": "app/delivery/page.js",
-  "/order/page": "app/order/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/page": "app/page.js",
-  "/favourite/page": "app/favourite/page.js",
-  "/product/[...category_id]/page": "app/product/[...category_id]/page.js",
-  "/warranty/page": "app/warranty/page.js"
-}
+{}
