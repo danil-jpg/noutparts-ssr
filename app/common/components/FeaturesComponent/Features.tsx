@@ -84,7 +84,7 @@ const Features = ({}) => {
 				<div className={`features__content ${showState ? "show" : ""}`}>
 					{loading ? (
 						<div className="spinner-container">
-							<Spinner classname="features__spinner" />
+							<Spinner classname="features__spinner" white={true}/>
 						</div>
 					) : products.length > 0 ? (
 						products.map((product, index) => {
