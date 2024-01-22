@@ -1,8 +1,6 @@
 "use client";
 import React, { FC, useState, useEffect } from "react";
 import { IHeaderMiniCatalogPropertyItem } from "@/types";
-import { usePathname, useSearchParams } from "next/navigation";
-import Link from "next/dist/client/link";
 import { useAppDispatch } from "@/app/Redux/store";
 import { setQueryArr, setType } from "@/app/Redux/slice/query/query";
 import { useRouter } from "next/navigation";

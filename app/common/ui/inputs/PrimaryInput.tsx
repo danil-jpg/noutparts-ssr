@@ -1,5 +1,5 @@
 'use client';
-import React, { FC, useState, useEffect, ChangeEvent } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { IPrimaryInput } from '@/types';
 import { PatternFormat } from 'react-number-format';
 import IconRenderer from '../Icons/IconRenderer';

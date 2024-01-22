@@ -2,9 +2,7 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import { useAppDispatch } from "@/app/Redux/store";
 import { addHistoryProduct } from "@/app/Redux/slice/historyProducts/historyProducts";
-import { IProduct } from "../../types/types";
 
-import { IProduct as Product } from '../../types/types';
 
 interface HistoryProductsProps {
     id: string;

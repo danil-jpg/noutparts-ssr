@@ -1,6 +1,5 @@
 'use client';
 import React, { FC, useState, useEffect } from 'react';
-import { IPrimaryInput } from '@/types';
 
 import Image from 'next/image';
 import Link from 'next/link';

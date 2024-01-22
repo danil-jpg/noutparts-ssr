@@ -56,7 +56,9 @@ const MainHero: FC = ({}) => {
 								Батареи
 							</div>
 						</div>
-						<button className="main-hero__go-button">Перейти в каталог</button>
+						<Link href={"/catalogue"}>
+							<button className="main-hero__go-button">Перейти в каталог</button>
+						</Link>
 					</div>
 
 					<div className="main-hero__right">
