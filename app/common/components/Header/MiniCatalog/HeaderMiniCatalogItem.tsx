@@ -6,7 +6,15 @@ import IconRenderer from '../../../ui/Icons/IconRenderer';
 
 import HeaderMiniCatalogPropertyItem from './HeaderMiniCatalogPropertyItem';
 
-const HeaderMiniCatalogItem: FC<IHeaderMiniCatalogItem> = ({ item, isOpen, bigMenuActive, toggleItem, activeProperty, setActiveProperty, setBigMenuActive }) => {
+const HeaderMiniCatalogItem: FC<IHeaderMiniCatalogItem> = ({
+    item,
+    isOpen,
+    bigMenuActive,
+    toggleItem,
+    activeProperty,
+    setActiveProperty,
+    setBigMenuActive,
+}) => {
     const [activeSubProperty, setActiveSubProperty] = useState<string | null>(null);
 
     const toggleProperty = (property: string) => {
@@ -26,33 +34,33 @@ const HeaderMiniCatalogItem: FC<IHeaderMiniCatalogItem> = ({ item, isOpen, bigMe
                             property={property}
                             subProperties={Array.isArray(subProperties) ? subProperties : [subProperties]}
                             setActiveSubProperty={setActiveSubProperty}
-                            setBigMenuActive={ setBigMenuActive}
+                            setBigMenuActive={setBigMenuActive}
                         />
                     </div>
                 )}
             </div>
         );
     });
+    // dsaf
 
-
-	function translateGroupName(groupName:string) {
-		switch (groupName) {
-			case 'Matrices':
-				return 'Матрицы';
-			case 'Batteries':
-				return 'Батареи';
-			case 'Hdds':
-				return 'Жесткие диски';
-			case 'Keyboards':
-				return 'Клавиатуры';
-			case 'Rams':
-				return "Оперативная пам'ять";
-			case 'Power-supplies':
-				return 'Блоки питания';
-			default:
-				return groupName; // return the original name if no translation is available
-		}
-	}
+    function translateGroupName(groupName: string) {
+        switch (groupName) {
+            case 'Matrices':
+                return 'Матрицы';
+            case 'Batteries':
+                return 'Батареи';
+            case 'Hdds':
+                return 'Жесткие диски';
+            case 'Keyboards':
+                return 'Клавиатуры';
+            case 'Rams':
+                return "Оперативная пам'ять";
+            case 'Power-supplies':
+                return 'Блоки питания';
+            default:
+                return groupName; // return the original name if no translation is available
+        }
+    }
 
     return (
         <>
