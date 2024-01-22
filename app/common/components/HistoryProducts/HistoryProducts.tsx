@@ -128,7 +128,7 @@ const HistoryProducts = () => {
 								</Swiper>
 							) : (
 								<div className="spinner-container">
-									<Spinner classname="features__spinner" />
+									<Spinner classname="features__spinner" white={true}/>
 								</div>
 							)}
 						</div>
