@@ -1,40 +1,21 @@
 'use client';
 import './CatalogueItem.scss';
 import { Image } from 'next/dist/client/image-component';
-import { getCatalogueItemData } from '@/app/lib/data';
-import { Suspense, useEffect, useState } from 'react';
-import Loading from '../Loading/Loading';
-import { ICatalogueItemRes } from '../../types/types';
+import { useState } from 'react';
 import Link from 'next/link';
 import { useAppDispatch } from '@/app/Redux/store';
 import { setQueryArr } from '@/app/Redux/slice/query/query';
 
 interface ICatalogueItem {
+    res: any;
     image: string;
-    mobImage: string;
     query: string;
     text: string;
 }
 
-export default function CatalogueItem({ image, query, mobImage, text }: ICatalogueItem) {
-    const [res, setRes] = useState<ICatalogueItemRes>();
-    const [loaded, setLoaded] = useState(false);
+export default function CatalogueItem({ res, image, query, text }: ICatalogueItem) {
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        const getData = async () => {
-            const res = await getCatalogueItemData(query);
-
-            setRes(res);
-            setLoaded(true);
-        };
-
-        getData();
-    }, [query]);
-
-    if (!loaded) {
-        return <Loading />;
-    }
     return (
         <div className='catalogue-item'>
             <div className='catalogue-item__top'>
@@ -42,16 +23,15 @@ export default function CatalogueItem({ image, query, mobImage, text }: ICatalog
                 <Link href={`catalogue/filter-page/${query.match(/^([^\s?]+)(?=\?)/)[0]}`}>
                     <p className='catalogue-item__text'>{text}</p>
                     <div className='catalogue-item__img-wr'>
-                        <Image className='catalogue-item__top_img' layout='fill' src={image} alt='catalogue-item' />
+                        <Image className='catalogue-item__top_img' fill={true} sizes='100vw' priority={true} src={image} alt='catalogue-item' />
                     </div>
                 </Link>
             </div>
             <div className='catalogue-item__main'>
                 <ul className='catalogue-item__main_ul'>
                     {res?.data
-                        ? res.data.map((el) => (
+                        ? res.data.map((el: { id: number; attributes: { brand: string } }) => (
                               // тут поймал багу компилятора
-
                               <Link
                                   key={el.id}
                                   /*  @ts-ignore: Object is possibly 'null'. */
