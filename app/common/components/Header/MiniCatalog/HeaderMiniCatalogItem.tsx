@@ -38,17 +38,17 @@ const HeaderMiniCatalogItem: FC<IHeaderMiniCatalogItem> = ({ item, isOpen, bigMe
 	function translateGroupName(groupName:string) {
 		switch (groupName) {
 			case 'Matrices':
-				return 'Матриці';
+				return 'Матрицы';
 			case 'Batteries':
-				return 'Батареї';
+				return 'Батареи';
 			case 'Hdds':
-				return 'Жорсткі диски';
+				return 'Жесткие диски';
 			case 'Keyboards':
-				return 'Клавіатури';
+				return 'Клавиатуры';
 			case 'Rams':
-				return "Оперативна пам'ять";
+				return "Оперативная пам'ять";
 			case 'Power-supplies':
-				return 'Блок живлення';
+				return 'Блоки питания';
 			default:
 				return groupName; // return the original name if no translation is available
 		}

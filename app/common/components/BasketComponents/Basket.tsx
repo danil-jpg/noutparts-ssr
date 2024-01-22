@@ -134,7 +134,7 @@ export default function BasketComponent() {
 										(Object.values(groupedProducts) as GroupedProduct[]).map((groupedProduct: GroupedProduct, index: number) => <BasketRow key={index} product={groupedProduct.product} quantity={groupedProduct.quantity} updateQuantity={updateQuantity} />)
 									) : (
 										<div className="spinner-container">
-											<Spinner classname="features__spinner" />
+											<Spinner classname="features__spinner" white={true}/>
 										</div>
 									)}
 								</div>

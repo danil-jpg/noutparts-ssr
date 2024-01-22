@@ -157,7 +157,7 @@ export default function Order() {
 		<>
 			{isProcessingOrder && (
 				<div className="order-processing__background">
-					<Spinner classname="order-processing__spinner" />
+					<Spinner classname="order-processing__spinner" white={true}/>
 				</div>
 			)}
 			<div className="breadcrumb-all-page__wrapper">
