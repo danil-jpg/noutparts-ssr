@@ -20,9 +20,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 		<html lang="en">
 			<body key={v1()}>
 				<Providers>
-					<Header />
-					<Suspense fallback={<Loading></Loading>}>{children}</Suspense>
-					<Footer></Footer>
+					<Suspense fallback={<Loading></Loading>}>
+						<Header />
+						{children}
+						<Footer></Footer>
+					</Suspense>
 				</Providers>
 			</body>
 		</html>
