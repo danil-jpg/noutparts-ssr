@@ -27,7 +27,7 @@
         "react-text-mask": "^5.5.0",
         "redux-persist": "^6.0.0",
         "sass": "^1.69.5",
-        "sharp": "^0.33.0",
+        "sharp": "^0.30.0",
         "svg-url-loader": "^8.0.0",
         "swiper": "^11.0.5",
         "uuid": "^9.0.1"
@@ -50,6 +50,6 @@
         "eslint-config-next": "14.0.2",
         "eslint-plugin-storybook": "^0.6.15",
         "storybook": "^7.5.3",
-        "typescript": "^5"
+        "typescript": "^5.0.4"
     }
 }
