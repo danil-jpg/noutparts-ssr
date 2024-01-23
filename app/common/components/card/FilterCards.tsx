@@ -170,7 +170,7 @@ const FilterCards = ({ type }: { type: categories }) => {
         })();
     }, []);
 
-    const RenderProperFilter = (): React.ReactElement[] => {
+    const RenderProperFilter = (): React.ReactElement => {
         switch (type) {
             case 'matrices':
                 return selector.map((el: IMatrixCard, index) => {
@@ -737,7 +737,7 @@ const FilterCards = ({ type }: { type: categories }) => {
                     );
                 });
             default:
-                return [];
+                return <div></div>;
         }
     };
 
