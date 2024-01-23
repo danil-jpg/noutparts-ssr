@@ -1,4 +1,0 @@
-{
-  "/page": "app/page.js",
-  "/catalogue/filter-page/[type]/page": "app/catalogue/filter-page/[type]/page.js"
-}
