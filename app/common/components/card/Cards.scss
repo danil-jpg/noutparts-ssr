@@ -125,21 +125,6 @@
     .card__data_center {
         max-width: 30%;
     }
-    // .card {
-    //     &__price {
-    //         text-align: right;
-    //         width: 90%;
-    //     }
-    //     .primaryBtn {
-    //         width: fit-content;
-    //         margin-left: auto;
-    //     }
-    // }
-    // .card__data_right {
-    //     flex-grow: 1;
-    //     display: flex;
-    //     flex-direction: column;
-    // }
 }
 
 @media screen and (max-width: 996px) {
@@ -185,7 +170,7 @@
         display: grid;
         gap: 10px 0;
         padding: 14px 10px;
-        max-width: 290px;
+        max-width: 100%;
     }
     .card__data_right {
         margin-top: -70px;
@@ -193,6 +178,10 @@
 }
 
 @media screen and (max-width: 375px) {
+    .card {
+        // max-width: 290px;
+        max-width: 85%;
+    }
     .card-wr {
         justify-items: left;
     }
