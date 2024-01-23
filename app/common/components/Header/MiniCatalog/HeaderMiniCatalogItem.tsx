@@ -41,7 +41,7 @@ const HeaderMiniCatalogItem: FC<IHeaderMiniCatalogItem> = ({ item, isOpen, bigMe
 				return 'Матрицы';
 			case 'Batteries':
 				return 'Батареи';
-			case 'Hdds':
+			case 'hdds':
 				return 'Жесткие диски';
 			case 'Keyboards':
 				return 'Клавиатуры';
