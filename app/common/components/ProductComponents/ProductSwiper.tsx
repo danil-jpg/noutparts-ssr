@@ -24,7 +24,7 @@ export default function ProductSwiper({ images }: PropsType) {
 			<Swiper spaceBetween={10} thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }} modules={[Thumbs]} className="images-slider">
 				{images?.map((image, index) => (
 					<SwiperSlide className="images-slider__slide" key={image.id}>
-						<Image priority={true} src={image.attributes.url} height={image.attributes.height} width={image.attributes.width} alt={`Product image ${index}`} className="images-slider__image" />
+						<Image priority={true} src={image.attributes.url} height={image.attributes.height} width={image.attributes.width} alt={`Product image ${index}`} className="images-slider__image" sizes="(max-width: 1200px) 300vw, 100vw" />
 					</SwiperSlide>
 				))}
 			</Swiper>
