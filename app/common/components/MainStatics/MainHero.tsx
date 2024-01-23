@@ -4,7 +4,7 @@ import "./MainHero.scss";
 import Image from "next/image";
 import Link from "next/dist/client/link";
 
-import mainHeroImg from "/public/img/main-hero-background-img.png";
+import mainHeroImg from "/public/img/main-hero-background-img.webp";
 import mainHeroListIcon1 from "/public/img/main-hero-list-icon-1.svg";
 import mainHeroListIcon2 from "/public/img/main-hero-list-icon-2.svg";
 import mainHeroListIcon3 from "/public/img/main-hero-list-icon-3.svg";
@@ -18,7 +18,7 @@ const MainHero: FC = ({}) => {
 	return (
 		<div className="main-hero__wrapper">
 			<div className="main-hero">
-				<Image src={mainHeroImg} alt="mainHeroImg" className="main-hero__background-img" loading="lazy"></Image>
+				<Image src={mainHeroImg} alt="mainHeroImg" priority={true} className="main-hero__background-img"></Image>
 				{/* <Image src={mainHeroBackground} alt="mainHeroImg" className="main-hero__background" fill={true} sizes="(max-width: 600px) 327px, 1230px" loading="lazy"></Image> */}
 				<div className="main-hero__z-container">
 					<div className="main-hero__left">
@@ -27,7 +27,7 @@ const MainHero: FC = ({}) => {
 						<div className="main-hero__list">
 							<div className="main-hero__list-item">
 								<div className="main-hero__list-icon-wrapper">
-									<Image src={mainHeroListIcon1} alt="mainHeroImg" className="main-hero__list-icon"></Image>
+									<Image src={mainHeroListIcon1} alt="mainHeroImg" className="main-hero__list-icon"  ></Image>
 								</div>
 								Корпуса, кулера, шлейфы, петли и разъемы
 							</div>
