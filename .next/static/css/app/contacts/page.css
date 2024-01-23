@@ -1,0 +1,726 @@
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[12].oneOf[13].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[12].oneOf[13].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[12].oneOf[13].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[12].oneOf[13].use[5]!./app/common/components/ContactForms/contactsForms.scss ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.contacts-form__body {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 30px 13%;
+  gap: 30px 13%;
+  margin-bottom: 21px;
+}
+.contacts-form__opinion {
+  grid-column: span 2;
+}
+.contacts-form__opinion textarea {
+  height: 236px;
+}
+.contacts-form__btn {
+  width: 151px;
+  margin: 0 0 0 auto;
+}
+@media (max-width: 992px) {
+  .contacts-form__body {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 30px 13%;
+    gap: 30px 13%;
+    margin-bottom: 21px;
+  }
+  .contacts-form__opinion {
+    grid-column: span 1;
+  }
+}
+@media (max-width: 767) {
+  .contacts-form__body {
+    gap: 20px;
+  }
+}
+
+.border-input {
+  border: 1px solid black;
+}
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[12].oneOf[13].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[12].oneOf[13].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[12].oneOf[13].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[12].oneOf[13].use[5]!./app/common/ui/Icons/icons.scss ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.basket-icon {
+  width: 21px;
+  height: 20px;
+  fill: #fff;
+}
+
+.validated-sign {
+  width: 21px;
+  height: 20px;
+}
+
+.not-validated-sign {
+  width: 21px;
+  height: 20px;
+}
+
+.available-sign {
+  width: 10px;
+  height: 8px;
+}
+
+.ending-sign {
+  width: 14px;
+  height: 14px;
+}
+
+.out-of-stock-sign {
+  width: 18px;
+  height: 18px;
+}
+
+.spinner {
+  width: 122px;
+  height: 122px;
+}
+
+.tel-sign {
+  width: 24px;
+  height: 24px;
+  fill: #36dd65;
+}
+
+.mini-catalog-sign {
+  width: 16px;
+  height: 16px;
+}
+
+.header-search-sign {
+  width: 24px;
+  height: 24px;
+}
+
+.header-heart-sign {
+  width: 20.073px;
+  height: 18px;
+}
+
+.header-basket-sign {
+  width: 20.949px;
+  height: 19.999px;
+}
+
+.home-icon {
+  width: 16px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.dropdown-arrow-right {
+  width: 4px;
+  height: 8px;
+}
+
+.arrow-down {
+  width: 12px;
+  height: 8px;
+  fill: black;
+  transition: 0.3s;
+}
+.arrow-down.active {
+  transform: rotate(180deg);
+}
+
+.filter-menu-burger {
+  width: 16px;
+  height: 15px;
+  fill: #8f8f8f;
+  cursor: pointer;
+}
+
+.popup-cross-sign {
+  width: 13px;
+  height: 13.5px;
+  fill: none;
+}
+
+.category-row-battery-icon {
+  width: 44.436px;
+  height: 48px;
+  flex-shrink: 0;
+  fill: #ffffff;
+}
+
+.category-row-hdd-icon {
+  width: 60.99px;
+  height: 43.383px;
+  flex-shrink: 0;
+  fill: #ffffff;
+}
+
+.category-row-keyboard-icon {
+  width: 57.263px;
+  height: 27.57px;
+  flex-shrink: 0;
+  fill: #ffffff;
+}
+
+.category-row-ram-icon {
+  width: 57.163px;
+  height: 35.112px;
+  flex-shrink: 0;
+  fill: #ffffff;
+}
+
+.category-row-power-unit-icon {
+  width: 68.599px;
+  height: 44.471px;
+  flex-shrink: 0;
+  fill: #ffffff;
+}
+
+.features-lightning-sign {
+  fill: #929292;
+  width: 10.662px;
+  height: 15.984px;
+  flex-shrink: 0;
+}
+.features-lightning-sign * {
+  fill: #929292;
+}
+
+.features-fire-sign {
+  width: 24px;
+  height: 26px;
+  flex-shrink: 0;
+  fill: #929292;
+}
+
+.features-discount-sign {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  fill: #929292;
+}
+
+.features-fav-sign {
+  width: 20.789px;
+  height: 18.48px;
+  fill: #0acf83;
+}
+
+.cross-icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.heart-icon {
+  width: 18.4px;
+  height: 16.727px;
+  flex-shrink: 0;
+  fill: #0acf83;
+  transition: 0.3s;
+}
+.heart-icon.active {
+  fill: red;
+}
+
+.command,
+.dog {
+  width: 38px;
+  height: 38px;
+}
+
+.service,
+.like,
+.discont {
+  width: 39px;
+  height: 43.587px;
+}
+
+.delivery-icon,
+.payment-icon {
+  width: 72px;
+  height: 72px;
+}
+
+.clock-icon,
+.point-icon,
+.phone-icon,
+.mail-icon {
+  width: 24px;
+  height: 25px;
+}
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[12].oneOf[13].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[12].oneOf[13].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[12].oneOf[13].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[12].oneOf[13].use[5]!./app/common/ui/inputs/PrimaryInput.scss ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+input {
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+input,
+button,
+textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+.primary-input {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.primary-input__label {
+  color: #868e96;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+}
+.primary-input__label span {
+  color: #ed1c24;
+}
+.primary-input__container {
+  width: 100%;
+  max-width: 428px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-radius: 2px;
+  border: 1px solid #dfe1e2;
+  background: #fff;
+  position: relative;
+}
+.primary-input__container.error {
+  border: 1px solid #e74836;
+}
+.primary-input__container.active {
+  border: 1px solid #36dd65;
+  background: #e5fbe2;
+}
+.primary-input__container.text {
+  padding: 15px 11px 13px 12px;
+}
+.primary-input__container.tel {
+  padding: 14px 13px 14px 16px;
+}
+.primary-input__container.email {
+  padding: 16px 12px 12px 13px;
+}
+.primary-input__input {
+  width: 100%;
+  color: #212529;
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 400;
+}
+.primary-input__error-popup {
+  position: absolute;
+  top: 0;
+  left: 110%;
+  height: 48px;
+  width: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  z-index: 200;
+  color: #e74836;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  background: #ffe3e3;
+}
+.primary-input__email-description {
+  margin: 3px 0 0 0;
+  color: #868e96;
+  font-family: Roboto;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.2px;
+}
+
+@media (max-width: 1200px) {
+  .primary-input {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .primary-input__label {
+    color: #868e96;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .primary-input__label span {
+    color: #ed1c24;
+  }
+  .primary-input__container {
+    width: 100%;
+    max-width: 428px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 2px;
+    border: 1px solid #dfe1e2;
+    background: #fff;
+    position: relative;
+  }
+  .primary-input__container.error {
+    border: 1px solid #e74836;
+  }
+  .primary-input__container.active {
+    border: 1px solid #36dd65;
+    background: #e5fbe2;
+  }
+  .primary-input__container.text {
+    padding: 15px 11px 14px 12px;
+  }
+  .primary-input__container.tel {
+    padding: 14px 13px 15px 16px;
+  }
+  .primary-input__container.email {
+    padding: 16px 12px 13px 13px;
+  }
+  .primary-input__input {
+    width: 100%;
+    color: #212529;
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .primary-input__error-popup {
+    position: absolute;
+    top: -90px;
+    left: -20px;
+    height: 68px;
+    width: 170px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    z-index: 200;
+    color: #e74836;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+    background: #ffe3e3;
+    line-height: 20px;
+  }
+  .primary-input__email-description {
+    margin: 3px 0 0 0;
+    color: #868e96;
+    font-family: Roboto;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.2px;
+  }
+}
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[12].oneOf[13].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[12].oneOf[13].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[12].oneOf[13].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[12].oneOf[13].use[5]!./app/common/ui/inputs/TextAreaInput.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+input {
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+input,
+button,
+textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+textarea {
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.textarea-input {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  max-width: 428px;
+}
+.textarea-input__label {
+  color: #868e96;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+}
+.textarea-input__label span {
+  color: #ed1c24;
+}
+.textarea-input__container {
+  width: 100%;
+  max-width: 428px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-radius: 2px;
+  border: 1px solid #dfe1e2;
+  background: #fff;
+  position: relative;
+  padding: 15px;
+}
+.textarea-input__container.active {
+  border: 1px solid #36dd65;
+  background: #e5fbe2;
+}
+.textarea-input__input {
+  width: 100%;
+  height: 48px; /* Initial height */
+  min-height: 48px; /* Minimum height */
+  resize: none; /* Disable resizing */
+  overflow-y: auto; /* Enable vertical scrollbar when needed */
+  color: #212529;
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 400;
+}
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[12].oneOf[13].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[12].oneOf[13].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[12].oneOf[13].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[12].oneOf[13].use[5]!./app/common/ui/buttons/primary/PrimaryBtn.scss ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.primaryBtn {
+  color: #fff;
+  text-align: center;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+  text-transform: uppercase;
+  border-radius: 26px;
+  background: #36dd65;
+  border: none;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+}
+.primaryBtn:hover {
+  background: #1ba341;
+}
+.primaryBtn.default {
+  padding: 16px 32px;
+}
+.primaryBtn.buying {
+  padding: 16px 38px;
+}
+.primaryBtn.basket {
+  padding: 16px 26px;
+}
+.primaryBtn.medium {
+  padding: 16px 45px;
+}
+.primaryBtn.large {
+  padding: 16px 80px;
+}
+.primaryBtn a {
+  color: white !important;
+}
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[12].oneOf[13].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[12].oneOf[13].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[12].oneOf[13].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[12].oneOf[13].use[5]!./app/common/components/Spinner/Spinner.scss ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spinner {
+  animation: rotate 1s linear infinite;
+  background: #36dd65;
+  border-radius: 50%;
+  height: 120px;
+  width: 120px;
+  position: relative;
+}
+.spinner_white::after {
+  background: white !important;
+}
+
+.spinner::before,
+.spinner::after {
+  content: "";
+  position: absolute;
+}
+
+.spinner::before {
+  border-radius: 50%;
+  background: linear-gradient(0deg, hsl(0, 0%, 100%) 50%, hsla(0, 0%, 100%, 0.9) 100%) 0% 0%, linear-gradient(90deg, hsla(0, 0%, 100%, 0.9) 0%, hsla(0, 0%, 100%, 0.6) 100%) 100% 0%, linear-gradient(180deg, hsla(0, 0%, 100%, 0.6) 0%, hsla(0, 0%, 100%, 0.3) 100%) 100% 100%, linear-gradient(360deg, hsla(0, 0%, 100%, 0.3) 0%, hsla(0, 0%, 100%, 0) 100%) 0% 100%;
+  background-repeat: no-repeat;
+  background-size: 50% 50%;
+  top: -1px;
+  bottom: -1px;
+  left: -1px;
+  right: -1px;
+}
+
+.spinner::after {
+  background: rgb(0, 0, 0);
+  border-radius: 50%;
+  top: 10%;
+  bottom: 10%;
+  left: 10%;
+  right: 10%;
+}
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[12].oneOf[13].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[12].oneOf[13].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[12].oneOf[13].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[12].oneOf[13].use[5]!./app/common/components/Loading/Loading.scss ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.loading__item {
+  position: absolute;
+  top: 50%;
+  transform: translate(0%, -50%);
+  margin: 0 auto;
+}
+
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  background: rgb(0, 0, 0);
+  z-index: 9999;
+}
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[12].oneOf[13].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[12].oneOf[13].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[12].oneOf[13].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[12].oneOf[13].use[5]!./app/common/components/breadcrumbs/Breadcrumbs.scss ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.breadcrumbs {
+  overflow-x: auto;
+}
+.breadcrumbs__ul {
+  width: max-content;
+  display: flex;
+}
+.breadcrumbs__li {
+  color: #7e7c7c;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.breadcrumbs__li_active {
+  color: #000;
+}
+.breadcrumbs__separator {
+  margin: 0 5px;
+}
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[12].oneOf[13].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[12].oneOf[13].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[12].oneOf[13].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[12].oneOf[13].use[5]!./app/contacts/contacts.scss ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.contacts {
+  padding: 0 0 80px;
+}
+.contacts__breadcrumbs {
+  margin: 20px auto;
+}
+.contacts__title {
+  color: #000;
+  font-family: Roboto;
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 27px;
+  margin-bottom: 5px;
+}
+.contacts__text {
+  font-size: 18px;
+  line-height: 1.66;
+  margin: 5px 0 27px;
+}
+.contacts__body {
+  display: grid;
+  grid-template-columns: 369px 1fr;
+  align-items: start;
+  grid-gap: 42px;
+  gap: 42px;
+}
+@media (max-width: 992px) {
+  .contacts__body {
+    grid-template-columns: 280px 1fr;
+    gap: 20px;
+  }
+}
+@media (max-width: 767px) {
+  .contacts__text {
+    font-size: 15px;
+    margin-bottom: 15px;
+  }
+  .contacts__body {
+    grid-template-columns: 1fr;
+  }
+}
+
+.info-contacts {
+  background: #f3f3f3;
+  padding: 23px 49px 19px;
+}
+.info-contacts__item {
+  padding: 18px 0 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.info-contacts__item:last-child {
+  border: 0;
+}
+.info-contacts__item-title, .info-contacts__item-value {
+  align-items: center;
+  padding: 0 0 0 35px;
+}
+.info-contacts__item-title {
+  display: flex;
+  position: relative;
+}
+.info-contacts__item-title svg {
+  position: absolute;
+  top: 65%;
+  left: 0;
+  transform: translateY(-50%);
+}
+.info-contacts__item-title {
+  line-height: normal;
+  margin-bottom: 8px;
+}
+.info-contacts__item-value {
+  font-size: 18px;
+  line-height: 1.4;
+}
+.info-contacts__item-value_link {
+  color: #4b88ff;
+}
+.info-contacts__item-value span {
+  font-weight: 500;
+}
+@media (max-width: 992px) {
+  .info-contacts {
+    padding: 28px 25px 30px;
+  }
+}
+@media (max-width: 767px) {
+  .info-contacts__item-title {
+    font-size: 14px;
+    margin-bottom: 7px;
+  }
+  .info-contacts__item-value {
+    font-size: 16px;
+  }
+}
