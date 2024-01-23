@@ -41,6 +41,11 @@ const FeaturesCard: React.FC<FeaturesCardProps> = ({ product, isBought, isFav })
 		router.replace(url);
 	};
 
+	const handleOneClick = () => {
+		const url = `/order`;
+		router.replace(url);
+	}
+
 	return (
 		<div className="features-card">
 			<div className="features-card__image-wrapper">{product.photo_url ? <Image fill={true} src={product.photo_url} alt="photo_url" className="features-card__image" sizes="(max-width: 600px) 147px, 230px"></Image> : <Image fill={true} src={noImageIcon} alt="photo_url" className="features-card__image"></Image>}</div>
@@ -74,7 +79,15 @@ const FeaturesCard: React.FC<FeaturesCardProps> = ({ product, isBought, isFav })
 					{isBought ? "Add more" : "Купить"}
 					<IconRenderer id="header-basket-sign"></IconRenderer>
 				</div>
-				<div className="features-card__buy-button">Купить в 1 клик</div>
+				<div
+					className="features-card__buy-button"
+					onClick={() => {
+						addToBasket(product);
+						handleOneClick();
+					}}
+				>
+					Купить в 1 клик
+				</div>
 				<div
 					className="features-card__product-link"
 					onClick={() => {

@@ -18,8 +18,8 @@ const MainHero: FC = ({}) => {
 	return (
 		<div className="main-hero__wrapper">
 			<div className="main-hero">
-				<Image src={mainHeroImg} alt="mainHeroImg" className="main-hero__background-img"></Image>
-				<Image src={mainHeroBackground} alt="mainHeroImg" className="main-hero__background" priority={true} fill={true} sizes="(max-width: 600px) 327px, 1230px"></Image>
+				<Image src={mainHeroImg} alt="mainHeroImg" className="main-hero__background-img" loading="lazy"></Image>
+				{/* <Image src={mainHeroBackground} alt="mainHeroImg" className="main-hero__background" fill={true} sizes="(max-width: 600px) 327px, 1230px" loading="lazy"></Image> */}
 				<div className="main-hero__z-container">
 					<div className="main-hero__left">
 						<div className="main-hero__title">Магазин компьютерных комплектующих</div>
@@ -56,7 +56,9 @@ const MainHero: FC = ({}) => {
 								Батареи
 							</div>
 						</div>
-						<button className="main-hero__go-button">Перейти в каталог</button>
+						<Link href={"/catalogue"}>
+							<button className="main-hero__go-button">Перейти в каталог</button>
+						</Link>
 					</div>
 
 					<div className="main-hero__right">
@@ -67,18 +69,16 @@ const MainHero: FC = ({}) => {
 							<div className="main-hero__just-a-text">один из крупнейших каталогов комплектующих для ноутбуков в Украине.</div>
 						</div>
 						<div className="main-hero__about">
-							<div className="main-hero__about">
-								<div className="main-hero__about-heading">О магазине</div>
-								<div className="main-hero__about-nums">
-									<div className="main-hero__about-block">
-										<div className="main-hero__about-block-number">775 </div>
-										<div className="main-hero__about-block-text">Тыс. товаров</div>
-									</div>
-									<Image src={mainHeroLine} alt="mainHeroImg" className="main-hero__line"></Image>
-									<div className="main-hero__about-block">
-										<div className="main-hero__about-block-number">100</div>
-										<div className="main-hero__about-block-text">Брендов</div>
-									</div>
+							<div className="main-hero__about-heading">О магазине</div>
+							<div className="main-hero__about-nums">
+								<div className="main-hero__about-block">
+									<div className="main-hero__about-block-number">775 </div>
+									<div className="main-hero__about-block-text">Тыс. товаров</div>
+								</div>
+								<Image src={mainHeroLine} alt="mainHeroImg" className="main-hero__line"></Image>
+								<div className="main-hero__about-block">
+									<div className="main-hero__about-block-number">100</div>
+									<div className="main-hero__about-block-text">Брендов</div>
 								</div>
 							</div>
 						</div>

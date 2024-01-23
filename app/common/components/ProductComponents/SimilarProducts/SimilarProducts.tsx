@@ -123,7 +123,7 @@ const SimilarProducts = ({ productType }: { productType: string }) => {
 							})}
 						</Swiper>
 					) : (
-						<Spinner classname="similar-products__spinner" />
+							<Spinner classname="similar-products__spinner" white={true} />
 					)}
 					<div className="similar-products__whitie"></div>
 				</div>

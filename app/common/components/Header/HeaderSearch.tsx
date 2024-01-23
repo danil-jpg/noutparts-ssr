@@ -2,7 +2,6 @@
 import React, { FC, useState, useEffect, ChangeEvent, useRef } from "react";
 import IconRenderer from "../../ui/Icons/IconRenderer";
 import "./HeaderSearch.scss";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/app/Redux/store";
 import { addProducts } from "@/app/Redux/slice/search/searchSlice";
