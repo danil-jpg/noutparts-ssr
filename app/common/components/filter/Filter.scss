@@ -141,10 +141,10 @@
     grid-gap: 34px;
     gap: 34px;
     grid-template-columns: 282px 1fr;
-    min-height: 1230px;
 }
 
 .filter-page {
+    min-height: 1230px;
     overflow: hidden;
     ::-webkit-scrollbar {
         display: none;
