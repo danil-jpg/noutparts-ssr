@@ -6,6 +6,7 @@
 	gap: 67px;
 	align-items: center;
 
+	min-height: 1225px;
 	&__wrapper {
 		width: 100%;
 		display: flex;
@@ -199,7 +200,7 @@
 		justify-content: center;
 		align-items: center;
 		height: 40px;
-		background: #FFE3E3;
+		background: #ffe3e3;
 	}
 }
 
@@ -363,6 +364,8 @@
 		gap: 0;
 		align-items: center;
 		padding: 0 16px;
+
+		min-height: 1188px;
 		&__wrapper {
 			width: 100%;
 			display: flex;
