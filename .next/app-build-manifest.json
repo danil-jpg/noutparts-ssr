@@ -1,5 +1,11 @@
 {
   "pages": {
+    "/catalogue/filter-page/[type]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/catalogue/filter-page/[type]/page.css",
+      "static/chunks/app/catalogue/filter-page/[type]/page.js"
+    ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -11,30 +17,6 @@
       "static/chunks/main-app.js",
       "static/css/app/not-found.css",
       "static/chunks/app/not-found.js"
-    ],
-    "/order/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/order/page.css",
-      "static/chunks/app/order/page.js"
-    ],
-    "/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/page.css",
-      "static/chunks/app/page.js"
-    ],
-    "/warranty/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/warranty/page.css",
-      "static/chunks/app/warranty/page.js"
-    ],
-    "/delivery/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/delivery/page.css",
-      "static/chunks/app/delivery/page.js"
     ]
   }
 }
