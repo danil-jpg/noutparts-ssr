@@ -30,7 +30,7 @@ export default function Page({ params }: { params: { type: categories } }) {
                     ? 'Клавиатуры'
                     : params.type.toLowerCase() === 'rams'
                     ? 'Оперативная память'
-                    : params.type.toLowerCase() === 'power-supplies'
+                    : params.type.toLowerCase() === 'power_supplies'
                     ? 'Блок питания'
                     : params.type.toLowerCase()
             }`,
