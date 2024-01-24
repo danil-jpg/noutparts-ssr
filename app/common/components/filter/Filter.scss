@@ -320,6 +320,23 @@
 }
 
 @media screen and (max-width: 425px) {
+    .filter-page {
+        .filter-page__breadcrumbs {
+            padding: 0 15px;
+        }
+        .top-filter_title {
+            padding: 0 15px;
+        }
+        .top-filter__scroll {
+            padding: 0 15px;
+        }
+        .top-filter_wr_1 {
+            padding: 0 15px;
+        }
+        .choosen-wr {
+            padding: 0 15px;
+        }
+    }
     .top-filter_filters {
         max-width: 290px;
         gap: 14px;

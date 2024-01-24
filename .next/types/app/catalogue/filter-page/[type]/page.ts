@@ -1,16 +1,8 @@
-<<<<<<<< HEAD:.next/types/app/catalogue/filter-page/[type]/page.ts
 // File: D:\Projects\noutparts-ssr\app\catalogue\filter-page\[type]\page.tsx
 import * as entry from '../../../../../../app/catalogue/filter-page/[type]/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
 type TEntry = typeof import('../../../../../../app/catalogue/filter-page/[type]/page.js')
-========
-// File: D:\Front-End\AVADA_MEDIA\noutparts-ssr\app\contacts\page.tsx
-import * as entry from '../../../../app/contacts/page.js'
-import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
-
-type TEntry = typeof import('../../../../app/contacts/page.js')
->>>>>>>> a11e0b056c570faa9003e85d525d88823c552358:.next/types/app/contacts/page.ts
 
 // Check that the entry is a valid entry
 checkFields<Diff<{
