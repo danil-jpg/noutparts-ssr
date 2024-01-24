@@ -57,6 +57,10 @@
 		&:hover {
 			color: #24a148; /* Change color on hover */
 		}
+
+		&:active{
+			background: rgba($color: #36dd65, $alpha: 0.7);
+		}
 	}
 
 	&__background-blur {
@@ -184,6 +188,10 @@
 		transition: transform 0.3s ease; /* Added transition for confirm button */
 		&:hover {
 			transform: scale(1.1); /* Scale up on hover */
+		}
+
+		&:active{
+			background: rgba($color: #36dd65, $alpha: 0.7);
 		}
 	}
 

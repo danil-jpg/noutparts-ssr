@@ -91,6 +91,9 @@
   font-weight: 700;
   line-height: normal;
 }
+.footer__sub-input-button:active {
+  background: rgba(48, 210, 94, 0.7);
+}
 .footer__sub-message {
   position: absolute;
   left: 0;
@@ -753,6 +756,9 @@
 .header-tel__button:hover {
   color: #24a148; /* Change color on hover */
 }
+.header-tel__button:active {
+  background: rgba(54, 221, 101, 0.7);
+}
 .header-tel__background-blur {
   display: none;
 }
@@ -863,6 +869,9 @@
 }
 .header-tel__confirm-button:hover {
   transform: scale(1.1); /* Scale up on hover */
+}
+.header-tel__confirm-button:active {
+  background: rgba(54, 221, 101, 0.7);
 }
 .header-tel__reg-call-success {
   border-radius: 4px 4px;
@@ -2225,6 +2234,9 @@ textarea {
   background: #1ba341;
   transform: scale(1.05);
 }
+.header-basket__order-button:active {
+  background: rgba(54, 221, 101, 0.7);
+}
 
 @media (max-width: 1200px) {
   .header-basket__main-button {
@@ -2572,6 +2584,9 @@ input {
   font-style: normal;
   font-weight: 400;
   line-height: 150%; /* 18px */
+}
+.header-search__clear-button:active {
+  background: rgba(254, 41, 66, 0.7);
 }
 .header-search__category {
   display: flex;

@@ -30,6 +30,9 @@ const FeaturesCard: React.FC<FeaturesCardProps> = ({ product, isBought, isFav })
 	const truncatedName = product.name.length > 40 ? `${product.name.slice(0, 40)}...` : product.name;
 
 	const addToBasket = (product: Product): void => {
+		if (isBought) {
+			return
+		}
 		dispatch(addProduct(product));
 	};
 	const addToFavs = (product: Product): void => {
@@ -76,7 +79,8 @@ const FeaturesCard: React.FC<FeaturesCardProps> = ({ product, isBought, isFav })
 						addToBasket(product);
 					}}
 				>
-					{isBought ? "Add more" : "Купить"}
+					{isBought ? <Link href={"/basket"}><span style={{color: "white"}}>В корзину</span></Link> : "Купить"}
+					
 					<IconRenderer id="header-basket-sign"></IconRenderer>
 				</div>
 				<div
