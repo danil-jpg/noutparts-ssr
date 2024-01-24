@@ -1,7 +1,5 @@
 {
-  "/product/[...category_id]/page": "app/product/[...category_id]/page.js",
-  "/basket/page": "app/basket/page.js",
   "/catalogue/filter-page/[type]/page": "app/catalogue/filter-page/[type]/page.js",
-  "/catalogue/page": "app/catalogue/page.js",
-  "/page": "app/page.js"
+  "/page": "app/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js"
 }
