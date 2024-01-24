@@ -163,7 +163,7 @@ const TopFilter = ({
                     ? 'Блок питания'
                     : type}
             </p>
-            <div>
+            <div className='top-filter_wr_1'>
                 <div className='top-filter_filters'>
                     <div id='filter-menu-burger-wr' className='filter-menu-burger-wr'>
                         <div
