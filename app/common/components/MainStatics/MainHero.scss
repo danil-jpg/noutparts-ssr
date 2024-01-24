@@ -107,6 +107,10 @@
 		font-weight: 700;
 		line-height: 120%; /* 19.2px */
 		text-transform: uppercase;
+
+		&:active {
+			background: rgba($color: #36dd65, $alpha: 0.7);
+		}
 	}
 
 	&__right {
@@ -316,6 +320,10 @@
 			font-weight: 700;
 			line-height: 120%; /* 19.2px */
 			text-transform: uppercase;
+
+			&:active {
+				background: rgba($color: #36dd65, $alpha: 0.7);
+			}
 		}
 
 		&__right {

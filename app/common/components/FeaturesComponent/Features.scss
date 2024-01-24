@@ -121,6 +121,10 @@
 		align-items: center;
 		justify-content: center;
 		cursor: pointer;
+
+		&:active{
+			background: rgba($color: #28cb56, $alpha: 0.7);
+		}
 	}
 }
 

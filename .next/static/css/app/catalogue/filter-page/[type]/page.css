@@ -1244,7 +1244,7 @@
   top: 0;
   z-index: 5;
   right: 0;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0) -52.94%, #fff 105.24%);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #fff 105.24%);
   width: 306px;
   height: 474px;
   pointer-events: all;
@@ -1346,7 +1346,7 @@
     top: 0;
     z-index: 5;
     right: 0px;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0) -52.94%, #fff 105.24%);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #fff 105.24%);
     width: 306px;
     height: 474px;
   }
@@ -1532,6 +1532,9 @@
   background: #fff;
   cursor: pointer;
 }
+.features-card__fav-button:active {
+  background: rgba(255, 255, 255, 0.7);
+}
 .features-card__fav-icon.active {
   fill: #36DD65;
 }
@@ -1565,6 +1568,9 @@
   justify-content: center;
   cursor: pointer;
 }
+.features-card__basket-button:active {
+  background: rgba(54, 221, 101, 0.7);
+}
 .features-card__buy-button {
   margin: 62px 0 0 37px;
   border-radius: 26px;
@@ -1581,6 +1587,9 @@
   letter-spacing: 0.32px;
   padding: 9px 40px 11px 40px;
   cursor: pointer;
+}
+.features-card__buy-button:active {
+  background: rgba(243, 243, 243, 0.7);
 }
 .features-card__product-link {
   margin: 15px 0 0 57px;
@@ -1683,6 +1692,9 @@
     background: #fff;
     cursor: pointer;
   }
+  .features-card__fav-button:active {
+    background: rgba(255, 255, 255, 0.7);
+  }
   .features-card__second-price {
     margin: 0px auto 0 auto;
     color: #fff;
@@ -1713,6 +1725,9 @@
     justify-content: center;
     cursor: pointer;
   }
+  .features-card__basket-button:active {
+    background: rgba(54, 221, 101, 0.7);
+  }
   .features-card__buy-button {
     margin: 8px auto 0 auto;
     border-radius: 26px;
@@ -1732,6 +1747,9 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+  }
+  .features-card__buy-button:active {
+    background: rgba(243, 243, 243, 0.7);
   }
   .features-card__product-link {
     margin: 5px auto 0 auto;

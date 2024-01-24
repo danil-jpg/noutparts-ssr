@@ -204,7 +204,7 @@
 		display: flex;
 		flex-direction: row;
 		align-items: center;
-		justify-content: space-around;
+		justify-content: space-between;
 
 		color: #414141;
 		font-family: Roboto;
@@ -213,11 +213,19 @@
 		font-weight: 700;
 		line-height: 77.688%; /* 15.538px */
 
-		padding: 0 10px;
+		padding: 0 0px;
+	}
+
+	&__icon-container {
+		width: 40px;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		cursor: pointer;
 	}
 
 	&__counter-icon {
-		cursor: pointer;
 	}
 
 	&__line {
@@ -579,7 +587,7 @@
 			font-weight: 700;
 			line-height: 77.688%; /* 15.538px */
 
-			padding: 0 10px;
+			padding: 0 0px;
 		}
 
 		&__counter-icon {
@@ -665,20 +673,20 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
-	
+
 		&__wrapper {
 			width: 100%;
 			display: flex;
 			justify-content: center;
 			padding: 21px 20px;
 		}
-	
+
 		&__main {
 			display: flex;
 			flex-direction: column;
 			gap: 10px;
 		}
-	
+
 		&__title {
 			color: #626262;
 			font-family: Roboto;
@@ -687,7 +695,7 @@
 			font-weight: 500;
 			line-height: 180%; /* 32.4px */
 		}
-	
+
 		&__text {
 			color: #000;
 			font-family: Roboto;
@@ -697,14 +705,14 @@
 			line-height: 140%; /* 28px */
 			max-width: 596px;
 		}
-	
+
 		&__info {
 			display: flex;
 			flex-direction: column;
 			gap: 7px;
 			max-width: 420px;
 		}
-	
+
 		&__info-item {
 			color: #000;
 			font-family: Roboto;
@@ -945,7 +953,16 @@
 			font-weight: 700;
 			line-height: 77.688%; /* 15.538px */
 
-			padding: 0 10px;
+			padding: 0 0px;
+		}
+
+		&__icon-container {
+			width: 20px;
+			height: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			cursor: pointer;
 		}
 
 		&__counter-icon {
@@ -1033,20 +1050,20 @@
 		flex-direction: column;
 		gap: 30px;
 		justify-content: space-between;
-	
+
 		&__wrapper {
 			width: 100%;
 			display: flex;
 			justify-content: center;
 			padding: 21px 20px;
 		}
-	
+
 		&__main {
 			display: flex;
 			flex-direction: column;
 			gap: 10px;
 		}
-	
+
 		&__title {
 			color: #626262;
 			font-family: Roboto;
@@ -1055,7 +1072,7 @@
 			font-weight: 500;
 			line-height: 180%; /* 32.4px */
 		}
-	
+
 		&__text {
 			color: #000;
 			font-family: Roboto;
@@ -1065,14 +1082,14 @@
 			line-height: 140%; /* 28px */
 			max-width: 596px;
 		}
-	
+
 		&__info {
 			display: flex;
 			flex-direction: column;
 			gap: 7px;
 			max-width: 420px;
 		}
-	
+
 		&__info-item {
 			color: #000;
 			font-family: Roboto;

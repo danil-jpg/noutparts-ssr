@@ -42,7 +42,7 @@ const Footer = ({}) => {
 			}
 			setMessage("Sending your email...");
 
-			const responseInfo = await axios.post("http://localhost:1337/api/emails", {
+			const responseInfo = await axios.post("https://noutparts-strapi.onrender.com/api/emails", {
 				data: {
 					email: email
 				}
@@ -76,11 +76,7 @@ const Footer = ({}) => {
 								Подписаться
 							</button>
 						</div>
-						{message && (
-							<div  className={`footer__sub-message ${message === "Fill the email input correctly" && "error"}`}>
-								{message}
-							</div>
-						)}
+						{message && <div className={`footer__sub-message ${message === "Fill the email input correctly" && "error"}`}>{message}</div>}
 					</div>
 				</div>
 				<div className="footer__link-lists">

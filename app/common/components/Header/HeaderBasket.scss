@@ -223,6 +223,10 @@
 			background: #1ba341;
 			transform: scale(1.05);
 		}
+
+		&:active{
+			background: rgba($color: #36dd65, $alpha: 0.7);
+		}
 	}
 }
 @media (max-width: 1200px) {
