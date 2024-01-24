@@ -116,6 +116,33 @@ export default function BasketComponent() {
 		}
 	};
 
+	// State to hold the screen width
+	const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth);
+
+	// Function to update screen width when window is resized
+	const handleResize = () => {
+		setScreenWidth(window.innerWidth);
+	};
+
+	useEffect(() => {
+		// Add event listener for window resize
+		window.addEventListener("resize", handleResize);
+
+		// Clean up the event listener when component unmounts
+		return () => {
+			window.removeEventListener("resize", handleResize);
+		};
+	}, []);
+
+	// Determine which image to render based on screen width
+	const renderImage = () => {
+		if (screenWidth > 600) {
+			return <Image className="basket-empty__img" alt="emptyBasket" src={emptyBasket} quality={80} sizes="(max-width: 1200px) 300vw, 100vw" />;
+		} else {
+			return <Image className="basket-empty__img mobile" alt="emptyBasketMobile" src={emptyBasketMobile} quality={80} sizes="(max-width: 1200px) 300vw, 100vw" />;
+		}
+	};
+
 	return (
 		<>
 			<div className="basket__wrapper">
@@ -134,7 +161,7 @@ export default function BasketComponent() {
 										(Object.values(groupedProducts) as GroupedProduct[]).map((groupedProduct: GroupedProduct, index: number) => <BasketRow key={index} product={groupedProduct.product} quantity={groupedProduct.quantity} updateQuantity={updateQuantity} />)
 									) : (
 										<div className="spinner-container">
-											<Spinner classname="features__spinner" white={true}/>
+											<Spinner classname="features__spinner" white={true} />
 										</div>
 									)}
 								</div>
@@ -180,8 +207,7 @@ export default function BasketComponent() {
 							<div className="basket-empty">
 								<div className="basket-empty__heading">В вашей корзине пока нет товаров</div>
 								<button className="basket-empty__button">Перейти в каталог</button>
-								<Image className="basket-empty__img" alt="emptyBasket" src={emptyBasket}></Image>
-								<Image className="basket-empty__img mobile" alt="emptyBasketMobile" src={emptyBasketMobile}></Image>
+								{renderImage()} {/* Call the renderImage function to conditionally render the image */}
 							</div>
 						</>
 					)}

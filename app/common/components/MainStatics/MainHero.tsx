@@ -18,7 +18,7 @@ const MainHero: FC = ({}) => {
 	return (
 		<div className="main-hero__wrapper">
 			<div className="main-hero">
-				<Image src={mainHeroImg} placeholder="blur" alt="mainHeroImg" priority={true} className="main-hero__background-img"></Image>
+				<Image src={mainHeroImg} placeholder="blur" alt="mainHeroImg" priority={true} className="main-hero__background-img" quality={80} sizes="(max-width: 1200px) 300vw, 100vw"></Image>
 				{/* <Image src={mainHeroBackground} alt="mainHeroImg" className="main-hero__background" fill={true} sizes="(max-width: 600px) 327px, 1230px" loading="lazy"></Image> */}
 				<div className="main-hero__z-container">
 					<div className="main-hero__left">
@@ -27,7 +27,7 @@ const MainHero: FC = ({}) => {
 						<div className="main-hero__list">
 							<div className="main-hero__list-item">
 								<div className="main-hero__list-icon-wrapper">
-									<Image src={mainHeroListIcon1} alt="mainHeroImg" className="main-hero__list-icon"  ></Image>
+									<Image src={mainHeroListIcon1} alt="mainHeroImg" className="main-hero__list-icon"></Image>
 								</div>
 								Корпуса, кулера, шлейфы, петли и разъемы
 							</div>
