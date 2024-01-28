@@ -119,7 +119,7 @@ const Footer = ({}) => {
 							<Link href={"/catalogue/filter-page/Rams"}>
 								<div className="footer__list-item">Оперативная память</div>
 							</Link>
-							<Link href={"/catalogue/filter-page/Power_Supplies"}>
+							<Link href={"/catalogue/filter-page/Power_supplies"}>
 								<div className="footer__list-item">Блок питания</div>
 							</Link>
 						</div>
@@ -128,21 +128,19 @@ const Footer = ({}) => {
 					<div className="footer__list-column">
 						<div className="footer__list-heading">Контакты</div>
 						<div className="footer__list">
-							<Link href={"/"}>
+							<a href="https://maps.app.goo.gl/tGFEqmT4uHbqCkxq5">
 								<div className="footer__list-item">Aдрес: город, ул., д.</div>
-							</Link>
-							<Link href={"/"}>
+							</a>
+							<a href="tel:+0663888895">
 								<div className="footer__list-item">Телефон: (066) 388-88 95</div>
-							</Link>
-							<Link href={"/"}>
-								<div className="footer__list-item">
-									Мы работаем <br /> Понедельник-Пятница:
-									<br /> 10:00 - 19:00
-								</div>
-							</Link>
-							<Link href={"/"}>
+							</a>
+							<div className="footer__list-item">
+								Мы работаем <br /> Понедельник-Пятница:
+								<br /> 10:00 - 19:00
+							</div>
+							<a href="mailto:shop@email.com">
 								<div className="footer__list-item">E-mail: shop@email.com</div>
-							</Link>
+							</a>
 						</div>
 					</div>
 				</div>

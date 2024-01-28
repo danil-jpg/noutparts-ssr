@@ -41,8 +41,12 @@ const Header: FC = ({}) => {
 						<div className="header__lang-item active">Рус</div>
 					</div>
 					<div className="header__socials">
-						<Image src={instaIcon} alt="instaIcon" className="header__social"></Image>
-						<Image src={facebookIcon} alt="facebookIcon" className="header__social"></Image>
+						<Link href={"https://www.instagram.com/teslamotors/"}>
+							<Image src={instaIcon} alt="instaIcon" className="header__social"></Image>
+						</Link>
+						<Link href={"https://www.facebook.com/TeslaMotorsCorp/"}>
+							<Image src={facebookIcon} alt="facebookIcon" className="header__social"></Image>
+						</Link>
 					</div>
 				</div>
 			</div>
