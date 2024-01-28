@@ -761,12 +761,15 @@
   justify-content: center;
   gap: 33px 40px;
   flex-wrap: wrap;
-  height: 721px;
+  height: auto;
+  max-height: 721px;
   overflow: hidden;
+  transition: max-height 0.5s ease-in-out;
 }
 .features__content.show {
-  gap: 40px 40px;
+  gap: 33px 40px;
   height: auto;
+  max-height: 1000px;
   overflow: hidden;
 }
 .features__show-hide-block {
@@ -780,6 +783,7 @@
   display: flex;
   justify-content: center;
   padding: 220px 0 0 0;
+  transition: 0.2s;
 }
 .features__show-hide-block.show {
   padding: 20px 0 0 0;
@@ -891,7 +895,7 @@
   .features__show-hide-block {
     position: absolute;
     top: 424px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0) -0.34%, #FFF 52.81%, #FFF 55.85%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) -0.34%, #fff 52.81%, #fff 55.85%);
     width: 100%;
     max-width: 1240px;
     height: 250px;
@@ -1426,6 +1430,9 @@
   font-weight: 400;
   line-height: 145%; /* 26.1px */
 }
+.main-hero__button-link-container {
+  width: 226px;
+}
 .main-hero__go-button {
   margin: 22px 0 0 -4px;
   border-radius: 26px;
@@ -1922,9 +1929,9 @@
     margin: 34px 0 0 0;
   }
   .main-hero__background-img {
-    z-index: 12;
+    z-index: 10;
     position: absolute;
-    top: 187px;
+    top: 189px;
     left: auto;
     right: -26px;
     width: 193px;
@@ -1999,6 +2006,9 @@
   .main-hero__list-icon {
     width: 17px;
     height: 17px;
+  }
+  .main-hero__button-link-container {
+    width: 176px;
   }
   .main-hero__go-button {
     margin: 16px 0 0 -4px;

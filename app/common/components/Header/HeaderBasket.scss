@@ -46,7 +46,7 @@
 	}
 
 	&__popup {
-		z-index: 40;
+		z-index: 240;
 		position: absolute;
 		top: 80px;
 		left: -187px;
@@ -370,6 +370,7 @@
 		&__chosen-products {
 			display: flex;
 			flex-direction: column;
+			max-height: 183px;
 		}
 
 		&__chosen-product {
@@ -382,6 +383,8 @@
 			border-bottom: 1px solid #d7d7d7;
 
 			position: relative;
+
+			
 		}
 
 		&__chosen-product-image {

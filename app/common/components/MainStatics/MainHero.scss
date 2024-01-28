@@ -92,6 +92,10 @@
 		line-height: 145%; /* 26.1px */
 	}
 
+	&__button-link-container{
+		width: 226px;
+	}
+
 	&__go-button {
 		margin: 22px 0 0 -4px;
 		border-radius: 26px;
@@ -670,9 +674,9 @@
 		}
 
 		&__background-img {
-			z-index: 12;
+			z-index: 10;
 			position: absolute;
-			top: 187px;
+			top: 189px;
 			left: auto;
 			right: -26px;
 			width: 193px;
@@ -758,6 +762,10 @@
 		&__list-icon {
 			width: 17px;
 			height: 17px;
+		}
+
+		&__button-link-container{
+			width: 176px;
 		}
 
 		&__go-button {
