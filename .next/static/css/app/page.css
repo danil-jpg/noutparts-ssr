@@ -291,6 +291,9 @@
     overflow-y: hidden;
     height: 133px;
   }
+  .categories-row__container::-webkit-scrollbar {
+    display: none;
+  }
   .categories-row__item {
     height: 105px;
     display: flex;
@@ -837,6 +840,9 @@
     overflow-x: scroll;
     padding: 0 0 10px 10px;
     white-space: nowrap;
+  }
+  .features__nav::-webkit-scrollbar {
+    display: none;
   }
   .features__nav-item {
     display: flex;

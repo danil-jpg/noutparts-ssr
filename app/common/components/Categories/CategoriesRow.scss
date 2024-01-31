@@ -94,6 +94,11 @@
 			overflow-x: auto;
 			overflow-y: hidden;
 			height: 133px;
+
+			&::-webkit-scrollbar {
+				display: none;
+			}
+
 		}
 
 		&__item {
