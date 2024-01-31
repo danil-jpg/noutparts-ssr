@@ -2820,7 +2820,6 @@ body {
   -moz-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   scrollbar-width: thin;
-  scrollbar-color: rgb(51, 66, 100) transparent;
 }
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
@@ -2832,7 +2831,6 @@ body::-webkit-scrollbar-track {
 }
 html::-webkit-scrollbar-thumb,
 body::-webkit-scrollbar-thumb {
-  background: rgb(51, 66, 100);
   border: 4px solid #fff;
   border-radius: 5px;
 }
