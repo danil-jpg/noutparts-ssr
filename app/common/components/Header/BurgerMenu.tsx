@@ -63,7 +63,7 @@ const BurgerMenu: FC = () => {
 						<Link href="/delivery">
 							<div className="burger-menu__nav-item">Доставка и оплата</div>
 						</Link>
-						<Link href="/guarantees">
+						<Link href="/warranty">
 							<div className="burger-menu__nav-item">Гарантии</div>
 						</Link>
 						<Link href="/contacts">

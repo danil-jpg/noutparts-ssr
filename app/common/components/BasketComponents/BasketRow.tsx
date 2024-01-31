@@ -134,7 +134,7 @@ const BasketRow: React.FC<IBasketRowProps> = ({ product, quantity, updateQuantit
 									<div className="basket-row__old-price">{product.price}</div>
 								</div>
 							) : (
-								product.price
+								product.price + " грн"
 							)}
 						</div>
 					</div>

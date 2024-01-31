@@ -143,6 +143,24 @@ export default function BasketComponent() {
 		}
 	};
 
+	// Create a function to get unique products with combined quantities
+	const getUniqueProducts = () => {
+		return products.reduce((uniqueProducts, product) => {
+			const existingProduct = uniqueProducts.find((p : any) => p.name === product.name && p.price === product.price);
+
+			if (existingProduct) {
+				existingProduct.quantity += 1;
+			} else {
+				uniqueProducts.push({ ...product, quantity: 1 });
+			}
+
+			return uniqueProducts;
+		}, []);
+	};
+
+	// Get unique products with combined quantities
+	const uniqueProducts = getUniqueProducts();
+
 	return (
 		<>
 			<div className="basket__wrapper">
@@ -175,12 +193,12 @@ export default function BasketComponent() {
 								<div className="basket__order-heading">Итого</div>
 
 								<div className="basket__order-products">
-									{products.map((product, index) => (
+									{uniqueProducts.map((product: any, index : number) => (
 										<div key={index} className="basket__order-product">
 											<div className="basket__order-product-number">{index + 1}. </div>
 											<div className="basket__order-product-name">{product.name.length > 20 ? `${product.name.slice(0, 20)}...` : product.name}</div>
 											<div className="basket__order-product-line"></div>
-											<div className="basket__order-product-price">{product.price} грн</div>
+											<div className="basket__order-product-price">{product.price * product.quantity} грн</div>
 										</div>
 									))}
 								</div>
