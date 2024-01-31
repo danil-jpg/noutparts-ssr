@@ -1,4 +1,6 @@
 "use client";
+import axios from "axios";
+import Link from "next/dist/client/link";
 import React, { FC, useState, useEffect, ChangeEvent } from "react";
 import IconRenderer from "../../ui/Icons/IconRenderer";
 import "./Product.scss";
@@ -15,23 +17,14 @@ import TextAreaInput from "../../ui/inputs/TextAreaInput";
 import minusIcon from "/public/img/minus-icon.svg";
 import plusIcon from "/public/img/plus-icon.svg";
 
-const ProductInteractiveElems = ({ category, id, tag, price, discount, product }: { category: string; id: string; tag: string; price: number; discount?: number; product: any }) => {
-	const dispatch = useAppDispatch();
-	const [count, setCount] = useState(1);
-	const [inputValue, setInputValue] = useState<string>("");
+interface OrderRequestBody {
+	data: {
+		tel: string;
+		product: string;
+	};
+}
 
-	
-	const addToBasket = (product: any, quantity: number): void => {
-		const productForBasket = product;
-		productForBasket.photo_url = productForBasket.photo.data[0].attributes.url;
-		for (let index = 0; index < quantity; index++) {
-			dispatch(addProduct(productForBasket));
-		}
-	};
-	const addToFavs = (product: any): void => {
-		dispatch(addFavProduct(product));
-	};
-	
+const ProductInteractiveElems = ({ category, id, tag, price, discount, product }: { category: string; id: string; tag: string; price: number; discount?: number; product: any }) => {
 	const productsInBasket = useAppSelector((state) => state.basketReducer.products);
 	const productsInFavs = useAppSelector((state) => state.favsReducer.products);
 	// Check if the product exists in productsInBasket
@@ -43,6 +36,24 @@ const ProductInteractiveElems = ({ category, id, tag, price, discount, product }
 	let foundFav = productsInFavs.find((favProduct) => favProduct.name === product.name);
 	// Determine if the product is bought
 	let isFav = !!foundFav;
+
+	const dispatch = useAppDispatch();
+	const [count, setCount] = useState(1);
+	const [inputValue, setInputValue] = useState<string>("");
+
+	const addToBasket = (product: any, quantity: number): void => {
+		if (isBought) {
+			return;
+		}
+		const productForBasket = product;
+		productForBasket.photo_url = productForBasket.photo.data[0].attributes.url;
+		for (let index = 0; index < quantity; index++) {
+			dispatch(addProduct(productForBasket));
+		}
+	};
+	const addToFavs = (product: any): void => {
+		dispatch(addFavProduct(product));
+	};
 
 	const incrementCount = () => {
 		setCount(count + 1);
@@ -58,6 +69,39 @@ const ProductInteractiveElems = ({ category, id, tag, price, discount, product }
 		setInputValue(value);
 	};
 
+	const formattedProduct = {
+		id: id,
+		category: category
+	};
+
+	const [isBoughtOne, setisBoughtOne] = useState(false);
+
+	const chosenProductJSON = JSON.stringify(formattedProduct);
+
+	const handleUpload = async () => {
+		try {
+			const requestBody: OrderRequestBody = {
+				data: {
+					tel: inputValue,
+					product: chosenProductJSON
+				}
+			};
+
+			const responseInfo = await axios.post("https://noutparts-strapi.onrender.com/api/one-click-buys", requestBody);
+
+			setisBoughtOne(true);
+		} catch (error) {
+			console.log("info creation error: ", error);
+		}
+	};
+
+	const handleOneClickBuy = (): void => {
+		if (inputValue) {
+			handleUpload();
+		} else {
+			alert("Enter your phone number to buy this product instantly");
+		}
+	};
 	return (
 		<>
 			<div className="product-interactive-elems">
@@ -72,30 +116,30 @@ const ProductInteractiveElems = ({ category, id, tag, price, discount, product }
 							addToFavs(product);
 						}}
 					>
-						<div className="product-interactive-elems__fav-box">{isFav ? (<IconRenderer id="header-heart-sign"></IconRenderer>) : (<IconRenderer id="features-fav-sign"></IconRenderer>)}</div>В избранное
+						<div className="product-interactive-elems__fav-box">{isFav ? <IconRenderer id="header-heart-sign"></IconRenderer> : <IconRenderer id="features-fav-sign"></IconRenderer>}</div>В избранное
 					</div>
 				</div>
 				<div className="product-interactive-elems__counter-buy">
 					<div className="product-interactive-elems__counter">
-						<Image
-							className="product-interactive-elems__counter-icon"
-							alt="product-hero__image"
-							src={minusIcon}
+						<div
+							className="product-interactive-elems__icon-container"
 							onClick={() => {
 								decrementCount();
 							}}
-						></Image>
+						>
+							<Image className="product-interactive-elems__counter-icon" alt="product-hero__image" src={minusIcon}></Image>
+						</div>
 						<div className="product-interactive-elems__line"></div>
 						{count}
 						<div className="product-interactive-elems__line"></div>
-						<Image
-							className="product-interactive-elems__counter-icon"
-							alt="product-hero__image"
-							src={plusIcon}
+						<div
+							className="product-interactive-elems__icon-container"
 							onClick={() => {
 								incrementCount();
 							}}
-						></Image>
+						>
+							<Image className="product-interactive-elems__counter-icon" alt="product-hero__image" src={plusIcon}></Image>
+						</div>
 					</div>
 					<button
 						className="product-interactive-elems__buy-button"
@@ -103,8 +147,14 @@ const ProductInteractiveElems = ({ category, id, tag, price, discount, product }
 							addToBasket(product, count);
 						}}
 					>
-						{isBought ? 'Add more': 'Купить'}
-						
+						{isBought ? (
+							<Link href={"/basket"}>
+								<span style={{ color: "white" }}>В корзину</span>
+							</Link>
+						) : (
+							"Купить"
+						)}
+
 						<IconRenderer id="basket-icon"></IconRenderer>
 					</button>
 				</div>
@@ -121,7 +171,15 @@ const ProductInteractiveElems = ({ category, id, tag, price, discount, product }
 							handleInputChange(values.value);
 						}}
 					></PatternFormat>
-					<button className="product-interactive-elems__one-click-button">Купить в один клик</button>
+					<button
+						className="product-interactive-elems__one-click-button"
+						onClick={() => {
+							handleOneClickBuy();
+						}}
+					>
+						{isBoughtOne ?"Куплено" : "Купить в один клик"}
+						
+					</button>
 				</div>
 			</div>
 		</>

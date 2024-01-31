@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, ChangeEvent } from "react";
+import React, { useState, useEffect, ChangeEvent, useRef } from "react";
 import IconRenderer from "../../ui/Icons/IconRenderer";
 import "./Features.scss";
 import Image from "next/image";
@@ -81,10 +81,10 @@ const Features = ({}) => {
 					</div>
 				</div>
 
-				<div className={`features__content ${showState ? "show" : ""}`}>
+				<div  className={`features__content ${showState ? "show" : ""}`}>
 					{loading ? (
 						<div className="spinner-container">
-							<Spinner classname="features__spinner" white={true}/>
+							<Spinner classname="features__spinner" white={true} />
 						</div>
 					) : products.length > 0 ? (
 						products.map((product, index) => {

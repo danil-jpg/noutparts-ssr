@@ -24,7 +24,7 @@ const HeaderCallBack = ({ white }: { white?: boolean }) => {
 				return;
 			}
 
-			const responseInfo = await axios.post("http://localhost:1337/api/callbacks", {
+			const responseInfo = await axios.post("https://noutparts-strapi.onrender.com/api/callbacks", {
 				data: {
 					name: nameState,
 					tel: telState,

@@ -112,7 +112,7 @@
 		top: 0;
 		z-index: 5;
 		right: 0;
-		background: linear-gradient(90deg, rgba(255, 255, 255, 0) -52.94%, #fff 105.24%);
+		background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #fff 105.24%);
 		width: 306px;
 		height: 474px;
 		pointer-events: all;
@@ -228,7 +228,7 @@
 			top: 0;
 			z-index: 5;
 			right: 0px;
-			background: linear-gradient(90deg, rgba(255, 255, 255, 0) -52.94%, #fff 105.24%);
+			background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #fff 105.24%);
 			width: 306px;
 			height: 474px;
 			&.history{

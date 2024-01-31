@@ -102,6 +102,10 @@
 		background: #fff;
 
 		cursor: pointer;
+
+		&:active{
+			background: rgba($color: #fff, $alpha: 0.7);
+		}
 	}
 
 	&__fav-icon {
@@ -141,6 +145,10 @@
 		justify-content: center;
 
 		cursor: pointer;
+
+		&:active{
+			background: rgba($color: #36dd65, $alpha: 0.7);
+		}
 	}
 
 	&__buy-button {
@@ -160,6 +168,9 @@
 		padding: 9px 40px 11px 40px;
 
 		cursor: pointer;
+		&:active{
+			background: rgba($color: #f3f3f3, $alpha: 0.7);
+		}
 	}
 
 	&__product-link {
@@ -282,6 +293,10 @@
 			background: #fff;
 
 			cursor: pointer;
+
+			&:active{
+				background: rgba($color: #fff, $alpha: 0.7);
+			}
 		}
 
 		&__fav-icon {
@@ -318,6 +333,9 @@
 			justify-content: center;
 
 			cursor: pointer;
+			&:active{
+				background: rgba($color: #36dd65, $alpha: 0.7);
+			}
 		}
 
 		&__buy-button {
@@ -341,6 +359,10 @@
 			justify-content: center;
 
 			cursor: pointer;
+
+			&:active{
+				background: rgba($color: #f3f3f3, $alpha: 0.7);
+			}
 		}
 
 		&__product-link {
