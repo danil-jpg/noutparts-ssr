@@ -1,6 +1,0 @@
-{
-  "/page": "app/page.js",
-  "/catalogue/filter-page/[type]/page": "app/catalogue/filter-page/[type]/page.js",
-  "/basket/page": "app/basket/page.js",
-  "/not-found": "app/not-found.js"
-}
