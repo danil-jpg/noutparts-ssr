@@ -1,4 +1,4 @@
-// File: D:\Front-End\AVADA_MEDIA\noutparts-ssr\app\catalogue\filter-page\[type]\page.tsx
+// File: D:\Projects\noutparts-ssr\app\catalogue\filter-page\[type]\page.tsx
 import * as entry from '../../../../../../app/catalogue/filter-page/[type]/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

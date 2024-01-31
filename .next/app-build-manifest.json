@@ -24,10 +24,11 @@
       "static/css/app/catalogue/filter-page/[type]/page.css",
       "static/chunks/app/catalogue/filter-page/[type]/page.js"
     ],
-    "/catalogue/filter-page/page": [
+    "/basket/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/catalogue/filter-page/page.js"
+      "static/css/app/basket/page.css",
+      "static/chunks/app/basket/page.js"
     ]
   }
 }
