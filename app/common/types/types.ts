@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 export interface IPrimaryBtn {
     text?: string | ReactNode;
-    type: 'default' | 'buying' | 'basket' | 'middle' | 'large';
+    type: 'default' | 'buying' | 'basket-btn' | 'middle' | 'large';
     icon?: JSX.Element;
     htmlType?: 'button' | 'submit' | 'reset' | undefined;
     className?: string;

@@ -78,7 +78,7 @@
 
     &__availability {
         margin-top: 107px;
-        margin-right: 50px;
+        margin-right: 25px;
     }
     &__like-sign {
         margin-top: 107px;
@@ -90,7 +90,7 @@
         width: auto;
         cursor: pointer;
         margin-right: 25px;
-
+        display: flex;
         flex-shrink: 0;
         &:hover {
             svg {

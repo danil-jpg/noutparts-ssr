@@ -73,7 +73,7 @@ const Cards = () => {
                                     }}
                                     className='inBasket'
                                     text='В корзине'
-                                    type='basket'
+                                    type='basket-btn'
                                     icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
                             ) : (
                                 <PrimaryBtn
@@ -89,7 +89,7 @@ const Cards = () => {
                                         );
                                     }}
                                     text='В корзину'
-                                    type='basket'
+                                    type='basket-btn'
                                     icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
                             )}
                         </div>
