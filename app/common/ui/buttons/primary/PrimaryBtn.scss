@@ -24,7 +24,7 @@
     &.buying {
         padding: 16px 38px;
     }
-    &.basket {
+    &.basket-btn {
         padding: 16px 26px;
     }
     &.medium {
@@ -39,7 +39,7 @@
 }
 
 @media screen and (max-width: 425px) {
-    .primaryBtn.basket {
+    .primaryBtn.basket-btn {
         width: auto;
         padding: 12px 17px;
     }

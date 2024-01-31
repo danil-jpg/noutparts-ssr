@@ -240,7 +240,7 @@ const FilterCards = ({ type }: { type: categories }) => {
                                                     );
                                                 }}
                                                 text='В корзине'
-                                                type='basket'
+                                                type='basket-btn'
                                                 icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
                                         ) : (
                                             <PrimaryBtn
@@ -256,7 +256,7 @@ const FilterCards = ({ type }: { type: categories }) => {
                                                     );
                                                 }}
                                                 text='Купить'
-                                                type='basket'
+                                                type='basket-btn'
                                                 icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
                                         )}
                                     </div>
@@ -339,7 +339,7 @@ const FilterCards = ({ type }: { type: categories }) => {
                                                     );
                                                 }}
                                                 text='В корзине'
-                                                type='basket'
+                                                type='basket-btn'
                                                 icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
                                         ) : (
                                             <PrimaryBtn
@@ -355,7 +355,7 @@ const FilterCards = ({ type }: { type: categories }) => {
                                                     );
                                                 }}
                                                 text='Купить'
-                                                type='basket'
+                                                type='basket-btn'
                                                 icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
                                         )}
                                     </div>
@@ -438,7 +438,7 @@ const FilterCards = ({ type }: { type: categories }) => {
                                                     );
                                                 }}
                                                 text='В корзине'
-                                                type='basket'
+                                                type='basket-btn'
                                                 icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
                                         ) : (
                                             <PrimaryBtn
@@ -454,7 +454,7 @@ const FilterCards = ({ type }: { type: categories }) => {
                                                     );
                                                 }}
                                                 text='Купить'
-                                                type='basket'
+                                                type='basket-btn'
                                                 icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
                                         )}
                                     </div>
@@ -537,7 +537,7 @@ const FilterCards = ({ type }: { type: categories }) => {
                                                     );
                                                 }}
                                                 text='В корзине'
-                                                type='basket'
+                                                type='basket-btn'
                                                 icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
                                         ) : (
                                             <PrimaryBtn
@@ -553,7 +553,7 @@ const FilterCards = ({ type }: { type: categories }) => {
                                                     );
                                                 }}
                                                 text='Купить'
-                                                type='basket'
+                                                type='basket-btn'
                                                 icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
                                         )}
                                     </div>
@@ -636,7 +636,7 @@ const FilterCards = ({ type }: { type: categories }) => {
                                                     );
                                                 }}
                                                 text='В корзине'
-                                                type='basket'
+                                                type='basket-btn'
                                                 icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
                                         ) : (
                                             <PrimaryBtn
@@ -652,7 +652,7 @@ const FilterCards = ({ type }: { type: categories }) => {
                                                     );
                                                 }}
                                                 text='Купить'
-                                                type='basket'
+                                                type='basket-btn'
                                                 icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
                                         )}
                                     </div>
@@ -735,7 +735,7 @@ const FilterCards = ({ type }: { type: categories }) => {
                                                     );
                                                 }}
                                                 text='В корзине'
-                                                type='basket'
+                                                type='basket-btn'
                                                 icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
                                         ) : (
                                             <PrimaryBtn
@@ -751,7 +751,7 @@ const FilterCards = ({ type }: { type: categories }) => {
                                                     );
                                                 }}
                                                 text='Купить'
-                                                type='basket'
+                                                type='basket-btn'
                                                 icon={<IconRenderer id='basket-icon' />}></PrimaryBtn>
                                         )}
                                     </div>
