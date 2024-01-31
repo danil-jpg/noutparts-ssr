@@ -460,7 +460,7 @@
 }
 .card__availability {
   margin-top: 107px;
-  margin-right: 50px;
+  margin-right: 25px;
 }
 .card__like-sign {
   margin-top: 107px;
@@ -473,6 +473,7 @@
   width: auto;
   cursor: pointer;
   margin-right: 25px;
+  display: flex;
   flex-shrink: 0;
 }
 .card__like-sign:hover svg {
@@ -627,7 +628,7 @@
 .primaryBtn.buying {
   padding: 16px 38px;
 }
-.primaryBtn.basket {
+.primaryBtn.basket-btn {
   padding: 16px 26px;
 }
 .primaryBtn.medium {
@@ -641,7 +642,7 @@
 }
 
 @media screen and (max-width: 425px) {
-  .primaryBtn.basket {
+  .primaryBtn.basket-btn {
     width: auto;
     padding: 12px 17px;
   }
