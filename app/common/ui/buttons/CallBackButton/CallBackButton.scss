@@ -9,6 +9,7 @@
 	border: 1px solid #fff;
 	&__wrapper {
 		position: fixed;
+        z-index: 140;
 		bottom: 100px;
 		right: 10%;
 		display: flex;
