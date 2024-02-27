@@ -23,7 +23,8 @@ export default function CatalogueItem({ res, image, query, text }: ICatalogueIte
                 <Link href={`catalogue/filter-page/${query.match(/^([^\s?]+)(?=\?)/)[0]}`}>
                     <p className='catalogue-item__text'>{text}</p>
                     <div className='catalogue-item__img-wr'>
-                        <Image className='catalogue-item__top_img' fill={true} sizes='100vw' priority={true} src={image} alt='catalogue-item' />
+                        <link className='catalogue-item__top_img' rel='preload' fetchPriority='high' as='image' href={image} type='image/webp' />
+                        {/* <Image fill={true} sizes='100vw' priority={true} alt='catalogue-item' /> */}
                     </div>
                 </Link>
             </div>
