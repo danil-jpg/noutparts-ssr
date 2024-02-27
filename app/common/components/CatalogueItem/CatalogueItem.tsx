@@ -1,7 +1,6 @@
 'use client';
 import './CatalogueItem.scss';
 import { Image } from 'next/dist/client/image-component';
-import { useState } from 'react';
 import Link from 'next/link';
 import { useAppDispatch } from '@/app/Redux/store';
 import { setQueryArr } from '@/app/Redux/slice/query/query';
@@ -23,7 +22,15 @@ export default function CatalogueItem({ res, image, query, text }: ICatalogueIte
                 <Link href={`catalogue/filter-page/${query.match(/^([^\s?]+)(?=\?)/)[0]}`}>
                     <p className='catalogue-item__text'>{text}</p>
                     <div className='catalogue-item__img-wr'>
-                        <Image className='catalogue-item__top_img' fill={true} sizes='100vw' priority={true} src={image} alt='catalogue-item' />
+                        <Image
+                            className='catalogue-item__top_img'
+                            fill={true}
+                            sizes='100vw'
+                            priority={true}
+                            src={image}
+                            alt='catalogue-item'
+                            placeholder='blur'
+                        />
                     </div>
                 </Link>
             </div>
@@ -32,17 +39,17 @@ export default function CatalogueItem({ res, image, query, text }: ICatalogueIte
                     {res?.data
                         ? res.data.map((el: { id: number; attributes: { brand: string } }) => (
                               // тут поймал багу компилятора
-                              <Link
-                                  key={el.id}
-                                  /*  @ts-ignore: Object is possibly 'null'. */
-                                  href={`catalogue/filter-page/${query.match(/^([^\s?]+)(?=\?)/)[0]}`}
-                                  onClick={() => {
-                                      dispatch(setQueryArr([{ searchParam: 'brand', searchParamKeys: [el.attributes.brand] }]));
-                                  }}>
-                                  <li key={el.id} data-modal={el.id} className='catalogue-item__main_li'>
+                              <li key={el.id} data-modal={el.id} className='catalogue-item__main_li'>
+                                  <Link
+                                      key={el.id}
+                                      /*  @ts-ignore: Object is possibly 'null'. */
+                                      href={`catalogue/filter-page/${query.match(/^([^\s?]+)(?=\?)/)[0]}`}
+                                      onClick={() => {
+                                          dispatch(setQueryArr([{ searchParam: 'brand', searchParamKeys: [el.attributes.brand] }]));
+                                      }}>
                                       {el.attributes.brand}
-                                  </li>
-                              </Link>
+                                  </Link>
+                              </li>
                           ))
                         : ''}
                 </ul>
