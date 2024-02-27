@@ -9,6 +9,7 @@ import callingIcon from "/public/img/calling-icon.svg";
 
 import PrimaryInput from "../../ui/inputs/PrimaryInput";
 import TextAreaInput from "../../ui/inputs/TextAreaInput";
+import CallBackButton from "../../ui/buttons/CallBackButton/CallBackButton";
 
 const HeaderCallBack = ({ white }: { white?: boolean }) => {
 	const [callTrace, setCallTrace] = useState<number>(0);
@@ -63,6 +64,8 @@ const HeaderCallBack = ({ white }: { white?: boolean }) => {
 
 	return (
 		<>
+			<CallBackButton setActive={setCallTrace} ></CallBackButton>
+
 			<div
 				className="header-tel"
 				onClick={() => {
