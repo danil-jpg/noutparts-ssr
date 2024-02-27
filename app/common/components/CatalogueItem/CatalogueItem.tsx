@@ -32,17 +32,17 @@ export default function CatalogueItem({ res, image, query, text }: ICatalogueIte
                     {res?.data
                         ? res.data.map((el: { id: number; attributes: { brand: string } }) => (
                               // тут поймал багу компилятора
-                              <Link
-                                  key={el.id}
-                                  /*  @ts-ignore: Object is possibly 'null'. */
-                                  href={`catalogue/filter-page/${query.match(/^([^\s?]+)(?=\?)/)[0]}`}
-                                  onClick={() => {
-                                      dispatch(setQueryArr([{ searchParam: 'brand', searchParamKeys: [el.attributes.brand] }]));
-                                  }}>
-                                  <li key={el.id} data-modal={el.id} className='catalogue-item__main_li'>
+                              <li key={el.id} data-modal={el.id} className='catalogue-item__main_li'>
+                                  <Link
+                                      key={el.id}
+                                      /*  @ts-ignore: Object is possibly 'null'. */
+                                      href={`catalogue/filter-page/${query.match(/^([^\s?]+)(?=\?)/)[0]}`}
+                                      onClick={() => {
+                                          dispatch(setQueryArr([{ searchParam: 'brand', searchParamKeys: [el.attributes.brand] }]));
+                                      }}>
                                       {el.attributes.brand}
-                                  </li>
-                              </Link>
+                                  </Link>
+                              </li>
                           ))
                         : ''}
                 </ul>

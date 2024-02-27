@@ -46,12 +46,12 @@ const CatalogueItemWr: NextPage = () => {
     }
     return (
         <>
-            <CatalogueItem res={matrices} text='Матрицы' image='/img/catalogue/matrix.png' query='matrices?fields[0]=brand' />
-            <CatalogueItem res={batteries} text='Аккумуляторы' image='/img/catalogue/battery.png' query='batteries?fields[0]=brand' />
-            <CatalogueItem res={hdds} text='Жесткие диски' image='/img/catalogue/hdd.png' query='hdds?fields[0]=brand' />
-            <CatalogueItem res={keyboard} text='Клавиатуры' image='/img/catalogue/keyboard.png' query='keyboards?fields[0]=brand' />
-            <CatalogueItem res={rams} text='Оперативная память' image='/img/catalogue/ram.png' query='rams?fields[0]=brand' />
-            <CatalogueItem res={power} text='Блок питания' image='/img/catalogue/power.png' query='power-Supplies?fields[0]=brand' />
+            <CatalogueItem res={matrices} text='Матрицы' image='/img/catalogue/matrix.webp' query='matrices?fields[0]=brand' />
+            <CatalogueItem res={batteries} text='Аккумуляторы' image='/img/catalogue/battery.webp' query='batteries?fields[0]=brand' />
+            <CatalogueItem res={hdds} text='Жесткие диски' image='/img/catalogue/hdd.webp' query='hdds?fields[0]=brand' />
+            <CatalogueItem res={keyboard} text='Клавиатуры' image='/img/catalogue/keyboard.webp' query='keyboards?fields[0]=brand' />
+            <CatalogueItem res={rams} text='Оперативная память' image='/img/catalogue/ram.webp' query='rams?fields[0]=brand' />
+            <CatalogueItem res={power} text='Блок питания' image='/img/catalogue/power.webp' query='power-Supplies?fields[0]=brand' />
         </>
     );
 };

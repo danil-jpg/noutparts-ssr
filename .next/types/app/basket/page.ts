@@ -1,4 +1,4 @@
-// File: D:\Front-End\AVADA_MEDIA\noutparts-ssr\app\basket\page.tsx
+// File: D:\projects\noutparts-ssr\app\basket\page.tsx
 import * as entry from '../../../../app/basket/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
