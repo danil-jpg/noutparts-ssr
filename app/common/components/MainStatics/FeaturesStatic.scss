@@ -85,6 +85,7 @@
 		justify-content: center;
 		gap: 30px;
 		align-items: center;
+		padding: 0 15px;
 
 		// margin: 0 0 0 -12px;
 		// width: 100%;
@@ -98,8 +99,7 @@
 			width: 100%;
 			max-width: 1104px;
 			display: flex;
-			flex-direction: row;
-			flex-wrap: wrap;
+			flex-direction: column;
 			justify-content: center;
 			gap: 30px;
 			align-items: center;
@@ -107,9 +107,9 @@
 		&__wrapper {
 			width: 100%;
 			display: flex;
-
+			padding: 50px 0;
 			justify-content: center;
-			height: 514px;
+			height: auto;
 			background: #f5fff5;
 		}
 
@@ -156,7 +156,7 @@
 			line-height: 160%; /* 25.6px */
 			letter-spacing: -0.32px;
 			&.one {
-				width: 277px;
+				width: 257px;
 			}
 			&.two {
 				width: 304px;
@@ -176,7 +176,6 @@
 		justify-content: flex-start;
 		gap: 36.5px;
 		align-items: center;
-		padding: 25px 0 0 10px;
 
 		&__container {
 			width: 100%;
@@ -186,15 +185,13 @@
 			justify-content: flex-start;
 			gap: 37px;
 			align-items: center;
-			padding: 0px 0 0 0;
 		}
 		&__wrapper {
 			margin: 40px 0 0 0;
 			width: 100%;
 			display: flex;
-
 			justify-content: center;
-			height: 614px;
+			height: auto;
 			background: #f5fff5;
 		}
 

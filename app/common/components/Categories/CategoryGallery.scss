@@ -14,7 +14,7 @@
 	&.lower {
 		grid-template-columns: 48.4% 48.4%;
 		grid-template-areas: "e f";
-		grid-template-rows: 305px ;
+		grid-template-rows: 305px;
 	}
 
 	&__wrapper {
@@ -196,8 +196,8 @@
 			bottom: 0;
 			right: 0;
 
-			max-width: 309px;
-			max-height: 273px;
+			max-width: 369px;
+			max-height: 233px;
 			&.ssd {
 				bottom: 60px;
 			}
@@ -233,7 +233,7 @@
 	}
 }
 
-@media (max-width: 600px) {
+@media (max-width: 680px) {
 	.category-static {
 		width: 100%;
 		max-width: 1230px;
